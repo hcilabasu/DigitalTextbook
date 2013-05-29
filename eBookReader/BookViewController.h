@@ -26,11 +26,14 @@
 @property (nonatomic, strong) Book* book;
 @property (strong, nonatomic) UIPageViewController *pageController;
 @property (strong, nonatomic) NSArray *pageContent;
+@property (strong, nonatomic) NSMutableArray *highlightTextArrayByIndex;
 
 
 - (void) loadFirstPage;
 -(void) createContentPages;
 -(void)initialPageView;
+- (ContentViewController *)viewControllerAtIndex:(NSUInteger)index;
+-(void)showFirstPage: (int) pageIndex;//show page accoding to index number
 
 - (NSInteger)pageNum;
 

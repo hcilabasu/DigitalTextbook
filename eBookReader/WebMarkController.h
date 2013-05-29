@@ -3,6 +3,7 @@
 //  eBookReader
 //
 //  Created by Shang Wang on 4/22/13.
+//  Controls the 
 //  Copyright (c) 2013 Andreea Danielescu. All rights reserved.
 //
 
@@ -15,8 +16,8 @@
     CGPoint notePoint;// position where the noteImage shows on teh side of the page
 }
 
-@property (strong, nonatomic)NSURLRequest *web_requestObj;
-@property (strong, nonatomic) IBOutlet UIImageView *markImage;
-@property (strong, nonatomic) IBOutlet UITapGestureRecognizer *oneFingerTap;
+@property (strong, nonatomic)NSURLRequest *web_requestObj;// web link
+@property (strong, nonatomic) IBOutlet UIImageView *markImage;// web icon image
+@property (strong, nonatomic) IBOutlet UITapGestureRecognizer *oneFingerTap; //one finger tap recognizer
 - (CGSize) screenSize;
 @end

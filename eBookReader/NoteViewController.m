@@ -12,12 +12,12 @@
 @interface NoteViewController ()
 
 @end
-
 @implementation NoteViewController
 @synthesize noteImage;
 @synthesize oneFingerTap;
 @synthesize pvPoint;
 @synthesize note_text;
+@synthesize parentController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -31,14 +31,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    //set up the note view frame, size, icon image and gesture recognizer.
     CGRect viewFrame = [self.view frame];
     viewFrame.origin.y  = 630;
      CGSize screenSize = [self screenSize];
     [self.view setFrame:CGRectMake(screenSize.width-35, 300, 25, 25)];
-    
-    
-    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapped:)];
+    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapped:)];
     [doubleTap setNumberOfTapsRequired:1];
     doubleTap.delegate=self;
     [noteImage setUserInteractionEnabled:YES];
@@ -52,6 +50,7 @@
     // Dispose of any resources that can be recreated.
 }
 
+//get the screen sie
 - (CGSize) screenSize
 {
     UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
@@ -74,19 +73,34 @@
 }
 
 
-- (void)doubleTapped:(UITapGestureRecognizer *)tap
+//when user clicks the icon, show the note view with the saved text at the saved pupup position.
+- (void)singleTapped:(UITapGestureRecognizer *)tap
 {
-    
     NSArray *popUpContent=[NSArray arrayWithObjects:@"NoteTaking", nil];
-    [pv setParentViewController:self];
-    pv = [PopoverView showPopoverAtPoint: pv.showPoint
-                                  inView:self.view
+    pv = [PopoverView showPopoverAtPoint: pvPoint
+                                  inView:self.parentViewController.view
                                withTitle:@"Take Note"
                          withStringArray:popUpContent
                                 delegate:self];
+    pv.showPoint=pvPoint;
+    //set the popup note view uneditable when the user is viewing the note
+    pv.noteText.editable=NO;
     pv.noteText.text=note_text;
+    pv.parent_View_Controller=self.parentController;
+    //set the gesture recognizer to the text of the noteview, when user clicks the text of the view, set the textview as editable.
+    UITapGestureRecognizer *noteTextClick = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(note_text_tap:)];
+    [noteTextClick setNumberOfTapsRequired:1];
+    noteTextClick.delegate=self;
+    [pv.noteText setUserInteractionEnabled:YES];
+    [pv.noteText addGestureRecognizer:noteTextClick];
     
-    
+}
+
+//gestrue recognizer that sets the textvirew editable.
+- (void)note_text_tap:(UITapGestureRecognizer *)tap
+{
+    pv.noteText.editable=YES;
+    [pv.noteText becomeFirstResponder];
 }
 
 @end

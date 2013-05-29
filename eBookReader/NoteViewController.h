@@ -8,16 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import "PopoverView.h"
+#import "ContentViewController.h"
 
 @interface NoteViewController : UIViewController <UIGestureRecognizerDelegate,PopoverViewDelegate>{
     PopoverView *pv; //popOver view
-    CGPoint pvPoint;// position where pop over view shows
     CGPoint notePoint;// position where the noteImage shows on teh side of the page
 }
 @property (nonatomic)BOOL isExist;
-@property (strong, nonatomic) NSString *note_text;
-@property (strong, nonatomic) IBOutlet UIImageView *noteImage;
-@property (strong, nonatomic) IBOutlet UITapGestureRecognizer *oneFingerTap;
-@property (nonatomic) CGPoint pvPoint;
-- (CGSize) screenSize;
+@property (strong, nonatomic) NSString *note_text;//stroe the text of the note
+@property (strong, nonatomic) IBOutlet UIImageView *noteImage; //the note icon iamge
+@property (strong, nonatomic) IBOutlet UITapGestureRecognizer *oneFingerTap; //the one finger gesture recognizer that captures user's click
+@property (nonatomic) CGPoint pvPoint;//the point where the popup note is originally evoked
+@property (strong, nonatomic) ContentViewController *parentController; //stores the reference of the parent view controller
+- (CGSize) screenSize;// function that returns the size of the screen, used to deteremine where the icon and the popup view is shown.
 @end

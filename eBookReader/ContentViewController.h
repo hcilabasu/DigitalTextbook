@@ -9,21 +9,26 @@
 #import <UIKit/UIKit.h>
 
 #import <QuartzCore/QuartzCore.h>
-#import "BookViewController.h"
-#import "iFlyMSC/IFlySynthesizerControl.h"
+
+//#import "iFlyMSC/IFlySynthesizerControl.h"
+
+#import <Slt/Slt.h>
+#import <OpenEars/FliteController.h>
+
 #import "PopoverView.h"
 #ifndef CONTENTVIEWCONTROLLER_H
 #define CONTENTVIEWCONTROLLER_H
 
+@class BookViewController;
 
-
-@interface ContentViewController : UIViewController<IFlySynthesizerControlDelegate, PopoverViewDelegate, UITableViewDataSource, UITableViewDelegate,UIGestureRecognizerDelegate>
+@interface ContentViewController : UIViewController< PopoverViewDelegate, UITableViewDataSource, UITableViewDelegate,UIGestureRecognizerDelegate>
 {
     PopoverView *pv; //popOver view
     CGPoint pvPoint;// position where pop over view shows
-    IFlySynthesizerControl			*_iFlySynthesizerControl; //voice to text synthesizer
-   // int pageNum;
-    //int totalpageNum;
+   
+    
+    FliteController *fliteController;
+    Slt *slt;
 }
 #endif
 
@@ -34,13 +39,17 @@
 @property (strong, nonatomic) id url; //the URL link to display HTML content
 @property (nonatomic) BOOL isMenuShow;
 @property (nonatomic, retain) IBOutlet UILabel *currentPageLabel; //indicates the current page number
-@property (nonatomic) int pageNum;
-@property (nonatomic) int totalpageNum;
+@property (nonatomic) int pageNum; //current page number
+@property (nonatomic) int totalpageNum;//total page number
+@property (strong, nonatomic) BookViewController *parent_BookViewController; //stores the its parent view, in order to call the parent controlller methods
+@property (strong, nonatomic) NSMutableArray *highlightTextArray;//stores the highlighted text in an array
+
+@property (strong, nonatomic) FliteController *fliteController;
+@property (strong, nonatomic) Slt *slt;
 
 
 -(void)setingUpMenuItem;
 -(void)refresh;
 -(void)createWebNote : (NSURLRequest*) urlrequest;
 -(void)createNote : (CGPoint) show_at_point NoteText:(NSString*) m_note_text;
--(void)printNull;
 @end

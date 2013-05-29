@@ -15,8 +15,7 @@
     int endCellY;
     
     float xOffset;
-    float yOffset;
-    
+    float yOffset;    
     float hDiff;
     float vDiff;
     

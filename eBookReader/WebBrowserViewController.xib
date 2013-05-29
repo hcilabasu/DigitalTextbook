@@ -5167,7 +5167,6 @@ AAgAAAAIAAIACAACAAAAAgAAAAEAAQABAAE</bytes>
 						<string key="back">UIBarButtonItem</string>
 						<string key="markPage">UIBarButtonItem</string>
 						<string key="next">UIBarButtonItem</string>
-						<string key="parent_View">UIView</string>
 						<string key="pre">UIBarButtonItem</string>
 						<string key="refresh">UIBarButtonItem</string>
 						<string key="serchBar">UIBarButtonItem</string>
@@ -5187,10 +5186,6 @@ AAgAAAAIAAIACAACAAAAAgAAAAEAAQABAAE</bytes>
 						<object class="IBToOneOutletInfo" key="next">
 							<string key="name">next</string>
 							<string key="candidateClassName">UIBarButtonItem</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="parent_View">
-							<string key="name">parent_View</string>
-							<string key="candidateClassName">UIView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="pre">
 							<string key="name">pre</string>

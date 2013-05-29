@@ -105,10 +105,9 @@
     if(fromInterfaceOrientation == UIInterfaceOrientationLandscapeLeft ||fromInterfaceOrientation== UIInterfaceOrientationLandscapeRight)
         
     {
-        self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"ibooks_waller_vertical"]];
+        self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bookshelf_vertical"]];
     }else{
-        self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"ibooks_wallpaper.png"]];
-        //UIEdgeInsetsMake(-36, 16, 15, 16);
+        self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bookshelf_horizontal"]];
      
     }
 
@@ -119,9 +118,9 @@
     if(fromInterfaceOrientation == UIInterfaceOrientationLandscapeLeft ||fromInterfaceOrientation== UIInterfaceOrientationLandscapeRight)
         
     {
-        self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"ibooks_waller_vertical"]];
+        self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bookshelf_vertical"]];
     }else{
-        self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"ibooks_wallpaper.png"]];
+        self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bookshelf_horizontal"]];
     }
     
 }
@@ -140,16 +139,14 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    //self.navigationController.navigationBarHidden=YES;
     UILabel *titleText = [[UILabel alloc] initWithFrame: CGRectMake(0, 0, 0, 20)];
     titleText.backgroundColor = [UIColor clearColor];
     [titleText setFont:[UIFont systemFontOfSize:16.0]];
     [titleText setText:@"Library"];
     self.navigationItem.titleView=titleText;
-   // self.navigationController.
     UINavigationBar *navBar = self.navigationController.navigationBar;
    [navBar setBarStyle: UIBarStyleDefault];
-   [navBar setBackgroundImage:[UIImage imageNamed:@"BA2.png"] forBarMetrics:UIBarMetricsDefault];
+   [navBar setBackgroundImage:[UIImage imageNamed:@"navigation_bar.png"] forBarMetrics:UIBarMetricsDefault];
     
 }
 

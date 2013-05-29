@@ -13,7 +13,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-    
+    /*
     NSError *error;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
@@ -31,6 +31,7 @@
         NSString *resourcePath = [[NSBundle mainBundle] pathForResource:@"Origin" ofType:@"epub"];
         [fileManager copyItemAtPath:resourcePath toPath:txtPath error:&error];
     }
+     */
     
     return YES;
 }

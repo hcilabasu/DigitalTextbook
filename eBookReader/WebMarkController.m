@@ -11,7 +11,6 @@
 @interface WebMarkController ()
 
 @end
-
 @implementation WebMarkController
 @synthesize markImage;
 @synthesize oneFingerTap;
@@ -33,7 +32,6 @@
     CGSize screenSize = [self screenSize];
     [self.view setFrame:CGRectMake(screenSize.width-35, 350, 25, 25)];
     
-    
     UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapped:)];
     [doubleTap setNumberOfTapsRequired:1];
     doubleTap.delegate=self;
@@ -46,7 +44,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 - (CGSize) screenSize
 {
@@ -71,7 +68,6 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-        NSLog(@"will disappear");
     NSArray *viewControllers = self.navigationController.viewControllers;
     if (viewControllers.count > 1 && [viewControllers objectAtIndex:viewControllers.count-2] == self) {
         // View is disappearing because a new view controller was pushed onto the stack
@@ -84,14 +80,12 @@
 
 - (void)singleTapped:(UITapGestureRecognizer *)tap
 {
-    
     WebBrowserViewController *webBroser= [[WebBrowserViewController alloc]
                                           initWithNibName:@"WebBrowserViewController" bundle:nil];
     webBroser.requestObj=web_requestObj;
     [self.parentViewController.navigationController setNavigationBarHidden: NO animated:YES];
     self.navigationController.navigationBar.barStyle = UIBarStyleBlackOpaque;
     [self.navigationController pushViewController:webBroser animated:YES];
-    
 }
 
 @end

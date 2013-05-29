@@ -12,7 +12,6 @@
 @interface WebBrowserViewController ()
 @end
 @implementation WebBrowserViewController
-
 @synthesize webBrowserView;
 @synthesize url;
 @synthesize requestObj;
@@ -40,9 +39,9 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-        [webBrowserView loadRequest:requestObj];
-       //[urlStack addObject:webBrowserView.request];
-       [self.navigationController setNavigationBarHidden: YES animated:NO];
+    [webBrowserView loadRequest:requestObj];
+    //[urlStack addObject:webBrowserView.request];
+    [self.navigationController setNavigationBarHidden: YES animated:NO];
 }
 
 - (void)viewDidLoad
@@ -51,16 +50,13 @@
     urlId=0;
     [webBrowserView setDelegate:self];
     webBrowserView.scalesPageToFit=YES;
-
     [refresh setTarget:self];
     [refresh setAction:@selector(refreshWebPage:)];
     [markPage setTarget:self];
     [markPage setAction:@selector(addWebMark:)];
     [back setTarget:self];
     [back setAction:@selector(backToBook:)];
- 
-
-    
+     
 }
 
 - (void)didReceiveMemoryWarning
@@ -70,19 +66,16 @@
 }
 
 - (void )webViewDidFinishLoad:(UIWebView *)webView{
-  //  NSString *currentURL = [webBrowserView stringByEvaluatingJavaScriptFromString:@"window.location"];
+    //update the url address text after the webview loads a new web page
     [webAdrText setText:webBrowserView.request.URL.absoluteString];
-   // if([urlStack objectAtIndex: urlId]!=webBrowserView.request){
-   // [urlStack addObject:webBrowserView.request];
-   // }
+ 
 }
 
-
+//refresh the web page
 - (IBAction)refreshWebPage : (id)sender {
     NSString *link= webAdrText.text;
     NSURL *new_url = [NSURL URLWithString:link];
     NSURLRequest *new_requestObj = [NSURLRequest requestWithURL:new_url];
-    
     [webBrowserView loadRequest:new_requestObj];
 }
 
@@ -91,16 +84,13 @@
     [self.navigationController popViewControllerAnimated:YES ];
 }
 
-
+//add a web page icon at the content view controller
 - (IBAction)addWebMark : (id)sender {
     NSString *link= webAdrText.text;
     NSURL *new_url = [NSURL URLWithString:link];
     NSURLRequest *new_requestObj = [NSURLRequest requestWithURL:new_url];
-
     [parent_View_Controller createWebNote:new_requestObj];
    [self.navigationController popViewControllerAnimated:YES ];
-
-
 }
 
 

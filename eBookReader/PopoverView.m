@@ -27,6 +27,7 @@
 
 #pragma mark - Static Methods
 
+//show the popup view at a certain point of the screen
 + (PopoverView *)showPopoverAtPoint:(CGPoint)point inView:(UIView *)view withText:(NSString *)text delegate:(id<PopoverViewDelegate>)delegate {
     PopoverView *popoverView = [[PopoverView alloc] initWithFrame:CGRectZero];
     [popoverView showAtPoint:point inView:view withText:text];
@@ -114,7 +115,6 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        
         self.backgroundColor = [UIColor clearColor];
         
         self.titleView = nil;
@@ -134,10 +134,8 @@
         [dividerRects RELEASE];
         dividerRects = nil;
     }
-    
     self.contentView = nil;
     self.titleView = nil;
-    
     [super DEALLOC];
 }
 
@@ -146,7 +144,7 @@
 #pragma mark - Display methods
 
 // get the screen size, adjusted for orientation and status bar display
-// see http://stackoverflow.com/questions/7905432/how-to-get-orientation-dependent-height-and-width-of-the-screen/7905540#7905540
+// reference http://stackoverflow.com/questions/7905432/how-to-get-orientation-dependent-height-and-width-of-the-screen/7905540#7905540
 - (CGSize) screenSize
 {
     UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
@@ -185,10 +183,8 @@
 - (void)showAtPoint:(CGPoint)point inView:(UIView *)view withTitle:(NSString *)title withText:(NSString *)text
 {
     UIFont *font = kTextFont;
-    
     CGSize screenSize = [self screenSize];
     CGSize textSize = [text sizeWithFont:font constrainedToSize:CGSizeMake(screenSize.width - kHorizontalMargin*4.f, 1000.f) lineBreakMode:UILineBreakModeWordWrap];
-    
     UILabel *textView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, textSize.width, textSize.height)];
     textView.backgroundColor = [UIColor clearColor];
     textView.userInteractionEnabled = NO;
@@ -385,8 +381,9 @@
     NSMutableArray *labelArray = [[NSMutableArray alloc] initWithCapacity:stringArray.count];
     
     UIFont *font = kTextFont;
-    double popViewRatial=0.6;//the ratial of the popup view to the screen width
-    //detect if we need to show the node taking view
+    //the ratial of the popup view to the screen width, detect if the size of the popup view exceed the ratial of the screen.
+    double popViewRatial=0.6;
+    //detect if we need to show the node taking view by checking if the first string item is marded as Notetaking.
     NSString *firstString=[stringArray objectAtIndex:0];
     if( [firstString isEqualToString:@"NoteTaking"]){
         NSLog(@"Note taking!");
@@ -399,7 +396,6 @@
         viewType=@"NoteTaking";
         
     }else{
-    
     //go through the array and create buttons for each element in the array
     for (NSString *string in stringArray) {
         CGSize textSize = [string sizeWithFont:font];
@@ -513,7 +509,7 @@
     parentView = view;
     
     // get the top view
-    // http://stackoverflow.com/questions/3843411/getting-reference-to-the-top-most-view-window-in-ios-application/8045804#8045804
+    // reference: http://stackoverflow.com/questions/3843411/getting-reference-to-the-top-most-view-window-in-ios-application/8045804#8045804
     topView = [[[[UIApplication sharedApplication] keyWindow] subviews] lastObject];
     
     [self setupLayout:point inView:view];
@@ -539,9 +535,7 @@
 {
     // make transparent
     self.alpha = 0.f;
-    
     [self setupLayout:point inView:view];
-    
     // animate back to full opacity
     [UIView animateWithDuration:0.2f delay:0.f options:UIViewAnimationOptionCurveEaseInOut animations:^{
         self.alpha = 1.f;
@@ -553,8 +547,6 @@
     CGPoint topPoint = [topView convertPoint:point fromView:view];
     
     arrowPoint = topPoint;
-    
-    //NSLog(@"arrowPoint:%f,%f", arrowPoint.x, arrowPoint.y);
     
     CGRect topViewBounds = topView.bounds;
     //NSLog(@"topViewBounds %@", NSStringFromCGRect(topViewBounds));
@@ -870,16 +862,6 @@
     if([viewType isEqualToString:@"NoteTaking"]){
     
       [parent_View_Controller createNote:showPoint NoteText:[noteText text]];
-        
-        /*
-       NoteViewController *note= [[NoteViewController alloc]
-         initWithNibName:@"NoteView" bundle:nil];
-        
-        note.note_text= [noteText text];
-        note.pvPoint=showPoint;
-        [parentViewController addChildViewController:note];
-        [parentView addSubview: note.view ];
-*/
         
     }
     [self removeFromSuperview];

@@ -13,15 +13,15 @@
 #import "NoteViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "KnowledgeModule.h"
-//#import "PopoverView.h"
+#import "BookViewController.h"
+
+// for the "quick help" feature, we haven't decided what interaction we want to add after user clicks the button so we define this array to display some default word.
 #define kStringArray [NSArray arrayWithObjects:@"YES", @"NO",@"Wiki",@"Google", nil]
-#define kImageArray [NSArray arrayWithObjects:[UIImage imageNamed:@"success"], [UIImage imageNamed:@"error"], nil]
 #define H_CONTROL_ORIGIN CGPointMake(200, 300)
-#define APPID @"5163a3e1"
-#define ENGINE_URL @"http://dev.voicecloud.cn/index.htm"
+#define APPID @"5163a3e1" //id for the tts cloud service
+#define ENGINE_URL @"http://dev.voicecloud.cn/index.htm" //url for tts cloud servgice
 
 @interface ContentViewController ()
-
 @end
 
 @implementation ContentViewController
@@ -30,6 +30,10 @@
 @synthesize isMenuShow;
 @synthesize pageNum;
 @synthesize totalpageNum;
+@synthesize parent_BookViewController;
+@synthesize highlightTextArray;
+@synthesize fliteController;
+@synthesize slt;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -41,28 +45,17 @@
 }
 
 
-
-//implement the synthesizer delegater methods
-- (void)onSynthesizerEnd:(IFlySynthesizerControl *)iFlySynthesizerControl theError:(SpeechError) error
-{
-	NSLog(@"finishing speaking.....");
-	// get the upload flow and download flow
-	NSLog(@"upFlow:%d,downFlow:%d",[iFlySynthesizerControl getUpflow:FALSE],[iFlySynthesizerControl getDownflow:FALSE]);
-
+//initial methods for the open ears tts instance
+- (FliteController *)fliteController { if (fliteController == nil) {
+    fliteController = [[FliteController alloc] init]; }
+    return fliteController;
 }
-
-// get the player buffer progress
-- (void)onSynthesizerBufferProgress:(float)bufferProgress
-{
-    NSLog(@"the playing buffer :%f",bufferProgress);
+//initial methods for the open ears tts instance
+- (Slt *)slt {
+    if (slt == nil) {
+        slt = [[Slt alloc] init]; }
+    return slt;
 }
-
-// get the player progress
-- (void)onSynthesizerPlayProgress:(float)playProgress
-{
-    NSLog(@"the playing progress :%f",playProgress);
-}
-
 
 
 - (void)viewDidLoad
@@ -79,7 +72,6 @@
 			sv.bounces = NO;
 		}
 	}
-    
     isMenuShow=NO;
     oneFingerTap =[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(oneFingerOneTaps:)] ;
     oneFingerTap.delegate=self;
@@ -90,7 +82,7 @@
     [doubleTap setNumberOfTapsRequired:2];
     doubleTap.delegate=self;
     [webView addGestureRecognizer:doubleTap];
-    
+    //set up menu items, icons and methods
     [self setingUpMenuItem];
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
@@ -124,9 +116,8 @@
     
     // Menu Controller, controls the manu list which will pop up when the user click a selected word or string
     UIMenuController *menuController = [UIMenuController sharedMenuController];
+    
     //add menu items to the menu list
-    
-    
     CXAMenuItemSettings *markIconSettingSpeak = [CXAMenuItemSettings new];
     markIconSettingSpeak.image = [UIImage imageNamed:@"speak"];
     markIconSettingSpeak.shadowDisabled = NO;
@@ -206,7 +197,6 @@
     UIMenuItem *takeNoteItem = [[UIMenuItem alloc] initWithTitle: @"take note" action: @selector(takeNote:)];
     [takeNoteItem cxa_setSettings:takeNoteSetting];
     
-    
     UIMenuItem *speakItem = [[UIMenuItem alloc] initWithTitle: @"speak" action: @selector(speak:)];
     [speakItem cxa_setSettings:markIconSettingSpeak];
     
@@ -214,7 +204,7 @@
     [menuController setMenuItems: [NSArray arrayWithObjects:getHighlightString, markHighlightedStringYellow,markHighlightedStringGreen, markHighlightedStringBlue,markHighlightedStringPurple,markHighlightedStringRed,underLineItem,undoItem,takeNoteItem,speakItem, nil]];
     
     [menuController setMenuVisible:YES animated:YES];
-
+    
 }
 
 // invoke when user tap with one finger once
@@ -222,16 +212,16 @@
 {
     pvPoint = [tap locationInView:self.view];//track the last click position in order to show the popUp view
     if(!isMenuShow){  //is the menu bar is showing, disable the gesture action
-    //set navigation bar animation, which uses the QuartzCore framework.
-    CATransition *navigationBarAnimation = [CATransition animation];
-    navigationBarAnimation.duration = 0.7;
-    navigationBarAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];;
-    navigationBarAnimation.type = kCATransitionMoveIn;
-    navigationBarAnimation.subtype = kCATransitionFromBottom;
-    navigationBarAnimation.removedOnCompletion = YES;
-    [self.parentViewController.navigationController.navigationBar.layer addAnimation:navigationBarAnimation forKey:nil];
-    //click with one finger to show or hind the navigaion bar.
-     BOOL navBarState = [self.parentViewController.navigationController isNavigationBarHidden];
+        //set navigation bar animation, which uses the QuartzCore framework.
+        CATransition *navigationBarAnimation = [CATransition animation];
+        navigationBarAnimation.duration = 0.7;
+        navigationBarAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];;
+        navigationBarAnimation.type = kCATransitionMoveIn;
+        navigationBarAnimation.subtype = kCATransitionFromBottom;
+        navigationBarAnimation.removedOnCompletion = YES;
+        [self.parentViewController.navigationController.navigationBar.layer addAnimation:navigationBarAnimation forKey:nil];
+        //click with one finger to show or hind the navigaion bar.
+        BOOL navBarState = [self.parentViewController.navigationController isNavigationBarHidden];
         if(!navBarState ){
             [self.parentViewController.navigationController setNavigationBarHidden: YES animated:YES];
         }else {
@@ -240,7 +230,7 @@
     }else{
         [self.parentViewController.navigationController setNavigationBarHidden: YES animated:YES];
     }
-
+    
 }
 
 //invoke when user double tap with one finger
@@ -258,16 +248,15 @@
 - (void)popoverView:(PopoverView *)popoverView didSelectItemAtIndex:(NSInteger)index
 {
     NSLog(@"%s item:%d", __PRETTY_FUNCTION__, index);
-     NSString *selection = [webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"];
+    NSString *selection = [webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"];
     
     // Figure out which string was selected, store in "string"
     NSString *string = [kStringArray objectAtIndex:index];
-    
     // Show a success image, with the string from the array
     if(0==index){
-    [popoverView showImage:[UIImage imageNamed:@"success"] withMessage:string];
+        [popoverView showImage:[UIImage imageNamed:@"success"] withMessage:string];
     }else if(1==index){
-    [popoverView showImage:[UIImage imageNamed:@"error"] withMessage:string];
+        [popoverView showImage:[UIImage imageNamed:@"error"] withMessage:string];
     }else if(2==index){
         NSString *wikiLink=@"http://en.wikipedia.org/wiki/";
         wikiLink=[wikiLink stringByAppendingString:selection];
@@ -279,33 +268,29 @@
                                               initWithNibName:@"WebBrowserViewController" bundle:nil];
         webBroser.requestObj=requestObj;
         webBroser.parent_View_Controller=self;
-       // [webBroser setParent_View:self];
         //push the controller to the navigation bar
         [self.parentViewController.navigationController setNavigationBarHidden: NO animated:YES];
-        self.navigationController.navigationBar.barStyle = UIBarStyleBlackOpaque; 
+        self.navigationController.navigationBar.barStyle = UIBarStyleBlackOpaque;
         [self.navigationController pushViewController:webBroser animated:YES];
     }else if (3==index){
-        
         NSString *googleLink=@"https://www.google.com/search?q=";
         googleLink=[googleLink stringByAppendingString:selection];
         NSLog(@"%@",googleLink);
         //replace the " " character in the url with "%20" in order to connect the seperate words for search
         googleLink= [googleLink stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
-         NSLog(@"Url Link afterf replacing %@",googleLink);
+        NSLog(@"Url Link afterf replacing %@",googleLink);
         NSURL *url = [NSURL URLWithString:googleLink];
         NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
         
-       WebBrowserViewController *webBroser= [[WebBrowserViewController alloc]
-                                             initWithNibName:@"WebBrowserViewController" bundle:nil];
+        WebBrowserViewController *webBroser= [[WebBrowserViewController alloc]
+                                              initWithNibName:@"WebBrowserViewController" bundle:nil];
         webBroser.parent_View_Controller=self;
-       //[webBroser setParent_View:self];
         webBroser.requestObj=requestObj;
         [self.parentViewController.navigationController setNavigationBarHidden: NO animated:YES];
         self.navigationController.navigationBar.barStyle = UIBarStyleBlackOpaque;
         [self.navigationController pushViewController:webBroser animated:YES];
-         
+        
     }
-    
     // Dismiss the PopoverView after 0.5 seconds
     [popoverView performSelector:@selector(dismiss) withObject:nil afterDelay:0.5f];
 }
@@ -319,17 +304,17 @@
 //give permission to show the menu item we added
 - (BOOL) canPerformAction:(SEL)action withSender:(id)sender
 {
-  if (  action == @selector(markHighlightedString:)
-               ||action==@selector(popUp:)
-               ||action == @selector(markHighlightedStringInYellow:)
-               ||action == @selector(markHighlightedStringInGreen:)
-               ||action==@selector(speak:)
-               ||action == @selector(markHighlightedStringInBlue:)
-               ||action == @selector(markHighlightedStringInPurple:)
-               ||action == @selector(markHighlightedStringInRed:)
-               ||action == @selector(underLine:)
-               ||action==@selector(takeNote:)
-               ||action == @selector(removeFormat:)) 
+    if (  action == @selector(markHighlightedString:)
+        ||action==@selector(popUp:)
+        ||action == @selector(markHighlightedStringInYellow:)
+        ||action == @selector(markHighlightedStringInGreen:)
+        ||action==@selector(speak:)
+        ||action == @selector(markHighlightedStringInBlue:)
+        ||action == @selector(markHighlightedStringInPurple:)
+        ||action == @selector(markHighlightedStringInRed:)
+        ||action == @selector(underLine:)
+        ||action==@selector(takeNote:)
+        ||action == @selector(removeFormat:))
     {
         return YES;
     }
@@ -342,7 +327,7 @@
     // The JS File
     NSString *filePath  = [[NSBundle mainBundle] pathForResource:@"HighlightedString" ofType:@"js" inDirectory:@""];
     if(filePath==nil){
-        NSLog(@"File path Nil!!!!!");
+        NSLog(@"File path Nil!");
     }
     NSData *fileData    = [NSData dataWithContentsOfFile:filePath];
     NSString *jsString  = [[NSMutableString alloc] initWithData:fileData encoding:NSUTF8StringEncoding];
@@ -351,6 +336,7 @@
     // The JS Function
     NSString *startSearch   = [NSString stringWithFormat:@"stylizeHighlightedString()"];
     [webView stringByEvaluatingJavaScriptFromString:startSearch];
+    [parent_BookViewController.highlightTextArrayByIndex replaceObjectAtIndex:pageNum withObject:startSearch];
 }
 
 //calling the function in HighlightedString.js to highlight the text in green
@@ -359,7 +345,7 @@
     // The JS File
     NSString *filePath  = [[NSBundle mainBundle] pathForResource:@"HighlightedString" ofType:@"js" inDirectory:@""];
     if(filePath==nil){
-        NSLog(@"File path Nil!!!!!");
+        NSLog(@"File path Nil!");
     }
     NSData *fileData    = [NSData dataWithContentsOfFile:filePath];
     NSString *jsString  = [[NSMutableString alloc] initWithData:fileData encoding:NSUTF8StringEncoding];
@@ -376,7 +362,7 @@
     // The JS File
     NSString *filePath  = [[NSBundle mainBundle] pathForResource:@"HighlightedString" ofType:@"js" inDirectory:@""];
     if(filePath==nil){
-        NSLog(@"File path Nil!!!!!");
+        NSLog(@"File path Nil!");
     }
     NSData *fileData    = [NSData dataWithContentsOfFile:filePath];
     NSString *jsString  = [[NSMutableString alloc] initWithData:fileData encoding:NSUTF8StringEncoding];
@@ -394,7 +380,7 @@
     // The JS File
     NSString *filePath  = [[NSBundle mainBundle] pathForResource:@"HighlightedString" ofType:@"js" inDirectory:@""];
     if(filePath==nil){
-        NSLog(@"File path Nil!!!!!");
+        NSLog(@"File path Nil!");
     }
     NSData *fileData    = [NSData dataWithContentsOfFile:filePath];
     NSString *jsString  = [[NSMutableString alloc] initWithData:fileData encoding:NSUTF8StringEncoding];
@@ -411,7 +397,7 @@
     // The JS File
     NSString *filePath  = [[NSBundle mainBundle] pathForResource:@"HighlightedString" ofType:@"js" inDirectory:@""];
     if(filePath==nil){
-        NSLog(@"File path Nil!!!!!");
+        NSLog(@"File path Nil!");
     }
     NSData *fileData    = [NSData dataWithContentsOfFile:filePath];
     NSString *jsString  = [[NSMutableString alloc] initWithData:fileData encoding:NSUTF8StringEncoding];
@@ -420,8 +406,7 @@
     // The JS Function
     NSString *startSearch   = [NSString stringWithFormat:@"stylizeHighlightedStringRed()"];
     [webView stringByEvaluatingJavaScriptFromString:startSearch];
-    }
-
+}
 
 
 //calling the function in HighlightedString.js to underline the text
@@ -429,7 +414,7 @@
     // The JS File
     NSString *filePath  = [[NSBundle mainBundle] pathForResource:@"HighlightedString" ofType:@"js" inDirectory:@""];
     if(filePath==nil){
-        NSLog(@"File path Nil!!!!!");
+        NSLog(@"File path Nil!");
     }
     NSData *fileData    = [NSData dataWithContentsOfFile:filePath];
     NSString *jsString  = [[NSMutableString alloc] initWithData:fileData encoding:NSUTF8StringEncoding];
@@ -438,9 +423,8 @@
     // The JS Function
     NSString *startSearch   = [NSString stringWithFormat:@"underlineText()"];
     [webView stringByEvaluatingJavaScriptFromString:startSearch];
-
+    
 }
-
 
 
 //calling the function in HighlightedString.js to remove all the format
@@ -462,14 +446,14 @@
 
 //shows the popup view
 - (IBAction)popUp : (UITapGestureRecognizer *)tap {
-   
+    
     NSString *selection = [webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"];
     NSLog(@" %@",selection);
     KnowledgeModule *knowledge_module=[ [KnowledgeModule alloc] init ];
     NSString *definition=@"Textbook Definition: ";
     NSString *textBookDefinition= [knowledge_module getTextBookDefinition:selection];
     definition=[definition stringByAppendingString: textBookDefinition];
-
+    
     NSString *wikiLink=@"See wikipedia definition.";
     NSString *googleLink=@"Search Google.";
     NSArray *popUpContent=[NSArray arrayWithObjects:selection, definition,wikiLink,googleLink, nil];
@@ -482,32 +466,16 @@
 
 //use the tts engine to speak the selected text
 - (IBAction)speak : (id)sender {
-    //////set up text to voice synthesizer
-    NSString *initParam = [[NSString alloc] initWithFormat:
-						   @"server_url=%@,appid=%@",ENGINE_URL,APPID];
-    //initial syntheaizer
-    _iFlySynthesizerControl = [[IFlySynthesizerControl alloc] initWithOrigin:H_CONTROL_ORIGIN initParam:initParam];
-    _iFlySynthesizerControl.delegate = self;
-    [_iFlySynthesizerControl setVoiceName: @"henry"];//set up speaker choices: Catherine, henry, vimary
-   //[_iFlySynthesizerControl setVoiceName: @"Catherine"];//set up speaker
-    [self.parentViewController.view addSubview:_iFlySynthesizerControl];
-    //get the selected text
-     NSString *selection = [webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"];
-    //hide the popup view
-    [_iFlySynthesizerControl setShowUI:NO];
-    [_iFlySynthesizerControl setText:selection params:nil];
-          NSLog(@"Speaking...");
-    //speak
-   [_iFlySynthesizerControl start];
     
-
+     //get the selected text
+     NSString *selection = [webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"];
+        [self.fliteController say:selection withVoice:self.slt];
+     
 }
-
 
 - (IBAction)takeNote : (id)sender {
     
-      NSArray *popUpContent=[NSArray arrayWithObjects:@"NoteTaking", nil];
-    
+    NSArray *popUpContent=[NSArray arrayWithObjects:@"NoteTaking", nil];
     pv = [PopoverView showPopoverAtPoint:pvPoint
                                   inView:self.view
                                withTitle:@"Take Note"
@@ -516,8 +484,8 @@
     pv.parent_View_Controller=self;
     pv.showPoint=pvPoint;
     pv.parentViewController=self;
-    
 }
+
 
 -(void)createWebNote : (NSURLRequest*) urlrequest  {
     WebMarkController *note= [[WebMarkController alloc]
@@ -528,20 +496,17 @@
 }
 
 
--(void)printNull{
-    NSLog(@"Test");
-}
-
 -(void)createNote : (CGPoint) show_at_point NoteText:(NSString*) m_note_text  {
-
-    NSLog(@"Creating note\n");
+    
     NoteViewController *note= [[NoteViewController alloc]
                                initWithNibName:@"NoteView" bundle:nil];
     note.note_text= m_note_text;
     note.pvPoint=show_at_point;
+    note.parentController=self;
+    [note becomeFirstResponder];
     [self addChildViewController:note];
     [self.view addSubview: note.view ];
-
+    
 }
 
 

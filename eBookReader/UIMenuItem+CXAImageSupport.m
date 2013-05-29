@@ -2,7 +2,7 @@
 //  UIMenuItem+CXAImageSupport.m
 //  eBookReader
 //
-//  Created by Shang Wang on 3/27/13.
+//  Created by cxa on github https://github.com/cxa/UIMenuItem-CXAImageSupport
 //  Copyright (c) 2013 Andreea Danielescu. All rights reserved.
 //
 

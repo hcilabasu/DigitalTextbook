@@ -30,7 +30,7 @@
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *back;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *markPage;
 @property (strong, nonatomic) IBOutlet UITextField *webAdrText;
-@property (strong, nonatomic) NSMutableArray *urlStack;
+@property (strong, nonatomic) NSMutableArray *urlStack;//stack that stores the web url history
 @property  (nonatomic) int urlId;
 -(void)setParent_View:(ContentViewController *)view;
 @end

@@ -26,16 +26,20 @@
 @synthesize _pageNum;
 @synthesize bookView;
 @synthesize pageController, pageContent;
+@synthesize highlightTextArrayByIndex;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    _pageNum = 0;
+   
 }
 
 
 -(void)initialPageView{
     //initialize the page view by adding subviews to the BookView.
+    _pageNum = 0;
+
+    
     NSDictionary *options =
     [NSDictionary dictionaryWithObject:
      [NSNumber numberWithInteger:UIPageViewControllerSpineLocationMin]
@@ -67,13 +71,18 @@
 //creates pages and the content 
 - (void) createContentPages
 {
-    NSLog(@"creating page content!");
+    highlightTextArrayByIndex= [[NSMutableArray alloc]init];
+
+    int page_num = 0;
+
     book = [bookImporter importEBook:bookTitle];
     _totalPageNum = [book totalPages];
     NSMutableArray *pageStrings = [[NSMutableArray alloc] init];
     // specify page numbers
     for (int i = 1; i < _totalPageNum+1; i++)
     {
+        page_num++;
+         NSLog(@"creating page content for page %d \n",i);
         //get the content for each page
         NSString* page = [book getPageAt:i-1];
         NSError *error;
@@ -87,8 +96,13 @@
     }
     // add the html content to the pageContent array.
     pageContent = [[NSArray alloc] initWithArray:pageStrings];
-}
+    for (int t = 0; t < page_num;  ++t)
+    {
+        NSString *test=@"test";
+        [highlightTextArrayByIndex addObject:test];
+    }
 
+}
 
 
 - (ContentViewController *)viewControllerAtIndex:(NSUInteger)index
@@ -103,15 +117,14 @@
     [[ContentViewController alloc]
      initWithNibName:@"ContentViewController"
      bundle:nil];
-    dataViewController.pageNum=_pageNum;
+    dataViewController.parent_BookViewController=self;
+    dataViewController.pageNum=_pageNum+1;
     dataViewController.totalpageNum=_totalPageNum;
      NSLog(@"Page: %d/%d", _pageNum,_totalPageNum);
     dataViewController.dataObject =
     [self.pageContent objectAtIndex:index];
     // add the HTML content and the URL link.
     NSURL* baseURL = [NSURL fileURLWithPath:[book getHTMLURL]];
-
-    
     dataViewController.url=baseURL;
     return dataViewController;
 }
@@ -139,7 +152,6 @@
 }
 
 //function invoked when user flip to the next page, we increase the index and pageNumber and update the content
-
 - (UIViewController *)pageViewController:
 (UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
 {
@@ -168,4 +180,35 @@
     [navBar setBarStyle: UIBarStyleBlackTranslucent];
 }
 
+
+-(void)showFirstPage: (int) pageIndex
+{
+    NSDictionary *options =
+    [NSDictionary dictionaryWithObject:
+     [NSNumber numberWithInteger:UIPageViewControllerSpineLocationMin]
+                                forKey: UIPageViewControllerOptionSpineLocationKey];
+    
+    self.pageController = [[UIPageViewController alloc]
+                           initWithTransitionStyle:UIPageViewControllerTransitionStylePageCurl
+                           navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal
+                           options: options];
+    
+    pageController.dataSource = self;
+    [[pageController view] setFrame:[[self view] bounds]];
+    
+    ContentViewController *initialViewController =
+    [self viewControllerAtIndex:pageIndex];
+    NSArray *viewControllers =
+    [NSArray arrayWithObject:initialViewController];
+    
+    [pageController setViewControllers:viewControllers
+                             direction:UIPageViewControllerNavigationDirectionForward
+                              animated:NO
+                            completion:nil];
+    
+    [self addChildViewController:pageController];
+    [[self view] addSubview:[pageController view]];
+    [pageController didMoveToParentViewController:self];
+
+}
 @end
