@@ -18,8 +18,7 @@
 // for the "quick help" feature, we haven't decided what interaction we want to add after user clicks the button so we define this array to display some default word.
 #define kStringArray [NSArray arrayWithObjects:@"YES", @"NO",@"Wiki",@"Google", nil]
 #define H_CONTROL_ORIGIN CGPointMake(200, 300)
-#define APPID @"5163a3e1" //id for the tts cloud service
-#define ENGINE_URL @"http://dev.voicecloud.cn/index.htm" //url for tts cloud servgice
+
 
 @interface ContentViewController ()
 @end
