@@ -8,11 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "eBookReader/NoteViewController.m"
-         timestampString = "390474754.974257"
+         timestampString = "392657018.646661"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "45"
-         endingLineNumber = "45"
+         startingLineNumber = "44"
+         endingLineNumber = "44"
          landmarkName = "-viewDidLoad"
          landmarkType = "5">
       </FileBreakpoint>
@@ -34,22 +34,22 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "eBookReader/NoteViewController.m"
-         timestampString = "390487906.313218"
+         timestampString = "392657018.646661"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "135"
-         endingLineNumber = "135">
+         startingLineNumber = "134"
+         endingLineNumber = "134">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "eBookReader/BookViewController.m"
-         timestampString = "389518728.689782"
+         timestampString = "392642613.517831"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "73"
-         endingLineNumber = "73"
+         startingLineNumber = "72"
+         endingLineNumber = "72"
          landmarkName = "-createContentPages"
          landmarkType = "5">
       </FileBreakpoint>
@@ -58,11 +58,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "eBookReader/BookViewController.m"
-         timestampString = "389518529.928419"
+         timestampString = "392642613.517831"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "55"
-         endingLineNumber = "55"
+         startingLineNumber = "54"
+         endingLineNumber = "54"
          landmarkName = "-initialPageView"
          landmarkType = "5">
       </FileBreakpoint>
@@ -71,11 +71,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "eBookReader/BookViewController.m"
-         timestampString = "389518552.173067"
+         timestampString = "392642613.517831"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "61"
-         endingLineNumber = "61"
+         startingLineNumber = "60"
+         endingLineNumber = "60"
          landmarkName = "-initialPageView"
          landmarkType = "5">
       </FileBreakpoint>
@@ -84,11 +84,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "eBookReader/BookViewController.m"
-         timestampString = "389518554.026223"
+         timestampString = "392642613.517831"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "66"
-         endingLineNumber = "66"
+         startingLineNumber = "65"
+         endingLineNumber = "65"
          landmarkName = "-initialPageView"
          landmarkType = "5">
       </FileBreakpoint>
@@ -97,24 +97,24 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "eBookReader/BookViewController.m"
-         timestampString = "389518573.376341"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "59"
-         endingLineNumber = "59"
-         landmarkName = "-initialPageView"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "eBookReader/BookViewController.m"
-         timestampString = "389518574.197453"
+         timestampString = "392642613.517831"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "58"
          endingLineNumber = "58"
+         landmarkName = "-initialPageView"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "eBookReader/BookViewController.m"
+         timestampString = "392642613.517831"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "57"
+         endingLineNumber = "57"
          landmarkName = "-initialPageView"
          landmarkType = "5">
       </FileBreakpoint>

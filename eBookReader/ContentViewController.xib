@@ -15,7 +15,6 @@
 			<string>IBProxyObject</string>
 			<string>IBUILabel</string>
 			<string>IBUISlider</string>
-			<string>IBUITapGestureRecognizer</string>
 			<string>IBUIView</string>
 			<string>IBUIWebView</string>
 		</array>
@@ -62,6 +61,7 @@
 						<string key="NSFrame">{{334, 963}, {100, 21}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<int key="IBUIContentMode">7</int>
@@ -103,12 +103,10 @@
 				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
 				<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 			</object>
-			<object class="IBUITapGestureRecognizer" id="1012088949"/>
 			<object class="IBUISlider" id="105892390">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">266</int>
 				<string key="NSFrameSize">{732, 23}</string>
-				<reference key="NSSuperview"/>
 				<bool key="IBUIOpaque">NO</bool>
 				<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 				<int key="IBUIContentHorizontalAlignment">0</int>
@@ -137,29 +135,11 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">oneFingerTap</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="1012088949"/>
-					</object>
-					<int key="connectionID">112</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">currentPageLabel</string>
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="731406411"/>
 					</object>
 					<int key="connectionID">252</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletCollectionConnection" key="connection">
-						<string key="label">gestureRecognizers</string>
-						<reference key="source" ref="848354439"/>
-						<reference key="destination" ref="1012088949"/>
-						<string key="cachedDesigntimeCollectionClassName">NSArray</string>
-						<bool key="addsContentToExistingCollection">YES</bool>
-					</object>
-					<int key="connectionID">111</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -179,11 +159,6 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">-2</int>
 						<reference key="object" ref="975951072"/>
-						<reference key="parent" ref="0"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">110</int>
-						<reference key="object" ref="1012088949"/>
 						<reference key="parent" ref="0"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -375,7 +350,6 @@
 					<reference ref="708826999"/>
 					<reference ref="946088379"/>
 				</array>
-				<string key="110.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="176.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="177.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="182.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -407,19 +381,83 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">ContentViewController</string>
 					<string key="superclassName">UIViewController</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="didHideEditMenu:">id</string>
+						<string key="didShowEditMenu:">id</string>
+						<string key="markHighlightedStringInBlue:">id</string>
+						<string key="markHighlightedStringInGreen:">id</string>
+						<string key="markHighlightedStringInPurple:">id</string>
+						<string key="markHighlightedStringInRed:">id</string>
+						<string key="markHighlightedStringInYellow:">id</string>
+						<string key="popUp:">UITapGestureRecognizer</string>
+						<string key="removeFormat:">id</string>
+						<string key="speak:">id</string>
+						<string key="takeNote:">id</string>
+						<string key="underLine:">id</string>
+						<string key="willShowEditMenu:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="didHideEditMenu:">
+							<string key="name">didHideEditMenu:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="didShowEditMenu:">
+							<string key="name">didShowEditMenu:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="markHighlightedStringInBlue:">
+							<string key="name">markHighlightedStringInBlue:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="markHighlightedStringInGreen:">
+							<string key="name">markHighlightedStringInGreen:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="markHighlightedStringInPurple:">
+							<string key="name">markHighlightedStringInPurple:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="markHighlightedStringInRed:">
+							<string key="name">markHighlightedStringInRed:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="markHighlightedStringInYellow:">
+							<string key="name">markHighlightedStringInYellow:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="popUp:">
+							<string key="name">popUp:</string>
+							<string key="candidateClassName">UITapGestureRecognizer</string>
+						</object>
+						<object class="IBActionInfo" key="removeFormat:">
+							<string key="name">removeFormat:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="speak:">
+							<string key="name">speak:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="takeNote:">
+							<string key="name">takeNote:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="underLine:">
+							<string key="name">underLine:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="willShowEditMenu:">
+							<string key="name">willShowEditMenu:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="currentPageLabel">UILabel</string>
-						<string key="oneFingerTap">UITapGestureRecognizer</string>
 						<string key="webView">UIWebView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<object class="IBToOneOutletInfo" key="currentPageLabel">
 							<string key="name">currentPageLabel</string>
 							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="oneFingerTap">
-							<string key="name">oneFingerTap</string>
-							<string key="candidateClassName">UITapGestureRecognizer</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="webView">
 							<string key="name">webView</string>

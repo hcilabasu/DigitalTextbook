@@ -38,7 +38,6 @@
 -(void)initialPageView{
     //initialize the page view by adding subviews to the BookView.
     _pageNum = 0;
-
     
     NSDictionary *options =
     [NSDictionary dictionaryWithObject:

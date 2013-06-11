@@ -14,7 +14,7 @@
 
 #import <Slt/Slt.h>
 #import <OpenEars/FliteController.h>
-
+#import "KnowledgeModule.h"
 #import "PopoverView.h"
 #ifndef CONTENTVIEWCONTROLLER_H
 #define CONTENTVIEWCONTROLLER_H
@@ -34,7 +34,6 @@
 
 
 @property (strong, nonatomic) IBOutlet UIWebView *webView; // the webview which displays the content
-@property (strong, nonatomic) IBOutlet UITapGestureRecognizer *oneFingerTap; //gesture recognizer
 @property (strong, nonatomic) id dataObject;// sotres the HTML data
 @property (strong, nonatomic) id url; //the URL link to display HTML content
 @property (nonatomic) BOOL isMenuShow;
@@ -43,7 +42,7 @@
 @property (nonatomic) int totalpageNum;//total page number
 @property (strong, nonatomic) BookViewController *parent_BookViewController; //stores the its parent view, in order to call the parent controlller methods
 @property (strong, nonatomic) NSMutableArray *highlightTextArray;//stores the highlighted text in an array
-
+@property (strong, nonatomic) KnowledgeModule *knowledge_module;
 @property (strong, nonatomic) FliteController *fliteController;
 @property (strong, nonatomic) Slt *slt;
 
@@ -52,4 +51,6 @@
 -(void)refresh;
 -(void)createWebNote : (NSURLRequest*) urlrequest;
 -(void)createNote : (CGPoint) show_at_point NoteText:(NSString*) m_note_text;
+- (void)highlightStringWithColor:(NSString*)color;
+- (void)callJavaScriptMethod:(NSString*)method;
 @end

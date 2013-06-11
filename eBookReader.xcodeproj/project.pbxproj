@@ -52,8 +52,8 @@
 		564FCEC1174B647200790086 /* Slt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 564FCEBF174B647200790086 /* Slt.framework */; };
 		564FCEC3174B65B300790086 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 564FCEC2174B65B300790086 /* AVFoundation.framework */; };
 		56520809170418F5003272B0 /* UIMenuItem+CXAImageSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 56520808170418F5003272B0 /* UIMenuItem+CXAImageSupport.m */; };
-		5652081017041B30003272B0 /* HighlightedString.js in Sources */ = {isa = PBXBuildFile; fileRef = 5652080F17041B30003272B0 /* HighlightedString.js */; };
-		5652081317041F86003272B0 /* HighlightedString.js in Resources */ = {isa = PBXBuildFile; fileRef = 5652080F17041B30003272B0 /* HighlightedString.js */; };
+		5652081017041B30003272B0 /* JavaScriptFunctions.js in Sources */ = {isa = PBXBuildFile; fileRef = 5652080F17041B30003272B0 /* JavaScriptFunctions.js */; };
+		5652081317041F86003272B0 /* JavaScriptFunctions.js in Resources */ = {isa = PBXBuildFile; fileRef = 5652080F17041B30003272B0 /* JavaScriptFunctions.js */; };
 		566F09BF1721C15800412952 /* speak.png in Resources */ = {isa = PBXBuildFile; fileRef = 566F09BE1721C15800412952 /* speak.png */; };
 		566F09C11721C17400412952 /* question.png in Resources */ = {isa = PBXBuildFile; fileRef = 566F09C01721C17400412952 /* question.png */; };
 		566F09CE17220A2700412952 /* NoteView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 566F09CC17220A2700412952 /* NoteView.xib */; };
@@ -156,7 +156,7 @@
 		564FCEC2174B65B300790086 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		56520807170418F5003272B0 /* UIMenuItem+CXAImageSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIMenuItem+CXAImageSupport.h"; sourceTree = "<group>"; };
 		56520808170418F5003272B0 /* UIMenuItem+CXAImageSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIMenuItem+CXAImageSupport.m"; sourceTree = "<group>"; };
-		5652080F17041B30003272B0 /* HighlightedString.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = HighlightedString.js; sourceTree = "<group>"; };
+		5652080F17041B30003272B0 /* JavaScriptFunctions.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = JavaScriptFunctions.js; sourceTree = "<group>"; };
 		566F09BE1721C15800412952 /* speak.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = speak.png; sourceTree = "<group>"; };
 		566F09C01721C17400412952 /* question.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = question.png; sourceTree = "<group>"; };
 		566F09CC17220A2700412952 /* NoteView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoteView.xib; sourceTree = "<group>"; };
@@ -426,7 +426,7 @@
 		5652080E17041AF1003272B0 /* JavaScript  */ = {
 			isa = PBXGroup;
 			children = (
-				5652080F17041B30003272B0 /* HighlightedString.js */,
+				5652080F17041B30003272B0 /* JavaScriptFunctions.js */,
 			);
 			name = "JavaScript ";
 			sourceTree = "<group>";
@@ -571,7 +571,7 @@
 			files = (
 				56C69D571727BF87009419B3 /* Bio.epub in Resources */,
 				56C69D541727BE71009419B3 /* EpubSampleNick.epub in Resources */,
-				5652081317041F86003272B0 /* HighlightedString.js in Resources */,
+				5652081317041F86003272B0 /* JavaScriptFunctions.js in Resources */,
 				3166DB5E16B0A5300089C0F2 /* InfoPlist.strings in Resources */,
 				3166DB6616B0A5300089C0F2 /* Default.png in Resources */,
 				3166DB6816B0A5300089C0F2 /* Default@2x.png in Resources */,
@@ -653,7 +653,7 @@
 				31B9150D16CB053B0040E8A2 /* BookViewController.m in Sources */,
 				5623148016F9027C00B40047 /* ContentViewController.m in Sources */,
 				56520809170418F5003272B0 /* UIMenuItem+CXAImageSupport.m in Sources */,
-				5652081017041B30003272B0 /* HighlightedString.js in Sources */,
+				5652081017041B30003272B0 /* JavaScriptFunctions.js in Sources */,
 				56B7BB51170CE51000037E9E /* PopoverView.m in Sources */,
 				56B7BB57170CE82300037E9E /* OCDaysView.m in Sources */,
 				56727D7A171E386800ACD92D /* WebBrowserViewController.m in Sources */,

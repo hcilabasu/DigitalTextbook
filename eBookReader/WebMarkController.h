@@ -18,6 +18,6 @@
 
 @property (strong, nonatomic)NSURLRequest *web_requestObj;// web link
 @property (strong, nonatomic) IBOutlet UIImageView *markImage;// web icon image
-@property (strong, nonatomic) IBOutlet UITapGestureRecognizer *oneFingerTap; //one finger tap recognizer
+@property (strong, nonatomic) UITapGestureRecognizer *oneFingerTap; //one finger tap recognizer
 - (CGSize) screenSize;
 @end

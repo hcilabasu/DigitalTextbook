@@ -12,7 +12,6 @@
 #import "WebBrowserViewController.h"
 #import "NoteViewController.h"
 #import <QuartzCore/QuartzCore.h>
-#import "KnowledgeModule.h"
 #import "BookViewController.h"
 
 // for the "quick help" feature, we haven't decided what interaction we want to add after user clicks the button so we define this array to display some default word.
@@ -25,7 +24,6 @@
 
 @implementation ContentViewController
 @synthesize webView;
-@synthesize oneFingerTap;
 @synthesize isMenuShow;
 @synthesize pageNum;
 @synthesize totalpageNum;
@@ -33,16 +31,7 @@
 @synthesize highlightTextArray;
 @synthesize fliteController;
 @synthesize slt;
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
+@synthesize knowledge_module;
 
 //initial methods for the open ears tts instance
 - (FliteController *)fliteController { if (fliteController == nil) {
@@ -56,26 +45,24 @@
     return slt;
 }
 
-
 - (void)viewDidLoad
 {
     //disable the bounce animation in the webview
-    UIScrollView* sv = nil;
-	for (UIView* v in  webView.subviews) {
-		if([v isKindOfClass:[UIScrollView class]]){
-			sv = (UIScrollView*) v;
-            sv.pagingEnabled=YES;
-			//sv.scrollEnabled = NO;
-            [sv setShowsHorizontalScrollIndicator:NO];
-            [sv setShowsVerticalScrollIndicator:NO];
-			sv.bounces = NO;
-		}
-	}
+    UIScrollView* sv = [webView scrollView];
+    sv.pagingEnabled=YES;
+    [sv setShowsHorizontalScrollIndicator:NO];
+    [sv setShowsVerticalScrollIndicator:NO];
+    sv.bounces = NO;
+		
     isMenuShow=NO;
-    oneFingerTap =[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(oneFingerOneTaps:)] ;
-    oneFingerTap.delegate=self;
-    [webView addGestureRecognizer:oneFingerTap];
-    //specify the gesture recognizer
+
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(oneFingerOneTaps:)];
+    [singleTap setNumberOfTapsRequired:1];
+    singleTap.delegate=self;
+    [webView addGestureRecognizer:singleTap];
+    
+    //initialize the knowledge module
+    knowledge_module=[ [KnowledgeModule alloc] init ];
     
     UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapped:)];
     [doubleTap setNumberOfTapsRequired:2];
@@ -320,126 +307,72 @@
     return NO;
 }
 
-//calling the function in HighlightedString.js to highlight the text in yellow
-- (IBAction)markHighlightedStringInYellow : (id)sender {
-    NSLog(@" Mark highlight string! ");
-    // The JS File
-    NSString *filePath  = [[NSBundle mainBundle] pathForResource:@"HighlightedString" ofType:@"js" inDirectory:@""];
+- (void)highlightStringWithColor:(NSString*)color{
+    NSString *filePath  = [[NSBundle mainBundle] pathForResource:@"JavaScriptFunctions" ofType:@"js" inDirectory:@""];
     if(filePath==nil){
-        NSLog(@"File path Nil!");
+        NSLog(@"File path nil!");
     }
     NSData *fileData    = [NSData dataWithContentsOfFile:filePath];
     NSString *jsString  = [[NSMutableString alloc] initWithData:fileData encoding:NSUTF8StringEncoding];
     [webView stringByEvaluatingJavaScriptFromString:jsString];
-    
-    // The JS Function
-    NSString *startSearch   = [NSString stringWithFormat:@"stylizeHighlightedString()"];
+    // Invoke the javascript function
+    NSString *startSearch   = [NSString stringWithFormat:@"highlightStringWithColor(\""];
+    startSearch=[startSearch stringByAppendingString:color];
+    startSearch=[startSearch stringByAppendingString:@"\")"];
     [webView stringByEvaluatingJavaScriptFromString:startSearch];
     [parent_BookViewController.highlightTextArrayByIndex replaceObjectAtIndex:pageNum withObject:startSearch];
 }
 
-//calling the function in HighlightedString.js to highlight the text in green
-- (IBAction)markHighlightedStringInGreen : (id)sender {
-    NSLog(@" Mark highlight string! ");
-    // The JS File
-    NSString *filePath  = [[NSBundle mainBundle] pathForResource:@"HighlightedString" ofType:@"js" inDirectory:@""];
+- (void)callJavaScriptMethod:(NSString*)method{
+    NSString *filePath  = [[NSBundle mainBundle] pathForResource:@"JavaScriptFunctions" ofType:@"js" inDirectory:@""];
     if(filePath==nil){
-        NSLog(@"File path Nil!");
+        NSLog(@"File path nil!");
     }
     NSData *fileData    = [NSData dataWithContentsOfFile:filePath];
     NSString *jsString  = [[NSMutableString alloc] initWithData:fileData encoding:NSUTF8StringEncoding];
     [webView stringByEvaluatingJavaScriptFromString:jsString];
-    
-    // The JS Function
-    NSString *startSearch   = [NSString stringWithFormat:@"stylizeHighlightedStringGreen()"];
+    // Invoke the javascript function
+    NSString *startSearch   = [NSString stringWithFormat:@""];
+    startSearch=[startSearch stringByAppendingString:method];
+    startSearch=[startSearch stringByAppendingString:@"()"];
     [webView stringByEvaluatingJavaScriptFromString:startSearch];
+    [parent_BookViewController.highlightTextArrayByIndex replaceObjectAtIndex:pageNum withObject:startSearch];
+}
+
+
+//calling the function in HighlightedString.js to highlight the text in yellow
+- (IBAction)markHighlightedStringInYellow : (id)sender {
+    [self highlightStringWithColor:@"#ffffcc"];
+}
+
+//calling the function in HighlightedString.js to highlight the text in green
+- (IBAction)markHighlightedStringInGreen : (id)sender {
+    [self highlightStringWithColor:@"#C5FCD6"];
 }
 
 //calling the function in HighlightedString.js to highlight the text in blue
 - (IBAction)markHighlightedStringInBlue : (id)sender {
-    NSLog(@" Mark highlight string! ");
-    // The JS File
-    NSString *filePath  = [[NSBundle mainBundle] pathForResource:@"HighlightedString" ofType:@"js" inDirectory:@""];
-    if(filePath==nil){
-        NSLog(@"File path Nil!");
-    }
-    NSData *fileData    = [NSData dataWithContentsOfFile:filePath];
-    NSString *jsString  = [[NSMutableString alloc] initWithData:fileData encoding:NSUTF8StringEncoding];
-    [webView stringByEvaluatingJavaScriptFromString:jsString];
-    
-    // The JS Function
-    NSString *startSearch   = [NSString stringWithFormat:@"stylizeHighlightedStringBlue()"];
-    [webView stringByEvaluatingJavaScriptFromString:startSearch];
+   [self highlightStringWithColor:@"#C2E3FF"];
 }
-
 
 //calling the function in HighlightedString.js to highlight the text in purple
 - (IBAction)markHighlightedStringInPurple : (id)sender {
-    NSLog(@" Mark highlight string! ");
-    // The JS File
-    NSString *filePath  = [[NSBundle mainBundle] pathForResource:@"HighlightedString" ofType:@"js" inDirectory:@""];
-    if(filePath==nil){
-        NSLog(@"File path Nil!");
-    }
-    NSData *fileData    = [NSData dataWithContentsOfFile:filePath];
-    NSString *jsString  = [[NSMutableString alloc] initWithData:fileData encoding:NSUTF8StringEncoding];
-    [webView stringByEvaluatingJavaScriptFromString:jsString];
-    
-    // The JS Function
-    NSString *startSearch   = [NSString stringWithFormat:@"stylizeHighlightedStringPurple()"];
-    [webView stringByEvaluatingJavaScriptFromString:startSearch];
+    [self highlightStringWithColor:@"#E8CDFA"];
 }
 
 //calling the function in HighlightedString.js to highlight the text in red
 - (IBAction)markHighlightedStringInRed : (id)sender {
-    NSLog(@" Mark highlight string! ");
-    // The JS File
-    NSString *filePath  = [[NSBundle mainBundle] pathForResource:@"HighlightedString" ofType:@"js" inDirectory:@""];
-    if(filePath==nil){
-        NSLog(@"File path Nil!");
-    }
-    NSData *fileData    = [NSData dataWithContentsOfFile:filePath];
-    NSString *jsString  = [[NSMutableString alloc] initWithData:fileData encoding:NSUTF8StringEncoding];
-    [webView stringByEvaluatingJavaScriptFromString:jsString];
-    
-    // The JS Function
-    NSString *startSearch   = [NSString stringWithFormat:@"stylizeHighlightedStringRed()"];
-    [webView stringByEvaluatingJavaScriptFromString:startSearch];
+    [self highlightStringWithColor:@"#FFBABA"];
 }
-
 
 //calling the function in HighlightedString.js to underline the text
 - (IBAction)underLine : (id)sender {
-    // The JS File
-    NSString *filePath  = [[NSBundle mainBundle] pathForResource:@"HighlightedString" ofType:@"js" inDirectory:@""];
-    if(filePath==nil){
-        NSLog(@"File path Nil!");
-    }
-    NSData *fileData    = [NSData dataWithContentsOfFile:filePath];
-    NSString *jsString  = [[NSMutableString alloc] initWithData:fileData encoding:NSUTF8StringEncoding];
-    [webView stringByEvaluatingJavaScriptFromString:jsString];
-    
-    // The JS Function
-    NSString *startSearch   = [NSString stringWithFormat:@"underlineText()"];
-    [webView stringByEvaluatingJavaScriptFromString:startSearch];
-    
+    [self callJavaScriptMethod:@"underlineText"];
 }
-
 
 //calling the function in HighlightedString.js to remove all the format
 - (IBAction)removeFormat : (id)sender {
-    // The JS File
-    NSString *filePath  = [[NSBundle mainBundle] pathForResource:@"HighlightedString" ofType:@"js" inDirectory:@""];
-    if(filePath==nil){
-        NSLog(@"File path Nil!!!!!");
-    }
-    NSData *fileData    = [NSData dataWithContentsOfFile:filePath];
-    NSString *jsString  = [[NSMutableString alloc] initWithData:fileData encoding:NSUTF8StringEncoding];
-    [webView stringByEvaluatingJavaScriptFromString:jsString];
-    
-    // The JS Function
-    NSString *startSearch   = [NSString stringWithFormat:@"clearFormat()"];
-    [webView stringByEvaluatingJavaScriptFromString:startSearch];
+    [self callJavaScriptMethod:@"clearFormat"];
 }
 
 
@@ -448,7 +381,6 @@
     
     NSString *selection = [webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"];
     NSLog(@" %@",selection);
-    KnowledgeModule *knowledge_module=[ [KnowledgeModule alloc] init ];
     NSString *definition=@"Textbook Definition: ";
     NSString *textBookDefinition= [knowledge_module getTextBookDefinition:selection];
     definition=[definition stringByAppendingString: textBookDefinition];
@@ -507,7 +439,6 @@
     [self.view addSubview: note.view ];
     
 }
-
 
 // check if the menu bar is showing
 - (IBAction)didHideEditMenu : (id)sender {

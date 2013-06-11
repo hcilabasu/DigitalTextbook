@@ -17,7 +17,7 @@
 @property (nonatomic)BOOL isExist;
 @property (strong, nonatomic) NSString *note_text;//stroe the text of the note
 @property (strong, nonatomic) IBOutlet UIImageView *noteImage; //the note icon iamge
-@property (strong, nonatomic) IBOutlet UITapGestureRecognizer *oneFingerTap; //the one finger gesture recognizer that captures user's click
+@property (strong, nonatomic) UITapGestureRecognizer *oneFingerTap; //the one finger gesture recognizer that captures user's click
 @property (nonatomic) CGPoint pvPoint;//the point where the popup note is originally evoked
 @property (strong, nonatomic) ContentViewController *parentController; //stores the reference of the parent view controller
 - (CGSize) screenSize;// function that returns the size of the screen, used to deteremine where the icon and the popup view is shown.
