@@ -71,7 +71,15 @@
     //set up menu items, icons and methods
     [self setingUpMenuItem];
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+
+    //specify the javascript file path
+    NSString *filePath  = [[NSBundle mainBundle] pathForResource:@"JavaScriptFunctions" ofType:@"js" inDirectory:@""];
+    if(filePath==nil){
+        NSLog(@"Javascript file path nil!");
+    }
+    NSData *fileData    = [NSData dataWithContentsOfFile:filePath];
+    NSString *jsString  = [[NSMutableString alloc] initWithData:fileData encoding:NSUTF8StringEncoding];
+    [webView stringByEvaluatingJavaScriptFromString:jsString];
 }
 
 - (void)didReceiveMemoryWarning
@@ -187,7 +195,8 @@
     [speakItem cxa_setSettings:markIconSettingSpeak];
     
     
-    [menuController setMenuItems: [NSArray arrayWithObjects:getHighlightString, markHighlightedStringYellow,markHighlightedStringGreen, markHighlightedStringBlue,markHighlightedStringPurple,markHighlightedStringRed,underLineItem,undoItem,takeNoteItem,speakItem, nil]];
+    [menuController setMenuItems: [NSArray arrayWithObjects:getHighlightString, markHighlightedStringYellow,markHighlightedStringGreen, markHighlightedStringBlue,
+                                   markHighlightedStringPurple,markHighlightedStringRed,underLineItem,undoItem,takeNoteItem,speakItem, nil]];
     
     [menuController setMenuVisible:YES animated:YES];
     
@@ -308,13 +317,6 @@
 }
 
 - (void)highlightStringWithColor:(NSString*)color{
-    NSString *filePath  = [[NSBundle mainBundle] pathForResource:@"JavaScriptFunctions" ofType:@"js" inDirectory:@""];
-    if(filePath==nil){
-        NSLog(@"File path nil!");
-    }
-    NSData *fileData    = [NSData dataWithContentsOfFile:filePath];
-    NSString *jsString  = [[NSMutableString alloc] initWithData:fileData encoding:NSUTF8StringEncoding];
-    [webView stringByEvaluatingJavaScriptFromString:jsString];
     // Invoke the javascript function
     NSString *startSearch   = [NSString stringWithFormat:@"highlightStringWithColor(\""];
     startSearch=[startSearch stringByAppendingString:color];
@@ -324,13 +326,6 @@
 }
 
 - (void)callJavaScriptMethod:(NSString*)method{
-    NSString *filePath  = [[NSBundle mainBundle] pathForResource:@"JavaScriptFunctions" ofType:@"js" inDirectory:@""];
-    if(filePath==nil){
-        NSLog(@"File path nil!");
-    }
-    NSData *fileData    = [NSData dataWithContentsOfFile:filePath];
-    NSString *jsString  = [[NSMutableString alloc] initWithData:fileData encoding:NSUTF8StringEncoding];
-    [webView stringByEvaluatingJavaScriptFromString:jsString];
     // Invoke the javascript function
     NSString *startSearch   = [NSString stringWithFormat:@""];
     startSearch=[startSearch stringByAppendingString:method];
