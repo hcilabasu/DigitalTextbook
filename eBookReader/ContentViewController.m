@@ -21,7 +21,6 @@
 
 @interface ContentViewController ()
 @end
-
 @implementation ContentViewController
 @synthesize webView;
 @synthesize isMenuShow;
