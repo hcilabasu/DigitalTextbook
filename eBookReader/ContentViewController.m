@@ -52,7 +52,6 @@
     [sv setShowsHorizontalScrollIndicator:NO];
     [sv setShowsVerticalScrollIndicator:NO];
     sv.bounces = NO;
-		
     isMenuShow=NO;
 
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(oneFingerOneTaps:)];
@@ -74,7 +73,7 @@
     //specify the javascript file path
     NSString *filePath  = [[NSBundle mainBundle] pathForResource:@"JavaScriptFunctions" ofType:@"js" inDirectory:@""];
     if(filePath==nil){
-        NSLog(@"Javascript file path nil!");
+        NSLog(@"Javascript file path null!");
     }
     NSData *fileData    = [NSData dataWithContentsOfFile:filePath];
     NSString *jsString  = [[NSMutableString alloc] initWithData:fileData encoding:NSUTF8StringEncoding];
