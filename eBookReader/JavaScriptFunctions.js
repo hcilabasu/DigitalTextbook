@@ -17,75 +17,34 @@ function removeSelection(){
     window.getSelection().empty();
 }
 
-
-
-// mark selected text in different colors
-function highlightStringWithColor(color_string) {
+//use the document.execCommand method to edit the text.
+function formatText(command, color_string) {
     var sel = window.getSelection();
     if (!sel.isCollapsed) {
         var selRange = sel.getRangeAt(0);
         document.designMode = "on";
         sel.removeAllRanges();
         sel.addRange(selRange);
-        document.execCommand("HiliteColor", false, color_string);
+        document.execCommand(command, false, color_string);
         sel.removeAllRanges();
         document.designMode = "off";
     }
+}
+
+// mark selected text in different colors
+function highlightStringWithColor(color_string) {
+    formatText("HiliteColor",color_string);
 }
 
 
 // underline the seleced text
 function underlineText() {
-    var sel = window.getSelection();
-    if (!sel.isCollapsed) {
-        var selRange = sel.getRangeAt(0);
-        document.designMode = "on";
-        sel.removeAllRanges();
-        sel.addRange(selRange);
-        document.execCommand("underline", false, "#FFBABA");
-        sel.removeAllRanges();
-        document.designMode = "off";
-    }
+    formatText("underline","#FFBABA");
 }
 
 // clear the format
 function clearFormat() {
-    var sel = window.getSelection();
-    if (!sel.isCollapsed) {
-        var selRange = sel.getRangeAt(0);
-        document.designMode = "on";
-        sel.removeAllRanges();
-        sel.addRange(selRange);
-        document.execCommand("hiliteColor", false, "white");
-        sel.removeAllRanges();
-        document.designMode = "off";
-    }
-}
-
-
-// helper function, recursively removes the highlights in elements and their childs
-function uiWebview_RemoveAllHighlightsForElement(element) {
-    if (element) {
-        if (element.nodeType == 1) {
-            if (element.getAttribute("class") == "uiWebviewHighlight") {
-                var text = element.removeChild(element.firstChild);
-                element.parentNode.insertBefore(text,element);
-                element.parentNode.removeChild(element);
-                return true;
-            } else {
-                var normalize = false;
-                for (var i=element.childNodes.length-1; i>=0; i--) {
-                    if (uiWebview_RemoveAllHighlightsForElement(element.childNodes[i])) {
-                        normalize = true;
-                    }
-                }
-                if (normalize) {
-                    element.normalize();
-                }
-            }
-        }
-    }
-    return false;
+    formatText("HiliteColor","white");
 }
 
 
