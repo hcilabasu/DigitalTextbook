@@ -13,26 +13,25 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-    /*
+    
     NSError *error;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     
-    
-    NSString *dataPath = [documentsDirectory stringByAppendingPathComponent:@"MyFolder9/sample"];
-    
-    [[NSFileManager defaultManager] createDirectoryAtPath:dataPath withIntermediateDirectories:NO attributes:nil error:&error];
-   // [[NSFileManager defaultManager] fileExistsAtPath:dataPath];
     NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *dataPath = [documentsDirectory stringByAppendingPathComponent:@"MyBook"];
+    [fileManager createDirectoryAtPath:dataPath withIntermediateDirectories:NO attributes:nil error:&error];
+    dataPath = [documentsDirectory stringByAppendingPathComponent:@"MyBook/book"];
+    [fileManager createDirectoryAtPath:dataPath withIntermediateDirectories:NO attributes:nil error:&error];
+  
     
-    NSString *txtPath = [dataPath stringByAppendingPathComponent:@"Origin.epub"];
+    NSString *txtPath = [dataPath stringByAppendingPathComponent:@"Bio.epub"];
     
     if ([fileManager fileExistsAtPath:txtPath] == NO) {
-        NSString *resourcePath = [[NSBundle mainBundle] pathForResource:@"Origin" ofType:@"epub"];
+        NSString *resourcePath = [[NSBundle mainBundle] pathForResource:@"Bio" ofType:@"epub"];
         [fileManager copyItemAtPath:resourcePath toPath:txtPath error:&error];
     }
-     */
-    
+     
     return YES;
 }
 

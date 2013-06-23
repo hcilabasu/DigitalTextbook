@@ -52,7 +52,7 @@
     NSLog(@"imported all books");
     
     //set the background color to something that looks like a library.
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"ibooks_waller_vertical.png"]];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bookshelf_vertical"]];
     
     //Setup the collection view information
     NSMutableArray *firstSection = [[NSMutableArray alloc] init];
