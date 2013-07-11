@@ -270,7 +270,6 @@
     }else if (3==index){
         NSString *googleLink=@"https://www.google.com/search?q=";
         googleLink=[googleLink stringByAppendingString:selection];
-        NSLog(@"%@",googleLink);
         //replace the " " character in the url with "%20" in order to connect the seperate words for search
         googleLink= [googleLink stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
         NSLog(@"Url Link afterf replacing %@",googleLink);
@@ -281,6 +280,7 @@
                                               initWithNibName:@"WebBrowserViewController" bundle:nil];
         webBroser.parent_View_Controller=self;
         webBroser.requestObj=requestObj;
+         webBroser.pvPoint=pvPoint;
         [self.parentViewController.navigationController setNavigationBarHidden: NO animated:YES];
         self.navigationController.navigationBar.barStyle = UIBarStyleBlackOpaque;
         [self.navigationController pushViewController:webBroser animated:YES];
