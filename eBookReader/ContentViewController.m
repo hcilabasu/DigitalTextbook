@@ -78,6 +78,7 @@
     NSData *fileData    = [NSData dataWithContentsOfFile:filePath];
     NSString *jsString  = [[NSMutableString alloc] initWithData:fileData encoding:NSUTF8StringEncoding];
     [webView stringByEvaluatingJavaScriptFromString:jsString];
+    NSLog(@"Load Java script\n");
 }
 
 - (void)didReceiveMemoryWarning
@@ -261,6 +262,7 @@
                                               initWithNibName:@"WebBrowserViewController" bundle:nil];
         webBroser.requestObj=requestObj;
         webBroser.parent_View_Controller=self;
+        webBroser.pvPoint=pvPoint;
         //push the controller to the navigation bar
         [self.parentViewController.navigationController setNavigationBarHidden: NO animated:YES];
         self.navigationController.navigationBar.barStyle = UIBarStyleBlackOpaque;
@@ -282,7 +284,6 @@
         [self.parentViewController.navigationController setNavigationBarHidden: NO animated:YES];
         self.navigationController.navigationBar.barStyle = UIBarStyleBlackOpaque;
         [self.navigationController pushViewController:webBroser animated:YES];
-        
     }
     // Dismiss the PopoverView after 0.5 seconds
     [popoverView performSelector:@selector(dismiss) withObject:nil afterDelay:0.5f];
@@ -320,7 +321,6 @@
     startSearch=[startSearch stringByAppendingString:color];
     startSearch=[startSearch stringByAppendingString:@"\")"];
     [webView stringByEvaluatingJavaScriptFromString:startSearch];
-    [parent_BookViewController.highlightTextArrayByIndex replaceObjectAtIndex:pageNum withObject:startSearch];
 }
 
 - (void)callJavaScriptMethod:(NSString*)method{
@@ -329,13 +329,14 @@
     startSearch=[startSearch stringByAppendingString:method];
     startSearch=[startSearch stringByAppendingString:@"()"];
     [webView stringByEvaluatingJavaScriptFromString:startSearch];
-    [parent_BookViewController.highlightTextArrayByIndex replaceObjectAtIndex:pageNum withObject:startSearch];
 }
 
 
 //calling the function in HighlightedString.js to highlight the text in yellow
 - (IBAction)markHighlightedStringInYellow : (id)sender {
-    [self highlightStringWithColor:@"#ffffcc"];
+    int i=[webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().getRangeAt(0).endOffset"];
+    NSLog(@"Range: %d",i);
+    //[self highlightStringWithColor:@"#ffffcc"];
 }
 
 //calling the function in HighlightedString.js to highlight the text in green
@@ -377,7 +378,6 @@
     NSString *definition=@"Textbook Definition: ";
     NSString *textBookDefinition= [knowledge_module getTextBookDefinition:selection];
     definition=[definition stringByAppendingString: textBookDefinition];
-    
     NSString *wikiLink=@"See wikipedia definition.";
     NSString *googleLink=@"Search Google.";
     NSArray *popUpContent=[NSArray arrayWithObjects:selection, definition,wikiLink,googleLink, nil];
@@ -411,16 +411,18 @@
 }
 
 
--(void)createWebNote : (NSURLRequest*) urlrequest  {
+-(void)createWebNote : (CGPoint) show_at_point URL:(NSURLRequest*) urlrequest  {
     WebMarkController *note= [[WebMarkController alloc]
                               initWithNibName:@"WebMarkController" bundle:nil];
     note.web_requestObj=urlrequest;
+    note.pvPoint=show_at_point;
     [self addChildViewController:note];
     [self.view addSubview:note.view];
 }
 
 
 -(void)createNote : (CGPoint) show_at_point NoteText:(NSString*) m_note_text  {
+    
     
     NoteViewController *note= [[NoteViewController alloc]
                                initWithNibName:@"NoteView" bundle:nil];

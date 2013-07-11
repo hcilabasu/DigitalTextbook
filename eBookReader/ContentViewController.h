@@ -25,8 +25,6 @@
 {
     PopoverView *pv; //popOver view
     CGPoint pvPoint;// position where pop over view shows
-   
-    
     FliteController *fliteController;
     Slt *slt;
 }
@@ -49,7 +47,7 @@
 
 -(void)setingUpMenuItem;
 -(void)refresh;
--(void)createWebNote : (NSURLRequest*) urlrequest;
+-(void)createWebNote : (CGPoint) show_at_point URL:(NSURLRequest*) urlrequest;
 -(void)createNote : (CGPoint) show_at_point NoteText:(NSString*) m_note_text;
 - (void)highlightStringWithColor:(NSString*)color;
 - (void)callJavaScriptMethod:(NSString*)method;

@@ -31,6 +31,7 @@
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *markPage;
 @property (strong, nonatomic) IBOutlet UITextField *webAdrText;
 @property (strong, nonatomic) NSMutableArray *urlStack;//stack that stores the web url history
+@property (nonatomic) CGPoint pvPoint;//the point where the popup note is originally evoked
 @property  (nonatomic) int urlId;
 -(void)setParent_View:(ContentViewController *)view;
 @end

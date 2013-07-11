@@ -19,5 +19,6 @@
 @property (strong, nonatomic)NSURLRequest *web_requestObj;// web link
 @property (strong, nonatomic) IBOutlet UIImageView *markImage;// web icon image
 @property (strong, nonatomic) UITapGestureRecognizer *oneFingerTap; //one finger tap recognizer
+@property (nonatomic) CGPoint pvPoint;//the point where the web icon should locate
 - (CGSize) screenSize;
 @end

@@ -38,9 +38,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
- 
-    
     //copy the default ebook in to the document folder
     
     //initialize and book importer.

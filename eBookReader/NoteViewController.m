@@ -31,10 +31,8 @@
 {
     [super viewDidLoad];
     //set up the note view frame, size, icon image and gesture recognizer.
-    CGRect viewFrame = [self.view frame];
-    viewFrame.origin.y  = 630;
      CGSize screenSize = [self screenSize];
-    [self.view setFrame:CGRectMake(screenSize.width-35, 300, 25, 25)];
+    [self.view setFrame:CGRectMake(screenSize.width-35, pvPoint.y-30, 25, 25)];
     UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapped:)];
     [doubleTap setNumberOfTapsRequired:1];
     doubleTap.delegate=self;

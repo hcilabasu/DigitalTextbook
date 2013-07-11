@@ -26,6 +26,7 @@
 @synthesize back;
 @synthesize markPage;
 @synthesize parent_View_Controller;
+@synthesize pvPoint;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -89,7 +90,8 @@
     NSString *link= webAdrText.text;
     NSURL *new_url = [NSURL URLWithString:link];
     NSURLRequest *new_requestObj = [NSURLRequest requestWithURL:new_url];
-    [parent_View_Controller createWebNote:new_requestObj];
+    [parent_View_Controller createWebNote: pvPoint
+                                      URL: new_requestObj];
    [self.navigationController popViewControllerAnimated:YES ];
 }
 
