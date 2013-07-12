@@ -8,13 +8,13 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "eBookReader/NoteViewController.m"
-         timestampString = "395215831.83643"
+         timestampString = "395304666.570252"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "43"
-         endingLineNumber = "43"
-         landmarkName = "-viewDidLoad"
-         landmarkType = "5">
+         startingLineNumber = "44"
+         endingLineNumber = "44"
+         landmarkName = "@implementation NoteViewController"
+         landmarkType = "3">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -34,11 +34,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "eBookReader/NoteViewController.m"
-         timestampString = "395215831.83643"
+         timestampString = "395304666.570252"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "133"
-         endingLineNumber = "133">
+         startingLineNumber = "135"
+         endingLineNumber = "135">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -116,6 +116,19 @@
          startingLineNumber = "57"
          endingLineNumber = "57"
          landmarkName = "-initialPageView"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "eBookReader/ContentViewController.m"
+         timestampString = "395309535.692057"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "443"
+         endingLineNumber = "443"
+         landmarkName = "-createNote:NoteText:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

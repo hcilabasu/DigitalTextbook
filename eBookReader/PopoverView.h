@@ -117,6 +117,8 @@
 
 @property (nonatomic) CGPoint showPoint;
 
+@property (nonatomic) BOOL isNew;//check if the pop up view is created the first time.
+
 @property (nonatomic, STRONG)  ContentViewController *parent_View_Controller;
 
 @property (nonatomic, WEAK) id<PopoverViewDelegate> delegate;

@@ -65,7 +65,6 @@
 		56727D84171F290D00ACD92D /* noteTaking.png in Resources */ = {isa = PBXBuildFile; fileRef = 56727D83171F290D00ACD92D /* noteTaking.png */; };
 		56727D8A171F2B0300ACD92D /* take_note.png in Resources */ = {isa = PBXBuildFile; fileRef = 56727D89171F2B0300ACD92D /* take_note.png */; };
 		56727D8E171FD12B00ACD92D /* noteIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 56727D8D171FD12B00ACD92D /* noteIcon.png */; };
-		568DF8D41777B4D80063787B /* ThunbNailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 568DF8D31777B4D80063787B /* ThunbNailController.m */; };
 		56B1BDB3170031CB0056FEE3 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56B1BDB2170031CB0056FEE3 /* QuartzCore.framework */; };
 		56B1BDBD170107840056FEE3 /* navigation_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 56B1BDBC170107840056FEE3 /* navigation_bar.png */; };
 		56B7BB4B170CD4B100037E9E /* underline2.png in Resources */ = {isa = PBXBuildFile; fileRef = 56B7BB4A170CD4B100037E9E /* underline2.png */; };
@@ -82,6 +81,7 @@
 		56C69D561727BF74009419B3 /* Bio.epub in Resources */ = {isa = PBXBuildFile; fileRef = 56C69D551727BF74009419B3 /* Bio.epub */; };
 		56C69D571727BF87009419B3 /* Bio.epub in Resources */ = {isa = PBXBuildFile; fileRef = 56C69D551727BF74009419B3 /* Bio.epub */; };
 		56E31A30172D063D0066C55D /* Experiment.m in Sources */ = {isa = PBXBuildFile; fileRef = 56E31A2F172D063D0066C55D /* Experiment.m */; };
+		56F02EB6178FA29100C310F9 /* ThumbNailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56F02EB5178FA29100C310F9 /* ThumbNailController.m */; };
 		56FB60D917286999008C1F0B /* KnowledgeModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 56FB60D817286999008C1F0B /* KnowledgeModule.m */; };
 		56FB60DC17286AFA008C1F0B /* Concept.m in Sources */ = {isa = PBXBuildFile; fileRef = 56FB60DB17286AFA008C1F0B /* Concept.m */; };
 /* End PBXBuildFile section */
@@ -173,8 +173,6 @@
 		56727D83171F290D00ACD92D /* noteTaking.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noteTaking.png; sourceTree = "<group>"; };
 		56727D89171F2B0300ACD92D /* take_note.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = take_note.png; sourceTree = "<group>"; };
 		56727D8D171FD12B00ACD92D /* noteIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noteIcon.png; sourceTree = "<group>"; };
-		568DF8D21777B4D80063787B /* ThunbNailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThunbNailController.h; sourceTree = "<group>"; };
-		568DF8D31777B4D80063787B /* ThunbNailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThunbNailController.m; sourceTree = "<group>"; };
 		56B1BDB2170031CB0056FEE3 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		56B1BDBC170107840056FEE3 /* navigation_bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigation_bar.png; sourceTree = "<group>"; };
 		56B7BB4A170CD4B100037E9E /* underline2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = underline2.png; sourceTree = "<group>"; };
@@ -194,6 +192,8 @@
 		56C69D551727BF74009419B3 /* Bio.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = Bio.epub; sourceTree = "<group>"; };
 		56E31A2E172D063D0066C55D /* Experiment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Experiment.h; sourceTree = "<group>"; };
 		56E31A2F172D063D0066C55D /* Experiment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Experiment.m; sourceTree = "<group>"; };
+		56F02EB4178FA29100C310F9 /* ThumbNailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThumbNailController.h; sourceTree = "<group>"; };
+		56F02EB5178FA29100C310F9 /* ThumbNailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThumbNailController.m; sourceTree = "<group>"; };
 		56FB60D717286999008C1F0B /* KnowledgeModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KnowledgeModule.h; sourceTree = "<group>"; };
 		56FB60D817286999008C1F0B /* KnowledgeModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KnowledgeModule.m; sourceTree = "<group>"; };
 		56FB60DA17286AFA008C1F0B /* Concept.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Concept.h; sourceTree = "<group>"; };
@@ -451,8 +451,8 @@
 		568DF8D11777B4590063787B /* ThumbNailController */ = {
 			isa = PBXGroup;
 			children = (
-				568DF8D21777B4D80063787B /* ThunbNailController.h */,
-				568DF8D31777B4D80063787B /* ThunbNailController.m */,
+				56F02EB4178FA29100C310F9 /* ThumbNailController.h */,
+				56F02EB5178FA29100C310F9 /* ThumbNailController.m */,
 			);
 			name = ThumbNailController;
 			sourceTree = "<group>";
@@ -688,8 +688,8 @@
 				56FB60D917286999008C1F0B /* KnowledgeModule.m in Sources */,
 				56FB60DC17286AFA008C1F0B /* Concept.m in Sources */,
 				56E31A30172D063D0066C55D /* Experiment.m in Sources */,
-				568DF8D41777B4D80063787B /* ThunbNailController.m in Sources */,
 				5616F844178D46BC009E0FC6 /* HighlightContent.m in Sources */,
+				56F02EB6178FA29100C310F9 /* ThumbNailController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -16,6 +16,7 @@
 @synthesize oneFingerTap;
 @synthesize web_requestObj;
 @synthesize pvPoint;
+@synthesize iconPoint;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -31,7 +32,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     CGSize screenSize = [self screenSize];
-    [self.view setFrame:CGRectMake(screenSize.width-35, pvPoint.y-30, 25, 25)];
+    [self.view setFrame:CGRectMake(screenSize.width-35, iconPoint.y, 25, 25)];
     UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapped:)];
     [doubleTap setNumberOfTapsRequired:1];
     doubleTap.delegate=self;

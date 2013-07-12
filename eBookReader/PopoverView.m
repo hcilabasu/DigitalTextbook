@@ -24,6 +24,7 @@
 @synthesize parentViewController;
 @synthesize showPoint;
 @synthesize parent_View_Controller;
+@synthesize isNew;
 
 #pragma mark - Static Methods
 
@@ -119,6 +120,7 @@
         
         self.titleView = nil;
         self.contentView = nil;
+        isNew=YES;
         
         showDividerRects = kShowDividersBetweenViews;
     }
@@ -860,8 +862,9 @@
 {
     //create a note icon at the right side of the web view when the note pop up view dismisses
     if([viewType isEqualToString:@"NoteTaking"]){
-    
-      [parent_View_Controller createNote:showPoint NoteText:[noteText text]];
+        if(isNew){
+            [parent_View_Controller createNote:showPoint NoteText:[noteText text]];
+        }
         
     }
     [self removeFromSuperview];

@@ -31,6 +31,7 @@
 @synthesize fliteController;
 @synthesize slt;
 @synthesize knowledge_module;
+@synthesize thumbNailController;
 
 //initial methods for the open ears tts instance
 - (FliteController *)fliteController { if (fliteController == nil) {
@@ -78,7 +79,11 @@
     NSData *fileData    = [NSData dataWithContentsOfFile:filePath];
     NSString *jsString  = [[NSMutableString alloc] initWithData:fileData encoding:NSUTF8StringEncoding];
     [webView stringByEvaluatingJavaScriptFromString:jsString];
-    NSLog(@"Load Java script\n");
+    NSLog(@"Load Java script file.\n");
+    
+    thumbNailController= [[ThumbNailController alloc]
+                              initWithNibName:@"ThumbNailController" bundle:nil];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -334,9 +339,9 @@
 
 //calling the function in HighlightedString.js to highlight the text in yellow
 - (IBAction)markHighlightedStringInYellow : (id)sender {
-    int i=[webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().getRangeAt(0).endOffset"];
-    NSLog(@"Range: %d",i);
-    //[self highlightStringWithColor:@"#ffffcc"];
+    //int i=[webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().getRangeAt(0).endOffset"];
+    //NSLog(@"Range: %d",i);
+    [self highlightStringWithColor:@"#ffffcc"];
 }
 
 //calling the function in HighlightedString.js to highlight the text in green
@@ -416,6 +421,10 @@
                               initWithNibName:@"WebMarkController" bundle:nil];
     note.web_requestObj=urlrequest;
     note.pvPoint=show_at_point;
+    CGPoint newPos;
+    newPos.x=show_at_point.x;
+    newPos.y=[thumbNailController getIconPos:pvPoint];
+    note.iconPoint=newPos;
     [self addChildViewController:note];
     [self.view addSubview:note.view];
 }
@@ -428,8 +437,12 @@
                                initWithNibName:@"NoteView" bundle:nil];
     note.note_text= m_note_text;
     note.pvPoint=show_at_point;
-    note.parentController=self;
-    [note becomeFirstResponder];
+    CGPoint newPos;
+    newPos.x=show_at_point.x;
+    newPos.y=[thumbNailController getIconPos:pvPoint];
+    note.iconPoint=newPos;
+    //note.parentController=self;
+    //[note becomeFirstResponder];
     [self addChildViewController:note];
     [self.view addSubview: note.view ];
     

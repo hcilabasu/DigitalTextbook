@@ -20,5 +20,6 @@
 @property (strong, nonatomic) IBOutlet UIImageView *markImage;// web icon image
 @property (strong, nonatomic) UITapGestureRecognizer *oneFingerTap; //one finger tap recognizer
 @property (nonatomic) CGPoint pvPoint;//the point where the web icon should locate
+@property (nonatomic) CGPoint iconPoint;//where the thumbnail icon shows
 - (CGSize) screenSize;
 @end

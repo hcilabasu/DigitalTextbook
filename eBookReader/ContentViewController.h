@@ -15,6 +15,7 @@
 #import <Slt/Slt.h>
 #import <OpenEars/FliteController.h>
 #import "KnowledgeModule.h"
+#import "ThumbNailController.h"
 #import "PopoverView.h"
 #ifndef CONTENTVIEWCONTROLLER_H
 #define CONTENTVIEWCONTROLLER_H
@@ -43,7 +44,7 @@
 @property (strong, nonatomic) KnowledgeModule *knowledge_module;
 @property (strong, nonatomic) FliteController *fliteController;
 @property (strong, nonatomic) Slt *slt;
-
+@property (strong, nonatomic)  ThumbNailController *thumbNailController; //thumbnail controller which controls the thunbail icon position
 
 -(void)setingUpMenuItem;
 -(void)refresh;

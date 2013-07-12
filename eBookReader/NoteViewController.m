@@ -18,6 +18,7 @@
 @synthesize pvPoint;
 @synthesize note_text;
 @synthesize parentController;
+@synthesize iconPoint;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -32,7 +33,7 @@
     [super viewDidLoad];
     //set up the note view frame, size, icon image and gesture recognizer.
      CGSize screenSize = [self screenSize];
-    [self.view setFrame:CGRectMake(screenSize.width-35, pvPoint.y-30, 25, 25)];
+    [self.view setFrame:CGRectMake(screenSize.width-35, iconPoint.y, 25, 25)];
     UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapped:)];
     [doubleTap setNumberOfTapsRequired:1];
     doubleTap.delegate=self;
@@ -90,6 +91,7 @@
     noteTextClick.delegate=self;
     [pv.noteText setUserInteractionEnabled:YES];
     [pv.noteText addGestureRecognizer:noteTextClick];
+    pv.isNew=NO;
     
 }
 
