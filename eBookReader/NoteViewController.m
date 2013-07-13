@@ -81,6 +81,7 @@
                          withStringArray:popUpContent
                                 delegate:self];
     pv.showPoint=pvPoint;
+    pv.noteIcon=self;
     //set the popup note view uneditable when the user is viewing the note
     pv.noteText.editable=NO;
     pv.noteText.text=note_text;
@@ -101,5 +102,13 @@
     pv.noteText.editable=YES;
     [pv.noteText becomeFirstResponder];
 }
+
+//update the text when the note has been changed
+- (void)updateText:(NSString *)new_text 
+{
+    note_text=new_text;
+    
+}
+
 
 @end

@@ -430,7 +430,7 @@
 }
 
 
--(void)createNote : (CGPoint) show_at_point NoteText:(NSString*) m_note_text  {
+-(NoteViewController*)createNote : (CGPoint) show_at_point NoteText:(NSString*) m_note_text  {
     
     
     NoteViewController *note= [[NoteViewController alloc]
@@ -445,8 +445,14 @@
     //[note becomeFirstResponder];
     [self addChildViewController:note];
     [self.view addSubview: note.view ];
+    return note;
     
 }
+
+
+
+
+
 
 // check if the menu bar is showing
 - (IBAction)didHideEditMenu : (id)sender {

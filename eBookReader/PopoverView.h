@@ -60,6 +60,7 @@
 
 @class ContentViewController;
 @class PopoverView;
+@class NoteViewController;
 
 @protocol PopoverViewDelegate <NSObject>
 
@@ -122,6 +123,8 @@
 @property (nonatomic, STRONG)  ContentViewController *parent_View_Controller;
 
 @property (nonatomic, WEAK) id<PopoverViewDelegate> delegate;
+
+@property (nonatomic, STRONG) NoteViewController *noteIcon;//the thumbnail icon of the popup view in the content view controller
 
 #pragma mark - Class Static Showing Methods
 

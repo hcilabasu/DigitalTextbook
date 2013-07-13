@@ -20,6 +20,8 @@
 #ifndef CONTENTVIEWCONTROLLER_H
 #define CONTENTVIEWCONTROLLER_H
 
+@class NoteViewController;
+
 @class BookViewController;
 
 @interface ContentViewController : UIViewController< PopoverViewDelegate, UITableViewDataSource, UITableViewDelegate,UIGestureRecognizerDelegate>
@@ -49,7 +51,7 @@
 -(void)setingUpMenuItem;
 -(void)refresh;
 -(void)createWebNote : (CGPoint) show_at_point URL:(NSURLRequest*) urlrequest;
--(void)createNote : (CGPoint) show_at_point NoteText:(NSString*) m_note_text;
+-(NoteViewController*)createNote : (CGPoint) show_at_point NoteText:(NSString*) m_note_text;
 - (void)highlightStringWithColor:(NSString*)color;
 - (void)callJavaScriptMethod:(NSString*)method;
 @end

@@ -11,6 +11,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "NoteViewController.h"
 #import "ContentViewController.h"
+#import "NoteViewController.h"
 #pragma mark - Implementation
 
 @implementation PopoverView
@@ -25,6 +26,7 @@
 @synthesize showPoint;
 @synthesize parent_View_Controller;
 @synthesize isNew;
+@synthesize noteIcon;
 
 #pragma mark - Static Methods
 
@@ -863,9 +865,10 @@
     //create a note icon at the right side of the web view when the note pop up view dismisses
     if([viewType isEqualToString:@"NoteTaking"]){
         if(isNew){
-            [parent_View_Controller createNote:showPoint NoteText:[noteText text]];
+           noteIcon= [parent_View_Controller createNote:showPoint NoteText:[noteText text]];
+        }else{
+            [noteIcon updateText:[noteText text]];
         }
-        
     }
     [self removeFromSuperview];
     

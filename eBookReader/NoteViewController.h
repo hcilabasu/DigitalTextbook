@@ -22,4 +22,5 @@
 @property (nonatomic) CGPoint iconPoint;//where the thumbnail icon shows
 @property (strong, nonatomic) ContentViewController *parentController; //stores the reference of the parent view controller
 - (CGSize) screenSize;// function that returns the size of the screen, used to deteremine where the icon and the popup view is shown.
+- (void)updateText:(NSString *)new_text;
 @end
