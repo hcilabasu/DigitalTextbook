@@ -339,29 +339,33 @@
 
 //calling the function in HighlightedString.js to highlight the text in yellow
 - (IBAction)markHighlightedStringInYellow : (id)sender {
-    //int i=[webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().getRangeAt(0).endOffset"];
-    //NSLog(@"Range: %d",i);
     [self highlightStringWithColor:@"#ffffcc"];
+    [self logHighlightActivity:@"yellow"];
+
 }
 
 //calling the function in HighlightedString.js to highlight the text in green
 - (IBAction)markHighlightedStringInGreen : (id)sender {
     [self highlightStringWithColor:@"#C5FCD6"];
+    [self logHighlightActivity:@"green"];
 }
 
 //calling the function in HighlightedString.js to highlight the text in blue
 - (IBAction)markHighlightedStringInBlue : (id)sender {
    [self highlightStringWithColor:@"#C2E3FF"];
+    [self logHighlightActivity:@"blue"];
 }
 
 //calling the function in HighlightedString.js to highlight the text in purple
 - (IBAction)markHighlightedStringInPurple : (id)sender {
     [self highlightStringWithColor:@"#E8CDFA"];
+    [self logHighlightActivity:@"purple"];
 }
 
 //calling the function in HighlightedString.js to highlight the text in red
 - (IBAction)markHighlightedStringInRed : (id)sender {
     [self highlightStringWithColor:@"#FFBABA"];
+    [self logHighlightActivity:@"red"];
 }
 
 //calling the function in HighlightedString.js to underline the text
@@ -374,6 +378,17 @@
     [self callJavaScriptMethod:@"clearFormat"];
 }
 
+//log the highlight activity
+-(void)logHighlightActivity: (NSString*) colorString{
+    NSString* logString=@"Highlight text \"";
+    NSString *selection = [webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"];
+    logString= [logString stringByAppendingString:selection];
+    logString= [logString stringByAppendingString:@"\" into "];
+    logString= [logString stringByAppendingString:colorString];
+    logString= [logString stringByAppendingString:@". \n\n"];
+    [self writeToTextFile: logString logTimeStampOrNot: YES];
+    
+}
 
 //shows the popup view
 - (IBAction)popUp : (UITapGestureRecognizer *)tap {
@@ -431,8 +446,6 @@
 
 
 -(NoteViewController*)createNote : (CGPoint) show_at_point NoteText:(NSString*) m_note_text  {
-    
-    
     NoteViewController *note= [[NoteViewController alloc]
                                initWithNibName:@"NoteView" bundle:nil];
     note.note_text= m_note_text;
@@ -450,8 +463,65 @@
 }
 
 
+//Method writes a string to a text file
+-(void) writeToTextFile: (NSString*) textString logTimeStampOrNot: (BOOL) isLogTime{
+    
+    NSArray* nsDateArray = [[[NSDate dateWithTimeIntervalSinceNow:0]         description] componentsSeparatedByString:@" "];
+    // date
+    NSString* dateString = [nsDateArray objectAtIndex:0];
+    NSArray*  adate = [dateString componentsSeparatedByString:@"-"];
+    NSInteger ayear=[[adate objectAtIndex:0] integerValue];
+    NSInteger amon=[[adate objectAtIndex:1] integerValue];
+    NSInteger aday=[[adate objectAtIndex:2] integerValue];
+    // time
+    NSString* timeString = [nsDateArray objectAtIndex:1];
+    NSArray*  timeArray = [timeString componentsSeparatedByString:@":"];
+    NSInteger ahour=[[timeArray objectAtIndex:0] integerValue];
+    NSInteger amin=[[timeArray objectAtIndex:1] integerValue];
+    NSInteger asec=[[timeArray objectAtIndex:2] integerValue];
+    
+    //get the documents directory:
+    NSArray *paths = NSSearchPathForDirectoriesInDomains
+    (NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    //make a file name to write the data to using the documents directory:
+    NSString *fileName = [NSString stringWithFormat:@"%@/LogFile.txt",
+                          documentsDirectory];
+    NSFileHandle *handler = [NSFileHandle fileHandleForUpdatingAtPath: fileName];
+    //if the file doesn't exist, create a new file.
+    if(!handler){
+        NSString *newContent=@"create file!\n";
+        [newContent writeToFile:fileName
+                  atomically:NO
+                    encoding:NSStringEncodingConversionAllowLossy
+                       error:nil];
+    }
+    //if isLogTime is true, add the time stamp in front of the logString.
+    if(isLogTime){
+        NSString *timeString= [NSString stringWithFormat:@"Time Stamp: %d.%d.%d - %d:%d:%d     ",ayear, amon, aday,ahour,amin,asec];
+        textString=[timeString stringByAppendingString:textString];
+    }
+    [handler seekToEndOfFile];//append to the end of the file
+    [handler writeData: [textString dataUsingEncoding: NSUTF8StringEncoding]];
+    [handler closeFile];
+}
 
 
+//Method retrieves content from documents directory and
+-(NSString*) readContent{
+    //get the documents directory:
+    NSArray *paths = NSSearchPathForDirectoriesInDomains
+    (NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    
+    //make a file name to write the data to using the documents directory:
+    NSString *fileName = [NSString stringWithFormat:@"%@/LogFile.txt",
+                          documentsDirectory];
+    NSString *content = [[NSString alloc] initWithContentsOfFile:fileName
+                                                    usedEncoding:nil
+                                                           error:nil];
+    return content;
+}
 
 
 // check if the menu bar is showing

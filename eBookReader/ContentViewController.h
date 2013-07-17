@@ -48,10 +48,14 @@
 @property (strong, nonatomic) Slt *slt;
 @property (strong, nonatomic)  ThumbNailController *thumbNailController; //thumbnail controller which controls the thunbail icon position
 
+
 -(void)setingUpMenuItem;
 -(void)refresh;
 -(void)createWebNote : (CGPoint) show_at_point URL:(NSURLRequest*) urlrequest;
 -(NoteViewController*)createNote : (CGPoint) show_at_point NoteText:(NSString*) m_note_text;
 - (void)highlightStringWithColor:(NSString*)color;
 - (void)callJavaScriptMethod:(NSString*)method;
+-(void) writeToTextFile: (NSString*) textString logTimeStampOrNot: (BOOL) isLogTime;
+-(NSString*) readContent;
+-(void)logHighlightActivity: (NSString*) colorString;
 @end

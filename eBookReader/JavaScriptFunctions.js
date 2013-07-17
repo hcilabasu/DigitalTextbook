@@ -14,7 +14,7 @@ function getHighlightedString() {
 
 function removeSelection(){
     window.getSelection().removeAllRanges();
-    window.getSelection().empty();
+    window.getSelection().empty(); 
 }
 
 //use the document.execCommand method to edit the text.
@@ -23,12 +23,17 @@ function formatText(command, color_string) {
     if (!sel.isCollapsed) {
         var selRange = sel.getRangeAt(0);
         document.designMode = "on";
-        sel.removeAllRanges();
+        //sel.removeAllRanges();
         sel.addRange(selRange);
         document.execCommand(command, false, color_string);
-        sel.removeAllRanges();
+        //sel.removeAllRanges();
         document.designMode = "off";
     }
+}
+
+function removeRange(){
+    var selection = window.getSelection();
+    selection.removeAllRanges();
 }
 
 // mark selected text in different colors
@@ -53,3 +58,56 @@ function uiWebview_RemoveAllHighlights() {
     selectedText = "";
     uiWebview_RemoveAllHighlightsForElement(document.body);
 }
+
+
+function initListener() {
+    var node,
+    range,
+    offset,
+    clientX,
+    clientY;
+    document.addEventListener("DOMContentLoaded", function() {
+                              document.body.addEventListener("touchstart", function(event) {
+                                                             var selection = window.getSelection();
+                                                             selection.removeAllRanges();
+                                                            clientX = event.touches[0].clientX;
+                                                             clientY = event.touches[0].clientY;
+                                                             
+                                                             range = document.caretRangeFromPoint(clientX, clientY);
+                                                             node = range.startContainer;
+                                                             offset = range.startOffset;
+                                                             
+                                                             document.body.contentEditable = "true";
+                                                             event.preventDefault();
+                                                             });
+                              document.body.addEventListener("touchmove", function(event) {
+                                                             var selection = window.getSelection(),
+                                                             range = document.caretRangeFromPoint(event.touches[0].clientX, event.touches[0].clientY),
+                                                             newRange = document.createRange();
+                                                             
+                                                             if(clientY < event.touches[0].clientY) {
+                                                             newRange.setStart(node, offset);
+                                                             newRange.setEnd(range.startContainer, range.startOffset);
+                                                             }
+                                                             else {
+                                                             newRange.setStart(range.startContainer, range.startOffset);
+                                                             newRange.setEnd(node, offset);
+                                                             }
+                                                             
+                                                             selection.removeAllRanges();
+                                                             selection.addRange(newRange);
+                                                             
+                                                             event.preventDefault();
+                                                             });
+                              document.body.addEventListener("touchend", function(event) {
+                                                             document.body.contentEditable = "false";
+                                                             event.preventDefault();
+                                                             });
+                              });
+}
+
+
+
+
+
+
