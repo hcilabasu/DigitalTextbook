@@ -9,14 +9,12 @@
 #import <UIKit/UIKit.h>
 
 #import <QuartzCore/QuartzCore.h>
-
-//#import "iFlyMSC/IFlySynthesizerControl.h"
-
 #import <Slt/Slt.h>
 #import <OpenEars/FliteController.h>
 #import "KnowledgeModule.h"
 #import "ThumbNailController.h"
 #import "PopoverView.h"
+#import "LogFileController.h"
 #ifndef CONTENTVIEWCONTROLLER_H
 #define CONTENTVIEWCONTROLLER_H
 
@@ -46,8 +44,8 @@
 @property (strong, nonatomic) KnowledgeModule *knowledge_module;
 @property (strong, nonatomic) FliteController *fliteController;
 @property (strong, nonatomic) Slt *slt;
-@property (strong, nonatomic)  ThumbNailController *thumbNailController; //thumbnail controller which controls the thunbail icon position
-
+@property (strong, nonatomic) ThumbNailController *thumbNailController; //thumbnail controller which controls the thunbail icon position
+@property (strong, nonatomic) LogFileController* logFileController;
 
 -(void)setingUpMenuItem;
 -(void)refresh;
@@ -55,7 +53,4 @@
 -(NoteViewController*)createNote : (CGPoint) show_at_point NoteText:(NSString*) m_note_text;
 - (void)highlightStringWithColor:(NSString*)color;
 - (void)callJavaScriptMethod:(NSString*)method;
--(void) writeToTextFile: (NSString*) textString logTimeStampOrNot: (BOOL) isLogTime;
--(NSString*) readContent;
--(void)logHighlightActivity: (NSString*) colorString;
 @end

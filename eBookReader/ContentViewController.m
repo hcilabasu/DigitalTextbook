@@ -32,6 +32,7 @@
 @synthesize slt;
 @synthesize knowledge_module;
 @synthesize thumbNailController;
+@synthesize logFileController;
 
 //initial methods for the open ears tts instance
 - (FliteController *)fliteController { if (fliteController == nil) {
@@ -83,7 +84,8 @@
     
     thumbNailController= [[ThumbNailController alloc]
                               initWithNibName:@"ThumbNailController" bundle:nil];
-    
+    logFileController= [[LogFileController alloc]
+                          initWithNibName:@"LogFileController" bundle:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -340,32 +342,34 @@
 //calling the function in HighlightedString.js to highlight the text in yellow
 - (IBAction)markHighlightedStringInYellow : (id)sender {
     [self highlightStringWithColor:@"#ffffcc"];
-    [self logHighlightActivity:@"yellow"];
+    [logFileController logHighlightActivity:@"yellow" Text: [webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"]];
 
 }
 
 //calling the function in HighlightedString.js to highlight the text in green
 - (IBAction)markHighlightedStringInGreen : (id)sender {
     [self highlightStringWithColor:@"#C5FCD6"];
-    [self logHighlightActivity:@"green"];
+    [logFileController logHighlightActivity:@"green" Text: [webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"]];
+
 }
 
 //calling the function in HighlightedString.js to highlight the text in blue
 - (IBAction)markHighlightedStringInBlue : (id)sender {
    [self highlightStringWithColor:@"#C2E3FF"];
-    [self logHighlightActivity:@"blue"];
+    [logFileController logHighlightActivity:@"blue" Text: [webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"]];
+
 }
 
 //calling the function in HighlightedString.js to highlight the text in purple
 - (IBAction)markHighlightedStringInPurple : (id)sender {
     [self highlightStringWithColor:@"#E8CDFA"];
-    [self logHighlightActivity:@"purple"];
+    [logFileController logHighlightActivity:@"purple" Text: [webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"]];
 }
 
 //calling the function in HighlightedString.js to highlight the text in red
 - (IBAction)markHighlightedStringInRed : (id)sender {
     [self highlightStringWithColor:@"#FFBABA"];
-    [self logHighlightActivity:@"red"];
+    [logFileController logHighlightActivity:@"red" Text: [webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"]];
 }
 
 //calling the function in HighlightedString.js to underline the text
@@ -378,17 +382,7 @@
     [self callJavaScriptMethod:@"clearFormat"];
 }
 
-//log the highlight activity
--(void)logHighlightActivity: (NSString*) colorString{
-    NSString* logString=@"Highlight text \"";
-    NSString *selection = [webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"];
-    logString= [logString stringByAppendingString:selection];
-    logString= [logString stringByAppendingString:@"\" into "];
-    logString= [logString stringByAppendingString:colorString];
-    logString= [logString stringByAppendingString:@". \n\n"];
-    [self writeToTextFile: logString logTimeStampOrNot: YES];
-    
-}
+
 
 //shows the popup view
 - (IBAction)popUp : (UITapGestureRecognizer *)tap {
@@ -454,74 +448,15 @@
     newPos.x=show_at_point.x;
     newPos.y=[thumbNailController getIconPos:pvPoint];
     note.iconPoint=newPos;
-    //note.parentController=self;
-    //[note becomeFirstResponder];
     [self addChildViewController:note];
     [self.view addSubview: note.view ];
     return note;
-    
 }
 
 
-//Method writes a string to a text file
--(void) writeToTextFile: (NSString*) textString logTimeStampOrNot: (BOOL) isLogTime{
-    
-    NSArray* nsDateArray = [[[NSDate dateWithTimeIntervalSinceNow:0]         description] componentsSeparatedByString:@" "];
-    // date
-    NSString* dateString = [nsDateArray objectAtIndex:0];
-    NSArray*  adate = [dateString componentsSeparatedByString:@"-"];
-    NSInteger ayear=[[adate objectAtIndex:0] integerValue];
-    NSInteger amon=[[adate objectAtIndex:1] integerValue];
-    NSInteger aday=[[adate objectAtIndex:2] integerValue];
-    // time
-    NSString* timeString = [nsDateArray objectAtIndex:1];
-    NSArray*  timeArray = [timeString componentsSeparatedByString:@":"];
-    NSInteger ahour=[[timeArray objectAtIndex:0] integerValue];
-    NSInteger amin=[[timeArray objectAtIndex:1] integerValue];
-    NSInteger asec=[[timeArray objectAtIndex:2] integerValue];
-    
-    //get the documents directory:
-    NSArray *paths = NSSearchPathForDirectoriesInDomains
-    (NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    //make a file name to write the data to using the documents directory:
-    NSString *fileName = [NSString stringWithFormat:@"%@/LogFile.txt",
-                          documentsDirectory];
-    NSFileHandle *handler = [NSFileHandle fileHandleForUpdatingAtPath: fileName];
-    //if the file doesn't exist, create a new file.
-    if(!handler){
-        NSString *newContent=@"create file!\n";
-        [newContent writeToFile:fileName
-                  atomically:NO
-                    encoding:NSStringEncodingConversionAllowLossy
-                       error:nil];
-    }
-    //if isLogTime is true, add the time stamp in front of the logString.
-    if(isLogTime){
-        NSString *timeString= [NSString stringWithFormat:@"Time Stamp: %d.%d.%d - %d:%d:%d     ",ayear, amon, aday,ahour,amin,asec];
-        textString=[timeString stringByAppendingString:textString];
-    }
-    [handler seekToEndOfFile];//append to the end of the file
-    [handler writeData: [textString dataUsingEncoding: NSUTF8StringEncoding]];
-    [handler closeFile];
-}
 
 
-//Method retrieves content from documents directory and
--(NSString*) readContent{
-    //get the documents directory:
-    NSArray *paths = NSSearchPathForDirectoriesInDomains
-    (NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    
-    //make a file name to write the data to using the documents directory:
-    NSString *fileName = [NSString stringWithFormat:@"%@/LogFile.txt",
-                          documentsDirectory];
-    NSString *content = [[NSString alloc] initWithContentsOfFile:fileName
-                                                    usedEncoding:nil
-                                                           error:nil];
-    return content;
-}
+
 
 
 // check if the menu bar is showing

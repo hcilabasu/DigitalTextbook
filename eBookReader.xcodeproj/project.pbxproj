@@ -40,6 +40,7 @@
 		5615BAEC171A031C0002B275 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5615BAEB171A031C0002B275 /* CFNetwork.framework */; };
 		5615BAEE171A032B0002B275 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5615BAED171A032B0002B275 /* SystemConfiguration.framework */; };
 		5616F844178D46BC009E0FC6 /* HighlightContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5616F843178D46BC009E0FC6 /* HighlightContent.m */; };
+		5619B28517963287001E5BA0 /* LogFileController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5619B28417963287001E5BA0 /* LogFileController.m */; };
 		5623148016F9027C00B40047 /* ContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5623147E16F9027C00B40047 /* ContentViewController.m */; };
 		5623148116F9027C00B40047 /* ContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5623147F16F9027C00B40047 /* ContentViewController.xib */; };
 		5645250A170A5D09005E2D17 /* cover_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 56452509170A5D09005E2D17 /* cover_default.png */; };
@@ -146,6 +147,8 @@
 		5615BAED171A032B0002B275 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		5616F842178D46BC009E0FC6 /* HighlightContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighlightContent.h; sourceTree = "<group>"; };
 		5616F843178D46BC009E0FC6 /* HighlightContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HighlightContent.m; sourceTree = "<group>"; };
+		5619B28317963287001E5BA0 /* LogFileController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogFileController.h; sourceTree = "<group>"; };
+		5619B28417963287001E5BA0 /* LogFileController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogFileController.m; sourceTree = "<group>"; };
 		5623147D16F9027C00B40047 /* ContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentViewController.h; sourceTree = "<group>"; };
 		5623147E16F9027C00B40047 /* ContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContentViewController.m; sourceTree = "<group>"; };
 		5623147F16F9027C00B40047 /* ContentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContentViewController.xib; sourceTree = "<group>"; };
@@ -358,6 +361,7 @@
 		31A8258B16C2E13500F18C1D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				5619B28217963226001E5BA0 /* LogFile */,
 				5616F841178D4685009E0FC6 /* HighlightContent */,
 				568DF8D11777B4590063787B /* ThumbNailController */,
 				56FB60D2172868F2008C1F0B /* Library */,
@@ -429,6 +433,15 @@
 				5616F843178D46BC009E0FC6 /* HighlightContent.m */,
 			);
 			name = HighlightContent;
+			sourceTree = "<group>";
+		};
+		5619B28217963226001E5BA0 /* LogFile */ = {
+			isa = PBXGroup;
+			children = (
+				5619B28317963287001E5BA0 /* LogFileController.h */,
+				5619B28417963287001E5BA0 /* LogFileController.m */,
+			);
+			name = LogFile;
 			sourceTree = "<group>";
 		};
 		56520806170418E6003272B0 /* UIMenuItem+CXAImageSupport */ = {
@@ -690,6 +703,7 @@
 				56E31A30172D063D0066C55D /* Experiment.m in Sources */,
 				5616F844178D46BC009E0FC6 /* HighlightContent.m in Sources */,
 				56F02EB6178FA29100C310F9 /* ThumbNailController.m in Sources */,
+				5619B28517963287001E5BA0 /* LogFileController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
