@@ -342,34 +342,32 @@
 //calling the function in HighlightedString.js to highlight the text in yellow
 - (IBAction)markHighlightedStringInYellow : (id)sender {
     [self highlightStringWithColor:@"#ffffcc"];
-    [logFileController logHighlightActivity:@"yellow" Text: [webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"]];
+    [logFileController logHighlightActivity:@"yellow" Text: [webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"] PageNumber:pageNum];
 
 }
 
 //calling the function in HighlightedString.js to highlight the text in green
 - (IBAction)markHighlightedStringInGreen : (id)sender {
     [self highlightStringWithColor:@"#C5FCD6"];
-    [logFileController logHighlightActivity:@"green" Text: [webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"]];
-
+    [logFileController logHighlightActivity:@"green" Text: [webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"] PageNumber:pageNum];
 }
 
 //calling the function in HighlightedString.js to highlight the text in blue
 - (IBAction)markHighlightedStringInBlue : (id)sender {
    [self highlightStringWithColor:@"#C2E3FF"];
-    [logFileController logHighlightActivity:@"blue" Text: [webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"]];
-
+    [logFileController logHighlightActivity:@"blue" Text: [webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"] PageNumber:pageNum];
 }
 
 //calling the function in HighlightedString.js to highlight the text in purple
 - (IBAction)markHighlightedStringInPurple : (id)sender {
     [self highlightStringWithColor:@"#E8CDFA"];
-    [logFileController logHighlightActivity:@"purple" Text: [webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"]];
+    [logFileController logHighlightActivity:@"purple" Text: [webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"] PageNumber:pageNum];
 }
 
 //calling the function in HighlightedString.js to highlight the text in red
 - (IBAction)markHighlightedStringInRed : (id)sender {
     [self highlightStringWithColor:@"#FFBABA"];
-    [logFileController logHighlightActivity:@"red" Text: [webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"]];
+    [logFileController logHighlightActivity:@"red" Text: [webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"] PageNumber:pageNum];
 }
 
 //calling the function in HighlightedString.js to underline the text
@@ -381,7 +379,6 @@
 - (IBAction)removeFormat : (id)sender {
     [self callJavaScriptMethod:@"clearFormat"];
 }
-
 
 
 //shows the popup view
@@ -408,11 +405,9 @@
      //get the selected text
      NSString *selection = [webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"];
         [self.fliteController say:selection withVoice:self.slt];
-     
 }
 
 - (IBAction)takeNote : (id)sender {
-    
     NSArray *popUpContent=[NSArray arrayWithObjects:@"NoteTaking", nil];
     pv = [PopoverView showPopoverAtPoint:pvPoint
                                   inView:self.view
@@ -452,11 +447,6 @@
     [self.view addSubview: note.view ];
     return note;
 }
-
-
-
-
-
 
 
 // check if the menu bar is showing

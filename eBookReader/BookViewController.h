@@ -10,7 +10,7 @@
 #import "EbookImporter.h"
 #import "Book.h"
 #import "contentViewController.h"
-
+@class HighLightWrapper;
 @interface BookViewController : UIViewController
 <UIPageViewControllerDataSource>{
     EBookImporter *bookImporter;
@@ -27,6 +27,7 @@
 @property (strong, nonatomic) UIPageViewController *pageController;
 @property (strong, nonatomic) NSArray *pageContent;
 @property (strong, nonatomic) NSMutableArray *highlightTextArrayByIndex;
+@property (nonatomic, retain) HighLightWrapper *highLight;//highlight wrapper for the book.
 
 
 - (void) loadFirstPage;

@@ -13,5 +13,5 @@
 
 -(void) writeToTextFile: (NSString*) textString logTimeStampOrNot: (BOOL) isLogTime;
 -(NSString*) readContent;
--(void)logHighlightActivity: (NSString*) colorString Text: (NSString*) highlightText;
+-(void)logHighlightActivity: (NSString*) colorString Text: (NSString*) highlightText PageNumber: (int) pageNum;
 @end

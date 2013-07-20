@@ -77,11 +77,12 @@
     NSFileHandle *handler = [NSFileHandle fileHandleForUpdatingAtPath: fileName];
     //if the file doesn't exist, create a new file.
     if(!handler){
-        NSString *newContent=@"create file!\n";
+        NSString *newContent=@"Create File!\n\n";
         [newContent writeToFile:fileName
                      atomically:NO
                        encoding:NSStringEncodingConversionAllowLossy
                           error:nil];
+        handler = [NSFileHandle fileHandleForUpdatingAtPath: fileName];
     }
     //if isLogTime is true, add the time stamp in front of the logString.
     if(isLogTime){
@@ -94,8 +95,8 @@
 }
 
 
--(void)logHighlightActivity: (NSString*) colorString Text: (NSString*) highlightText{
-    NSString* logString=@"Highlight text \"";
+-(void)logHighlightActivity: (NSString*) colorString Text: (NSString*) highlightText PageNumber: (int) pageNum {
+    NSString* logString=[NSString stringWithFormat:@" Page:%d   Highlight text \"",pageNum];
     logString= [logString stringByAppendingString:highlightText];
     logString= [logString stringByAppendingString:@"\" into "];
     logString= [logString stringByAppendingString:colorString];

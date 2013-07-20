@@ -7,6 +7,11 @@
 //
 
 #import "AppDelegate.h"
+#import "HighlightParser.h"
+#import "HighLightWrapper.h"
+#import "HighLight.h"
+
+
 
 @implementation AppDelegate
 
@@ -31,7 +36,11 @@
         NSString *resourcePath = [[NSBundle mainBundle] pathForResource:@"Bio" ofType:@"epub"];
         [fileManager copyItemAtPath:resourcePath toPath:txtPath error:&error];
     }
-     
+    
+    // Override point for customization after app launch
+    
+    
+    
     return YES;
 }
 

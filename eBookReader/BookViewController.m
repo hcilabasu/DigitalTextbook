@@ -7,7 +7,10 @@
 //
 
 #import "BookViewController.h"
-
+#import "HighlightParser.h"
+#import "HighLightWrapper.h"
+#import "GDataXMLNode.h"
+#import "HighLight.h"
 
 @interface BookViewController () {
     NSUInteger _pageNum;
@@ -65,6 +68,20 @@
     [self addChildViewController:pageController];
     [[self view] addSubview:[pageController view]];
     [pageController didMoveToParentViewController:self];
+    
+    self.highLight = [HighlightParser loadHighlight];
+    NSLog(@"XML File Content:\n");
+    if (_highLight != nil) {
+        for (HighLight *player in _highLight.players) {
+            NSLog(@"Text: %@", player.text);
+            NSLog(@"Color: %@", player.color);
+            NSLog(@"Page: %d", player.page);
+            NSLog(@"Count: %d\n\n", player.searchCount);
+            
+        }
+    }
+    //[HighlightParser saveParty:self.HL_Wrapper];
+    
 }
 
 //creates pages and the content 
