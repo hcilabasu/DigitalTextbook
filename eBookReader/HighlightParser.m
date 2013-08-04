@@ -42,13 +42,17 @@
    // NSLog(@"%@", doc.rootElement);
    
     
-    HighLightWrapper *party = [[HighLightWrapper alloc] init];
-    NSArray *partyMembers = [doc.rootElement elementsForName:@"Player"];
+    HighLightWrapper *highlightWrapper = [[HighLightWrapper alloc] init];
+    NSArray *partyMembers = [doc.rootElement elementsForName:@"Highlight"];
     for (GDataXMLElement *partyMember in partyMembers) {
         NSString *text;
         NSString *color;
         int pageNum;
         int searchCount;
+        int startContainer;
+        int startOffset;
+        int endContainer;
+        int endOffset;
         
         // Name
         NSArray *names = [partyMember elementsForName:@"Text"];
@@ -80,10 +84,36 @@
 
         } else continue;
         
-        HighLight *player = [[HighLight alloc] initWithName:text pageNum:pageNum count:searchCount color:color];
-        [party.players addObject:player];
+        NSArray *startContainerArray = [partyMember elementsForName:@"StartContainer"];
+        if (startContainerArray.count > 0) {
+            GDataXMLElement *element_sc = (GDataXMLElement *) [startContainerArray objectAtIndex:0];
+            startContainer=element_sc.stringValue.intValue;
+        } else continue;
+        
+        
+        NSArray *startOffsetArray = [partyMember elementsForName:@"StartOffset"];
+        if (startOffsetArray.count > 0) {
+            GDataXMLElement *element_sf = (GDataXMLElement *) [startOffsetArray objectAtIndex:0];
+            startOffset=element_sf.stringValue.intValue;
+            
+        } else continue;
+        
+        NSArray *endContainerArray = [partyMember elementsForName:@"EndContainer"];
+        if (endContainerArray.count > 0) {
+            GDataXMLElement *element_ec = (GDataXMLElement *) [endContainerArray objectAtIndex:0];
+            endContainer=element_ec.stringValue.intValue;
+        } else continue;
+        
+        NSArray *endOffsetArray = [partyMember elementsForName:@"EndOffset"];
+        if (endOffsetArray.count > 0) {
+            GDataXMLElement *element_ef = (GDataXMLElement *) [endOffsetArray objectAtIndex:0];
+            endOffset=element_ef.stringValue.intValue;
+        } else continue;
+        
+        HighLight *player = [[HighLight alloc] initWithName:text pageNum:pageNum count:searchCount color:color startContainer:startContainer startOffset:startOffset endContainer:endContainer endOffset:endOffset];
+        [highlightWrapper.highLights addObject:player];
     }
-    return party;
+    return highlightWrapper;
     
 }
 
@@ -91,26 +121,53 @@
     
     GDataXMLElement * partyElement = [GDataXMLNode elementWithName:@"HLText"];
     
-    for(HighLight *player in highLight.players) {
+    for(HighLight *player in highLight.highLights) {
         GDataXMLElement * playerElement =
-        [GDataXMLNode elementWithName:@"Player"];
+        [GDataXMLNode elementWithName:@"Highlight"];
+        
         GDataXMLElement * nameElement =
         [GDataXMLNode elementWithName:@"Text" stringValue:player.text];
+        
         GDataXMLElement * colorElement =
         [GDataXMLNode elementWithName:@"Color" stringValue:player.color];
-
+        
         GDataXMLElement * levelElement =
         [GDataXMLNode elementWithName:@"Page" stringValue:
         [NSString stringWithFormat:@"%d", player.page]];
+        
         GDataXMLElement * classElement =
         [GDataXMLNode elementWithName:@"Count" stringValue:
         [NSString stringWithFormat:@"%d", player.searchCount]];
+        
+        GDataXMLElement * startContainerElement =
+        [GDataXMLNode elementWithName:@"StartContainer" stringValue:
+         [NSString stringWithFormat:@"%d", player.startContainer]];
+        
+        GDataXMLElement * startOffsetElement =
+        [GDataXMLNode elementWithName:@"StartOffset" stringValue:
+         [NSString stringWithFormat:@"%d", player.startOffset]];
+        
+        GDataXMLElement * endContainerElement =
+        [GDataXMLNode elementWithName:@"EndContainer" stringValue:
+         [NSString stringWithFormat:@"%d", player.endContainer]];
+        
+        GDataXMLElement * endOffsetElement =
+        [GDataXMLNode elementWithName:@"EndOffset" stringValue:
+         [NSString stringWithFormat:@"%d", player.endOffset]];
         
         [playerElement addChild:nameElement];
         [playerElement addChild:colorElement];
         [playerElement addChild:levelElement];
         [playerElement addChild:classElement];
+        [playerElement addChild:startContainerElement];
+        [playerElement addChild:startOffsetElement];
+        [playerElement addChild:endContainerElement];
+        [playerElement addChild:endOffsetElement];
+        
         [partyElement addChild:playerElement];
+        
+        
+        
     }
     
     GDataXMLDocument *document = [[GDataXMLDocument alloc]

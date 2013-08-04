@@ -19,10 +19,11 @@
 #define CONTENTVIEWCONTROLLER_H
 
 @class NoteViewController;
-
 @class BookViewController;
+@class HighLightWrapper;
+@class HighLight;
 
-@interface ContentViewController : UIViewController< PopoverViewDelegate, UITableViewDataSource, UITableViewDelegate,UIGestureRecognizerDelegate>
+@interface ContentViewController : UIViewController< PopoverViewDelegate, UITableViewDataSource, UITableViewDelegate,UIGestureRecognizerDelegate,UIWebViewDelegate>
 {
     PopoverView *pv; //popOver view
     CGPoint pvPoint;// position where pop over view shows
@@ -46,6 +47,9 @@
 @property (strong, nonatomic) Slt *slt;
 @property (strong, nonatomic) ThumbNailController *thumbNailController; //thumbnail controller which controls the thunbail icon position
 @property (strong, nonatomic) LogFileController* logFileController;
+@property (nonatomic, retain) HighLightWrapper *bookHighLight;//the highlight wrapper pased from the bookviewcontroller to control the highlight info in the book
+
+
 
 -(void)setingUpMenuItem;
 -(void)refresh;
@@ -53,4 +57,9 @@
 -(NoteViewController*)createNote : (CGPoint) show_at_point NoteText:(NSString*) m_note_text;
 - (void)highlightStringWithColor:(NSString*)color;
 - (void)callJavaScriptMethod:(NSString*)method;
+-(void)saveHighlightToXML:(NSString*)color_string;
+- (NSInteger)highlightAllOccurencesOfString:(NSString*)str;
+-(void)loadHghLight;
+-(BOOL)ifHighlightCollapse: (HighLight*) temp_highlight;
+
 @end

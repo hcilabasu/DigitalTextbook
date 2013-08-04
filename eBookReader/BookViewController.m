@@ -30,12 +30,15 @@
 @synthesize bookView;
 @synthesize pageController, pageContent;
 @synthesize highlightTextArrayByIndex;
+@synthesize highLight;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.highLight = [HighlightParser loadHighlight];
    
 }
+
 
 
 -(void)initialPageView{
@@ -68,26 +71,13 @@
     [self addChildViewController:pageController];
     [[self view] addSubview:[pageController view]];
     [pageController didMoveToParentViewController:self];
-    
-    self.highLight = [HighlightParser loadHighlight];
-    NSLog(@"XML File Content:\n");
-    if (_highLight != nil) {
-        for (HighLight *player in _highLight.players) {
-            NSLog(@"Text: %@", player.text);
-            NSLog(@"Color: %@", player.color);
-            NSLog(@"Page: %d", player.page);
-            NSLog(@"Count: %d\n\n", player.searchCount);
-            
-        }
-    }
-    //[HighlightParser saveParty:self.HL_Wrapper];
-    
+
 }
 
 //creates pages and the content 
 - (void) createContentPages
 {
-    highlightTextArrayByIndex= [[NSMutableArray alloc]init];
+   // highlightTextArrayByIndex= [[NSMutableArray alloc]init];
 
     int page_num = 0;
 
@@ -107,17 +97,11 @@
         //add the html content
         if(pageContents!=nil){
         contentString=[contentString stringByAppendingString:pageContents];
-                       }
+        }
         [pageStrings addObject: contentString ];
     }
     // add the html content to the pageContent array.
     pageContent = [[NSArray alloc] initWithArray:pageStrings];
-    for (int t = 0; t < page_num;  ++t)
-    {
-        NSString *test=@"test";
-        [highlightTextArrayByIndex addObject:test];
-    }
-
 }
 
 
@@ -136,7 +120,8 @@
     dataViewController.parent_BookViewController=self;
     dataViewController.pageNum=_pageNum+1;
     dataViewController.totalpageNum=_totalPageNum;
-     NSLog(@"Page: %d/%d", _pageNum,_totalPageNum);
+    dataViewController.bookHighLight=self.highLight;
+     NSLog(@"Page: %d/%d", _pageNum+1,_totalPageNum);
     dataViewController.dataObject =
     [self.pageContent objectAtIndex:index];
     // add the HTML content and the URL link.

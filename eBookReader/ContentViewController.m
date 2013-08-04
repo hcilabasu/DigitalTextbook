@@ -13,11 +13,14 @@
 #import "NoteViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "BookViewController.h"
-
+#import "HighlightParser.h"
+#import "HighLightWrapper.h"
+#import "GDataXMLNode.h"
+#import "HighLight.h"
 // for the "quick help" feature, we haven't decided what interaction we want to add after user clicks the button so we define this array to display some default word.
 #define kStringArray [NSArray arrayWithObjects:@"YES", @"NO",@"Wiki",@"Google", nil]
 #define H_CONTROL_ORIGIN CGPointMake(200, 300)
-
+ 
 
 @interface ContentViewController ()
 @end
@@ -33,6 +36,7 @@
 @synthesize knowledge_module;
 @synthesize thumbNailController;
 @synthesize logFileController;
+@synthesize bookHighLight;
 
 //initial methods for the open ears tts instance
 - (FliteController *)fliteController { if (fliteController == nil) {
@@ -48,6 +52,10 @@
 
 - (void)viewDidLoad
 {
+    
+    [super viewDidLoad];
+    [webView setDelegate:self];
+    
     //disable the bounce animation in the webview
     UIScrollView* sv = [webView scrollView];
     sv.pagingEnabled=YES;
@@ -70,7 +78,6 @@
     [webView addGestureRecognizer:doubleTap];
     //set up menu items, icons and methods
     [self setingUpMenuItem];
-    [super viewDidLoad];
 
     //specify the javascript file path
     NSString *filePath  = [[NSBundle mainBundle] pathForResource:@"JavaScriptFunctions" ofType:@"js" inDirectory:@""];
@@ -81,11 +88,13 @@
     NSString *jsString  = [[NSMutableString alloc] initWithData:fileData encoding:NSUTF8StringEncoding];
     [webView stringByEvaluatingJavaScriptFromString:jsString];
     NSLog(@"Load Java script file.\n");
-    
+   // [webView loadHTMLString:_dataObject baseURL:_url];
     thumbNailController= [[ThumbNailController alloc]
                               initWithNibName:@"ThumbNailController" bundle:nil];
     logFileController= [[LogFileController alloc]
                           initWithNibName:@"LogFileController" bundle:nil];
+    //load page highlights
+    [bookHighLight printAllHighlight];
 }
 
 - (void)didReceiveMemoryWarning
@@ -98,8 +107,23 @@
 {
     //display the HTMl content by refering to the URL link
     [super viewWillAppear:animated];
+    NSString *filePath  = [[NSBundle mainBundle] pathForResource:@"JavaScriptFunctions" ofType:@"js" inDirectory:@""];
+    if(filePath==nil){
+        NSLog(@"Javascript file path null!");
+    }
+    NSData *fileData    = [NSData dataWithContentsOfFile:filePath];
+    NSString *jsString  = [[NSMutableString alloc] initWithData:fileData encoding:NSUTF8StringEncoding];
+    [webView stringByEvaluatingJavaScriptFromString:jsString];
+    
     [webView loadHTMLString:_dataObject baseURL:_url];
     [self.currentPageLabel setText:[NSString stringWithFormat:@"%d/%d",pageNum, totalpageNum]];
+}
+
+//after the webview loads page, load highlight content
+-(void)webViewDidFinishLoad:(UIWebView *)m_webView{
+    [self loadHghLight];
+    NSString* htmlt=[webView stringByEvaluatingJavaScriptFromString:@"document.body.innerHTML"];
+   // NSLog(htmlt);
 }
 
 //refresh the book page
@@ -341,33 +365,34 @@
 
 //calling the function in HighlightedString.js to highlight the text in yellow
 - (IBAction)markHighlightedStringInYellow : (id)sender {
-    [self highlightStringWithColor:@"#ffffcc"];
-    [logFileController logHighlightActivity:@"yellow" Text: [webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"] PageNumber:pageNum];
-
+    
+    [self saveHighlightToXML:@"#ffffcc" ];
+    [self highlightStringWithColor:@"#FFFFCC"];
 }
 
 //calling the function in HighlightedString.js to highlight the text in green
 - (IBAction)markHighlightedStringInGreen : (id)sender {
+    [self saveHighlightToXML:@"#C5FCD6" ];
     [self highlightStringWithColor:@"#C5FCD6"];
-    [logFileController logHighlightActivity:@"green" Text: [webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"] PageNumber:pageNum];
 }
+
 
 //calling the function in HighlightedString.js to highlight the text in blue
 - (IBAction)markHighlightedStringInBlue : (id)sender {
-   [self highlightStringWithColor:@"#C2E3FF"];
-    [logFileController logHighlightActivity:@"blue" Text: [webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"] PageNumber:pageNum];
+    [self saveHighlightToXML:@"#C2E3FF"];
+      [self highlightStringWithColor:@"#C2E3FF"];
 }
 
 //calling the function in HighlightedString.js to highlight the text in purple
 - (IBAction)markHighlightedStringInPurple : (id)sender {
+    [self saveHighlightToXML:@"#E8CDFA"];
     [self highlightStringWithColor:@"#E8CDFA"];
-    [logFileController logHighlightActivity:@"purple" Text: [webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"] PageNumber:pageNum];
 }
 
 //calling the function in HighlightedString.js to highlight the text in red
 - (IBAction)markHighlightedStringInRed : (id)sender {
+    [self saveHighlightToXML:@"#FFBABA"];
     [self highlightStringWithColor:@"#FFBABA"];
-    [logFileController logHighlightActivity:@"red" Text: [webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"] PageNumber:pageNum];
 }
 
 //calling the function in HighlightedString.js to underline the text
@@ -383,7 +408,6 @@
 
 //shows the popup view
 - (IBAction)popUp : (UITapGestureRecognizer *)tap {
-    
     NSString *selection = [webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"];
     NSLog(@" %@",selection);
     NSString *definition=@"Textbook Definition: ";
@@ -398,6 +422,64 @@
                          withStringArray:popUpContent
                                 delegate:self];
 }
+
+
+-(void)saveHighlightToXML:(NSString*)color_string {
+    
+   NSString* htmlt=[webView stringByEvaluatingJavaScriptFromString:@"document.body.innerHTML"];
+   // NSLog(htmlt);
+    NSString* h_text=[webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"];
+    int s_Container=[[webView stringByEvaluatingJavaScriptFromString:@"myGetNodeCount(document.body,window.getSelection().getRangeAt(0).startContainer)"] intValue];
+    int e_Container= [[webView stringByEvaluatingJavaScriptFromString:@"myGetNodeCount(document.body,window.getSelection().getRangeAt(0).endContainer)"] intValue];
+    int s_offSet= [[webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().getRangeAt(0).startOffset"] intValue];
+    int e_offSet= [[webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().getRangeAt(0).endOffset"] intValue];
+    HighLight *temp_highlight = [[HighLight alloc] initWithName:h_text pageNum:pageNum count:1 color:color_string startContainer:s_Container startOffset:s_offSet endContainer:e_Container endOffset:e_offSet];
+    NSLog([webView stringByEvaluatingJavaScriptFromString:@"myGetNodeCount(document.body,window.getSelection().getRangeAt(0).startContainer)"] );
+    NSLog([webView stringByEvaluatingJavaScriptFromString:@"myGetNodeCount(document.body,window.getSelection().getRangeAt(0).endContainer)"]);
+    NSLog([webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().getRangeAt(0).startOffset"]);
+    NSLog([webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().getRangeAt(0).endOffset"]);
+    if([self ifHighlightCollapse:temp_highlight]){
+       // NSLog(@"End OFfset: %d",temp_highlight.endOffset);
+    }
+    [bookHighLight addHighlight:temp_highlight];
+[HighlightParser saveHighlight:bookHighLight];
+}
+
+-(BOOL)ifHighlightCollapse: (HighLight*) temp_highlight{
+    if (bookHighLight != nil) {
+        for (HighLight *highLightText in bookHighLight.highLights) {
+            if(highLightText.startContainer==temp_highlight.startContainer&& highLightText.endContainer==(temp_highlight.endContainer-1)&&highLightText.page==pageNum){
+                temp_highlight.endContainer--;
+                int temp=highLightText.startOffset;
+                highLightText.startOffset+=temp_highlight.endOffset;
+                temp_highlight.endOffset+=temp;
+                return YES;
+            }
+            
+            else if(highLightText.startContainer==(temp_highlight.startContainer-1)&& highLightText.endContainer==(temp_highlight.endContainer-2)&&highLightText.page==pageNum){
+                temp_highlight.startContainer++;
+                
+                int temp=highLightText.endOffset;
+                int temp_startOffset=temp_highlight.startOffset;
+                NSLog(@"temp startOffset: %d",temp);
+                 NSLog(@"temp Endoffset %d",temp_highlight.endOffset);
+                NSLog(@"origin startOffset: %d",highLightText.startOffset);
+                NSLog(@"origin Endoffset %d",highLightText.endOffset);
+                highLightText.endOffset=highLightText.startOffset+ temp_highlight.startOffset;
+                NSLog(@"origin endoffset after%d",highLightText.endOffset);
+                temp_highlight.startOffset=0;
+                temp_highlight.endOffset+=temp-highLightText.startOffset-temp_startOffset;
+                NSLog(@"after endoffset %d",temp_highlight.endOffset);
+
+                return YES;
+            }
+            
+            
+        }
+    }
+    return NO;
+}
+
 
 //use the tts engine to speak the selected text
 - (IBAction)speak : (id)sender {
@@ -446,6 +528,30 @@
     [self addChildViewController:note];
     [self.view addSubview: note.view ];
     return note;
+}
+
+
+
+- (NSInteger)highlightAllOccurencesOfString:(NSString*)str
+{    
+    NSString *startSearch = [NSString stringWithFormat:@"MyApp_HighlightAllOccurencesOfString('%@')",str];
+    [webView stringByEvaluatingJavaScriptFromString:startSearch];
+    
+    NSString *result = [webView stringByEvaluatingJavaScriptFromString:@"MyApp_SearchResultCount"];
+    return [result integerValue];
+}
+
+
+-(void)loadHghLight{
+    if (bookHighLight != nil) {
+        for (HighLight *highLightText in bookHighLight.highLights) {
+            if(pageNum== highLightText.page){
+                NSString *methodString=[NSString stringWithFormat:@"highlightRangeByOffset(document.body,%d,%d,%d,%d,'%@')",highLightText.startContainer,highLightText.startOffset,
+                                    highLightText.endContainer,highLightText.endOffset,highLightText.color];
+                [webView stringByEvaluatingJavaScriptFromString:methodString];            
+            }
+        }
+    }
 }
 
 

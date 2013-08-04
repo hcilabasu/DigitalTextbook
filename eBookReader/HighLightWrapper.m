@@ -7,21 +7,46 @@
 //
 
 #import "HighLightWrapper.h"
-
+#import "HighLight.h"
 @implementation HighLightWrapper
-@synthesize players = _players;
+@synthesize highLights = _highLights;
 
 - (id)init {
     
     if ((self = [super init])) {
-        self.players = [[NSMutableArray alloc] init];
+        self.highLights = [[NSMutableArray alloc] init];
     }
     return self;
     
 }
 
 - (void) dealloc {
-    self.players = nil;
+    self.highLights = nil;
 }
 
+
+-(void)addHighlight: (HighLight*)highlight{
+    [self.highLights addObject:highlight];
+}
+
+-(void)printAllHighlight{
+    NSLog(@"Print Highlight!\n");
+
+    int i=0;
+    for (HighLight *player in self.highLights) {
+        NSLog(@"No. %d",++i);
+        NSLog(@"Text: %@", player.text);
+        NSLog(@"Color: %@", player.color);
+        NSLog(@"Page: %d", player.page);
+        NSLog(@"Count: %d\n", player.searchCount);
+        NSLog(@"StartContainer: %d\n", player.startContainer);
+        NSLog(@"StartOffset: %d\n", player.startOffset);
+        NSLog(@"EndContainer: %d\n", player.endContainer);
+        NSLog(@"EndOffset: %d\n", player.endOffset);
+    }
+    if(0==i){
+        NSLog(@"Highlight array empty!\n");
+    }
+
+}
 @end

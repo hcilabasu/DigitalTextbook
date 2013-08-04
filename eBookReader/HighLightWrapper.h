@@ -7,11 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-
+@class HighLight;
 @interface HighLightWrapper : NSObject {
-    NSMutableArray *_players;
+    NSMutableArray *_highLights;
 }
 
-@property (nonatomic, retain) NSMutableArray *players;
-
+@property (nonatomic, retain) NSMutableArray *highLights;
+-(void)addHighlight: (HighLight*)highlight;
+-(void)printAllHighlight;
 @end
