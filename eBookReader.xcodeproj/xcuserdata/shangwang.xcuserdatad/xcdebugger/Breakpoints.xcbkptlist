@@ -149,11 +149,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "eBookReader/JavaScriptFunctions.js"
-         timestampString = "397042758.265837"
+         timestampString = "397370429.187376"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "230"
-         endingLineNumber = "230"
+         startingLineNumber = "232"
+         endingLineNumber = "232"
          landmarkName = "MyApp_HighlightAllOccurencesOfStringForElement"
          landmarkType = "7">
       </FileBreakpoint>
@@ -162,11 +162,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "eBookReader/JavaScriptFunctions.js"
-         timestampString = "397042758.265837"
+         timestampString = "397370429.187376"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "230"
-         endingLineNumber = "230"
+         startingLineNumber = "232"
+         endingLineNumber = "232"
          landmarkName = "MyApp_HighlightAllOccurencesOfStringForElement"
          landmarkType = "7">
       </FileBreakpoint>

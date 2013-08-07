@@ -49,8 +49,12 @@
     NSLog(@"imported all books");
     
     //set the background color to something that looks like a library.
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bookshelf_vertical"]];
-    
+    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+    if(orientation == UIInterfaceOrientationPortrait ||orientation== UIInterfaceOrientationPortraitUpsideDown){
+         self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bookshelf_vertical"]];
+    }else{
+        self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bookshelf_horizontal"]];
+    }
     //Setup the collection view information
     NSMutableArray *firstSection = [[NSMutableArray alloc] init];
     NSMutableArray *secondSection = [[NSMutableArray alloc] init];
@@ -110,18 +114,14 @@
 
 }
 
--(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-    if(fromInterfaceOrientation == UIInterfaceOrientationLandscapeLeft ||fromInterfaceOrientation== UIInterfaceOrientationLandscapeRight)
-        
+    if(toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft ||toInterfaceOrientation== UIInterfaceOrientationLandscapeRight)
     {
-        self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bookshelf_vertical"]];
-    }else{
         self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bookshelf_horizontal"]];
     }
-    
 }
-
 
 
 - (void)didReceiveMemoryWarning

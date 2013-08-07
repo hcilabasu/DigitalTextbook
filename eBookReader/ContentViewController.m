@@ -122,7 +122,7 @@
 //after the webview loads page, load highlight content
 -(void)webViewDidFinishLoad:(UIWebView *)m_webView{
     [self loadHghLight];
-    NSString* htmlt=[webView stringByEvaluatingJavaScriptFromString:@"document.body.innerHTML"];
+    //NSString* htmlt=[webView stringByEvaluatingJavaScriptFromString:@"document.body.innerHTML"];
    // NSLog(htmlt);
 }
 
@@ -374,6 +374,8 @@
 - (IBAction)markHighlightedStringInGreen : (id)sender {
     [self saveHighlightToXML:@"#C5FCD6" ];
     [self highlightStringWithColor:@"#C5FCD6"];
+    //NSString* htmlt=[webView stringByEvaluatingJavaScriptFromString:@"document.body.innerHTML"];
+    //NSLog(htmlt);
 }
 
 
@@ -425,27 +427,21 @@
 
 
 -(void)saveHighlightToXML:(NSString*)color_string {
-    
-   NSString* htmlt=[webView stringByEvaluatingJavaScriptFromString:@"document.body.innerHTML"];
-   // NSLog(htmlt);
     NSString* h_text=[webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"];
     int s_Container=[[webView stringByEvaluatingJavaScriptFromString:@"myGetNodeCount(document.body,window.getSelection().getRangeAt(0).startContainer)"] intValue];
     int e_Container= [[webView stringByEvaluatingJavaScriptFromString:@"myGetNodeCount(document.body,window.getSelection().getRangeAt(0).endContainer)"] intValue];
     int s_offSet= [[webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().getRangeAt(0).startOffset"] intValue];
     int e_offSet= [[webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().getRangeAt(0).endOffset"] intValue];
     HighLight *temp_highlight = [[HighLight alloc] initWithName:h_text pageNum:pageNum count:1 color:color_string startContainer:s_Container startOffset:s_offSet endContainer:e_Container endOffset:e_offSet];
-    NSLog([webView stringByEvaluatingJavaScriptFromString:@"myGetNodeCount(document.body,window.getSelection().getRangeAt(0).startContainer)"] );
-    NSLog([webView stringByEvaluatingJavaScriptFromString:@"myGetNodeCount(document.body,window.getSelection().getRangeAt(0).endContainer)"]);
-    NSLog([webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().getRangeAt(0).startOffset"]);
-    NSLog([webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().getRangeAt(0).endOffset"]);
-    if([self ifHighlightCollapse:temp_highlight]){
-       // NSLog(@"End OFfset: %d",temp_highlight.endOffset);
-    }
+    if([self ifHighlightCollapse:temp_highlight]!=-1){
     [bookHighLight addHighlight:temp_highlight];
-[HighlightParser saveHighlight:bookHighLight];
+    }
+    [HighlightParser saveHighlight:bookHighLight];
 }
 
--(BOOL)ifHighlightCollapse: (HighLight*) temp_highlight{
+
+//handle situations when two hihglights collapse with each other
+-(int)ifHighlightCollapse: (HighLight*) temp_highlight{
     if (bookHighLight != nil) {
         for (HighLight *highLightText in bookHighLight.highLights) {
             if(highLightText.startContainer==temp_highlight.startContainer&& highLightText.endContainer==(temp_highlight.endContainer-1)&&highLightText.page==pageNum){
@@ -453,7 +449,7 @@
                 int temp=highLightText.startOffset;
                 highLightText.startOffset+=temp_highlight.endOffset;
                 temp_highlight.endOffset+=temp;
-                return YES;
+                return 0;
             }
             
             else if(highLightText.startContainer==(temp_highlight.startContainer-1)&& highLightText.endContainer==(temp_highlight.endContainer-2)&&highLightText.page==pageNum){
@@ -461,23 +457,22 @@
                 
                 int temp=highLightText.endOffset;
                 int temp_startOffset=temp_highlight.startOffset;
-                NSLog(@"temp startOffset: %d",temp);
-                 NSLog(@"temp Endoffset %d",temp_highlight.endOffset);
-                NSLog(@"origin startOffset: %d",highLightText.startOffset);
-                NSLog(@"origin Endoffset %d",highLightText.endOffset);
                 highLightText.endOffset=highLightText.startOffset+ temp_highlight.startOffset;
-                NSLog(@"origin endoffset after%d",highLightText.endOffset);
                 temp_highlight.startOffset=0;
                 temp_highlight.endOffset+=temp-highLightText.startOffset-temp_startOffset;
-                NSLog(@"after endoffset %d",temp_highlight.endOffset);
-
-                return YES;
+                return 0;
             }
-            
-            
+        if (highLightText.startContainer==temp_highlight.startContainer&&highLightText.endContainer<temp_highlight.endContainer&&highLightText.page==pageNum) {
+            highLightText.text=temp_highlight.text;
+            highLightText.startOffset=temp_highlight.startOffset;
+            highLightText.endOffset+=temp_highlight.endOffset;
+            highLightText.color=temp_highlight.color;
+            temp_highlight=nil;
+                return -1;
+            }
         }
     }
-    return NO;
+    return 0;
 }
 
 

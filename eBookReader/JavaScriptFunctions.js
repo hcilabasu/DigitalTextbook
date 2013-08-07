@@ -136,12 +136,14 @@ function highlightRangeByOffset(element,startCount,startOffsetCound,endCount,end
 //    document.execCommand("HiliteColor", false, "#C2E3FF");
 //    document.designMode = "off";
     for (i = 0; i < nodes.length; i++)
-    { 
+    {
         var span = document.createElement("span");
         var text =  document.createTextNode(nodes[i].nodeValue.substr(newHighlightRange.startOffset,newHighlightRange.endOffset-newHighlightRange.startOffset));
         span.setAttribute("class","MyLoadHighlightClass");
-        
+        if(color!="#000000"){
+
         span.style.backgroundColor=color;
+        }
         span.appendChild(text);
         
         text1 = document.createTextNode(nodes[i].nodeValue.substr(0,newHighlightRange.startOffset));

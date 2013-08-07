@@ -60,6 +60,6 @@
 -(void)saveHighlightToXML:(NSString*)color_string;
 - (NSInteger)highlightAllOccurencesOfString:(NSString*)str;
 -(void)loadHghLight;
--(BOOL)ifHighlightCollapse: (HighLight*) temp_highlight;
+-(int)ifHighlightCollapse: (HighLight*) temp_highlight;
 
 @end
