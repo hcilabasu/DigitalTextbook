@@ -27,6 +27,7 @@
 @synthesize markPage;
 @synthesize parent_View_Controller;
 @synthesize pvPoint;
+@synthesize isNew;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -87,11 +88,10 @@
 
 //add a web page icon at the content view controller
 - (IBAction)addWebMark : (id)sender {
-    NSString *link= webAdrText.text;
-    NSURL *new_url = [NSURL URLWithString:link];
-    NSURLRequest *new_requestObj = [NSURLRequest requestWithURL:new_url];
+  //  if(isNew){
     [parent_View_Controller createWebNote: pvPoint
-                                      URL: new_requestObj];
+                                      URL: requestObj isWriteToFile:YES isNewIcon:YES];
+    //}
    [self.navigationController popViewControllerAnimated:YES ];
 }
 

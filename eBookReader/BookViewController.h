@@ -11,6 +11,7 @@
 #import "Book.h"
 #import "contentViewController.h"
 @class HighLightWrapper;
+@class ThumbNailIconWrapper;
 @interface BookViewController : UIViewController
 <UIPageViewControllerDataSource>{
     EBookImporter *bookImporter;
@@ -28,6 +29,7 @@
 @property (strong, nonatomic) NSArray *pageContent;
 @property (strong, nonatomic) NSMutableArray *highlightTextArrayByIndex;
 @property (nonatomic, retain) HighLightWrapper *highLight;//highlight wrapper for the book.
+@property (nonatomic, retain) ThumbNailIconWrapper *thumbnailIcon;//highlight wrapper for the book.
 
 
 - (void) loadFirstPage;

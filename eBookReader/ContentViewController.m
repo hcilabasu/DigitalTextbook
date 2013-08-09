@@ -17,6 +17,9 @@
 #import "HighLightWrapper.h"
 #import "GDataXMLNode.h"
 #import "HighLight.h"
+#import "ThumbNailIcon.h"
+#import "ThumbNailIconParser.h"
+#import "ThumbNailIconWrapper.h"
 // for the "quick help" feature, we haven't decided what interaction we want to add after user clicks the button so we define this array to display some default word.
 #define kStringArray [NSArray arrayWithObjects:@"YES", @"NO",@"Wiki",@"Google", nil]
 #define H_CONTROL_ORIGIN CGPointMake(200, 300)
@@ -37,6 +40,7 @@
 @synthesize thumbNailController;
 @synthesize logFileController;
 @synthesize bookHighLight;
+@synthesize bookthumbNailIcon;
 
 //initial methods for the open ears tts instance
 - (FliteController *)fliteController { if (fliteController == nil) {
@@ -94,7 +98,12 @@
     logFileController= [[LogFileController alloc]
                           initWithNibName:@"LogFileController" bundle:nil];
     //load page highlights
-    [bookHighLight printAllHighlight];
+    
+    [webView loadHTMLString:_dataObject baseURL:_url];
+    [self.currentPageLabel setText:[NSString stringWithFormat:@"%d/%d",pageNum, totalpageNum]];
+    [self loadThumbNailIcon];
+    NSLog(@"View Did Load!");
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -107,23 +116,13 @@
 {
     //display the HTMl content by refering to the URL link
     [super viewWillAppear:animated];
-    NSString *filePath  = [[NSBundle mainBundle] pathForResource:@"JavaScriptFunctions" ofType:@"js" inDirectory:@""];
-    if(filePath==nil){
-        NSLog(@"Javascript file path null!");
-    }
-    NSData *fileData    = [NSData dataWithContentsOfFile:filePath];
-    NSString *jsString  = [[NSMutableString alloc] initWithData:fileData encoding:NSUTF8StringEncoding];
-    [webView stringByEvaluatingJavaScriptFromString:jsString];
-    
-    [webView loadHTMLString:_dataObject baseURL:_url];
-    [self.currentPageLabel setText:[NSString stringWithFormat:@"%d/%d",pageNum, totalpageNum]];
+    NSLog(@"View Will Appear");
 }
+
 
 //after the webview loads page, load highlight content
 -(void)webViewDidFinishLoad:(UIWebView *)m_webView{
     [self loadHghLight];
-    //NSString* htmlt=[webView stringByEvaluatingJavaScriptFromString:@"document.body.innerHTML"];
-   // NSLog(htmlt);
 }
 
 //refresh the book page
@@ -291,6 +290,7 @@
         //create a new UIwebview to display the wiki page
         WebBrowserViewController *webBroser= [[WebBrowserViewController alloc]
                                               initWithNibName:@"WebBrowserViewController" bundle:nil];
+        webBroser.isNew=NO;
         webBroser.requestObj=requestObj;
         webBroser.parent_View_Controller=self;
         webBroser.pvPoint=pvPoint;
@@ -497,31 +497,46 @@
 }
 
 
--(void)createWebNote : (CGPoint) show_at_point URL:(NSURLRequest*) urlrequest  {
+-(void)createWebNote : (CGPoint) show_at_point URL:(NSURLRequest*) urlrequest isWriteToFile:(BOOL)iswrite isNewIcon: (BOOL)isNew  {
+    NSLog(@"Create Web Note");
+    
     WebMarkController *note= [[WebMarkController alloc]
                               initWithNibName:@"WebMarkController" bundle:nil];
     note.web_requestObj=urlrequest;
     note.pvPoint=show_at_point;
     CGPoint newPos;
     newPos.x=show_at_point.x;
-    newPos.y=[thumbNailController getIconPos:pvPoint];
+    newPos.y=[thumbNailController getIconPos:show_at_point];
     note.iconPoint=newPos;
     [self addChildViewController:note];
     [self.view addSubview:note.view];
+    NSString *urlString= [[urlrequest URL] absoluteString];
+    ThumbNailIcon *temp_thumbnail = [[ThumbNailIcon alloc] initWithName: 2 Text: @"" URL:urlString showPoint:show_at_point pageNum:pageNum];
+    if(iswrite){
+        [bookthumbNailIcon addthumbnail:temp_thumbnail];
+        [ThumbNailIconParser saveHighlight:bookthumbNailIcon];
+    }
+    
 }
 
 
--(NoteViewController*)createNote : (CGPoint) show_at_point NoteText:(NSString*) m_note_text  {
+-(NoteViewController*)createNote : (CGPoint) show_at_point NoteText:(NSString*) m_note_text isWriteToFile:(BOOL)iswrite  {
     NoteViewController *note= [[NoteViewController alloc]
                                initWithNibName:@"NoteView" bundle:nil];
     note.note_text= m_note_text;
     note.pvPoint=show_at_point;
     CGPoint newPos;
     newPos.x=show_at_point.x;
-    newPos.y=[thumbNailController getIconPos:pvPoint];
+    newPos.y=[thumbNailController getIconPos:show_at_point];
     note.iconPoint=newPos;
     [self addChildViewController:note];
     [self.view addSubview: note.view ];
+    
+    ThumbNailIcon *temp_thumbnail = [[ThumbNailIcon alloc] initWithName: 1 Text: m_note_text URL:@"" showPoint:show_at_point pageNum:pageNum];
+    if(iswrite){
+        [bookthumbNailIcon addthumbnail:temp_thumbnail];
+        [ThumbNailIconParser saveHighlight:bookthumbNailIcon];
+    }
     return note;
 }
 
@@ -546,6 +561,21 @@
                 [webView stringByEvaluatingJavaScriptFromString:methodString];            
             }
         }
+    }
+}
+
+-(void)loadThumbNailIcon{
+    if(bookthumbNailIcon!=nil){
+        for(ThumbNailIcon *thumbNailItem in bookthumbNailIcon.thumbnails){
+            if(thumbNailItem.page==pageNum){
+                if(1==thumbNailItem.type){
+                    [self createNote:thumbNailItem.showPoint NoteText:thumbNailItem.text isWriteToFile:NO];
+                }else if(2==thumbNailItem.type){
+                    [self createWebNote:thumbNailItem.showPoint URL:   [NSURLRequest requestWithURL:[NSURL URLWithString:thumbNailItem.url]] isWriteToFile:NO isNewIcon:YES ];
+                }
+            }
+        }   
+        
     }
 }
 

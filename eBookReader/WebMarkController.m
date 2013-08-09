@@ -83,6 +83,7 @@
 {
     WebBrowserViewController *webBroser= [[WebBrowserViewController alloc]
                                           initWithNibName:@"WebBrowserViewController" bundle:nil];
+    webBroser.isNew=NO;
     webBroser.requestObj=web_requestObj;
     [self.parentViewController.navigationController setNavigationBarHidden: NO animated:YES];
     self.navigationController.navigationBar.barStyle = UIBarStyleBlackOpaque;

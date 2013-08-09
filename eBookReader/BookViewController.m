@@ -11,7 +11,9 @@
 #import "HighLightWrapper.h"
 #import "GDataXMLNode.h"
 #import "HighLight.h"
-
+#import "ThumbNailIcon.h"
+#import "ThumbNailIconParser.h"
+#import "ThumbNailIconWrapper.h"
 @interface BookViewController () {
     NSUInteger _pageNum;
     NSUInteger _totalPageNum;
@@ -31,11 +33,13 @@
 @synthesize pageController, pageContent;
 @synthesize highlightTextArrayByIndex;
 @synthesize highLight;
+@synthesize thumbnailIcon;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.highLight = [HighlightParser loadHighlight];
+    highLight = [HighlightParser loadHighlight];
+    thumbnailIcon=[ThumbNailIconParser loadThumbnailIcon];
    
 }
 
@@ -120,7 +124,8 @@
     dataViewController.parent_BookViewController=self;
     dataViewController.pageNum=_pageNum+1;
     dataViewController.totalpageNum=_totalPageNum;
-    dataViewController.bookHighLight=self.highLight;
+    dataViewController.bookHighLight=highLight;
+    dataViewController.bookthumbNailIcon=thumbnailIcon;
      NSLog(@"Page: %d/%d", _pageNum+1,_totalPageNum);
     dataViewController.dataObject =
     [self.pageContent objectAtIndex:index];

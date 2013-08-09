@@ -60,6 +60,8 @@
 		565561B41798DAB800297BB8 /* HighLightWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 565561B31798DAB800297BB8 /* HighLightWrapper.m */; };
 		565561B71798DB1500297BB8 /* HighlightParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 565561B61798DB1500297BB8 /* HighlightParser.m */; };
 		565561BD1799074400297BB8 /* HLText.xml in Resources */ = {isa = PBXBuildFile; fileRef = 565561BC1799074400297BB8 /* HLText.xml */; };
+		565DA3F417B32F9C000DB171 /* ThumbNailIconWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 565DA3F317B32F9C000DB171 /* ThumbNailIconWrapper.m */; };
+		565DA3F717B33705000DB171 /* ThumbNailIconParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 565DA3F617B33705000DB171 /* ThumbNailIconParser.m */; };
 		566F09BF1721C15800412952 /* speak.png in Resources */ = {isa = PBXBuildFile; fileRef = 566F09BE1721C15800412952 /* speak.png */; };
 		566F09C11721C17400412952 /* question.png in Resources */ = {isa = PBXBuildFile; fileRef = 566F09C01721C17400412952 /* question.png */; };
 		566F09CE17220A2700412952 /* NoteView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 566F09CC17220A2700412952 /* NoteView.xib */; };
@@ -70,6 +72,7 @@
 		56727D84171F290D00ACD92D /* noteTaking.png in Resources */ = {isa = PBXBuildFile; fileRef = 56727D83171F290D00ACD92D /* noteTaking.png */; };
 		56727D8A171F2B0300ACD92D /* take_note.png in Resources */ = {isa = PBXBuildFile; fileRef = 56727D89171F2B0300ACD92D /* take_note.png */; };
 		56727D8E171FD12B00ACD92D /* noteIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 56727D8D171FD12B00ACD92D /* noteIcon.png */; };
+		567E5C4117B2234F0047F995 /* ThumbNailIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = 567E5C4017B2234F0047F995 /* ThumbNailIcon.m */; };
 		56B1BDB3170031CB0056FEE3 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56B1BDB2170031CB0056FEE3 /* QuartzCore.framework */; };
 		56B1BDBD170107840056FEE3 /* navigation_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 56B1BDBC170107840056FEE3 /* navigation_bar.png */; };
 		56B7BB4B170CD4B100037E9E /* underline2.png in Resources */ = {isa = PBXBuildFile; fileRef = 56B7BB4A170CD4B100037E9E /* underline2.png */; };
@@ -175,6 +178,10 @@
 		565561B51798DB1400297BB8 /* HighlightParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighlightParser.h; sourceTree = "<group>"; };
 		565561B61798DB1500297BB8 /* HighlightParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HighlightParser.m; sourceTree = "<group>"; };
 		565561BC1799074400297BB8 /* HLText.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = HLText.xml; sourceTree = "<group>"; };
+		565DA3F217B32F9C000DB171 /* ThumbNailIconWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThumbNailIconWrapper.h; sourceTree = "<group>"; };
+		565DA3F317B32F9C000DB171 /* ThumbNailIconWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThumbNailIconWrapper.m; sourceTree = "<group>"; };
+		565DA3F517B33705000DB171 /* ThumbNailIconParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThumbNailIconParser.h; sourceTree = "<group>"; };
+		565DA3F617B33705000DB171 /* ThumbNailIconParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThumbNailIconParser.m; sourceTree = "<group>"; };
 		566F09BE1721C15800412952 /* speak.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = speak.png; sourceTree = "<group>"; };
 		566F09C01721C17400412952 /* question.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = question.png; sourceTree = "<group>"; };
 		566F09CC17220A2700412952 /* NoteView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoteView.xib; sourceTree = "<group>"; };
@@ -187,6 +194,8 @@
 		56727D83171F290D00ACD92D /* noteTaking.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noteTaking.png; sourceTree = "<group>"; };
 		56727D89171F2B0300ACD92D /* take_note.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = take_note.png; sourceTree = "<group>"; };
 		56727D8D171FD12B00ACD92D /* noteIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noteIcon.png; sourceTree = "<group>"; };
+		567E5C3F17B2234F0047F995 /* ThumbNailIcon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThumbNailIcon.h; sourceTree = "<group>"; };
+		567E5C4017B2234F0047F995 /* ThumbNailIcon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThumbNailIcon.m; sourceTree = "<group>"; };
 		56B1BDB2170031CB0056FEE3 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		56B1BDBC170107840056FEE3 /* navigation_bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigation_bar.png; sourceTree = "<group>"; };
 		56B7BB4A170CD4B100037E9E /* underline2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = underline2.png; sourceTree = "<group>"; };
@@ -373,6 +382,7 @@
 		31A8258B16C2E13500F18C1D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				567E5C3E17B221AA0047F995 /* ThumbNailIcon */,
 				565561AE1798DA0100297BB8 /* HIghlight */,
 				5619B28217963226001E5BA0 /* LogFile */,
 				5616F841178D4685009E0FC6 /* HighlightContent */,
@@ -485,6 +495,19 @@
 				565561B61798DB1500297BB8 /* HighlightParser.m */,
 			);
 			name = HIghlight;
+			sourceTree = "<group>";
+		};
+		567E5C3E17B221AA0047F995 /* ThumbNailIcon */ = {
+			isa = PBXGroup;
+			children = (
+				567E5C3F17B2234F0047F995 /* ThumbNailIcon.h */,
+				567E5C4017B2234F0047F995 /* ThumbNailIcon.m */,
+				565DA3F217B32F9C000DB171 /* ThumbNailIconWrapper.h */,
+				565DA3F317B32F9C000DB171 /* ThumbNailIconWrapper.m */,
+				565DA3F517B33705000DB171 /* ThumbNailIconParser.h */,
+				565DA3F617B33705000DB171 /* ThumbNailIconParser.m */,
+			);
+			name = ThumbNailIcon;
 			sourceTree = "<group>";
 		};
 		568DF8D11777B4590063787B /* ThumbNailController */ = {
@@ -734,6 +757,9 @@
 				565561B11798DA5C00297BB8 /* HighLight.m in Sources */,
 				565561B41798DAB800297BB8 /* HighLightWrapper.m in Sources */,
 				565561B71798DB1500297BB8 /* HighlightParser.m in Sources */,
+				567E5C4117B2234F0047F995 /* ThumbNailIcon.m in Sources */,
+				565DA3F417B32F9C000DB171 /* ThumbNailIconWrapper.m in Sources */,
+				565DA3F717B33705000DB171 /* ThumbNailIconParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

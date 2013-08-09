@@ -865,7 +865,7 @@
     //create a note icon at the right side of the web view when the note pop up view dismisses
     if([viewType isEqualToString:@"NoteTaking"]){
         if(isNew){
-           noteIcon= [parent_View_Controller createNote:showPoint NoteText:[noteText text]];
+           noteIcon= [parent_View_Controller createNote:showPoint NoteText:[noteText text] isWriteToFile:YES];
         }else{
             [noteIcon updateText:[noteText text]];
         }

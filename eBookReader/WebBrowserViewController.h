@@ -33,6 +33,7 @@
 @property (strong, nonatomic) NSMutableArray *urlStack;//stack that stores the web url history
 @property (nonatomic) CGPoint pvPoint;//the point where the popup note is originally evoked
 @property  (nonatomic) int urlId;
+@property  (nonatomic) BOOL isNew;
 -(void)setParent_View:(ContentViewController *)view;
 @end
 

@@ -53,10 +53,10 @@
     // Dispose of any resources that can be recreated.
 }
 
-
 -(int) getIconPos: (CGPoint) m_showPoint{
+        
     int tempPos= (m_showPoint.y-25)/30;
-    NSLog(@"Tem Pos: %d\n",[iconArray count]);
+   // NSLog(@"Tem Pos: %d\n",tempPos);
     int pos=0;
     for(int i=tempPos; i<[iconArray count];i++){
         NSString *tempString=[iconArray objectAtIndex:i];
