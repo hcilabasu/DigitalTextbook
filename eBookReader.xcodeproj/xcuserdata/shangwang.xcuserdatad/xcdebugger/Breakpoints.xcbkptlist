@@ -175,12 +175,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "eBookReader/ThumbNailIcon.m"
-         timestampString = "397636850.332802"
+         timestampString = "397795571.278318"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "28"
-         endingLineNumber = "28"
-         landmarkName = "-initWithName:Text:URL:showPoint:pageNum:"
+         startingLineNumber = "29"
+         endingLineNumber = "29"
+         landmarkName = "-initWithName:Text:URL:showPoint:pageNum:bookTitle:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

@@ -121,6 +121,7 @@
     [[ContentViewController alloc]
      initWithNibName:@"ContentViewController"
      bundle:nil];
+    dataViewController.bookTitle=bookTitle;
     dataViewController.parent_BookViewController=self;
     dataViewController.pageNum=_pageNum+1;
     dataViewController.totalpageNum=_totalPageNum;

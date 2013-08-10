@@ -9,6 +9,7 @@
 
 
 @interface HighLight : NSObject {
+    NSString *_bookTitle;
     NSString *_text;
     NSString *_color;
     int _page;
@@ -20,6 +21,7 @@
     
 }
 
+@property (nonatomic, copy) NSString *bookTitle;
 @property (nonatomic, copy) NSString *text;
 @property (nonatomic, copy) NSString *color;
 @property (nonatomic, assign) int page;
@@ -30,6 +32,6 @@
 @property (nonatomic, assign) int endOffset;
 
 - (id)initWithName:(NSString *)text pageNum:(int)pageNum count:(int)searchCount color:(NSString*)color startContainer:(int)startContainer
-       startOffset:(int)startOffset endContainer:(int)endContainer endOffset: (int) endOffset;
+       startOffset:(int)startOffset endContainer:(int)endContainer endOffset: (int) endOffset bookTitle: (NSString*)booktitle;
 
 @end

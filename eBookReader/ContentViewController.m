@@ -41,6 +41,7 @@
 @synthesize logFileController;
 @synthesize bookHighLight;
 @synthesize bookthumbNailIcon;
+@synthesize bookTitle;
 
 //initial methods for the open ears tts instance
 - (FliteController *)fliteController { if (fliteController == nil) {
@@ -102,7 +103,6 @@
     [webView loadHTMLString:_dataObject baseURL:_url];
     [self.currentPageLabel setText:[NSString stringWithFormat:@"%d/%d",pageNum, totalpageNum]];
     [self loadThumbNailIcon];
-    NSLog(@"View Did Load!");
 
 }
 
@@ -432,7 +432,7 @@
     int e_Container= [[webView stringByEvaluatingJavaScriptFromString:@"myGetNodeCount(document.body,window.getSelection().getRangeAt(0).endContainer)"] intValue];
     int s_offSet= [[webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().getRangeAt(0).startOffset"] intValue];
     int e_offSet= [[webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().getRangeAt(0).endOffset"] intValue];
-    HighLight *temp_highlight = [[HighLight alloc] initWithName:h_text pageNum:pageNum count:1 color:color_string startContainer:s_Container startOffset:s_offSet endContainer:e_Container endOffset:e_offSet];
+    HighLight *temp_highlight = [[HighLight alloc] initWithName:h_text pageNum:pageNum count:1 color:color_string startContainer:s_Container startOffset:s_offSet endContainer:e_Container endOffset:e_offSet bookTitle:bookTitle];
     if([self ifHighlightCollapse:temp_highlight]!=-1){
     [bookHighLight addHighlight:temp_highlight];
     }
@@ -511,10 +511,10 @@
     [self addChildViewController:note];
     [self.view addSubview:note.view];
     NSString *urlString= [[urlrequest URL] absoluteString];
-    ThumbNailIcon *temp_thumbnail = [[ThumbNailIcon alloc] initWithName: 2 Text: @"" URL:urlString showPoint:show_at_point pageNum:pageNum];
+    ThumbNailIcon *temp_thumbnail = [[ThumbNailIcon alloc] initWithName: 2 Text: @"" URL:urlString showPoint:show_at_point pageNum:pageNum bookTitle:bookTitle];
     if(iswrite){
         [bookthumbNailIcon addthumbnail:temp_thumbnail];
-        [ThumbNailIconParser saveHighlight:bookthumbNailIcon];
+        [ThumbNailIconParser saveThumbnailIcon:bookthumbNailIcon];
     }
     
 }
@@ -532,10 +532,13 @@
     [self addChildViewController:note];
     [self.view addSubview: note.view ];
     
-    ThumbNailIcon *temp_thumbnail = [[ThumbNailIcon alloc] initWithName: 1 Text: m_note_text URL:@"" showPoint:show_at_point pageNum:pageNum];
+    ThumbNailIcon *temp_thumbnail = [[ThumbNailIcon alloc] initWithName: 1 Text: m_note_text URL:@"" showPoint:show_at_point pageNum:pageNum bookTitle:bookTitle];
     if(iswrite){
+         NSLog(@"True NOde");
         [bookthumbNailIcon addthumbnail:temp_thumbnail];
-        [ThumbNailIconParser saveHighlight:bookthumbNailIcon];
+        [bookthumbNailIcon printAllThumbnails];
+        
+        [ThumbNailIconParser saveThumbnailIcon:bookthumbNailIcon];
     }
     return note;
 }
@@ -555,7 +558,7 @@
 -(void)loadHghLight{
     if (bookHighLight != nil) {
         for (HighLight *highLightText in bookHighLight.highLights) {
-            if(pageNum== highLightText.page){
+            if(pageNum== highLightText.page && [bookTitle isEqualToString: highLightText.bookTitle]){
                 NSString *methodString=[NSString stringWithFormat:@"highlightRangeByOffset(document.body,%d,%d,%d,%d,'%@')",highLightText.startContainer,highLightText.startOffset,
                                     highLightText.endContainer,highLightText.endOffset,highLightText.color];
                 [webView stringByEvaluatingJavaScriptFromString:methodString];            
@@ -567,7 +570,7 @@
 -(void)loadThumbNailIcon{
     if(bookthumbNailIcon!=nil){
         for(ThumbNailIcon *thumbNailItem in bookthumbNailIcon.thumbnails){
-            if(thumbNailItem.page==pageNum){
+            if(thumbNailItem.page==pageNum && [bookTitle isEqualToString: thumbNailItem.bookTitle]){
                 if(1==thumbNailItem.type){
                     [self createNote:thumbNailItem.showPoint NoteText:thumbNailItem.text isWriteToFile:NO];
                 }else if(2==thumbNailItem.type){

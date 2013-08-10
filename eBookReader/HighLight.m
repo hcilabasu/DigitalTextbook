@@ -17,11 +17,14 @@
 @synthesize startOffset=_startOffset;
 @synthesize endContainer=_endContainer;
 @synthesize endOffset=_endOffset;
+@synthesize bookTitle=_bookTitle;
+
 
 - (id)initWithName:(NSString *)text pageNum:(int)pageNum count:(int)searchCount color:(NSString*)color startContainer:(int)startContainer
-startOffset:(int)startOffset endContainer:(int)endContainer endOffset: (int) endOffset
+startOffset:(int)startOffset endContainer:(int)endContainer endOffset: (int) endOffset bookTitle: (NSString*)booktitle
 {
     if ((self = [super init])) {
+        self.bookTitle=booktitle;
         self.text = text;
         self.page = pageNum;
         self.searchCount = searchCount;
@@ -32,10 +35,10 @@ startOffset:(int)startOffset endContainer:(int)endContainer endOffset: (int) end
         self.endOffset=endOffset;
     }
     return self;
-    
 }
 
 - (void) dealloc {
+    self.bookTitle=nil;
     self.text = nil;
     self.page=nil;
     self.searchCount=nil;

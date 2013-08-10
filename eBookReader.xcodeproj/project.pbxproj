@@ -59,7 +59,6 @@
 		565561B11798DA5C00297BB8 /* HighLight.m in Sources */ = {isa = PBXBuildFile; fileRef = 565561B01798DA5C00297BB8 /* HighLight.m */; };
 		565561B41798DAB800297BB8 /* HighLightWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 565561B31798DAB800297BB8 /* HighLightWrapper.m */; };
 		565561B71798DB1500297BB8 /* HighlightParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 565561B61798DB1500297BB8 /* HighlightParser.m */; };
-		565561BD1799074400297BB8 /* HLText.xml in Resources */ = {isa = PBXBuildFile; fileRef = 565561BC1799074400297BB8 /* HLText.xml */; };
 		565DA3F417B32F9C000DB171 /* ThumbNailIconWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 565DA3F317B32F9C000DB171 /* ThumbNailIconWrapper.m */; };
 		565DA3F717B33705000DB171 /* ThumbNailIconParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 565DA3F617B33705000DB171 /* ThumbNailIconParser.m */; };
 		566F09BF1721C15800412952 /* speak.png in Resources */ = {isa = PBXBuildFile; fileRef = 566F09BE1721C15800412952 /* speak.png */; };
@@ -177,7 +176,6 @@
 		565561B31798DAB800297BB8 /* HighLightWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HighLightWrapper.m; sourceTree = "<group>"; };
 		565561B51798DB1400297BB8 /* HighlightParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighlightParser.h; sourceTree = "<group>"; };
 		565561B61798DB1500297BB8 /* HighlightParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HighlightParser.m; sourceTree = "<group>"; };
-		565561BC1799074400297BB8 /* HLText.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = HLText.xml; sourceTree = "<group>"; };
 		565DA3F217B32F9C000DB171 /* ThumbNailIconWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThumbNailIconWrapper.h; sourceTree = "<group>"; };
 		565DA3F317B32F9C000DB171 /* ThumbNailIconWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThumbNailIconWrapper.m; sourceTree = "<group>"; };
 		565DA3F517B33705000DB171 /* ThumbNailIconParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThumbNailIconParser.h; sourceTree = "<group>"; };
@@ -345,7 +343,6 @@
 				3166DB6516B0A5300089C0F2 /* Default.png */,
 				3166DB6716B0A5300089C0F2 /* Default@2x.png */,
 				3166DB6916B0A5300089C0F2 /* Default-568h@2x.png */,
-				565561BC1799074400297BB8 /* HLText.xml */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -691,7 +688,6 @@
 				566F09CE17220A2700412952 /* NoteView.xib in Resources */,
 				56C69D4A1725D2AD009419B3 /* WebMarkController.xib in Resources */,
 				56C69D4C1725D40B009419B3 /* safari.png in Resources */,
-				565561BD1799074400297BB8 /* HLText.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

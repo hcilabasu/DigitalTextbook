@@ -28,7 +28,7 @@
 }
 
 + (HighLightWrapper *)loadHighlight {
-    
+        HighLightWrapper *highlightWrapper = [[HighLightWrapper alloc] init];
     NSString *filePath = [self dataFilePath:FALSE];
     NSData *xmlData = [[NSMutableData alloc] initWithContentsOfFile:filePath];
     NSError *error;
@@ -36,15 +36,11 @@
                                                            options:0 error:&error];
     if (doc == nil) {
         NSLog(@"Doc Nil!\n");
-        return nil;
+        return highlightWrapper;
     }
-    
-   // NSLog(@"%@", doc.rootElement);
-   
-    
-    HighLightWrapper *highlightWrapper = [[HighLightWrapper alloc] init];
     NSArray *partyMembers = [doc.rootElement elementsForName:@"Highlight"];
     for (GDataXMLElement *partyMember in partyMembers) {
+         NSString *bookTitle;
         NSString *text;
         NSString *color;
         int pageNum;
@@ -53,6 +49,13 @@
         int startOffset;
         int endContainer;
         int endOffset;
+        
+        NSArray *title = [partyMember elementsForName:@"BookTitle"];
+        if (title.count > 0) {
+            GDataXMLElement *firstTitle = (GDataXMLElement *) [title objectAtIndex:0];
+            bookTitle = firstTitle.stringValue;
+        } else continue;
+        
         
         // Name
         NSArray *names = [partyMember elementsForName:@"Text"];
@@ -110,7 +113,7 @@
             endOffset=element_ef.stringValue.intValue;
         } else continue;
         
-        HighLight *player = [[HighLight alloc] initWithName:text pageNum:pageNum count:searchCount color:color startContainer:startContainer startOffset:startOffset endContainer:endContainer endOffset:endOffset];
+        HighLight *player = [[HighLight alloc] initWithName:text pageNum:pageNum count:searchCount color:color startContainer:startContainer startOffset:startOffset endContainer:endContainer endOffset:endOffset bookTitle:bookTitle ];
         [highlightWrapper.highLights addObject:player];
     }
     return highlightWrapper;
@@ -122,8 +125,13 @@
     GDataXMLElement * partyElement = [GDataXMLNode elementWithName:@"HLText"];
     
     for(HighLight *player in highLight.highLights) {
+        
+        
         GDataXMLElement * playerElement =
         [GDataXMLNode elementWithName:@"Highlight"];
+        
+        GDataXMLElement * titleElement =
+        [GDataXMLNode elementWithName:@"BookTitle" stringValue:player.bookTitle];
         
         GDataXMLElement * nameElement =
         [GDataXMLNode elementWithName:@"Text" stringValue:player.text];
@@ -155,6 +163,7 @@
         [GDataXMLNode elementWithName:@"EndOffset" stringValue:
          [NSString stringWithFormat:@"%d", player.endOffset]];
         
+        [playerElement addChild:titleElement];
         [playerElement addChild:nameElement];
         [playerElement addChild:colorElement];
         [playerElement addChild:levelElement];

@@ -30,22 +30,26 @@
 
 
 + (ThumbNailIconWrapper *)loadThumbnailIcon {
-    
+    ThumbNailIconWrapper *thumbnailWrapper = [[ThumbNailIconWrapper alloc] init];
     NSString *filePath = [self dataFilePath:FALSE];
     NSData *xmlData = [[NSMutableData alloc] initWithContentsOfFile:filePath];
     NSError *error;
     GDataXMLDocument *doc = [[GDataXMLDocument alloc] initWithData:xmlData
                                                            options:0 error:&error];
     if (doc == nil) {
-        NSLog(@"Doc Nil!\n");
-        return nil;
+        NSLog(@"Thumbnail Doc Nil!\n");
+        return thumbnailWrapper;
     }
     
     // NSLog(@"%@", doc.rootElement);
-    
-    ThumbNailIconWrapper *thumbnailWrapper = [[ThumbNailIconWrapper alloc] init];
     NSArray *partyMembers = [doc.rootElement elementsForName:@"ThumbNailIcon"];
+    
+    if([partyMembers count]==0){
+        NSLog(@"Empty!!!!\n\n\n");
+    }
+    
     for (GDataXMLElement *partyMember in partyMembers) {
+        NSString *bookTitle;
         int type;
         NSString *text;
         NSString *url;
@@ -53,6 +57,12 @@
         CGPoint showPoint;
         CGFloat px;
         CGFloat py;
+        
+        NSArray *titles = [partyMember elementsForName:@"BookTitle"];
+        if (titles.count > 0) {
+            GDataXMLElement *firstTitle = (GDataXMLElement *) [titles objectAtIndex:0];
+            bookTitle = firstTitle.stringValue;
+        } else continue;
         
         
         NSArray *types = [partyMember elementsForName:@"Type"];
@@ -97,7 +107,7 @@
         
         showPoint=CGPointMake(px, py);
         
-        ThumbNailIcon *player = [[ThumbNailIcon alloc] initWithName: type Text:text URL:url showPoint:showPoint pageNum:page];
+        ThumbNailIcon *player = [[ThumbNailIcon alloc] initWithName: type Text:text URL:url showPoint:showPoint pageNum:page bookTitle:bookTitle];
         [thumbnailWrapper.thumbnails addObject:player];
     }
     return thumbnailWrapper;
@@ -106,20 +116,25 @@
 
 
 
-+ (void)saveHighlight:(ThumbNailIconWrapper *)wrapper {
++ (void)saveThumbnailIcon:(ThumbNailIconWrapper *)wrapper {
     
     GDataXMLElement * partyElement = [GDataXMLNode elementWithName:@"ThumbNailIconList"];
+    if([wrapper.thumbnails count]==0){
+        NSLog(@"0000000!!");
+    }
     
     for(ThumbNailIcon *thumbNailItem in wrapper.thumbnails) {
         
+        GDataXMLElement * itemElement =
+        [GDataXMLNode elementWithName:@"ThumbNailIcon"];
+        
+        
+        GDataXMLElement * titleElement =
+        [GDataXMLNode elementWithName:@"BookTitle" stringValue:thumbNailItem.bookTitle];
         
         GDataXMLElement * typeElement =
         [GDataXMLNode elementWithName:@"Type" stringValue:
          [NSString stringWithFormat:@"%d", thumbNailItem.type]];
-        
-        
-        GDataXMLElement * itemElement =
-        [GDataXMLNode elementWithName:@"ThumbNailIcon"];
         
         GDataXMLElement * textElement =
         [GDataXMLNode elementWithName:@"Text" stringValue:thumbNailItem.text];
@@ -139,6 +154,7 @@
         [GDataXMLNode elementWithName:@"PointY" stringValue:
          [NSString stringWithFormat:@"%f", thumbNailItem.showPoint.y]];
 
+        [itemElement addChild:titleElement];
         [itemElement addChild:typeElement];
         [itemElement addChild:textElement];
         [itemElement addChild:urlElement];
@@ -146,6 +162,7 @@
         [itemElement addChild:pointXElement];
         [itemElement addChild:pointYElement];
         [partyElement addChild:itemElement];
+        NSLog(@"Add element");
         
     }
     

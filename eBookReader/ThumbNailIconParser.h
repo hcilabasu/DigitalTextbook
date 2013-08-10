@@ -11,6 +11,6 @@
 
 @interface ThumbNailIconParser : NSObject
 + (ThumbNailIconWrapper *)loadThumbnailIcon;
-+ (void)saveHighlight:(ThumbNailIconWrapper *)ThumbnailIcon;
++ (void)saveThumbnailIcon:(ThumbNailIconWrapper *)ThumbnailIcon;
 
 @end

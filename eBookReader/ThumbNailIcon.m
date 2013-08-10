@@ -15,13 +15,14 @@
 @synthesize url;
 @synthesize page;
 @synthesize showPoint;
+@synthesize bookTitle;
 
 
 
-
-- (id)initWithName:(int)m_type Text: (NSString *)m_text URL: (NSString*)m_url showPoint:(CGPoint)m_showPoint pageNum:(int)m_page
+- (id)initWithName:(int)m_type Text: (NSString *)m_text URL: (NSString*)m_url showPoint:(CGPoint)m_showPoint pageNum:(int)m_page bookTitle: (NSString*)m_bookTitle
 {
     if ((self = [super init])) {
+        bookTitle=m_bookTitle;
         type=m_type;
         text=m_text;
         url=m_url;

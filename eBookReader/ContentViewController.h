@@ -33,7 +33,7 @@
 }
 #endif
 
-
+@property (strong, nonatomic) NSString *bookTitle;
 @property (strong, nonatomic) IBOutlet UIWebView *webView; // the webview which displays the content
 @property (strong, nonatomic) id dataObject;// sotres the HTML data
 @property (strong, nonatomic) id url; //the URL link to display HTML content
