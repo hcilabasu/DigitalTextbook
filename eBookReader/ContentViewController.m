@@ -20,6 +20,7 @@
 #import "ThumbNailIcon.h"
 #import "ThumbNailIconParser.h"
 #import "ThumbNailIconWrapper.h"
+#import "LSHorizontalScrollTabViewDemoViewController.h"
 // for the "quick help" feature, we haven't decided what interaction we want to add after user clicks the button so we define this array to display some default word.
 #define kStringArray [NSArray arrayWithObjects:@"YES", @"NO",@"Wiki",@"Google", nil]
 #define H_CONTROL_ORIGIN CGPointMake(200, 300)
@@ -110,13 +111,6 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    //display the HTMl content by refering to the URL link
-    [super viewWillAppear:animated];
-    NSLog(@"View Will Appear");
 }
 
 
@@ -279,6 +273,8 @@
     // Show a success image, with the string from the array
     if(0==index){
         [popoverView showImage:[UIImage imageNamed:@"success"] withMessage:string];
+        LSHorizontalScrollTabViewDemoViewController *tabView=[[LSHorizontalScrollTabViewDemoViewController alloc] initWithNibName:@"LSHorizontalScrollTabViewDemoViewController" bundle:nil];
+        [self.navigationController pushViewController:tabView animated:YES];
     }else if(1==index){
         [popoverView showImage:[UIImage imageNamed:@"error"] withMessage:string];
     }else if(2==index){
@@ -290,7 +286,7 @@
         //create a new UIwebview to display the wiki page
         WebBrowserViewController *webBroser= [[WebBrowserViewController alloc]
                                               initWithNibName:@"WebBrowserViewController" bundle:nil];
-        webBroser.isNew=NO;
+        webBroser.isNew=YES;
         webBroser.requestObj=requestObj;
         webBroser.parent_View_Controller=self;
         webBroser.pvPoint=pvPoint;
@@ -404,7 +400,10 @@
 
 //calling the function in HighlightedString.js to remove all the format
 - (IBAction)removeFormat : (id)sender {
-    [self callJavaScriptMethod:@"clearFormat"];
+     
+//    LSHorizontalScrollTabViewDemoViewController *tabView=[[LSHorizontalScrollTabViewDemoViewController alloc] initWithNibName:@"LSHorizontalScrollTabViewDemoViewController" bundle:nil];
+//    [self.navigationController pushViewController:tabView animated:YES];
+    //[self callJavaScriptMethod:@"clearFormat"];
 }
 
 

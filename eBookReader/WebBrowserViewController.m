@@ -88,10 +88,12 @@
 
 //add a web page icon at the content view controller
 - (IBAction)addWebMark : (id)sender {
-  //  if(isNew){
+    if(isNew){
     [parent_View_Controller createWebNote: pvPoint
                                       URL: requestObj isWriteToFile:YES isNewIcon:YES];
-    //}
+    }else{
+        NSLog(@"return to book page!");
+    }
    [self.navigationController popViewControllerAnimated:YES ];
 }
 

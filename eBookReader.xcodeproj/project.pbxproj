@@ -44,6 +44,11 @@
 		5623148016F9027C00B40047 /* ContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5623147E16F9027C00B40047 /* ContentViewController.m */; };
 		5623148116F9027C00B40047 /* ContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5623147F16F9027C00B40047 /* ContentViewController.xib */; };
 		5645250A170A5D09005E2D17 /* cover_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 56452509170A5D09005E2D17 /* cover_default.png */; };
+		56465CD217B8813C00EE38FC /* controlUpBarBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 56465CD117B8813C00EE38FC /* controlUpBarBG.png */; };
+		56465CD717B8AF8300EE38FC /* TabNormal_skyBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = 56465CD317B8AF8200EE38FC /* TabNormal_skyBlue.png */; };
+		56465CD817B8AF8300EE38FC /* TabNormal_green.png in Resources */ = {isa = PBXBuildFile; fileRef = 56465CD417B8AF8200EE38FC /* TabNormal_green.png */; };
+		56465CD917B8AF8300EE38FC /* TabNormal_purple.png in Resources */ = {isa = PBXBuildFile; fileRef = 56465CD517B8AF8300EE38FC /* TabNormal_purple.png */; };
+		56465CDA17B8AF8300EE38FC /* TabNormal_red.png in Resources */ = {isa = PBXBuildFile; fileRef = 56465CD617B8AF8300EE38FC /* TabNormal_red.png */; };
 		564C424D17060E0400B320EF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56B1BDB2170031CB0056FEE3 /* QuartzCore.framework */; };
 		564C425517064A7000B320EF /* highlight_green.png in Resources */ = {isa = PBXBuildFile; fileRef = 564C425417064A7000B320EF /* highlight_green.png */; };
 		564C425717064D7800B320EF /* highlight_yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 564C425617064D7800B320EF /* highlight_yellow.png */; };
@@ -65,6 +70,36 @@
 		566F09C11721C17400412952 /* question.png in Resources */ = {isa = PBXBuildFile; fileRef = 566F09C01721C17400412952 /* question.png */; };
 		566F09CE17220A2700412952 /* NoteView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 566F09CC17220A2700412952 /* NoteView.xib */; };
 		566F09D117220B6F00412952 /* NoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 566F09D017220B6F00412952 /* NoteViewController.m */; };
+		56711DEF17B77005001B4585 /* LSTintedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 56711DEE17B77005001B4585 /* LSTintedButton.m */; };
+		56711DF317B77010001B4585 /* LSTabControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 56711DF117B77010001B4585 /* LSTabControl.m */; };
+		56711DFC17B7701B001B4585 /* LSTabItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 56711DF517B7701B001B4585 /* LSTabItem.m */; };
+		56711DFD17B7701B001B4585 /* LSTabBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 56711DF717B7701B001B4585 /* LSTabBarView.m */; };
+		56711DFE17B7701B001B4585 /* LSScrollTabBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 56711DFA17B7701B001B4585 /* LSScrollTabBarView.m */; };
+		56711E0217B7704B001B4585 /* HorizontalTabControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 56711E0117B7704B001B4585 /* HorizontalTabControl.m */; };
+		56711E0617B77057001B4585 /* LSHorizontalScrollTabViewDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56711E0417B77057001B4585 /* LSHorizontalScrollTabViewDemoViewController.m */; };
+		56711E0717B77057001B4585 /* LSHorizontalScrollTabView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56711E0517B77057001B4585 /* LSHorizontalScrollTabView.xib */; };
+		56711E0C17B77075001B4585 /* controlpanel_view_background@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 56711E0817B77075001B4585 /* controlpanel_view_background@2x~ipad.png */; };
+		56711E0D17B77075001B4585 /* scrolltabs_horizontal_border.png in Resources */ = {isa = PBXBuildFile; fileRef = 56711E0917B77075001B4585 /* scrolltabs_horizontal_border.png */; };
+		56711E0E17B77075001B4585 /* TabNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 56711E0A17B77075001B4585 /* TabNormal.png */; };
+		56711E0F17B77075001B4585 /* TabSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 56711E0B17B77075001B4585 /* TabSelected.png */; };
+		56711E1B17B770B1001B4585 /* BadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 56711E1217B770B1001B4585 /* BadgeView.m */; };
+		56711E1C17B770B1001B4585 /* ColorPickerBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 56711E1417B770B1001B4585 /* ColorPickerBackgroundView.m */; };
+		56711E1D17B770B1001B4585 /* DrawingUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 56711E1617B770B1001B4585 /* DrawingUtilities.m */; };
+		56711E1E17B770B1001B4585 /* UIImage+shortcuts.m in Sources */ = {isa = PBXBuildFile; fileRef = 56711E1817B770B1001B4585 /* UIImage+shortcuts.m */; };
+		56711E1F17B770B1001B4585 /* UIView+Addictions.m in Sources */ = {isa = PBXBuildFile; fileRef = 56711E1A17B770B1001B4585 /* UIView+Addictions.m */; };
+		56711E2117B7755A001B4585 /* LSHorizontalScrollTabViewDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56711E0417B77057001B4585 /* LSHorizontalScrollTabViewDemoViewController.m */; };
+		56711E2217B77579001B4585 /* HorizontalTabControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 56711E0117B7704B001B4585 /* HorizontalTabControl.m */; };
+		56711E2317B7758F001B4585 /* LSTabControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 56711DF117B77010001B4585 /* LSTabControl.m */; };
+		56711E2417B7758F001B4585 /* LSTabItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 56711DF517B7701B001B4585 /* LSTabItem.m */; };
+		56711E2517B7758F001B4585 /* LSTabBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 56711DF717B7701B001B4585 /* LSTabBarView.m */; };
+		56711E2617B7758F001B4585 /* LSScrollTabBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 56711DFA17B7701B001B4585 /* LSScrollTabBarView.m */; };
+		56711E2717B7759A001B4585 /* BadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 56711E1217B770B1001B4585 /* BadgeView.m */; };
+		56711E2817B7759A001B4585 /* ColorPickerBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 56711E1417B770B1001B4585 /* ColorPickerBackgroundView.m */; };
+		56711E2917B7759A001B4585 /* DrawingUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 56711E1617B770B1001B4585 /* DrawingUtilities.m */; };
+		56711E2A17B7759A001B4585 /* UIImage+shortcuts.m in Sources */ = {isa = PBXBuildFile; fileRef = 56711E1817B770B1001B4585 /* UIImage+shortcuts.m */; };
+		56711E2B17B7759A001B4585 /* UIView+Addictions.m in Sources */ = {isa = PBXBuildFile; fileRef = 56711E1A17B770B1001B4585 /* UIView+Addictions.m */; };
+		56711E2C17B776A2001B4585 /* LSHorizontalScrollTabView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56711E0517B77057001B4585 /* LSHorizontalScrollTabView.xib */; };
+		56711E2E17B7834B001B4585 /* tab-back.png in Resources */ = {isa = PBXBuildFile; fileRef = 56711E2D17B7834B001B4585 /* tab-back.png */; };
 		56727D7A171E386800ACD92D /* WebBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56727D78171E386800ACD92D /* WebBrowserViewController.m */; };
 		56727D7B171E386800ACD92D /* WebBrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56727D79171E386800ACD92D /* WebBrowserViewController.xib */; };
 		56727D82171F28D500ACD92D /* note.png in Resources */ = {isa = PBXBuildFile; fileRef = 56727D81171F28D500ACD92D /* note.png */; };
@@ -159,6 +194,11 @@
 		5623147E16F9027C00B40047 /* ContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContentViewController.m; sourceTree = "<group>"; };
 		5623147F16F9027C00B40047 /* ContentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContentViewController.xib; sourceTree = "<group>"; };
 		56452509170A5D09005E2D17 /* cover_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cover_default.png; sourceTree = "<group>"; };
+		56465CD117B8813C00EE38FC /* controlUpBarBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = controlUpBarBG.png; sourceTree = "<group>"; };
+		56465CD317B8AF8200EE38FC /* TabNormal_skyBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabNormal_skyBlue.png; sourceTree = "<group>"; };
+		56465CD417B8AF8200EE38FC /* TabNormal_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabNormal_green.png; sourceTree = "<group>"; };
+		56465CD517B8AF8300EE38FC /* TabNormal_purple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabNormal_purple.png; sourceTree = "<group>"; };
+		56465CD617B8AF8300EE38FC /* TabNormal_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabNormal_red.png; sourceTree = "<group>"; };
 		564C425417064A7000B320EF /* highlight_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = highlight_green.png; sourceTree = "<group>"; };
 		564C425617064D7800B320EF /* highlight_yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = highlight_yellow.png; sourceTree = "<group>"; };
 		564C425817064D7B00B320EF /* highlight_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = highlight_blue.png; sourceTree = "<group>"; };
@@ -185,6 +225,39 @@
 		566F09CC17220A2700412952 /* NoteView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoteView.xib; sourceTree = "<group>"; };
 		566F09CF17220B6F00412952 /* NoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteViewController.h; sourceTree = "<group>"; };
 		566F09D017220B6F00412952 /* NoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteViewController.m; sourceTree = "<group>"; };
+		56711DED17B76FFC001B4585 /* LSTintedButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSTintedButton.h; sourceTree = "<group>"; };
+		56711DEE17B77005001B4585 /* LSTintedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSTintedButton.m; sourceTree = "<group>"; };
+		56711DF017B77010001B4585 /* LSTabControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSTabControl.h; sourceTree = "<group>"; };
+		56711DF117B77010001B4585 /* LSTabControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSTabControl.m; sourceTree = "<group>"; };
+		56711DF217B77010001B4585 /* LSTabControl_Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSTabControl_Protected.h; sourceTree = "<group>"; };
+		56711DF417B7701B001B4585 /* LSTabItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSTabItem.h; sourceTree = "<group>"; };
+		56711DF517B7701B001B4585 /* LSTabItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSTabItem.m; sourceTree = "<group>"; };
+		56711DF617B7701B001B4585 /* LSTabBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSTabBarView.h; sourceTree = "<group>"; };
+		56711DF717B7701B001B4585 /* LSTabBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSTabBarView.m; sourceTree = "<group>"; };
+		56711DF817B7701B001B4585 /* LSTabBarView_Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSTabBarView_Protected.h; sourceTree = "<group>"; };
+		56711DF917B7701B001B4585 /* LSScrollTabBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSScrollTabBarView.h; sourceTree = "<group>"; };
+		56711DFA17B7701B001B4585 /* LSScrollTabBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSScrollTabBarView.m; sourceTree = "<group>"; };
+		56711DFB17B7701B001B4585 /* LSScrollTabBarView_Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSScrollTabBarView_Protected.h; sourceTree = "<group>"; };
+		56711E0017B7704B001B4585 /* HorizontalTabControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HorizontalTabControl.h; sourceTree = "<group>"; };
+		56711E0117B7704B001B4585 /* HorizontalTabControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HorizontalTabControl.m; sourceTree = "<group>"; };
+		56711E0317B77057001B4585 /* LSHorizontalScrollTabViewDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSHorizontalScrollTabViewDemoViewController.h; sourceTree = "<group>"; };
+		56711E0417B77057001B4585 /* LSHorizontalScrollTabViewDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSHorizontalScrollTabViewDemoViewController.m; sourceTree = "<group>"; };
+		56711E0517B77057001B4585 /* LSHorizontalScrollTabView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LSHorizontalScrollTabView.xib; sourceTree = "<group>"; };
+		56711E0817B77075001B4585 /* controlpanel_view_background@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "controlpanel_view_background@2x~ipad.png"; sourceTree = "<group>"; };
+		56711E0917B77075001B4585 /* scrolltabs_horizontal_border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scrolltabs_horizontal_border.png; sourceTree = "<group>"; };
+		56711E0A17B77075001B4585 /* TabNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabNormal.png; sourceTree = "<group>"; };
+		56711E0B17B77075001B4585 /* TabSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabSelected.png; sourceTree = "<group>"; };
+		56711E1117B770B1001B4585 /* BadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BadgeView.h; sourceTree = "<group>"; };
+		56711E1217B770B1001B4585 /* BadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BadgeView.m; sourceTree = "<group>"; };
+		56711E1317B770B1001B4585 /* ColorPickerBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorPickerBackgroundView.h; sourceTree = "<group>"; };
+		56711E1417B770B1001B4585 /* ColorPickerBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorPickerBackgroundView.m; sourceTree = "<group>"; };
+		56711E1517B770B1001B4585 /* DrawingUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawingUtilities.h; sourceTree = "<group>"; };
+		56711E1617B770B1001B4585 /* DrawingUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawingUtilities.m; sourceTree = "<group>"; };
+		56711E1717B770B1001B4585 /* UIImage+shortcuts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+shortcuts.h"; sourceTree = "<group>"; };
+		56711E1817B770B1001B4585 /* UIImage+shortcuts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+shortcuts.m"; sourceTree = "<group>"; };
+		56711E1917B770B1001B4585 /* UIView+Addictions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Addictions.h"; sourceTree = "<group>"; };
+		56711E1A17B770B1001B4585 /* UIView+Addictions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Addictions.m"; sourceTree = "<group>"; };
+		56711E2D17B7834B001B4585 /* tab-back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-back.png"; sourceTree = "<group>"; };
 		56727D77171E386800ACD92D /* WebBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebBrowserViewController.h; sourceTree = "<group>"; };
 		56727D78171E386800ACD92D /* WebBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebBrowserViewController.m; sourceTree = "<group>"; };
 		56727D79171E386800ACD92D /* WebBrowserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebBrowserViewController.xib; sourceTree = "<group>"; };
@@ -335,6 +408,16 @@
 		3166DB5A16B0A5300089C0F2 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				56465CD317B8AF8200EE38FC /* TabNormal_skyBlue.png */,
+				56465CD417B8AF8200EE38FC /* TabNormal_green.png */,
+				56465CD517B8AF8300EE38FC /* TabNormal_purple.png */,
+				56465CD617B8AF8300EE38FC /* TabNormal_red.png */,
+				56711E0817B77075001B4585 /* controlpanel_view_background@2x~ipad.png */,
+				56465CD117B8813C00EE38FC /* controlUpBarBG.png */,
+				56711E0917B77075001B4585 /* scrolltabs_horizontal_border.png */,
+				56711E2D17B7834B001B4585 /* tab-back.png */,
+				56711E0A17B77075001B4585 /* TabNormal.png */,
+				56711E0B17B77075001B4585 /* TabSelected.png */,
 				5604454917177F20002368D7 /* Default book */,
 				3166DB5B16B0A5300089C0F2 /* eBookReader-Info.plist */,
 				3166DB5C16B0A5300089C0F2 /* InfoPlist.strings */,
@@ -379,6 +462,7 @@
 		31A8258B16C2E13500F18C1D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				56711DFF17B77037001B4585 /* TabViewController */,
 				567E5C3E17B221AA0047F995 /* ThumbNailIcon */,
 				565561AE1798DA0100297BB8 /* HIghlight */,
 				5619B28217963226001E5BA0 /* LogFile */,
@@ -404,6 +488,7 @@
 		31DA906D16C3303E000DA6A3 /* External Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				56711DEC17B76F9D001B4585 /* TabView Library */,
 				56520806170418E6003272B0 /* UIMenuItem+CXAImageSupport */,
 				31F0CE2316C59BD300E5CAC5 /* Unzip Library */,
 				31DA906916C32DAF000DA6A3 /* GData XML Parser */,
@@ -492,6 +577,56 @@
 				565561B61798DB1500297BB8 /* HighlightParser.m */,
 			);
 			name = HIghlight;
+			sourceTree = "<group>";
+		};
+		56711DEC17B76F9D001B4585 /* TabView Library */ = {
+			isa = PBXGroup;
+			children = (
+				56711E1017B77096001B4585 /* Help Classes */,
+				56711DED17B76FFC001B4585 /* LSTintedButton.h */,
+				56711DEE17B77005001B4585 /* LSTintedButton.m */,
+				56711DF017B77010001B4585 /* LSTabControl.h */,
+				56711DF117B77010001B4585 /* LSTabControl.m */,
+				56711DF217B77010001B4585 /* LSTabControl_Protected.h */,
+				56711DF417B7701B001B4585 /* LSTabItem.h */,
+				56711DF517B7701B001B4585 /* LSTabItem.m */,
+				56711DF617B7701B001B4585 /* LSTabBarView.h */,
+				56711DF717B7701B001B4585 /* LSTabBarView.m */,
+				56711DF817B7701B001B4585 /* LSTabBarView_Protected.h */,
+				56711DF917B7701B001B4585 /* LSScrollTabBarView.h */,
+				56711DFA17B7701B001B4585 /* LSScrollTabBarView.m */,
+				56711DFB17B7701B001B4585 /* LSScrollTabBarView_Protected.h */,
+			);
+			name = "TabView Library";
+			sourceTree = "<group>";
+		};
+		56711DFF17B77037001B4585 /* TabViewController */ = {
+			isa = PBXGroup;
+			children = (
+				56711E0317B77057001B4585 /* LSHorizontalScrollTabViewDemoViewController.h */,
+				56711E0417B77057001B4585 /* LSHorizontalScrollTabViewDemoViewController.m */,
+				56711E0517B77057001B4585 /* LSHorizontalScrollTabView.xib */,
+				56711E0017B7704B001B4585 /* HorizontalTabControl.h */,
+				56711E0117B7704B001B4585 /* HorizontalTabControl.m */,
+			);
+			name = TabViewController;
+			sourceTree = "<group>";
+		};
+		56711E1017B77096001B4585 /* Help Classes */ = {
+			isa = PBXGroup;
+			children = (
+				56711E1117B770B1001B4585 /* BadgeView.h */,
+				56711E1217B770B1001B4585 /* BadgeView.m */,
+				56711E1317B770B1001B4585 /* ColorPickerBackgroundView.h */,
+				56711E1417B770B1001B4585 /* ColorPickerBackgroundView.m */,
+				56711E1517B770B1001B4585 /* DrawingUtilities.h */,
+				56711E1617B770B1001B4585 /* DrawingUtilities.m */,
+				56711E1717B770B1001B4585 /* UIImage+shortcuts.h */,
+				56711E1817B770B1001B4585 /* UIImage+shortcuts.m */,
+				56711E1917B770B1001B4585 /* UIView+Addictions.h */,
+				56711E1A17B770B1001B4585 /* UIView+Addictions.m */,
+			);
+			name = "Help Classes";
 			sourceTree = "<group>";
 		};
 		567E5C3E17B221AA0047F995 /* ThumbNailIcon */ = {
@@ -654,6 +789,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56711E2C17B776A2001B4585 /* LSHorizontalScrollTabView.xib in Resources */,
 				56C69D571727BF87009419B3 /* Bio.epub in Resources */,
 				56C69D541727BE71009419B3 /* EpubSampleNick.epub in Resources */,
 				5652081317041F86003272B0 /* JavaScriptFunctions.js in Resources */,
@@ -688,6 +824,16 @@
 				566F09CE17220A2700412952 /* NoteView.xib in Resources */,
 				56C69D4A1725D2AD009419B3 /* WebMarkController.xib in Resources */,
 				56C69D4C1725D40B009419B3 /* safari.png in Resources */,
+				56711E0C17B77075001B4585 /* controlpanel_view_background@2x~ipad.png in Resources */,
+				56711E0D17B77075001B4585 /* scrolltabs_horizontal_border.png in Resources */,
+				56711E0E17B77075001B4585 /* TabNormal.png in Resources */,
+				56711E0F17B77075001B4585 /* TabSelected.png in Resources */,
+				56711E2E17B7834B001B4585 /* tab-back.png in Resources */,
+				56465CD217B8813C00EE38FC /* controlUpBarBG.png in Resources */,
+				56465CD717B8AF8300EE38FC /* TabNormal_skyBlue.png in Resources */,
+				56465CD817B8AF8300EE38FC /* TabNormal_green.png in Resources */,
+				56465CD917B8AF8300EE38FC /* TabNormal_purple.png in Resources */,
+				56465CDA17B8AF8300EE38FC /* TabNormal_red.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -697,6 +843,7 @@
 			files = (
 				56C69D531727BE5B009419B3 /* EpubSampleNick.epub in Resources */,
 				56C69D561727BF74009419B3 /* Bio.epub in Resources */,
+				56711E0717B77057001B4585 /* LSHorizontalScrollTabView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -728,11 +875,21 @@
 				3166DB7016B0A5300089C0F2 /* LibraryViewController.m in Sources */,
 				314B7E6316C2D9BF0061F0BF /* EBookImporter.m in Sources */,
 				31A8258E16C2E7E000F18C1D /* Book.m in Sources */,
+				56711E2717B7759A001B4585 /* BadgeView.m in Sources */,
+				56711E2817B7759A001B4585 /* ColorPickerBackgroundView.m in Sources */,
+				56711E2917B7759A001B4585 /* DrawingUtilities.m in Sources */,
+				56711E2A17B7759A001B4585 /* UIImage+shortcuts.m in Sources */,
+				56711E2B17B7759A001B4585 /* UIView+Addictions.m in Sources */,
 				31DA906C16C32DCC000DA6A3 /* GDataXMLNode.m in Sources */,
 				31F0CE2616C59BEA00E5CAC5 /* ZipArchive.mm in Sources */,
 				31F0CE3316C59DEC00E5CAC5 /* ioapi.c in Sources */,
 				31F0CE3416C59DEC00E5CAC5 /* mztools.c in Sources */,
 				31F0CE3516C59DEC00E5CAC5 /* unzip.c in Sources */,
+				56711DEF17B77005001B4585 /* LSTintedButton.m in Sources */,
+				56711E2317B7758F001B4585 /* LSTabControl.m in Sources */,
+				56711E2417B7758F001B4585 /* LSTabItem.m in Sources */,
+				56711E2517B7758F001B4585 /* LSTabBarView.m in Sources */,
+				56711E2617B7758F001B4585 /* LSScrollTabBarView.m in Sources */,
 				31F0CE3616C59DEC00E5CAC5 /* zip.c in Sources */,
 				31A90BBD16C9B23B003E13E0 /* BookCell.m in Sources */,
 				31B9150D16CB053B0040E8A2 /* BookViewController.m in Sources */,
@@ -740,8 +897,10 @@
 				56520809170418F5003272B0 /* UIMenuItem+CXAImageSupport.m in Sources */,
 				5652081017041B30003272B0 /* JavaScriptFunctions.js in Sources */,
 				56B7BB51170CE51000037E9E /* PopoverView.m in Sources */,
+				56711E2117B7755A001B4585 /* LSHorizontalScrollTabViewDemoViewController.m in Sources */,
 				56B7BB57170CE82300037E9E /* OCDaysView.m in Sources */,
 				56727D7A171E386800ACD92D /* WebBrowserViewController.m in Sources */,
+				56711E2217B77579001B4585 /* HorizontalTabControl.m in Sources */,
 				566F09D117220B6F00412952 /* NoteViewController.m in Sources */,
 				56C69D491725D2AD009419B3 /* WebMarkController.m in Sources */,
 				56FB60D917286999008C1F0B /* KnowledgeModule.m in Sources */,
@@ -763,6 +922,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56711DF317B77010001B4585 /* LSTabControl.m in Sources */,
+				56711DFC17B7701B001B4585 /* LSTabItem.m in Sources */,
+				56711DFD17B7701B001B4585 /* LSTabBarView.m in Sources */,
+				56711DFE17B7701B001B4585 /* LSScrollTabBarView.m in Sources */,
+				56711E0217B7704B001B4585 /* HorizontalTabControl.m in Sources */,
+				56711E0617B77057001B4585 /* LSHorizontalScrollTabViewDemoViewController.m in Sources */,
+				56711E1B17B770B1001B4585 /* BadgeView.m in Sources */,
+				56711E1C17B770B1001B4585 /* ColorPickerBackgroundView.m in Sources */,
+				56711E1D17B770B1001B4585 /* DrawingUtilities.m in Sources */,
+				56711E1E17B770B1001B4585 /* UIImage+shortcuts.m in Sources */,
+				56711E1F17B770B1001B4585 /* UIView+Addictions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
