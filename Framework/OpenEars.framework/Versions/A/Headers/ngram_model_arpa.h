@@ -54,7 +54,7 @@ struct bigram_s {
     uint16 prob2;	/**< Index into array of actual bigram probs */
     uint16 bo_wt2;	/**< Index into array of actual bigram backoff wts */
     uint16 trigrams;	/**< Index of 1st entry in lm_t.trigrams[],
-                         RELATIVE TO its segment base (see above) */
+			     RELATIVE TO its segment base (see above) */
 };
 
 /**
@@ -75,7 +75,7 @@ struct trigram_s {
 typedef struct ngram_model_arpa_s {
     ngram_model_t base;  /**< Base ngram_model_t structure */
     lm3g_model_t lm3g;  /**< Shared lm3g structure */
-    
+
     /* Arrays of unique bigram probs and bo-wts, and trigram probs
      * (these are temporary, actually) */
     sorted_list_t sorted_prob2;

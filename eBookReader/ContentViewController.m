@@ -21,14 +21,36 @@
 #import "ThumbNailIconParser.h"
 #import "ThumbNailIconWrapper.h"
 #import "LSHorizontalScrollTabViewDemoViewController.h"
+#import "SampleViewController.h"
+#import "ZYQSphereView.h"
+#import "AWCollectionViewDialLayout.h"
 // for the "quick help" feature, we haven't decided what interaction we want to add after user clicks the button so we define this array to display some default word.
-#define kStringArray [NSArray arrayWithObjects:@"YES", @"NO",@"Wiki",@"Google", nil]
+#define kStringArray [NSArray arrayWithObjects:@"YES", @"NO",@"Wiki",@"Google",@"Concept Map", nil]
 #define H_CONTROL_ORIGIN CGPointMake(200, 300)
  
 
 @interface ContentViewController ()
 @end
-@implementation ContentViewController
+
+static NSString *cellId = @"cellId";
+static NSString *cellId2 = @"cellId2";
+
+@implementation ContentViewController{
+    NSMutableDictionary *thumbnailCache;
+    BOOL showingSettings;
+    UIView *settingsView;
+    
+    UILabel *radiusLabel;
+    UISlider *radiusSlider;
+    UILabel *angularSpacingLabel;
+    UISlider *angularSpacingSlider;
+    UILabel *xOffsetLabel;
+    UISlider *xOffsetSlider;
+    UISegmentedControl *exampleSwitch;
+    AWCollectionViewDialLayout *dialLayout;
+    
+    int type;
+}
 @synthesize webView;
 @synthesize isMenuShow;
 @synthesize pageNum;
@@ -43,7 +65,20 @@
 @synthesize bookHighLight;
 @synthesize bookthumbNailIcon;
 @synthesize bookTitle;
-
+@synthesize ThumbScrollViewLeft;
+@synthesize lmGenerator;
+@synthesize syn;
+@synthesize CmapStart;
+@synthesize bulbImageView;
+@synthesize conceptNamesArray;
+@synthesize linkCollectionView;
+@synthesize linkItems;
+@synthesize isCollectionShow;
+@synthesize ThumbScrollViewRight;
+@synthesize isleftThumbShow;
+@synthesize firstRespondConcpet;
+@synthesize cmapView;
+@synthesize isSplit;
 //initial methods for the open ears tts instance
 - (FliteController *)fliteController { if (fliteController == nil) {
     fliteController = [[FliteController alloc] init]; }
@@ -58,18 +93,21 @@
 
 - (void)viewDidLoad
 {
-    
     [super viewDidLoad];
     [webView setDelegate:self];
-    
+    [linkCollectionView setDataSource:self];
+    [linkCollectionView setDelegate:self];
+    linkCollectionView.backgroundColor = [UIColor colorWithWhite:255 alpha:0.1];
+    [linkCollectionView setHidden:YES];
+    conceptNamesArray=[[NSMutableArray alloc] init];
+    isCollectionShow=NO;
     //disable the bounce animation in the webview
     UIScrollView* sv = [webView scrollView];
-    sv.pagingEnabled=YES;
     [sv setShowsHorizontalScrollIndicator:NO];
     [sv setShowsVerticalScrollIndicator:NO];
-    sv.bounces = NO;
+    sv.delegate=self;
     isMenuShow=NO;
-
+    syn=[[AVSpeechSynthesizer alloc]init];
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(oneFingerOneTaps:)];
     [singleTap setNumberOfTapsRequired:1];
     singleTap.delegate=self;
@@ -102,10 +140,56 @@
     //load page highlights
     
     [webView loadHTMLString:_dataObject baseURL:_url];
+    ThumbScrollViewLeft.showsHorizontalScrollIndicator=NO;
+    ThumbScrollViewLeft.showsVerticalScrollIndicator=NO;
+    ThumbScrollViewLeft.pagingEnabled=YES;
+    ThumbScrollViewLeft.delegate=self;
+    ThumbScrollViewLeft.contentSize = CGSizeMake(40, self.view.frame.size.height*2);
+    ThumbScrollViewLeft.tag=1;
+    ThumbScrollViewLeft.scrollEnabled=NO;
+    
+    
     [self.currentPageLabel setText:[NSString stringWithFormat:@"%d/%d",pageNum, totalpageNum]];
-    [self loadThumbNailIcon];
-
+    //[self loadThumbNailIcon];
+    
+  //  UIBarButtonItem *conceptButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:nil];
+   // self.parentViewController. navigationItem.rightBarButtonItem=conceptButton;
+    UIImage* image3 = [UIImage imageNamed:@"idea"];
+    CGRect frameimg = CGRectMake(0, 0, 40, 40);
+    UIButton *someButton = [[UIButton alloc] initWithFrame:frameimg];
+    [someButton setBackgroundImage:image3 forState:UIControlStateNormal];
+    [someButton addTarget:self action:@selector(ConceptCloud:)
+         forControlEvents:UIControlEventTouchUpInside];
+    [someButton setShowsTouchWhenHighlighted:YES];
+    
+    UIBarButtonItem *mailbutton =[[UIBarButtonItem alloc] initWithCustomView:someButton];
+    self.parent_BookViewController.navigationItem.rightBarButtonItem=mailbutton;
+    
+    //initialize the Cmap view, but hide it if it's portrait.
+    
+    cmapView=[[CmapController alloc] initWithNibName:@"CmapView" bundle:nil];
+    cmapView.parent_ContentViewController=self;
+    cmapView.dataObject=_dataObject;
+    cmapView.showType=1;
+    cmapView.url=_url;
+    cmapView.bookHighlight=bookHighLight;
+    cmapView.bookThumbNial=bookthumbNailIcon;
+    cmapView.bookTitle=bookTitle;
+    [self.view addSubview:cmapView.view];
+    [cmapView.view setHidden:YES];
+    if( ([[UIApplication sharedApplication] statusBarOrientation]==UIInterfaceOrientationLandscapeLeft)||([[UIApplication sharedApplication] statusBarOrientation]==UIInterfaceOrientationLandscapeRight)){
+        isSplit=YES;
+        [ThumbScrollViewLeft setHidden:YES];
+        [ThumbScrollViewRight setHidden:YES];
+        CGRect rec=CGRectMake(0, webView.frame.origin.y, 512, 768);
+        [webView setFrame:rec];
+        cmapView.view.center=CGPointMake(522, 384);
+        [cmapView.view setHidden:NO];
+    }
 }
+
+
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -113,10 +197,13 @@
     // Dispose of any resources that can be recreated.
 }
 
-
 //after the webview loads page, load highlight content
 -(void)webViewDidFinishLoad:(UIWebView *)m_webView{
     [self loadHghLight];
+    if( ([[UIApplication sharedApplication] statusBarOrientation]==UIInterfaceOrientationLandscapeLeft)||([[UIApplication sharedApplication] statusBarOrientation]==UIInterfaceOrientationLandscapeRight)){
+        CGRect rec=CGRectMake(0, webView.frame.origin.y, 512, 768);
+        [webView setFrame:rec];
+    }
 }
 
 //refresh the book page
@@ -144,6 +231,11 @@
     markIconSettingsPopUp.image = [UIImage imageNamed:@"question"];
     markIconSettingsPopUp.shadowDisabled = NO;
     markIconSettingsPopUp.shrinkWidth = 4; //set menu item size and picture.
+    
+    CXAMenuItemSettings *markIconSettingsConcpet = [CXAMenuItemSettings new];
+    markIconSettingsConcpet.image = [UIImage imageNamed:@"bb"];
+    markIconSettingsConcpet.shadowDisabled = NO;
+    markIconSettingsConcpet.shrinkWidth = 4; //set menu item size and picture
     
     CXAMenuItemSettings *markIconSettingsYelow = [CXAMenuItemSettings new];
     markIconSettingsYelow.image = [UIImage imageNamed:@"highlight_yellow"];
@@ -190,6 +282,9 @@
     UIMenuItem *getHighlightString = [[UIMenuItem alloc] initWithTitle: @"Pop" action: @selector(popUp:)];
     [getHighlightString cxa_setSettings:markIconSettingsPopUp];
     
+    UIMenuItem *concept = [[UIMenuItem alloc] initWithTitle: @"concept" action: @selector(dragAndDrop:)];
+    [concept cxa_setSettings:markIconSettingsConcpet];
+    
     UIMenuItem *markHighlightedStringYellow = [[UIMenuItem alloc] initWithTitle: @"mark yellow" action: @selector(markHighlightedStringInYellow:)];
     [markHighlightedStringYellow cxa_setSettings:markIconSettingsYelow];
     
@@ -208,7 +303,7 @@
     UIMenuItem *underLineItem = [[UIMenuItem alloc] initWithTitle: @"underline" action: @selector(underLine:)];
     [underLineItem cxa_setSettings:underLineSet];
     
-    UIMenuItem *undoItem = [[UIMenuItem alloc] initWithTitle: @"undo" action: @selector(removeFormat:)];
+   UIMenuItem *undoItem = [[UIMenuItem alloc] initWithTitle: @"undo" action: @selector(removeFormat:)];
     [undoItem cxa_setSettings:undoSet];
     
     UIMenuItem *takeNoteItem = [[UIMenuItem alloc] initWithTitle: @"take note" action: @selector(takeNote:)];
@@ -218,12 +313,42 @@
     [speakItem cxa_setSettings:markIconSettingSpeak];
     
     
-    [menuController setMenuItems: [NSArray arrayWithObjects:getHighlightString, markHighlightedStringYellow,markHighlightedStringGreen, markHighlightedStringBlue,
+    [menuController setMenuItems: [NSArray arrayWithObjects:getHighlightString,concept,markHighlightedStringYellow,markHighlightedStringGreen, markHighlightedStringBlue,
                                    markHighlightedStringPurple,markHighlightedStringRed,underLineItem,undoItem,takeNoteItem,speakItem, nil]];
     
     [menuController setMenuVisible:YES animated:YES];
     
 }
+
+
+- (IBAction)ConceptCloud : (id)sender
+{
+    
+    SampleViewController* conceptCloud= [[SampleViewController alloc]init];
+    conceptCloud.view.backgroundColor = [UIColor colorWithPatternImage: [UIImage imageNamed:@"blurWallPaper"] ];
+     [self.navigationController pushViewController:conceptCloud animated:YES];
+     [self.parentViewController.navigationController setNavigationBarHidden: NO animated:YES];
+     self.parentViewController.navigationController.navigationBar.translucent = YES;
+}
+
+- (IBAction)linkCollection : (id)sender
+{
+    /*
+    if (YES==isCollectionShow){
+        [linkCollectionView setHidden:YES];
+        isCollectionShow=NO;
+        //[webView setFrame:CGRectMake(webView.frame.origin.x-60, webView.frame.origin.y, webView.frame.size.width, webView.frame.size.height)];
+        //[ThumbScrollView setFrame:CGRectMake(ThumbScrollView.frame.origin.x-80, ThumbScrollView.frame.origin.y, ThumbScrollView.frame.size.width, ThumbScrollView.frame.size.height)];
+    }else if (NO==isCollectionShow){
+        [linkCollectionView setHidden:NO];
+        isCollectionShow=YES;
+        //[webView setFrame:CGRectMake(webView.frame.origin.x+60, webView.frame.origin.y, webView.frame.size.width, webView.frame.size.height)];
+        //[ThumbScrollView setFrame:CGRectMake(ThumbScrollView.frame.origin.x+80, ThumbScrollView.frame.origin.y, ThumbScrollView.frame.size.width, ThumbScrollView.frame.size.height)];
+        
+    }*/
+    
+}
+
 
 // invoke when user tap with one finger once
 - (void)oneFingerOneTaps:(UITapGestureRecognizer *)tap
@@ -231,8 +356,10 @@
     pvPoint = [tap locationInView:self.view];//track the last click position in order to show the popUp view
     if(!isMenuShow){  //is the menu bar is showing, disable the gesture action
         //set navigation bar animation, which uses the QuartzCore framework.
+        self.parentViewController.navigationController.navigationBar.translucent = YES;
+         [ self.parentViewController.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
         CATransition *navigationBarAnimation = [CATransition animation];
-        navigationBarAnimation.duration = 0.7;
+        navigationBarAnimation.duration = 0.6;
         navigationBarAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];;
         navigationBarAnimation.type = kCATransitionMoveIn;
         navigationBarAnimation.subtype = kCATransitionFromBottom;
@@ -272,9 +399,9 @@
     NSString *string = [kStringArray objectAtIndex:index];
     // Show a success image, with the string from the array
     if(0==index){
-        [popoverView showImage:[UIImage imageNamed:@"success"] withMessage:string];
-        LSHorizontalScrollTabViewDemoViewController *tabView=[[LSHorizontalScrollTabViewDemoViewController alloc] initWithNibName:@"LSHorizontalScrollTabViewDemoViewController" bundle:nil];
-        [self.navigationController pushViewController:tabView animated:YES];
+        NSString* h_text=[webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"];
+        [self createConceptIcon:pvPoint NoteText:h_text isWriteToFile:YES];
+        //firstRespondConcpet=h_text;
     }else if(1==index){
         [popoverView showImage:[UIImage imageNamed:@"error"] withMessage:string];
     }else if(2==index){
@@ -312,6 +439,17 @@
         self.navigationController.navigationBar.barStyle = UIBarStyleBlackOpaque;
         [self.navigationController pushViewController:webBroser animated:YES];
     }
+    else if (4==index){//starting concetp map
+        CmapController *cmapView2=[[CmapController alloc] initWithNibName:@"CmapView" bundle:nil];
+        cmapView2.dataObject=_dataObject;
+        cmapView2.url=_url;
+        cmapView2.showType=0;
+        cmapView2.bookHighlight=bookHighLight;
+        cmapView2.bookThumbNial=bookthumbNailIcon;
+        cmapView2.bookTitle=bookTitle;
+        cmapView2.parent_ContentViewController=self;
+        [self.navigationController pushViewController:cmapView2 animated:YES];
+    }
     // Dismiss the PopoverView after 0.5 seconds
     [popoverView performSelector:@selector(dismiss) withObject:nil afterDelay:0.5f];
 }
@@ -326,6 +464,7 @@
 - (BOOL) canPerformAction:(SEL)action withSender:(id)sender
 {
     if (  action == @selector(markHighlightedString:)
+        ||action==@selector(dragAndDrop:)
         ||action==@selector(popUp:)
         ||action == @selector(markHighlightedStringInYellow:)
         ||action == @selector(markHighlightedStringInGreen:)
@@ -335,11 +474,18 @@
         ||action == @selector(markHighlightedStringInRed:)
         ||action == @selector(underLine:)
         ||action==@selector(takeNote:)
+        ||action==@selector(ConceptCloud:)
         ||action == @selector(removeFormat:))
     {
         return YES;
     }
     return NO;
+}
+
+- (void)dragAndDrop:(id)sender{
+    if(YES==isSplit){
+        [cmapView createNodeFromBook:CGPointMake(200, 200) withName:[webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"] BookPos:pvPoint];
+    }
 }
 
 - (void)highlightStringWithColor:(NSString*)color{
@@ -361,17 +507,21 @@
 
 //calling the function in HighlightedString.js to highlight the text in yellow
 - (IBAction)markHighlightedStringInYellow : (id)sender {
-    
     [self saveHighlightToXML:@"#ffffcc" ];
     [self highlightStringWithColor:@"#FFFFCC"];
+    //shake the bulb image to indicate that there is new conpcet detected in the highlighted content
+    if([self searchConceptCount]>0){
+    [self shakeImage:nil];
+    }
 }
 
 //calling the function in HighlightedString.js to highlight the text in green
 - (IBAction)markHighlightedStringInGreen : (id)sender {
     [self saveHighlightToXML:@"#C5FCD6" ];
     [self highlightStringWithColor:@"#C5FCD6"];
-    //NSString* htmlt=[webView stringByEvaluatingJavaScriptFromString:@"document.body.innerHTML"];
-    //NSLog(htmlt);
+    if([self searchConceptCount]>0){
+        [self shakeImage:nil];
+    }
 }
 
 
@@ -379,31 +529,43 @@
 - (IBAction)markHighlightedStringInBlue : (id)sender {
     [self saveHighlightToXML:@"#C2E3FF"];
       [self highlightStringWithColor:@"#C2E3FF"];
+    if([self searchConceptCount]>0){
+        [self shakeImage:nil];
+    }
 }
 
 //calling the function in HighlightedString.js to highlight the text in purple
 - (IBAction)markHighlightedStringInPurple : (id)sender {
     [self saveHighlightToXML:@"#E8CDFA"];
     [self highlightStringWithColor:@"#E8CDFA"];
+    if([self searchConceptCount]>0){
+        [self shakeImage:nil];
+    }
 }
 
 //calling the function in HighlightedString.js to highlight the text in red
 - (IBAction)markHighlightedStringInRed : (id)sender {
     [self saveHighlightToXML:@"#FFBABA"];
     [self highlightStringWithColor:@"#FFBABA"];
+    if([self searchConceptCount]>0){
+        [self shakeImage:nil];
+    }
 }
 
 //calling the function in HighlightedString.js to underline the text
 - (IBAction)underLine : (id)sender {
     [self callJavaScriptMethod:@"underlineText"];
+    if([self searchConceptCount]>0){
+        [self shakeImage:nil];
+    }
 }
 
 //calling the function in HighlightedString.js to remove all the format
 - (IBAction)removeFormat : (id)sender {
-     
-//    LSHorizontalScrollTabViewDemoViewController *tabView=[[LSHorizontalScrollTabViewDemoViewController alloc] initWithNibName:@"LSHorizontalScrollTabViewDemoViewController" bundle:nil];
-//    [self.navigationController pushViewController:tabView animated:YES];
-    //[self callJavaScriptMethod:@"clearFormat"];
+    [self callJavaScriptMethod:@"clearFormat"];
+    if([self searchConceptCount]>0){
+        [self shakeImage:nil];
+    }
 }
 
 
@@ -480,10 +642,15 @@
     
      //get the selected text
      NSString *selection = [webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"];
-        [self.fliteController say:selection withVoice:self.slt];
+    AVSpeechUtterance *utterance_English= [[AVSpeechUtterance alloc]initWithString:selection];
+    utterance_English.rate = AVSpeechUtteranceMaximumSpeechRate/7;
+    utterance_English.voice=[AVSpeechSynthesisVoice voiceWithLanguage:@"es-us"];
+    [syn speakUtterance:utterance_English];
 }
 
 - (IBAction)takeNote : (id)sender {
+    NSString *selection = [webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"];
+    firstRespondConcpet=selection;
     NSArray *popUpContent=[NSArray arrayWithObjects:@"NoteTaking", nil];
     pv = [PopoverView showPopoverAtPoint:pvPoint
                                   inView:self.view
@@ -497,25 +664,30 @@
 
 
 -(void)createWebNote : (CGPoint) show_at_point URL:(NSURLRequest*) urlrequest isWriteToFile:(BOOL)iswrite isNewIcon: (BOOL)isNew  {
-    NSLog(@"Create Web Note");
-    
+ NSString *selection = [webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"];
+    firstRespondConcpet=selection;
     WebMarkController *note= [[WebMarkController alloc]
                               initWithNibName:@"WebMarkController" bundle:nil];
     note.web_requestObj=urlrequest;
     note.pvPoint=show_at_point;
+    note.parentController=self;
     CGPoint newPos;
     newPos.x=show_at_point.x;
     newPos.y=[thumbNailController getIconPos:show_at_point];
     note.iconPoint=newPos;
     [self addChildViewController:note];
-    [self.view addSubview:note.view];
+    [ThumbScrollViewLeft addSubview:note.view];
+
     NSString *urlString= [[urlrequest URL] absoluteString];
-    ThumbNailIcon *temp_thumbnail = [[ThumbNailIcon alloc] initWithName: 2 Text: @"" URL:urlString showPoint:show_at_point pageNum:pageNum bookTitle:bookTitle];
+
+    if([firstRespondConcpet isEqualToString:@""]){
+        firstRespondConcpet=@"Cell";
+    }
+    ThumbNailIcon *temp_thumbnail = [[ThumbNailIcon alloc] initWithName: 2 Text: @"" URL:urlString showPoint:show_at_point pageNum:pageNum bookTitle:bookTitle relatedConcept:firstRespondConcpet];
     if(iswrite){
         [bookthumbNailIcon addthumbnail:temp_thumbnail];
         [ThumbNailIconParser saveThumbnailIcon:bookthumbNailIcon];
     }
-    
 }
 
 
@@ -524,14 +696,18 @@
                                initWithNibName:@"NoteView" bundle:nil];
     note.note_text= m_note_text;
     note.pvPoint=show_at_point;
+    note.parentController=self;
     CGPoint newPos;
     newPos.x=show_at_point.x;
     newPos.y=[thumbNailController getIconPos:show_at_point];
     note.iconPoint=newPos;
     [self addChildViewController:note];
-    [self.view addSubview: note.view ];
+    [ThumbScrollViewLeft addSubview: note.view ];
     
-    ThumbNailIcon *temp_thumbnail = [[ThumbNailIcon alloc] initWithName: 1 Text: m_note_text URL:@"" showPoint:show_at_point pageNum:pageNum bookTitle:bookTitle];
+    if([firstRespondConcpet isEqualToString:@""]){
+        firstRespondConcpet=@"Cell";
+    }
+    ThumbNailIcon *temp_thumbnail = [[ThumbNailIcon alloc] initWithName: 1 Text: m_note_text URL:@"" showPoint:show_at_point pageNum:pageNum bookTitle:bookTitle relatedConcept:firstRespondConcpet];
     if(iswrite){
          NSLog(@"True NOde");
         [bookthumbNailIcon addthumbnail:temp_thumbnail];
@@ -542,6 +718,46 @@
     return note;
 }
 
+
+-(ConceptViewController*)createConceptIcon : (CGPoint) show_at_point NoteText:(NSString*) m_note_text isWriteToFile:(BOOL)iswrite  {
+
+  
+    
+    ConceptViewController *note= [[ConceptViewController alloc]
+                               initWithNibName:@"ConceptViewController" bundle:nil];
+    if(YES==isSplit){
+       [cmapView createNode:CGPointMake(200, 200) withName:m_note_text];
+         return note;
+    }
+    
+    note.pvPoint=show_at_point;
+    note.parentController=self;
+    CGPoint newPos;
+    newPos.x=show_at_point.x;
+    newPos.y=[thumbNailController getIconPos:show_at_point];
+    note.iconPoint=newPos;
+    [self addChildViewController:note];
+    [ThumbScrollViewRight addSubview: note.view ];
+    if(![m_note_text isEqualToString:@""]){
+     note.textField.text=m_note_text;
+    }
+   
+    if(iswrite){
+
+    }
+    return note;
+}
+
+-(void)updateNoteText:(CGPoint) show_at_point PreText: (NSString*)pre_text NewText: (NSString *)new_text
+{
+    NSLog(@"Update!!");
+    for(ThumbNailIcon *icon in bookthumbNailIcon.thumbnails ){
+        if(icon.showPoint.x== show_at_point.x && icon.showPoint.y==show_at_point.y&& [icon.text isEqualToString:pre_text]){
+            icon.text=new_text;
+        }
+    }
+    [ThumbNailIconParser saveThumbnailIcon:bookthumbNailIcon];
+}
 
 
 - (NSInteger)highlightAllOccurencesOfString:(NSString*)str
@@ -566,9 +782,11 @@
     }
 }
 
--(void)loadThumbNailIcon{
+-(void)loadThumbNailIcon: (NSString*)concpet{
     if(bookthumbNailIcon!=nil){
         for(ThumbNailIcon *thumbNailItem in bookthumbNailIcon.thumbnails){
+            if([thumbNailItem.relatedConcpet isEqualToString: concpet]){
+            
             if(thumbNailItem.page==pageNum && [bookTitle isEqualToString: thumbNailItem.bookTitle]){
                 if(1==thumbNailItem.type){
                     [self createNote:thumbNailItem.showPoint NoteText:thumbNailItem.text isWriteToFile:NO];
@@ -576,11 +794,56 @@
                     [self createWebNote:thumbNailItem.showPoint URL:   [NSURLRequest requestWithURL:[NSURL URLWithString:thumbNailItem.url]] isWriteToFile:NO isNewIcon:YES ];
                 }
             }
-        }   
-        
+          }
+        }
     }
+    
+    //initialize bulb image vie
+    self.bulbImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 20, 40, 40)];
+    [self.bulbImageView setImage:[UIImage imageNamed:@"idea"]];
+    self.bulbImageView.alpha=0.8;
+    self.bulbImageView.userInteractionEnabled = YES;
+    
+    UITapGestureRecognizer *bulbTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(linkCollection:)];
+    
+    [self.bulbImageView addGestureRecognizer:bulbTap];
+    
+    [ThumbScrollViewLeft addSubview:self.bulbImageView];
 }
 
+
+
+
+-(UIImage*)getScreenShot{
+    
+    UIGraphicsBeginImageContextWithOptions(self.view.bounds.size, NO, 0.0);
+    [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *snapshotImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    CIFilter *gaussianBlurFilter = [CIFilter filterWithName:@"CIGaussianBlur"];
+    
+    
+    [gaussianBlurFilter setDefaults];
+    [gaussianBlurFilter setValue:[CIImage imageWithCGImage:[snapshotImage CGImage]] forKey:kCIInputImageKey];
+    [gaussianBlurFilter setValue:@40 forKey:kCIInputRadiusKey];
+    
+    
+    CIImage *outputImage = [gaussianBlurFilter outputImage];
+    CIContext *context   = [CIContext contextWithOptions:nil];
+    CGRect rect          = [outputImage extent];
+    
+    // these three lines ensure that the final image is the same size
+
+    rect.origin.x        += (rect.size.width  - snapshotImage.size.width ) / 2;
+    rect.origin.y        += (rect.size.height - snapshotImage.size.height) / 2;
+    rect.size            = snapshotImage.size;
+    
+    CGImageRef cgimg     = [context createCGImage:outputImage fromRect:rect];
+    UIImage *image       = [UIImage imageWithCGImage:cgimg];
+    CGImageRelease(cgimg);
+    return image;
+}
 
 // check if the menu bar is showing
 - (IBAction)didHideEditMenu : (id)sender {
@@ -593,8 +856,159 @@
 }
 - (IBAction)didShowEditMenu : (id)sender {
     isMenuShow=YES;
+    
+    
+}
+
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    //bind the thumbnail scroll view and the web view together to scroll simultaneously.
+    if(0==scrollView.tag){
+        //ThumbScrollView.contentOffset=CGPointMake(0, scrollView.contentOffset.y);
+    }
+}
+
+
+-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    //when retating the device, clear the thumbnail icons and reload
+    for (UIView *subviews in [ThumbScrollViewLeft subviews]) {
+        if(subviews.frame.size.height!=7){
+            [subviews removeFromSuperview];
+        }
+    }
+    if(YES==isleftThumbShow){
+    [thumbNailController clearAllThumbnail];
+    [self loadThumbNailIcon:firstRespondConcpet];
+    }
+    //if user rotate the screen from portrait to landscape, show the concept map view.
+    if(fromInterfaceOrientation==UIInterfaceOrientationPortrait||fromInterfaceOrientation==UIInterfaceOrientationPortraitUpsideDown){
+    [self splitScreen];
+    }
+    //otherwise, hide the concept map view.
+    if(fromInterfaceOrientation==UIInterfaceOrientationLandscapeLeft||fromInterfaceOrientation==UIInterfaceOrientationLandscapeRight){
+        [self resumeNormalScreen ];
+    }
+    
+}
+
+-(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
+    if(toInterfaceOrientation==UIInterfaceOrientationPortrait||toInterfaceOrientation==UIInterfaceOrientationPortraitUpsideDown){
+      //  [self resumeNormalScreen ];
+    }
 }
 
 
 
+
+-(void)shakeImage:(id)sender {
+    CABasicAnimation* shake = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+    shake.fromValue = [NSNumber numberWithFloat:-0.3];
+    shake.toValue = [NSNumber numberWithFloat:+0.3];
+    shake.duration = 0.1;
+    shake.autoreverses = YES;
+    shake.repeatCount = 3;
+    [self.bulbImageView.layer addAnimation:shake forKey:@"imageView"];
+   // self.bulbImageView.alpha = 1.0;
+    [UIView animateWithDuration:2.0 delay:2.0 options:UIViewAnimationOptionCurveEaseIn animations:nil completion:nil];
+}
+
+- (UIImage*)scaleToSize:(CGSize)size image:(UIImage*) img {
+    UIGraphicsBeginImageContext(size);
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextTranslateCTM(context, 0.0, size.height);
+    CGContextScaleCTM(context, 1.0, -1.0);
+    
+    CGContextDrawImage(context, CGRectMake(0.0f, 0.0f, size.width, size.height), img.CGImage);
+    
+    UIImage* scaledImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return scaledImage;
+}
+
+-(int)searchConceptCount{
+    NSString *selection = [webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"];
+        int conceptId=0;
+
+                for (  Concept *cell in knowledge_module.conceptList) {
+                    if([selection rangeOfString:cell.conceptName].location != NSNotFound){
+                        if(![conceptNamesArray containsObject: cell.conceptName]){
+                            [conceptNamesArray addObject:cell.conceptName];
+                            conceptId++;
+                        }
+                    }
+                }
+    return conceptId;
+}
+
+
+
+
+-(BOOL)prefersStatusBarHidden{
+    return YES;
+}
+
+//split the screen, the left side shows the textbook and the right side shows the concept map construction view.
+-(void)splitScreen{
+    isSplit=YES;
+    [ThumbScrollViewLeft setHidden:YES];
+    [ThumbScrollViewRight setHidden:YES];
+    CGRect rec=CGRectMake(0, webView.frame.origin.y, 512, 768);
+    [webView setFrame:rec];
+    cmapView.view.center=CGPointMake(777, 384);
+    [cmapView.view setHidden:NO];
+}
+
+-(void)resumeNormalScreen{
+    isSplit=NO;
+    CGRect rec=CGRectMake(52, webView.frame.origin.y, 653, 967);
+    [webView setFrame:rec];
+    [ThumbScrollViewLeft setHidden:NO];
+    [ThumbScrollViewRight setHidden:NO];
+    [cmapView.view setHidden:YES];
+   // [cmapView.view removeFromSuperview];
+}
+
+-(void)resumeNormalScreenLandscape{
+    CGRect rec=CGRectMake(52, webView.frame.origin.y, 930, 720);
+    [webView setFrame:rec];
+    [ThumbScrollViewLeft setHidden:NO];
+    [ThumbScrollViewRight setHidden:NO];
+   // [cmapView.view removeFromSuperview];
+     [cmapView.view setHidden:YES];
+}
+
+-(void)showRecourseFullScreen{
+    isSplit=NO;
+ [self resumeNormalScreenLandscape];
+    LSHorizontalScrollTabViewDemoViewController *tabView=[[LSHorizontalScrollTabViewDemoViewController alloc] initWithNibName:@"LSHorizontalScrollTabViewDemoViewController" bundle:nil];
+    tabView.highlightWrapper=bookHighLight;
+    tabView.thumbNailWrapper=bookthumbNailIcon;
+    tabView.bookTitle=bookTitle;
+    tabView.showType=0;
+    tabView.parentContentViewController=self;
+    [self.navigationController pushViewController:tabView animated:YES];
+    //[self addChildViewController:tabView];
+    //[self.view addSubview:tabView.view];
+}
+
+/*
+- (void)addLineAtTop:(CGPoint)p1 Point2: (CGPoint)p2{
+    CAShapeLayer* layer = [CAShapeLayer layer];
+    layer.strokeColor = [[UIColor grayColor] CGColor];
+    layer.lineWidth = 1.0;
+    layer.fillColor = [[UIColor clearColor] CGColor];
+    //[lineLaer removeFromSuperlayer];
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    [path moveToPoint:p1];
+    [path addLineToPoint:p2];
+    // [shapeLayer removeFromSuperlayer];
+    layer.path = [path CGPath];
+    [self.parentCmapController.conceptMapView.layer addSublayer:layer];
+}
+ */
 @end

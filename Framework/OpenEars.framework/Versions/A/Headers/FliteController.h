@@ -49,13 +49,15 @@
 	float target_stddev;
 /**Set userCanInterruptSpeech to TRUE in order to let new incoming human speech cut off synthesized speech in progress.*/    
     BOOL userCanInterruptSpeech;
-    
+/**Set noAudioSessionOverrides to TRUE in order to run Flite without the OpenEars AudioSessionManager (useful if you aren't using PocketsphinxController and you want to set your own audiosession behavior or have none but the defaults). This can't be used in combination with PocketsphinxController, it is only for apps which used FliteController exclusively. This BOOL is only picked up once per instantiation of FliteController so if you want to switch back and forth it is necessary to release your FliteController and create a new FliteController with the new noAudioSessionOverrides setting. */        
+    BOOL noAudioSessionOverrides;
 /**\cond HIDDEN_SYMBOLS*/    
 	AVAudioPlayer *audioPlayer; // Plays back the speech
 	OpenEarsEventsObserver *openEarsEventsObserver; // Observe status changes from audio sessions and Pocketsphinx
 	NSData *speechData;
 	BOOL speechInProgress;
     BOOL quietFlite;
+    BOOL audioSessionHasBeenInstantiated;
     dispatch_queue_t backgroundQueue;
 /**\endcond */    
 }
@@ -87,6 +89,7 @@ Usage Example:
 @property (nonatomic, assign) float target_mean;
 @property (nonatomic, assign) float target_stddev;
 @property (nonatomic, assign) BOOL userCanInterruptSpeech;
+@property (nonatomic, assign) BOOL noAudioSessionOverrides;
 
 /**\cond HIDDEN_SYMBOLS*/
 @property (nonatomic, assign) BOOL speechInProgress;
@@ -94,6 +97,8 @@ Usage Example:
 @property (nonatomic, retain) OpenEarsEventsObserver *openEarsEventsObserver; // Observe status changes from audio sessions and Pocketsphinx
 @property (nonatomic, retain) NSData *speechData;
 @property (nonatomic, assign) BOOL quietFlite;
+@property (nonatomic, assign) BOOL audioSessionHasBeenInstantiated;
+
 /**\endcond */
 @end
 

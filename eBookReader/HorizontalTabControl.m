@@ -90,7 +90,6 @@
         [newButton setBackgroundImage:[UIImage imageNamed:@"TabNormal"]
                              forState:UIControlStateNormal];
     }
-    
     return newButton;
 }
 

@@ -21,5 +21,6 @@
 @property (strong, nonatomic) UITapGestureRecognizer *oneFingerTap; //one finger tap recognizer
 @property (nonatomic) CGPoint pvPoint;//the point where the web icon should locate
 @property (nonatomic) CGPoint iconPoint;//where the thumbnail icon shows
+@property (strong, nonatomic) ContentViewController *parentController;
 - (CGSize) screenSize;
 @end

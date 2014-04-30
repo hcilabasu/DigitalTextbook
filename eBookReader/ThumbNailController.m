@@ -30,13 +30,11 @@
         topSpace=25;
         bottomSpace=79;
         screenSize=[self screenSize];
-        totalIconNum=(screenSize.height-topSpace-bottomSpace)/30;
+        totalIconNum=(screenSize.height-topSpace-bottomSpace)/30*2;
         NSLog(@"Total Num: %d",totalIconNum);
         for(int i=0; i<totalIconNum;i++){
             [iconArray addObject: @"Empty"];
         }
-        
-        
     }
     return self;
 }
@@ -72,6 +70,13 @@
     return pos;
 }
 
+
+
+-(void)clearAllThumbnail{
+    for(int i=0; i<[iconArray count];i++){
+        [iconArray replaceObjectAtIndex:i withObject:@"Empty"];
+    }
+}
 
 //get the screen sie
 - (CGSize) screenSize

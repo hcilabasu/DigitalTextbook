@@ -38,6 +38,7 @@
         NSLog(@"No. %d",++i);
         NSLog(@"Text: %@", player.text);
         NSLog(@"type: %d", player.type);
+        NSLog(@"Concept: %@",player.relatedConcpet);
     }
     if(0==i){
         NSLog(@"Highlight array empty!\n");

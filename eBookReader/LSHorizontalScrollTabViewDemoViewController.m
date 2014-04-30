@@ -2,67 +2,82 @@
 //  LSHorizontalScrollTabViewDemoViewController.m
 //  LSTabs
 //
-//  Created by Marco Mussini on 6/18/12.
-//  Copyright (c) 2012 Lucky Software. All rights reserved.
 //
 
 #import "LSHorizontalScrollTabViewDemoViewController.h"
 #import "LSScrollTabBarView.h"
 #import "HorizontalTabControl.h"
 #import "LSTabItem.h"
-
+#import "HighlightParser.h"
+#import "HighLightWrapper.h"
+#import "GDataXMLNode.h"
+#import "HighLight.h"
+#import "ThumbNailIcon.h"
+#import "ThumbNailIconParser.h"
+#import "ThumbNailIconWrapper.h"
 
 
 @interface LSHorizontalScrollTabViewDemoViewController () {
     LSScrollTabBarView *tabView;
 }
-
 @end
 
 
 @implementation LSHorizontalScrollTabViewDemoViewController
 @synthesize isMenuShow;
-
+@synthesize contentTableView;
+@synthesize thumbNailWrapper;
+@synthesize highlightWrapper;
+@synthesize dataList;
+@synthesize bookTitle;
+@synthesize tagToShow;
+@synthesize noteIcons;
+@synthesize webIcons;
+@synthesize showType;
+@synthesize originSize;
+@synthesize parentContentViewController;
 + (NSString *)viewTitle {
-    return @"Horizontal Scroll Tab View";
+    return @"Review Section";
 }
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:@"LSHorizontalScrollTabView" bundle:nibBundleOrNil];
     if (self) {
-        
     }
-    
     return self;
 }
 
 
 #pragma mark - View lifecycle
-
 - (void)viewDidLoad {
     [super viewDidLoad];
 	isMenuShow=NO;
     self.navigationItem.title = [[self class] viewTitle];
-    
-    [self.controlPanelBG setFrame:CGRectMake(0, 0, 1024, 45)];
+    if(1==showType){
+    [self.controlPanelBG setFrame:CGRectMake(0, 0, 494, 45)];
+        CGRect rect=CGRectMake(0, 0, 494, 768);
+        [self.view setFrame:rect];
+        
+    }else{
+        if([UIApplication sharedApplication].statusBarOrientation==UIInterfaceOrientationLandscapeLeft||[UIApplication sharedApplication].statusBarOrientation==UIInterfaceOrientationLandscapeRight){
+             [self.controlPanelBG setFrame:CGRectMake(0, 0, 1024, 45)];
+              [self.view setFrame:CGRectMake(0, 0, 1024, 768)];
+        }else{
+        [self.controlPanelBG setFrame:CGRectMake(0, 0, 1024, 45)];
+        [self.view setFrame:[[UIScreen mainScreen] bounds]];
+        }
+    }
     self.borderImageView.image = [UIImage imageNamed:@"scrolltabs_horizontal_border"];
     self.controlPanelView.image = [UIImage imageNamed:@"controlpanel_view_background"];
     self.controlPanelBG.image=[UIImage imageNamed:@"controlUpBarBG"];
-    
-
-    
     NSArray *tabItems = @[ [[LSTabItem alloc] initWithTitle:@"Highlights"] ,
                            [[LSTabItem alloc] initWithTitle:@"BookMarks"] ,
                            [[LSTabItem alloc] initWithTitle:@"WebLinks"] ,
                            [[LSTabItem alloc] initWithTitle:@"Notes"],
                            [[LSTabItem alloc] initWithTitle:@"Other"],
-                 
-
       ];
-    
     // Assigns some badge number
-
     ((LSTabItem *)tabItems[1]).badgeNumber = 5;
     ((LSTabItem *)tabItems[2]).badgeNumber = 1;
 
@@ -84,9 +99,70 @@
     [doubleTap setNumberOfTapsRequired:2];
     doubleTap.delegate=self;
     [self.controlPanelView addGestureRecognizer:doubleTap];
-    
 
+    contentTableView.dataSource=self;
+    contentTableView.delegate= self;
+    [contentTableView reloadData];
+    tagToShow=0 ;
+    
+    webIcons=[[NSMutableArray alloc]init];
+    noteIcons=[[NSMutableArray alloc]init];
+
+    //filter the highlights from other books
+    NSMutableArray *temp=[[NSMutableArray alloc]init];
+    for(HighLight *highlights in highlightWrapper.highLights){
+        if([highlights.bookTitle isEqualToString:bookTitle]){
+            [temp addObject:highlights];
+        }
+    }
+    highlightWrapper.highLights=temp;
+    
+    NSMutableArray *temp2=[[NSMutableArray alloc]init];
+    for(ThumbNailIcon *thms in thumbNailWrapper.thumbnails){
+        if([thms.bookTitle isEqualToString:bookTitle]){
+            [temp2 addObject:thms];
+        }
+    }
+    thumbNailWrapper.thumbnails=temp2;
+    
+    for(ThumbNailIcon* icon in thumbNailWrapper.thumbnails){
+        if(1==icon.type){
+            [noteIcons addObject:icon];
+        }else if(2==icon.type){
+            [webIcons addObject:icon];
+        }
+    }
+
+    
+    UIPinchGestureRecognizer *pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinch:)];
+    pinchGesture.delegate=self;
+    if(1==showType){
+    [self.view addGestureRecognizer:pinchGesture];
+    }
+    originSize=self.view.frame;
 }
+
+
+
+- (IBAction)handlePinch:(UIPinchGestureRecognizer *)recognizer
+{
+    recognizer.view.transform = CGAffineTransformScale(recognizer.view.transform, recognizer.scale, recognizer.scale);
+    recognizer.scale = 1;
+    
+    if(recognizer.state == UIGestureRecognizerStateEnded){
+        if(originSize.size.width*1.2<recognizer.view.frame.size.width||1==showType){
+            [self.view setFrame:CGRectMake(0, 0, 494, 768)];                                     
+            [parentContentViewController showRecourseFullScreen];
+        }
+    }
+}
+
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
+    return YES;
+}
+
+
 
 
 - (void)oneFingerTwoTaps:(UITapGestureRecognizer *)tap
@@ -109,11 +185,78 @@
         }
     }else{
         [self.navigationController setNavigationBarHidden: YES animated:YES];
-    }
+    } 
     
 }
 
 
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellWithIdentifier = @"Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellWithIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellWithIdentifier];
+    }
+    NSUInteger row = [indexPath row];
+    
+    
+    if(0==tagToShow){
+         HighLight *highlightContent=[highlightWrapper.highLights objectAtIndex:row];
+        cell.detailTextLabel.text = highlightContent.text;
+         cell.textLabel.text =   [NSString stringWithFormat:@"Page: %d",highlightContent.page ];
+    }
+    if(1==tagToShow){
+        ThumbNailIcon *thunmnailContent=[thumbNailWrapper.thumbnails objectAtIndex:row];
+        if(1==thunmnailContent.type){
+            cell.detailTextLabel.text=thunmnailContent.text;
+            cell.textLabel.text =   [NSString stringWithFormat:@"Page: %d",thunmnailContent.page ];
+        }else if(2==thunmnailContent.type){
+            cell.detailTextLabel.text=thunmnailContent.url;
+            cell.textLabel.text =   [NSString stringWithFormat:@"Page: %d",thunmnailContent.page ];
+        }
+    }
+    if(2==tagToShow){
+        ThumbNailIcon *webIconContent= [webIcons objectAtIndex:row];
+        cell.detailTextLabel.text=webIconContent.url;
+        cell.textLabel.text =   [NSString stringWithFormat:@"Page: %d",webIconContent.page ];
+    }
+    if(3==tagToShow){
+        ThumbNailIcon *noteIconContent= [noteIcons objectAtIndex:row];
+        cell.detailTextLabel.text=noteIconContent.text;
+        cell.textLabel.text =   [NSString stringWithFormat:@"Page: %d",noteIconContent.page ];
+    }
+    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+
+    return 60;
+}
+
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    // Return the number of sections.
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if(0==tagToShow){
+        return [highlightWrapper.highLights count];
+    }
+    if(1==tagToShow){
+        return [thumbNailWrapper.thumbnails count];
+    }
+    if(2==tagToShow){
+
+        return [webIcons count];
+    }
+    if(3==tagToShow){
+        return [noteIcons count];
+    }
+    else return 0;
+}
 
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -137,6 +280,8 @@
        atIndex:(NSInteger)selectedIndex
 {
     self.selectedTabLabel.text = [NSString stringWithFormat:@"%@ selected", item.title];
+    tagToShow=selectedIndex;
+    [contentTableView reloadData];
 }
 
 - (BOOL) canPerformAction:(SEL)action withSender:(id)sender
@@ -157,6 +302,7 @@
     [self.navigationController setNavigationBarHidden: YES animated:YES];
     isMenuShow=YES;
 }
+
 - (IBAction)didShowEditMenu : (id)sender {
     isMenuShow=YES;
 }

@@ -20,6 +20,8 @@
 
 #import "ContinuousAudioUnit.h"
 
+@protocol ContinuousModelDelegate;
+
 @interface ContinuousModel : NSObject {
 
 	BOOL exitListeningLoop; // Should we break out of the loop?
@@ -35,15 +37,20 @@
     BOOL outputAudio;
     BOOL processSpeechLocally;
     BOOL returnNullHypotheses;
+    NSString *pathToTestFile;
+    NSString *modelName;
+    id<ContinuousModelDelegate> delegate;
 }
 
-- (void) listeningLoopWithLanguageModelAtPath:(NSString *)languageModelPath dictionaryAtPath:(NSString *)dictionaryPath languageModelIsJSGF:(BOOL)languageModelIsJSGF; // Start the loop.
+- (void) listeningLoopWithLanguageModelAtPath:(NSString *)languageModelPath dictionaryAtPath:(NSString *)dictionaryPath acousticModelAtPath:(NSString *)acousticModelPath languageModelIsJSGF:(BOOL)languageModelIsJSGF; // Start the loop.
 - (void) changeLanguageModelToFile:(NSString *)languageModelPathAsString withDictionary:(NSString *)dictionaryPathAsString;
 
 // This is a test method for synchronously running an entire recognition on one single audio file.
 
-- (void) runRecognitionOnWavFileAtPath:(NSString *)wavPath usingLanguageModelAtPath:(NSString *)languageModelPath dictionaryAtPath:(NSString *)dictionaryPath languageModelIsJSGF:(BOOL)languageModelIsJSGF;
-    
+- (void) runRecognitionOnWavFileAtPath:(NSString *)wavPath usingLanguageModelAtPath:(NSString *)languageModelPath dictionaryAtPath:(NSString *)dictionaryPath acousticModelAtPath:(NSString *)acousticModelPath languageModelIsJSGF:(BOOL)languageModelIsJSGF;
+
+- (void) performOpenEarsNotificationOnMainThread:(NSString *)notificationNameAsString withOptionalObjects:(NSArray *)objects andKeys:(NSArray *)keys;
+
 - (CFStringRef) getCurrentRoute;
 - (void) setCurrentRouteTo:(NSString *)newRoute;
 
@@ -57,6 +64,7 @@
 - (void) setupCalibrationBuffer;
 - (void) putAwayCalibrationBuffer;
 - (void) clearBuffers;
+- (void) removeCmnPlist;
 
 @property (nonatomic, assign) BOOL exitListeningLoop; // Should we break out of the loop?
 @property (nonatomic, assign) BOOL inMainRecognitionLoop; // Have we entered the recognition loop or are we still setting up or in a state of having exited?
@@ -70,5 +78,25 @@
 @property (nonatomic, assign) BOOL outputAudio;
 @property (nonatomic, assign) BOOL processSpeechLocally;
 @property (nonatomic, assign) BOOL returnNullHypotheses;
+@property (nonatomic, copy) NSString *modelName;
+@property (nonatomic, copy) NSString *pathToTestFile;
+
+
+
+@property (assign) id<ContinuousModelDelegate> delegate; // the delegate will be sent events.
+
+@end
+
+
+@protocol ContinuousModelDelegate <NSObject>
+
+@optional 
+
+// Delegate Methods for Continuous Model.
+
+
+/** Listening loop has ended.*/
+- (void) listeningLoopHasEnded; 
+
 @end
 /**\endcond */

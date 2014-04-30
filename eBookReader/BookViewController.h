@@ -13,7 +13,7 @@
 @class HighLightWrapper;
 @class ThumbNailIconWrapper;
 @interface BookViewController : UIViewController
-<UIPageViewControllerDataSource>{
+<UIPageViewControllerDataSource,UIPageViewControllerDelegate>{
     EBookImporter *bookImporter;
     Book* book;
     UIPageViewController *pageController;

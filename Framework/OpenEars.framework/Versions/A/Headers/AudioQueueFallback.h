@@ -115,11 +115,17 @@ typedef struct { // The audio device struct used by Pocketsphinx.
 	UInt32 numberOfExtraSamples;
 	SInt16 *extraSampleBuffer;
 	BOOL endingLoop;
+    BOOL takeBuffersFromTestFile;
+    UInt32 bytesInTestFile;
+    const char *pathToTestFile;
+    UInt32 positionInTestFile;
+    SInt16 *testFileBuffer;
 } PocketsphinxAudioDevice;	
+
 
 void clear_buffers();
 Float32 pocketsphinxAudioDeviceMeteringLevel(PocketsphinxAudioDevice * audioDriver); // Function which returns the metering level of the AudioQueue input.
-PocketsphinxAudioDevice *openAudioDevice (const char *audioDevice, SInt32 samplesPerSecond); // Function to open the "audio device" or in this case instantiate a new Audio Queue.
+PocketsphinxAudioDevice *openAudioDevice (const char *audioDevice, SInt32 samplesPerSecond,BOOL takingBuffersFromTestFile, const char *testfileName); // Function to open the "audio device" or in this case instantiate a new Audio Queue.
 SInt32 startRecordingWithLeader(PocketsphinxAudioDevice * audioDevice); // An optional function that starts Audio Queue recording after a second and a half so that calibration can happen with full buffers.
 SInt32 startRecording(PocketsphinxAudioDevice * audioDevice); // Tell the Audio Queue to start recording.
 SInt32 stopRecording(PocketsphinxAudioDevice * audioDevice); // Tell the Audio Queue to stop recording.

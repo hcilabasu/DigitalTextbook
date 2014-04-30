@@ -33,7 +33,7 @@
     [super viewDidLoad];
     //set up the note view frame, size, icon image and gesture recognizer.
     CGSize screenSize = [self screenSize];
-    [self.view setFrame:CGRectMake(screenSize.width-35, iconPoint.y, 25, 25)];
+    [self.view setFrame:CGRectMake(15, iconPoint.y, 25, 25)];
     UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapped:)];
     [doubleTap setNumberOfTapsRequired:1];
     doubleTap.delegate=self;
@@ -105,8 +105,9 @@
 //update the text when the note has been changed
 - (void)updateText:(NSString *)new_text 
 {
-    note_text=new_text;
-    
+  
+    [parentController updateNoteText: pvPoint PreText:note_text  NewText:new_text];
+      note_text=new_text;
 }
 
 

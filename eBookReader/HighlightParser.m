@@ -64,7 +64,6 @@
             text = firstName.stringValue;
         } else continue;
         
-        
         NSArray *colors = [partyMember elementsForName:@"Color"];
         if (colors.count > 0) {
             GDataXMLElement *firstName = (GDataXMLElement *) [colors objectAtIndex:0];
@@ -174,9 +173,7 @@
         [playerElement addChild:endOffsetElement];
         
         [partyElement addChild:playerElement];
-        
-        
-        
+    
     }
     
     GDataXMLDocument *document = [[GDataXMLDocument alloc]

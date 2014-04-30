@@ -23,11 +23,11 @@
 
 #define _AD_H_
 #import <AudioToolbox/AudioToolbox.h>
-//#include "sphinxbase_export.h"
+
 #import "prim_type.h"
 #import "AudioConstants.h"
 
-//extern "C" {
+
 
 typedef struct Chunk { // The audio device struct used by Pocketsphinx.
 	SInt16 *buffer; // The buffer of SInt16 samples
@@ -65,21 +65,27 @@ typedef struct {
 	SInt16 *extraSampleBuffer; // The buffer of extra samples to read
 	BOOL endingLoop; // We do things slightly differently if we are trying to exit the continuous recognition loop
 	Float32 pocketsphinxDecibelLevel; // The decibel level of mic input
+	BOOL takeBuffersFromTestFile;
+    const char *pathToTestFile;
+    UInt32 bytesInTestFile;
+    UInt32 positionInTestFile;
+    SInt16 *testFileBuffer;
 	
-	
-} PocketsphinxAudioDevice;	
+} PocketsphinxAudioDevice;
 
+void finalize_test(void);
 void clear_buffers();
 Float32 pocketsphinxAudioDeviceMeteringLevel(PocketsphinxAudioDevice * audioDriver); // Returns the decibel level of mic input to controller classes
-PocketsphinxAudioDevice *openAudioDevice(const char *dev, int32 samples_per_sec); // Opens the audio device
+PocketsphinxAudioDevice *openAudioDevice(const char *dev, int32 samples_per_sec, BOOL takingBuffersFromTestFile, const char *testfileName);
 int32 startRecording(PocketsphinxAudioDevice * audioDevice); // Starts the audio device
 int32 stopRecording(PocketsphinxAudioDevice * audioDevice); // Stops the audio device
 int32 closeAudioDevice(PocketsphinxAudioDevice * audioDevice); // Closes the audio device
 int32 readBufferContents(PocketsphinxAudioDevice * audioDevice, int16 * buffer, int32 maximum); // reads the buffer samples for speech data and silence data
 void setRoute(); // Sets the audio route as read from the audio session manager
 void getDecibels(SInt16 * samples, UInt32 inNumberFrames); // Reads the buffer samples and converts them to decibel readings
+int32 startAudioUnitWithRetries(int32 retries, AudioUnit audioUnit);
 
-//}
+
 
 #endif
 

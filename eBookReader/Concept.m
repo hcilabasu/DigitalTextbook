@@ -14,7 +14,15 @@
 @synthesize textBookDefinition;
 @synthesize subject;
 @synthesize textBookIndex;
+@synthesize count;
 
 
-
+- (id) init
+{
+    if (self = [super init])
+    {
+        count=1;
+    }
+    return self;
+}
 @end

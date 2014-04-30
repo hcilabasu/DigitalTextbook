@@ -91,6 +91,8 @@
 - (void) pocketsphinxDidChangeLanguageModelToFile:(NSString *)newLanguageModelPathAsString andDictionary:(NSString *)newDictionaryPathAsString;
 /** Some aspect of setting up the continuous loop failed, turn on OpenEarsLogging for more info.*/
 - (void) pocketSphinxContinuousSetupDidFail; 
+/** Your test recognition run has completed.*/
+- (void) testRecognitionCompleted;
 
 // Flite Status Methods.
 /** Flite started speaking. You probably don't have to do anything about this.*/

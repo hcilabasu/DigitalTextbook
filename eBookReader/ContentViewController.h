@@ -15,6 +15,11 @@
 #import "ThumbNailController.h"
 #import "PopoverView.h"
 #import "LogFileController.h"
+#import <OpenEars/LanguageModelGenerator.h>
+#import <OpenEars/AcousticModel.h>
+#import "AVFoundation/AVSpeechSynthesis.h"
+#import "ConceptViewController.h"
+#import "CmapController.h"
 #ifndef CONTENTVIEWCONTROLLER_H
 #define CONTENTVIEWCONTROLLER_H
 
@@ -23,8 +28,9 @@
 @class HighLightWrapper;
 @class HighLight;
 @class ThumbNailIconWrapper;
+@class CmapController;
 
-@interface ContentViewController : UIViewController< PopoverViewDelegate, UITableViewDataSource, UITableViewDelegate,UIGestureRecognizerDelegate,UIWebViewDelegate>
+@interface ContentViewController : UIViewController< PopoverViewDelegate, UITableViewDataSource, UITableViewDelegate,UIGestureRecognizerDelegate,UIWebViewDelegate,UIScrollViewDelegate,UICollectionViewDataSource, UICollectionViewDelegate>
 {
     PopoverView *pv; //popOver view
     CGPoint pvPoint;// position where pop over view shows
@@ -35,6 +41,13 @@
 
 @property (strong, nonatomic) NSString *bookTitle;
 @property (strong, nonatomic) IBOutlet UIWebView *webView; // the webview which displays the content
+@property (strong, nonatomic) IBOutlet UIScrollView *ThumbScrollViewLeft;
+@property (strong, nonatomic) IBOutlet UIScrollView *ThumbScrollViewRight;
+@property (strong, nonatomic) CmapController *cmapView;
+@property BOOL isleftThumbShow;
+@property BOOL isSplit;//check if the concept map construction  view is showing.
+@property (strong, nonatomic) NSString *firstRespondConcpet;//the concept the student is working on
+
 @property (strong, nonatomic) id dataObject;// sotres the HTML data
 @property (strong, nonatomic) id url; //the URL link to display HTML content
 @property (nonatomic) BOOL isMenuShow;
@@ -46,12 +59,22 @@
 @property (strong, nonatomic) KnowledgeModule *knowledge_module;
 @property (strong, nonatomic) FliteController *fliteController;
 @property (strong, nonatomic) Slt *slt;
+@property (strong, nonatomic) LanguageModelGenerator *lmGenerator;// open ear languange generater
+
+@property (strong, nonatomic) AVSpeechSynthesizer* syn;
+
 @property (strong, nonatomic) ThumbNailController *thumbNailController; //thumbnail controller which controls the thunbail icon position
 @property (strong, nonatomic) LogFileController* logFileController;
 @property (nonatomic, retain) HighLightWrapper *bookHighLight;//the highlight wrapper pased from the bookviewcontroller to control the highlight info in the book
 @property (nonatomic, retain) ThumbNailIconWrapper *bookthumbNailIcon;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *CmapStart;
+@property(strong,nonatomic)UIImageView *bulbImageView;
+@property (strong, nonatomic) NSMutableArray*  conceptNamesArray;
+@property (nonatomic, strong) IBOutlet UICollectionView *linkCollectionView;
+@property (nonatomic) BOOL isCollectionShow;
+-(void)showRecourseFullScreen;
 
-
+@property NSArray *linkItems;
 -(void)setingUpMenuItem;
 -(void)refresh;
 -(void)createWebNote : (CGPoint) show_at_point URL:(NSURLRequest*) urlrequest isWriteToFile:(BOOL)iswrite isNewIcon: (BOOL)isNew;
@@ -62,6 +85,9 @@
 - (NSInteger)highlightAllOccurencesOfString:(NSString*)str;
 -(void)loadHghLight;
 -(int)ifHighlightCollapse: (HighLight*) temp_highlight;
--(void)loadThumbNailIcon;
+-(void)loadThumbNailIcon: (NSString*)concpet;
+-(void)updateNoteText:(CGPoint) show_at_point PreText: (NSString*)pre_text NewText: (NSString *)new_text;
+-(UIImage*)getScreenShot;
+-(ConceptViewController*)createConceptIcon : (CGPoint) show_at_point NoteText:(NSString*) m_note_text isWriteToFile:(BOOL)iswrite;
 
 @end

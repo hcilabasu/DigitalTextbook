@@ -64,9 +64,9 @@ extern "C" {
 #define BIN_MDEF_NATIVE_ENDIAN 0x46444d42 /* 'BMDF' in little-endian order */
 #define BIN_MDEF_OTHER_ENDIAN 0x424d4446  /* 'BMDF' in big-endian order */
 #ifdef __GNUC__
-#define ATTRIBUTE_PACKED_PS __attribute__((packed))
+#define ATTRIBUTE_PACKED_LOCAL __attribute__((packed))
 #else
-#define ATTRIBUTE_PACKED_PS
+#define ATTRIBUTE_PACKED_LOCAL
 #endif
 
 /**
@@ -89,7 +89,7 @@ struct mdef_entry_s {
 			uint8 ctx[3]; /**< quintphones will require hacking */
 		} cd;
 	} info;
-} ATTRIBUTE_PACKED;
+} ATTRIBUTE_PACKED_LOCAL;
 
 /**
  * Invalid senone sequence ID (limited to 16 bits for PocketSphinx).

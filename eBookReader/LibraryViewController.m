@@ -131,6 +131,10 @@
     self.libraryImages = nil;
 }
 
+-(BOOL)prefersStatusBarHidden{
+    return YES;
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -142,6 +146,7 @@
     UINavigationBar *navBar = self.navigationController.navigationBar;
    [navBar setBarStyle: UIBarStyleDefault];
    [navBar setBackgroundImage:[UIImage imageNamed:@"navigation_bar.png"] forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.translucent = NO;
     
 }
 

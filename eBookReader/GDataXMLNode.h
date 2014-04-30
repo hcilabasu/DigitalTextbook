@@ -219,3 +219,4 @@ typedef NSUInteger GDataXMLNodeKind;
 
 - (NSString *)description;
 @end
+ 

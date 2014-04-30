@@ -32,7 +32,8 @@
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
-
+int
+yyparse (void* yyscanner, jsgf_t *jsgf);
 /* Tokens.  */
 #ifndef YYTOKENTYPE
 # define YYTOKENTYPE

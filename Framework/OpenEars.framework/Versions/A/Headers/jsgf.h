@@ -84,6 +84,12 @@ SPHINXBASE_EXPORT
 jsgf_t *jsgf_parse_file(const char *filename, jsgf_t *parent);
 
 /**
+ * Get the grammar name from the file.
+ */
+SPHINXBASE_EXPORT
+char const *jsgf_grammar_name(jsgf_t *jsgf);
+
+/**
  * Free a JSGF grammar.
  */
 SPHINXBASE_EXPORT
@@ -151,6 +157,15 @@ fsg_model_t *jsgf_build_fsg(jsgf_t *grammar, jsgf_rule_t *rule,
 SPHINXBASE_EXPORT
 fsg_model_t *jsgf_build_fsg_raw(jsgf_t *grammar, jsgf_rule_t *rule,
                                 logmath_t *lmath, float32 lw);
+
+
+/**
+ * Read JSGF from file and return FSG object from it.
+ *
+ * This function looks for a first public rule in jsgf and constructs JSGF from it.
+ */
+SPHINXBASE_EXPORT
+fsg_model_t *jsgf_read_file(const char *file, logmath_t * lmath, float32 lw);
 
 /**
  * Convert a JSGF rule to Sphinx FSG text form.

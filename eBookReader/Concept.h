@@ -15,7 +15,7 @@
 @property (nonatomic) NSString *textBookDefinition;// the textbook definition of the concept
 @property (nonatomic) NSString *subject; // the subject of the concept: Biology, physics, maths, etc.
 @property (nonatomic) NSMutableArray *textBookIndex;// the page/section index of the concept
-
+@property int count;
 
 
 @end

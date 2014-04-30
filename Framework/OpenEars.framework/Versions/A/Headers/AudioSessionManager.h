@@ -25,13 +25,20 @@
 
 
 @interface AudioSessionManager : NSObject {
+    /**This lets background sounds like iPod music and alerts play during your app session (also likely to cause those elements to be recognized by an active Pocketsphinx decoder, so only set this to true after initializing your audio session if you know you want this.)*/
     BOOL soundMixing;
+
+    NSString *audioMode;
 }
 
-@property(nonatomic, assign) BOOL soundMixing; // This lets background sounds like iPod music and alerts play during your app session (also likely to cause those elements to be recognized by an active Pocketsphinx decoder, so only set this to true after initializing your audio session if you know you want this for some reason.)
+
+
+@property(nonatomic, assign) NSString *audioMode;
+@property(nonatomic, assign) BOOL soundMixing;
 
 -(void) startAudioSession; // All that we need to access from outside of this class is the method to start the Audio Session.
 
 + (id)sharedAudioSessionManager;
+
 /**\endcond*/
 @end

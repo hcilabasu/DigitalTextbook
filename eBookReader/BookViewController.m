@@ -14,6 +14,7 @@
 #import "ThumbNailIcon.h"
 #import "ThumbNailIconParser.h"
 #import "ThumbNailIconWrapper.h"
+
 @interface BookViewController () {
     NSUInteger _pageNum;
     NSUInteger _totalPageNum;
@@ -40,10 +41,13 @@
     [super viewDidLoad];
     highLight = [HighlightParser loadHighlight];
     thumbnailIcon=[ThumbNailIconParser loadThumbnailIcon];
-   
+    [thumbnailIcon printAllThumbnails];
 }
 
 
+-(BOOL)prefersStatusBarHidden{
+    return YES;
+}
 
 -(void)initialPageView{
     //initialize the page view by adding subviews to the BookView.
@@ -58,7 +62,6 @@
                            initWithTransitionStyle:UIPageViewControllerTransitionStylePageCurl
                            navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal
                            options: options];
-    
     pageController.dataSource = self;
     [[pageController view] setFrame:[[self view] bounds]];
     
@@ -184,8 +187,17 @@
     UINavigationBar *navBar = self.navigationController.navigationBar;
     //set navigationBar style and background
     [navBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
-    [navBar setBarStyle: UIBarStyleBlackTranslucent];
+    [navBar setBarStyle: UIStatusBarStyleDefault];
+   // [[navBar appearance] setTintColor:[UIColor whiteColor]];
+    
+  /*
+    UIImage *conceptMapButtonImg = [UIImage imageNamed:@"google-plus-white"];
+    conceptMapButtonImg=[self scaleToSize:CGSizeMake(40, 40) image:conceptMapButtonImg];
+    UIBarButtonItem *cMapButton = [[UIBarButtonItem alloc] initWithImage:conceptMapButtonImg style:UIBarButtonItemStylePlain target:self action:nil];
+    self.navigationItem.rightBarButtonItem = cMapButton;
+ */
 }
+
 
 
 -(void)showFirstPage: (int) pageIndex
@@ -218,4 +230,22 @@
     [pageController didMoveToParentViewController:self];
 
 }
+
+- (UIImage*)scaleToSize:(CGSize)size image:(UIImage*) img {
+    UIGraphicsBeginImageContext(size);
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextTranslateCTM(context, 0.0, size.height);
+    CGContextScaleCTM(context, 1.0, -1.0);
+    
+    CGContextDrawImage(context, CGRectMake(0.0f, 0.0f, size.width, size.height), img.CGImage);
+    
+    UIImage* scaledImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return scaledImage;
+}
+
+
 @end

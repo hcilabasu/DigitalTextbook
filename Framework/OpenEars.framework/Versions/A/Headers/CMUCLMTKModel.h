@@ -18,7 +18,7 @@
 //#define KEEPFILES
 
 @interface CMUCLMTKModel : NSObject {
-    NSString *pathToDocumentsDirectory;
+    NSString *pathToCachesDirectory;
     int verbosity;
     NSString *algorithmType;
 }
@@ -27,7 +27,7 @@
 - (void) convertARPAAtPath:(NSString *)arpaFileName toDMPAtPath:(NSString *)dmpFileName;
 
 
-@property (nonatomic, copy) NSString *pathToDocumentsDirectory;
+@property (nonatomic, copy) NSString *pathToCachesDirectory;
 @property (nonatomic, assign) int verbosity;
 @property (nonatomic, copy) NSString *algorithmType;
 @end

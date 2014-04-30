@@ -17,6 +17,7 @@
 @synthesize web_requestObj;
 @synthesize pvPoint;
 @synthesize iconPoint;
+@synthesize parentController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -32,12 +33,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     CGSize screenSize = [self screenSize];
-    [self.view setFrame:CGRectMake(screenSize.width-35, iconPoint.y, 25, 25)];
+    [self.view setFrame:CGRectMake(15, iconPoint.y, 25, 25)];
     UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapped:)];
     [doubleTap setNumberOfTapsRequired:1];
     doubleTap.delegate=self;
     [markImage setUserInteractionEnabled:YES];
     [markImage addGestureRecognizer:doubleTap];
+  //  NSLog( @"View Size Hight: %f\n\n\n" ,self.view.frame.size.height);
 }
 
 - (void)didReceiveMemoryWarning
@@ -67,20 +69,11 @@
     return YES;
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    NSArray *viewControllers = self.navigationController.viewControllers;
-    if (viewControllers.count > 1 && [viewControllers objectAtIndex:viewControllers.count-2] == self) {
-        // View is disappearing because a new view controller was pushed onto the stack
-       // NSLog(@"New view controller was pushed");
-    } else if ([viewControllers indexOfObject:self] == NSNotFound) {
-        // View is disappearing because it was popped from the stack
-        NSLog(@"View controller was popped");
-    }
-}
 
 - (void)singleTapped:(UITapGestureRecognizer *)tap
 {
+    //bring the web note view to the front before pushing another view.
+    [parentController.self.view bringSubviewToFront:self.view];
     WebBrowserViewController *webBroser= [[WebBrowserViewController alloc]
                                           initWithNibName:@"WebBrowserViewController" bundle:nil];
     webBroser.isNew=NO;

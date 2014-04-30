@@ -40,23 +40,22 @@
         NSLog(@"Thumbnail Doc Nil!\n");
         return thumbnailWrapper;
     }
-    
     // NSLog(@"%@", doc.rootElement);
     NSArray *partyMembers = [doc.rootElement elementsForName:@"ThumbNailIcon"];
-    
     if([partyMembers count]==0){
         NSLog(@"Empty!!!!\n\n\n");
     }
     
     for (GDataXMLElement *partyMember in partyMembers) {
-        NSString *bookTitle;
+        NSString *bookTitle=@"";
         int type;
-        NSString *text;
-        NSString *url;
+        NSString *text=@"";
+        NSString *url=@"";
         int page;
         CGPoint showPoint;
         CGFloat px;
         CGFloat py;
+        NSString* concept=@"";
         
         NSArray *titles = [partyMember elementsForName:@"BookTitle"];
         if (titles.count > 0) {
@@ -107,7 +106,15 @@
         
         showPoint=CGPointMake(px, py);
         
-        ThumbNailIcon *player = [[ThumbNailIcon alloc] initWithName: type Text:text URL:url showPoint:showPoint pageNum:page bookTitle:bookTitle];
+        NSArray *related_Concept = [partyMember elementsForName:@"Concept"];
+        if (related_Concept.count > 0) {
+            GDataXMLElement *relatedConcept = (GDataXMLElement *) [related_Concept objectAtIndex:0];
+            concept=relatedConcept.stringValue;
+        } else continue;
+        
+ 
+        
+        ThumbNailIcon *player = [[ThumbNailIcon alloc] initWithName: type Text:text URL:url showPoint:showPoint pageNum:page bookTitle:bookTitle relatedConcept:concept];
         [thumbnailWrapper.thumbnails addObject:player];
     }
     return thumbnailWrapper;
@@ -153,6 +160,11 @@
         GDataXMLElement * pointYElement =
         [GDataXMLNode elementWithName:@"PointY" stringValue:
          [NSString stringWithFormat:@"%f", thumbNailItem.showPoint.y]];
+        
+        GDataXMLElement * conceptElement =
+        [GDataXMLNode elementWithName:@"Concept" stringValue:thumbNailItem.relatedConcpet];
+        
+        
 
         [itemElement addChild:titleElement];
         [itemElement addChild:typeElement];
@@ -161,6 +173,7 @@
         [itemElement addChild:pageElement];
         [itemElement addChild:pointXElement];
         [itemElement addChild:pointYElement];
+        [itemElement addChild:conceptElement];
         [partyElement addChild:itemElement];
         NSLog(@"Add element");
         

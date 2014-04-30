@@ -868,6 +868,7 @@
            noteIcon= [parent_View_Controller createNote:showPoint NoteText:[noteText text] isWriteToFile:YES];
         }else{
             [noteIcon updateText:[noteText text]];
+           
         }
     }
     [self removeFromSuperview];
