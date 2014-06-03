@@ -20,6 +20,7 @@
 #import "AVFoundation/AVSpeechSynthesis.h"
 #import "ConceptViewController.h"
 #import "CmapController.h"
+#import "NodeCell.h"
 #ifndef CONTENTVIEWCONTROLLER_H
 #define CONTENTVIEWCONTROLLER_H
 
@@ -89,5 +90,7 @@
 -(void)updateNoteText:(CGPoint) show_at_point PreText: (NSString*)pre_text NewText: (NSString *)new_text;
 -(UIImage*)getScreenShot;
 -(ConceptViewController*)createConceptIcon : (CGPoint) show_at_point NoteText:(NSString*) m_note_text isWriteToFile:(BOOL)iswrite;
+-(void)splitScreen;
+-(void)showPageAtINdex:(int)pageNumber;
 
 @end

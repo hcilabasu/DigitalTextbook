@@ -22,7 +22,7 @@
 
 @property (nonatomic) CGSize screenSize;
 
--(int) getIconPos: (CGPoint) m_showPoint;
+-(int) getIconPos: (CGPoint) m_showPoint type:(int)thumbtype;
 -(void)clearAllThumbnail;
 
 @end

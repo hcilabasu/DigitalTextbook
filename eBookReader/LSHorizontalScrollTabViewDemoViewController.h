@@ -11,7 +11,7 @@
 #import "ContentViewController.h"
 @class HighLightWrapper;
 @class ThumbNailIconWrapper;
-@class ContentViewController;
+//@class ContentViewController;
 @interface LSHorizontalScrollTabViewDemoViewController : UIViewController <LSTabBarViewDelegate,UIGestureRecognizerDelegate,UITableViewDelegate,UITableViewDataSource>
 
 @property (strong, nonatomic) NSString *bookTitle;
@@ -20,6 +20,7 @@
 @property (nonatomic, retain) IBOutlet UIImageView *borderImageView;
 @property (nonatomic, retain) IBOutlet UILabel     *selectedTabLabel;
 @property (nonatomic, retain) IBOutlet UITableView *contentTableView;
+@property (nonatomic, retain) UIWebView *QAWebview;
 @property (nonatomic, retain) NSArray* dataList;
 @property (nonatomic) int tagToShow;
 @property (nonatomic) BOOL isMenuShow;
@@ -30,4 +31,5 @@
 @property (nonatomic, retain) NSMutableArray *webIcons;
 @property (nonatomic, strong) ContentViewController* parentContentViewController;
 @property CGRect originSize;
+@property BOOL webviewIsShow;
 @end

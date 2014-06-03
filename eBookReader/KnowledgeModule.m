@@ -79,16 +79,16 @@
     [conceptList addObject:plant];
     
 
-    Concept *tissue=[[ Concept alloc] init];
-    tissue.conceptName=@"tissue";
-    tissue.textBookDefinition=@"The biophysical environment is the biotic and abiotic surrounding of an organism, or population, and includes particularly the factors that have an influence in their survival, development and evolution.";
-    [conceptList addObject:tissue];
+    Concept *seed=[[ Concept alloc] init];
+    seed.conceptName=@"seed";
+    seed.textBookDefinition=@"The biophysical environment is the biotic and abiotic surrounding of an organism, or population, and includes particularly the factors that have an influence in their survival, development and evolution.";
+    [conceptList addObject:seed];
     
-    Concept *energy=[[ Concept alloc] init];
-    energy.conceptName=@"energy";
-    energy.textBookDefinition=@"The biophysical environment is the biotic and abiotic surrounding of an organism, or population, and includes particularly the factors that have an influence in their survival, development and evolution.";
-    energy.count=3;
-    [conceptList addObject:energy];
+    Concept *root=[[ Concept alloc] init];
+    root.conceptName=@"root";
+    root.textBookDefinition=@"The biophysical environment is the biotic and abiotic surrounding of an organism, or population, and includes particularly the factors that have an influence in their survival, development and evolution.";
+    root.count=3;
+    [conceptList addObject:root];
     
     
 }

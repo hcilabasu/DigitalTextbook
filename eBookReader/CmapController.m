@@ -47,16 +47,24 @@
 @synthesize bookTitle;
 @synthesize showType;
 @synthesize parent_ContentViewController;
+@synthesize contentView;
 - (void)viewDidLoad
 {
-    
-    
     [super viewDidLoad];
    // if(2==showScenarioId){//the view is initialized in the book page.
         CGRect rect=CGRectMake(530, 0, 494, 768);
         [self.view setFrame:rect];
     //[self.conceptMapView setFrame:CGRectMake(0, 0, 494, 768)];
     //}
+    CGRect rect2=CGRectMake(0, 0, 494, 768);
+    contentView= [[UIView alloc]init];
+    [contentView setFrame:rect2];
+    [conceptMapView addSubview:contentView];
+    
+    conceptMapView.delegate=self;
+    conceptMapView.minimumZoomScale = 1.0;
+    conceptMapView.maximumZoomScale = 10.0;
+    
     knowledgeModule=[ [KnowledgeModule alloc] init ];
     conceptNamesArray=[[NSMutableArray alloc] init];
     conceptNodeArray=[[NSMutableArray alloc] init];
@@ -79,21 +87,60 @@
     
     UIPinchGestureRecognizer *pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinch:)];
     pinchGesture.delegate=self;
-        [self.view addGestureRecognizer:pinchGesture];
+       // [conceptMapView addGestureRecognizer:pinchGesture];
 
 }
-
-
 
 
 
 - (IBAction)handlePinch:(UIPinchGestureRecognizer *)recognizer
 {
-    recognizer.view.transform = CGAffineTransformScale(recognizer.view.transform, recognizer.scale, recognizer.scale);
+    static CGRect originSize;
+    if(recognizer.state==UIGestureRecognizerStateBegan){
+        originSize=recognizer.view.frame;
+    }
+    NSLog(@"%f",recognizer.scale);
+    conceptMapView.transform = CGAffineTransformScale(recognizer.view.transform, recognizer.scale, recognizer.scale);
+    [conceptMapView setContentSize:contentView.frame.size];
+    [contentView setFrame:CGRectMake(0, 0, contentView.frame.size.width, contentView.frame.size.height)];
+    
     recognizer.scale = 1;
     
-  
+    if(recognizer.state == UIGestureRecognizerStateEnded){
+        /*
+        if(originSize.size.width*1.2<recognizer.view.frame.size.width||1==showType){
+            CGRect rect=CGRectMake(530, 0, 494, 768);
+            [self.view setFrame:rect];
+           CmapController* cmapView=[[CmapController alloc] initWithNibName:@"CmapView" bundle:nil];
+            cmapView.parent_ContentViewController=parent_ContentViewController;
+            cmapView.dataObject=dataObject;
+            cmapView.showType=0;
+            cmapView.url=url;
+            cmapView.bookHighlight=bookHighlight;
+            cmapView.bookThumbNial=bookThumbNial;
+            cmapView.bookTitle=bookTitle;
+           [parent_ContentViewController.navigationController pushViewController:cmapView animated:NO];
+           // [parent_ContentViewController.navigationController.view addSubview:cmapView.view];
+        }else if (originSize.size.width<1.2*recognizer.view.frame.size.width||0==showType){
+           
+            [self.navigationController popViewControllerAnimated:NO ];
+         
+        } */
+    }
 }
+
+
+
+
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+     NSLog(@"eeee!");
+    return contentView;
+   
+}
+
+
+
 
 - (void)LongPress:(UILongPressGestureRecognizer *)gestureRecognizer {
     if (UIGestureRecognizerStateBegan==gestureRecognizer.state) {
@@ -155,6 +202,7 @@
     node.showType=showType;
         [conceptNodeArray addObject:node];
     [self addChildViewController:node];
+    // [contentView addSubview: node.view ];
     [conceptMapView addSubview: node.view ];
     node.text.text=name;
 }
@@ -175,6 +223,10 @@
     [conceptMapView addSubview: node.view ];
     node.text.text=name;
 
+}
+
+-(void)showpageAtIntex: (int)page{
+    [parent_ContentViewController showPageAtINdex:page];
 }
 
 -(void)generateNodeArray: (NSMutableArray*) conceptArray{
@@ -352,6 +404,8 @@
     [self.view addSubview:tabView.view];
 }
 
+- (IBAction)saveMap:(id)sender {
+}
 
 
 @end

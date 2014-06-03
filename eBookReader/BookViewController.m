@@ -76,6 +76,9 @@
                             completion:nil];
     
     [self addChildViewController:pageController];
+    
+
+    
     [[self view] addSubview:[pageController view]];
     [pageController didMoveToParentViewController:self];
 
@@ -202,6 +205,7 @@
 
 -(void)showFirstPage: (int) pageIndex
 {
+    
     NSDictionary *options =
     [NSDictionary dictionaryWithObject:
      [NSNumber numberWithInteger:UIPageViewControllerSpineLocationMin]
@@ -228,6 +232,7 @@
     [self addChildViewController:pageController];
     [[self view] addSubview:[pageController view]];
     [pageController didMoveToParentViewController:self];
+
 
 }
 

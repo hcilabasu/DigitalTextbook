@@ -36,6 +36,8 @@
 @synthesize showType;
 @synthesize originSize;
 @synthesize parentContentViewController;
+@synthesize QAWebview;
+@synthesize webviewIsShow;
 + (NSString *)viewTitle {
     return @"Review Section";
 }
@@ -74,13 +76,12 @@
     NSArray *tabItems = @[ [[LSTabItem alloc] initWithTitle:@"Highlights"] ,
                            [[LSTabItem alloc] initWithTitle:@"BookMarks"] ,
                            [[LSTabItem alloc] initWithTitle:@"WebLinks"] ,
-                           [[LSTabItem alloc] initWithTitle:@"Notes"],
-                           [[LSTabItem alloc] initWithTitle:@"Other"],
+                           [[LSTabItem alloc] initWithTitle:@"Q&A"],
+                           [[LSTabItem alloc] initWithTitle:@"Note"],
       ];
     // Assigns some badge number
     ((LSTabItem *)tabItems[1]).badgeNumber = 5;
     ((LSTabItem *)tabItems[2]).badgeNumber = 1;
-
     [((LSTabItem *)tabItems[1]).parentTabControl setButtonBg:@"TabNormal_red"];
     
     tabView = [[LSScrollTabBarView alloc] initWithItems:tabItems delegate:self];
@@ -140,6 +141,21 @@
     [self.view addGestureRecognizer:pinchGesture];
     }
     originSize=self.view.frame;
+    
+    
+    
+    QAWebview=[[UIWebView alloc]initWithFrame:CGRectMake(0, 0,480 ,768)];
+    NSString* url = @"http://stackoverflow.com/questions/13898938/uiwebview-load-url-with-parameters";
+    QAWebview.backgroundColor=[UIColor whiteColor];
+    NSURL* nsUrl = [NSURL URLWithString:url];
+    
+    NSURLRequest* request = [NSURLRequest requestWithURL:nsUrl cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:30];
+    
+    [QAWebview loadRequest:request];
+    
+    //[contentTableView addSubview:QAWebview];
+   // [QAWebview setHidden:YES];
+   // webviewIsShow=YES;
 }
 
 
@@ -171,7 +187,7 @@
         //set navigation bar animation, which uses the QuartzCore framework.
         CATransition *navigationBarAnimation = [CATransition animation];
         navigationBarAnimation.duration = 0.7;
-        navigationBarAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];;
+        navigationBarAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
         //navigationBarAnimation.type = kCATransitionMoveIn;
         //navigationBarAnimation.subtype = kCATransitionFromBottom;
         navigationBarAnimation.removedOnCompletion = YES;
@@ -200,32 +216,41 @@
     }
     NSUInteger row = [indexPath row];
     
+    NSLog(@"Tag to show: %d",tagToShow);
     
     if(0==tagToShow){
+
+        
+        if(highlightWrapper.highLights.count>row){
          HighLight *highlightContent=[highlightWrapper.highLights objectAtIndex:row];
         cell.detailTextLabel.text = highlightContent.text;
          cell.textLabel.text =   [NSString stringWithFormat:@"Page: %d",highlightContent.page ];
+         cell.tag=highlightContent.page;
+        }
     }
     if(1==tagToShow){
+
+        if(thumbNailWrapper.thumbnails.count>row){
         ThumbNailIcon *thunmnailContent=[thumbNailWrapper.thumbnails objectAtIndex:row];
         if(1==thunmnailContent.type){
             cell.detailTextLabel.text=thunmnailContent.text;
             cell.textLabel.text =   [NSString stringWithFormat:@"Page: %d",thunmnailContent.page ];
+           // cell.tag=thunmnailContent.page;
         }else if(2==thunmnailContent.type){
             cell.detailTextLabel.text=thunmnailContent.url;
             cell.textLabel.text =   [NSString stringWithFormat:@"Page: %d",thunmnailContent.page ];
         }
+        }
     }
     if(2==tagToShow){
+
+        if(webIcons.count>row){
         ThumbNailIcon *webIconContent= [webIcons objectAtIndex:row];
         cell.detailTextLabel.text=webIconContent.url;
-        cell.textLabel.text =   [NSString stringWithFormat:@"Page: %d",webIconContent.page ];
+        cell.textLabel.text =   [NSString stringWithFormat:@"Page: %d",webIconContent.page];
+        }
     }
-    if(3==tagToShow){
-        ThumbNailIcon *noteIconContent= [noteIcons objectAtIndex:row];
-        cell.detailTextLabel.text=noteIconContent.text;
-        cell.textLabel.text =   [NSString stringWithFormat:@"Page: %d",noteIconContent.page ];
-    }
+
     return cell;
 }
 
@@ -279,10 +304,39 @@
    tabSelected:(LSTabItem *)item
        atIndex:(NSInteger)selectedIndex
 {
-    self.selectedTabLabel.text = [NSString stringWithFormat:@"%@ selected", item.title];
+    NSLog(@"Tab bar select");
+    self.selectedTabLabel.text = [NSString stringWithFormat:@"%@", item.title];
     tagToShow=selectedIndex;
     [contentTableView reloadData];
+    
+    NSLog(@"%@",self.selectedTabLabel.text);
+    if([self.selectedTabLabel.text isEqualToString:@"Q&A"]){
+       
+        [contentTableView addSubview: QAWebview];
+        webviewIsShow=YES;
+    
+      // [QAWebview setHidden:NO];
+    }else if(webviewIsShow){
+        [QAWebview removeFromSuperview];
+        webviewIsShow=NO;
+       //[QAWebview setHidden:YES];
+    }
+    
+    
 }
+
+
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+  //  NSLog(@"%d", indexPath.row);
+   UITableViewCell *cell= [tableView cellForRowAtIndexPath:indexPath];
+    NSString* text=cell.textLabel.text;
+   [text stringByReplacingOccurrencesOfString:@"Page:" withString:@""];
+    NSLog(@"Page num: %d",cell.tag);
+    [parentContentViewController showPageAtINdex:cell.tag-1];
+    
+}
+
 
 - (BOOL) canPerformAction:(SEL)action withSender:(id)sender
 {

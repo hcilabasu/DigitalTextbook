@@ -51,15 +51,21 @@
     // Dispose of any resources that can be recreated.
 }
 
--(int) getIconPos: (CGPoint) m_showPoint{
-        
-    int tempPos= (m_showPoint.y-25)/30;
+-(int) getIconPos: (CGPoint) m_showPoint type:(int)thumbtype{
+     int thumbHeight;
+    if(1==thumbtype){
+        thumbHeight=45;
+    }else{
+        thumbHeight=30;
+    }
+   
+    int tempPos= (m_showPoint.y-25)/thumbHeight;
    // NSLog(@"Tem Pos: %d\n",tempPos);
     int pos=0;
     for(int i=tempPos; i<[iconArray count];i++){
         NSString *tempString=[iconArray objectAtIndex:i];
         if([tempString isEqualToString: @"Empty"]){
-            pos=i*30+25;
+            pos=i*thumbHeight+25;
             [iconArray replaceObjectAtIndex:i withObject:@"Full"];
             break;
         }

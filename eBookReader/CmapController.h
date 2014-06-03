@@ -26,6 +26,7 @@
 
 //@property (strong, nonatomic) IBOutlet UIWebView *webView;
 @property (strong, nonatomic) IBOutlet UIScrollView *conceptMapView;
+@property (strong, nonatomic) IBOutlet UIView *contentView;
 
 @property (strong, nonatomic) id dataObject;// sotres the HTML data
 @property (strong, nonatomic) id url; //the URL link to display HTML content
@@ -46,6 +47,8 @@
 @property (strong, nonatomic) NSMutableArray*  conceptNamesArray;
 //the array that keeps trak of all the concept nodes in the Cmap view
 @property (strong, nonatomic) NSMutableArray*  conceptNodeArray;
+
+
 @property (strong, nonatomic) KnowledgeModule*  knowledgeModule;
 //link
 @property (nonatomic, assign) BOOL isReadyToLink;
@@ -62,9 +65,10 @@
 @property (nonatomic, retain) ThumbNailIconWrapper* bookThumbNial;
 @property (strong, nonatomic) NSString *bookTitle;
 @property (strong,nonatomic)  UIImageView *waitImageView;
+
 -(void)disableAllNodesEditting;
 -(void)enableAllNodesEditting;
-
+-(void)showpageAtIntex: (int)page;
 -(void)addConceptOnClick: (CGPoint)clickPoint;
 -(void)scrollCmapView :(CGFloat)length;
 -(void)generateNodeArray: (NSMutableArray*) conceptArray;

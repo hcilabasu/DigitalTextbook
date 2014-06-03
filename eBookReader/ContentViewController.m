@@ -206,6 +206,8 @@ static NSString *cellId2 = @"cellId2";
     }
 }
 
+
+
 //refresh the book page
 -(void) refresh{
     [webView loadHTMLString:_dataObject baseURL:_url];
@@ -344,7 +346,6 @@ static NSString *cellId2 = @"cellId2";
         isCollectionShow=YES;
         //[webView setFrame:CGRectMake(webView.frame.origin.x+60, webView.frame.origin.y, webView.frame.size.width, webView.frame.size.height)];
         //[ThumbScrollView setFrame:CGRectMake(ThumbScrollView.frame.origin.x+80, ThumbScrollView.frame.origin.y, ThumbScrollView.frame.size.width, ThumbScrollView.frame.size.height)];
-        
     }*/
     
 }
@@ -486,6 +487,21 @@ static NSString *cellId2 = @"cellId2";
     if(YES==isSplit){
         [cmapView createNodeFromBook:CGPointMake(200, 200) withName:[webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"] BookPos:pvPoint];
     }
+    if(NO==isSplit){
+        [self createConceptThumb:[webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"]];
+    }
+}
+
+-(void)createConceptThumb: (NSString*)name{
+    NodeCell *node=[[NodeCell alloc]initWithNibName:@"NodeCell" bundle:nil];
+    node.nodeType=1;
+    node.isInitialed=YES;
+    [node.text setEnabled:NO];
+    int y=[thumbNailController getIconPos:pvPoint type:1];
+    [node.view setFrame:CGRectMake(6, y,node.view.frame.size.width, node.view.frame.size.height)];
+    [self addChildViewController:node];
+    [ThumbScrollViewRight addSubview: node.view ];
+    node.text.text=name;
 }
 
 - (void)highlightStringWithColor:(NSString*)color{
@@ -568,6 +584,11 @@ static NSString *cellId2 = @"cellId2";
     }
 }
 
+
+-(void)showPageAtINdex:(int)pageNumber{
+    [parent_BookViewController showFirstPage:pageNumber];
+    
+}
 
 //shows the popup view
 - (IBAction)popUp : (UITapGestureRecognizer *)tap {
@@ -673,7 +694,7 @@ static NSString *cellId2 = @"cellId2";
     note.parentController=self;
     CGPoint newPos;
     newPos.x=show_at_point.x;
-    newPos.y=[thumbNailController getIconPos:show_at_point];
+    newPos.y=[thumbNailController getIconPos:show_at_point type:0];
     note.iconPoint=newPos;
     [self addChildViewController:note];
     [ThumbScrollViewLeft addSubview:note.view];
@@ -699,7 +720,7 @@ static NSString *cellId2 = @"cellId2";
     note.parentController=self;
     CGPoint newPos;
     newPos.x=show_at_point.x;
-    newPos.y=[thumbNailController getIconPos:show_at_point];
+    newPos.y=[thumbNailController getIconPos:show_at_point type: 0];
     note.iconPoint=newPos;
     [self addChildViewController:note];
     [ThumbScrollViewLeft addSubview: note.view ];
@@ -709,7 +730,7 @@ static NSString *cellId2 = @"cellId2";
     }
     ThumbNailIcon *temp_thumbnail = [[ThumbNailIcon alloc] initWithName: 1 Text: m_note_text URL:@"" showPoint:show_at_point pageNum:pageNum bookTitle:bookTitle relatedConcept:firstRespondConcpet];
     if(iswrite){
-         NSLog(@"True NOde");
+         NSLog(@"True Node");
         [bookthumbNailIcon addthumbnail:temp_thumbnail];
         [bookthumbNailIcon printAllThumbnails];
         
@@ -734,7 +755,7 @@ static NSString *cellId2 = @"cellId2";
     note.parentController=self;
     CGPoint newPos;
     newPos.x=show_at_point.x;
-    newPos.y=[thumbNailController getIconPos:show_at_point];
+    newPos.y=[thumbNailController getIconPos:show_at_point type: 0];
     note.iconPoint=newPos;
     [self addChildViewController:note];
     [ThumbScrollViewRight addSubview: note.view ];
@@ -982,33 +1003,24 @@ static NSString *cellId2 = @"cellId2";
      [cmapView.view setHidden:YES];
 }
 
+-(void)showCmapFullScreen{
+    //isSplit=NO;
+     //[self resumeNormalScreenLandscape];
+    
+}
+
 -(void)showRecourseFullScreen{
     isSplit=NO;
- [self resumeNormalScreenLandscape];
+    [self resumeNormalScreenLandscape];
     LSHorizontalScrollTabViewDemoViewController *tabView=[[LSHorizontalScrollTabViewDemoViewController alloc] initWithNibName:@"LSHorizontalScrollTabViewDemoViewController" bundle:nil];
     tabView.highlightWrapper=bookHighLight;
     tabView.thumbNailWrapper=bookthumbNailIcon;
     tabView.bookTitle=bookTitle;
     tabView.showType=0;
     tabView.parentContentViewController=self;
-    [self.navigationController pushViewController:tabView animated:YES];
+    [self.navigationController pushViewController:tabView animated:NO];
     //[self addChildViewController:tabView];
     //[self.view addSubview:tabView.view];
 }
 
-/*
-- (void)addLineAtTop:(CGPoint)p1 Point2: (CGPoint)p2{
-    CAShapeLayer* layer = [CAShapeLayer layer];
-    layer.strokeColor = [[UIColor grayColor] CGColor];
-    layer.lineWidth = 1.0;
-    layer.fillColor = [[UIColor clearColor] CGColor];
-    //[lineLaer removeFromSuperlayer];
-    UIBezierPath *path = [UIBezierPath bezierPath];
-    [path moveToPoint:p1];
-    [path addLineToPoint:p2];
-    // [shapeLayer removeFromSuperlayer];
-    layer.path = [path CGPath];
-    [self.parentCmapController.conceptMapView.layer addSublayer:layer];
-}
- */
 @end

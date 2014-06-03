@@ -29,13 +29,27 @@
     dataPath = [documentsDirectory stringByAppendingPathComponent:@"MyBook/book"];
     [fileManager createDirectoryAtPath:dataPath withIntermediateDirectories:NO attributes:nil error:&error];
   
+     NSString *txtPath = [dataPath stringByAppendingPathComponent:@"Plant.epub"];
+     
+     if ([fileManager fileExistsAtPath:txtPath] == NO) {
+     NSString *resourcePath = [[NSBundle mainBundle] pathForResource:@"Plant" ofType:@"epub"];
+     [fileManager copyItemAtPath:resourcePath toPath:txtPath error:&error];
+     }
     
-    NSString *txtPath = [dataPath stringByAppendingPathComponent:@"Bio.epub"];
     
-    if ([fileManager fileExistsAtPath:txtPath] == NO) {
-        NSString *resourcePath = [[NSBundle mainBundle] pathForResource:@"Bio" ofType:@"epub"];
+    /*
+    
+     NSString *dataPath2 = [documentsDirectory stringByAppendingPathComponent:@"MyBook"];
+    dataPath2 = [documentsDirectory stringByAppendingPathComponent:@"MyBook/book2"];
+    [fileManager createDirectoryAtPath:dataPath2 withIntermediateDirectories:NO attributes:nil error:&error];
+    
+    NSString *txtPath2 = [dataPath2 stringByAppendingPathComponent:@"Plant.epub"];
+    
+    if ([fileManager fileExistsAtPath:txtPath2] == NO) {
+        NSString *resourcePath = [[NSBundle mainBundle] pathForResource:@"Plant" ofType:@"epub"];
         [fileManager copyItemAtPath:resourcePath toPath:txtPath error:&error];
     }
+    */
     
     // Override point for customization after app launch
     

@@ -61,6 +61,9 @@
 		561C0D5818C52B7900B223D3 /* edit.png in Resources */ = {isa = PBXBuildFile; fileRef = 561C0D5718C52B7900B223D3 /* edit.png */; };
 		5623148016F9027C00B40047 /* ContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5623147E16F9027C00B40047 /* ContentViewController.m */; };
 		5623148116F9027C00B40047 /* ContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5623147F16F9027C00B40047 /* ContentViewController.xib */; };
+		563B50FE1919F6CC00FA0F34 /* CmapNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 563B50FD1919F6CC00FA0F34 /* CmapNode.m */; };
+		563B51011919F99900FA0F34 /* CmapNodeWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 563B51001919F99900FA0F34 /* CmapNodeWrapper.m */; };
+		563B51041919FA7A00FA0F34 /* CmapNodeParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 563B51031919FA7A00FA0F34 /* CmapNodeParser.m */; };
 		5645250A170A5D09005E2D17 /* cover_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 56452509170A5D09005E2D17 /* cover_default.png */; };
 		56465CD217B8813C00EE38FC /* controlUpBarBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 56465CD117B8813C00EE38FC /* controlUpBarBG.png */; };
 		56465CD717B8AF8300EE38FC /* TabNormal_skyBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = 56465CD317B8AF8200EE38FC /* TabNormal_skyBlue.png */; };
@@ -137,6 +140,10 @@
 		568251A818B48A6300F6412B /* cmap.png in Resources */ = {isa = PBXBuildFile; fileRef = 568251A718B48A6300F6412B /* cmap.png */; };
 		5693B3FA19006E6A00AABE27 /* CmapScrollViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5693B3F819006E6A00AABE27 /* CmapScrollViewViewController.m */; };
 		5693B3FB19006E6A00AABE27 /* CmapScrollViewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5693B3F919006E6A00AABE27 /* CmapScrollViewViewController.xib */; };
+		569407F2193959ED00D5294F /* ResrouceThumbViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 569407F1193959ED00D5294F /* ResrouceThumbViewController.m */; };
+		569407F41939A28A00D5294F /* safari_square.png in Resources */ = {isa = PBXBuildFile; fileRef = 569407F31939A28A00D5294F /* safari_square.png */; };
+		569407F61939A2E400D5294F /* note_square.png in Resources */ = {isa = PBXBuildFile; fileRef = 569407F51939A2E400D5294F /* note_square.png */; };
+		569407F81939B40B00D5294F /* colorPlate.png in Resources */ = {isa = PBXBuildFile; fileRef = 569407F71939B40B00D5294F /* colorPlate.png */; };
 		56955C2418DCDAD60073A64C /* PFGoldenSectionSpiral.m in Sources */ = {isa = PBXBuildFile; fileRef = 56955C1D18DCDAD60073A64C /* PFGoldenSectionSpiral.m */; };
 		56955C2518DCDAD60073A64C /* ZYQSphereView.m in Sources */ = {isa = PBXBuildFile; fileRef = 56955C2318DCDAD60073A64C /* ZYQSphereView.m */; };
 		56955C2918DCDC4E0073A64C /* SampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56955C2818DCDC4E0073A64C /* SampleViewController.m */; };
@@ -165,10 +172,10 @@
 		56C69D4A1725D2AD009419B3 /* WebMarkController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56C69D481725D2AD009419B3 /* WebMarkController.xib */; };
 		56C69D4C1725D40B009419B3 /* safari.png in Resources */ = {isa = PBXBuildFile; fileRef = 56C69D4B1725D40B009419B3 /* safari.png */; };
 		56C69D531727BE5B009419B3 /* EpubSampleNick.epub in Resources */ = {isa = PBXBuildFile; fileRef = 56C69D521727BE5B009419B3 /* EpubSampleNick.epub */; };
-		56C69D541727BE71009419B3 /* EpubSampleNick.epub in Resources */ = {isa = PBXBuildFile; fileRef = 56C69D521727BE5B009419B3 /* EpubSampleNick.epub */; };
 		56C69D561727BF74009419B3 /* Bio.epub in Resources */ = {isa = PBXBuildFile; fileRef = 56C69D551727BF74009419B3 /* Bio.epub */; };
 		56C69D571727BF87009419B3 /* Bio.epub in Resources */ = {isa = PBXBuildFile; fileRef = 56C69D551727BF74009419B3 /* Bio.epub */; };
 		56CB3D6518FD23E4003FE954 /* ConceptThubm.png in Resources */ = {isa = PBXBuildFile; fileRef = 56CB3D6418FD23E4003FE954 /* ConceptThubm.png */; };
+		56D43C271910EFDE00C2B100 /* Plant.epub in Resources */ = {isa = PBXBuildFile; fileRef = 56D43C261910EF8A00C2B100 /* Plant.epub */; };
 		56D76C1718BC04BB0041FA56 /* DragView.m in Sources */ = {isa = PBXBuildFile; fileRef = 56D76C1418BC04BB0041FA56 /* DragView.m */; };
 		56D76C2818BC05140041FA56 /* ConceptNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 56D76C1F18BC05140041FA56 /* ConceptNode.m */; };
 		56D76C2918BC05140041FA56 /* Connection.m in Sources */ = {isa = PBXBuildFile; fileRef = 56D76C2118BC05140041FA56 /* Connection.m */; };
@@ -275,6 +282,12 @@
 		5623147D16F9027C00B40047 /* ContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentViewController.h; sourceTree = "<group>"; };
 		5623147E16F9027C00B40047 /* ContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContentViewController.m; sourceTree = "<group>"; };
 		5623147F16F9027C00B40047 /* ContentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContentViewController.xib; sourceTree = "<group>"; };
+		563B50FC1919F6CC00FA0F34 /* CmapNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CmapNode.h; sourceTree = "<group>"; };
+		563B50FD1919F6CC00FA0F34 /* CmapNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CmapNode.m; sourceTree = "<group>"; };
+		563B50FF1919F99900FA0F34 /* CmapNodeWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CmapNodeWrapper.h; sourceTree = "<group>"; };
+		563B51001919F99900FA0F34 /* CmapNodeWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CmapNodeWrapper.m; sourceTree = "<group>"; };
+		563B51021919FA7A00FA0F34 /* CmapNodeParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CmapNodeParser.h; sourceTree = "<group>"; };
+		563B51031919FA7A00FA0F34 /* CmapNodeParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CmapNodeParser.m; sourceTree = "<group>"; };
 		56452509170A5D09005E2D17 /* cover_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cover_default.png; sourceTree = "<group>"; };
 		56465CD117B8813C00EE38FC /* controlUpBarBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = controlUpBarBG.png; sourceTree = "<group>"; };
 		56465CD317B8AF8200EE38FC /* TabNormal_skyBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabNormal_skyBlue.png; sourceTree = "<group>"; };
@@ -367,6 +380,11 @@
 		5693B3F719006E6A00AABE27 /* CmapScrollViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CmapScrollViewViewController.h; sourceTree = "<group>"; };
 		5693B3F819006E6A00AABE27 /* CmapScrollViewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CmapScrollViewViewController.m; sourceTree = "<group>"; };
 		5693B3F919006E6A00AABE27 /* CmapScrollViewViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CmapScrollViewViewController.xib; sourceTree = "<group>"; };
+		569407F0193959ED00D5294F /* ResrouceThumbViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResrouceThumbViewController.h; sourceTree = "<group>"; };
+		569407F1193959ED00D5294F /* ResrouceThumbViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResrouceThumbViewController.m; sourceTree = "<group>"; };
+		569407F31939A28A00D5294F /* safari_square.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = safari_square.png; sourceTree = "<group>"; };
+		569407F51939A2E400D5294F /* note_square.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = note_square.png; sourceTree = "<group>"; };
+		569407F71939B40B00D5294F /* colorPlate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = colorPlate.png; sourceTree = "<group>"; };
 		56955C1B18DCDAD60073A64C /* PFAxisDirection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFAxisDirection.h; sourceTree = "<group>"; };
 		56955C1C18DCDAD60073A64C /* PFGoldenSectionSpiral.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFGoldenSectionSpiral.h; sourceTree = "<group>"; };
 		56955C1D18DCDAD60073A64C /* PFGoldenSectionSpiral.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFGoldenSectionSpiral.m; sourceTree = "<group>"; };
@@ -412,6 +430,7 @@
 		56C69D521727BE5B009419B3 /* EpubSampleNick.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = EpubSampleNick.epub; sourceTree = "<group>"; };
 		56C69D551727BF74009419B3 /* Bio.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = Bio.epub; sourceTree = "<group>"; };
 		56CB3D6418FD23E4003FE954 /* ConceptThubm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ConceptThubm.png; sourceTree = "<group>"; };
+		56D43C261910EF8A00C2B100 /* Plant.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = Plant.epub; sourceTree = "<group>"; };
 		56D76C1318BC04BB0041FA56 /* DragView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DragView.h; sourceTree = "<group>"; };
 		56D76C1418BC04BB0041FA56 /* DragView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DragView.m; sourceTree = "<group>"; };
 		56D76C1E18BC05140041FA56 /* ConceptNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConceptNode.h; sourceTree = "<group>"; };
@@ -482,6 +501,9 @@
 		315F0AE016CC186C00300B19 /* Pictures */ = {
 			isa = PBXGroup;
 			children = (
+				569407F71939B40B00D5294F /* colorPlate.png */,
+				569407F51939A2E400D5294F /* note_square.png */,
+				569407F31939A28A00D5294F /* safari_square.png */,
 				5651D62019079CFD0088E733 /* bb.png */,
 				56CB3D6418FD23E4003FE954 /* ConceptThubm.png */,
 				56F30E4318F5130A00E8ECEF /* wait.png */,
@@ -552,6 +574,7 @@
 		3166DB5916B0A5300089C0F2 /* eBookReader */ = {
 			isa = PBXGroup;
 			children = (
+				56D43C261910EF8A00C2B100 /* Plant.epub */,
 				5652080E17041AF1003272B0 /* JavaScript  */,
 				315F0AE016CC186C00300B19 /* Pictures */,
 				31DA906D16C3303E000DA6A3 /* External Libraries */,
@@ -632,11 +655,10 @@
 		31A8258B16C2E13500F18C1D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				563B50FA1919F64600FA0F34 /* SavingFile */,
 				56955C2618DCDC420073A64C /* SphereViewController */,
 				566FF04118AC06D60094FB6A /* Cmap Controller */,
 				56711DFF17B77037001B4585 /* TabViewController */,
-				567E5C3E17B221AA0047F995 /* ThumbNailIcon */,
-				565561AE1798DA0100297BB8 /* HIghlight */,
 				5619B28217963226001E5BA0 /* LogFile */,
 				5616F841178D4685009E0FC6 /* HighlightContent */,
 				568DF8D11777B4590063787B /* ThumbNailController */,
@@ -739,6 +761,29 @@
 			name = LogFile;
 			sourceTree = "<group>";
 		};
+		563B50FA1919F64600FA0F34 /* SavingFile */ = {
+			isa = PBXGroup;
+			children = (
+				563B50FB1919F66B00FA0F34 /* Concept */,
+				567E5C3E17B221AA0047F995 /* ThumbNailIcon */,
+				565561AE1798DA0100297BB8 /* HIghlight */,
+			);
+			name = SavingFile;
+			sourceTree = "<group>";
+		};
+		563B50FB1919F66B00FA0F34 /* Concept */ = {
+			isa = PBXGroup;
+			children = (
+				563B50FC1919F6CC00FA0F34 /* CmapNode.h */,
+				563B50FD1919F6CC00FA0F34 /* CmapNode.m */,
+				563B50FF1919F99900FA0F34 /* CmapNodeWrapper.h */,
+				563B51001919F99900FA0F34 /* CmapNodeWrapper.m */,
+				563B51021919FA7A00FA0F34 /* CmapNodeParser.h */,
+				563B51031919FA7A00FA0F34 /* CmapNodeParser.m */,
+			);
+			name = Concept;
+			sourceTree = "<group>";
+		};
 		56520806170418E6003272B0 /* UIMenuItem+CXAImageSupport */ = {
 			isa = PBXGroup;
 			children = (
@@ -772,6 +817,7 @@
 		566FF04118AC06D60094FB6A /* Cmap Controller */ = {
 			isa = PBXGroup;
 			children = (
+				569407EF193959CF00D5294F /* ResourceThumb */,
 				56D76C2D18BC06470041FA56 /* Import and Export */,
 				56D76C1D18BC04F10041FA56 /* Model-Data Structure */,
 				56D76C1918BC04CA0041FA56 /* Controller */,
@@ -863,6 +909,15 @@
 				5693B3F919006E6A00AABE27 /* CmapScrollViewViewController.xib */,
 			);
 			name = CmapScrollView;
+			sourceTree = "<group>";
+		};
+		569407EF193959CF00D5294F /* ResourceThumb */ = {
+			isa = PBXGroup;
+			children = (
+				569407F0193959ED00D5294F /* ResrouceThumbViewController.h */,
+				569407F1193959ED00D5294F /* ResrouceThumbViewController.m */,
+			);
+			name = ResourceThumb;
 			sourceTree = "<group>";
 		};
 		56955C1A18DCDA990073A64C /* SphereView */ = {
@@ -1125,16 +1180,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56D43C271910EFDE00C2B100 /* Plant.epub in Resources */,
 				56711E2C17B776A2001B4585 /* LSHorizontalScrollTabView.xib in Resources */,
 				568251A618B48A2100F6412B /* Screen Shot 2014-02-18 at 11.43.22 PM.png in Resources */,
 				56C69D571727BF87009419B3 /* Bio.epub in Resources */,
-				56C69D541727BE71009419B3 /* EpubSampleNick.epub in Resources */,
 				5693B3FB19006E6A00AABE27 /* CmapScrollViewViewController.xib in Resources */,
 				568251A818B48A6300F6412B /* cmap.png in Resources */,
 				5652081317041F86003272B0 /* JavaScriptFunctions.js in Resources */,
 				3166DB5E16B0A5300089C0F2 /* InfoPlist.strings in Resources */,
 				3166DB6616B0A5300089C0F2 /* Default.png in Resources */,
 				3166DB6816B0A5300089C0F2 /* Default@2x.png in Resources */,
+				569407F41939A28A00D5294F /* safari_square.png in Resources */,
 				56B0B99618C523B90016783E /* twitter-white.png in Resources */,
 				3166DB6A16B0A5300089C0F2 /* Default-568h@2x.png in Resources */,
 				560B2F4A18EBD6C3009B8CB7 /* dialCell2.xib in Resources */,
@@ -1154,6 +1210,7 @@
 				564C425B17064D7E00B320EF /* highlight_red.png in Resources */,
 				56F30E4418F5130A00E8ECEF /* wait.png in Resources */,
 				564C425D17064D8300B320EF /* highlight_purple.png in Resources */,
+				569407F81939B40B00D5294F /* colorPlate.png in Resources */,
 				56B0B99A18C526740016783E /* link.png in Resources */,
 				566EB44E18DADC0700BBC067 /* idea.png in Resources */,
 				56473548181AF0CE00EE1640 /* AcousticModelSpanish.bundle in Resources */,
@@ -1202,6 +1259,7 @@
 				56465CD717B8AF8300EE38FC /* TabNormal_skyBlue.png in Resources */,
 				56465CD817B8AF8300EE38FC /* TabNormal_green.png in Resources */,
 				56465CD917B8AF8300EE38FC /* TabNormal_purple.png in Resources */,
+				569407F61939A2E400D5294F /* note_square.png in Resources */,
 				56465CDA17B8AF8300EE38FC /* TabNormal_red.png in Resources */,
 				560B2F6C18EBE051009B8CB7 /* lebron_james.png in Resources */,
 			);
@@ -1241,6 +1299,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				56D76C3418BC065B0041FA56 /* Base64.m in Sources */,
+				569407F2193959ED00D5294F /* ResrouceThumbViewController.m in Sources */,
 				3166DB6016B0A5300089C0F2 /* main.m in Sources */,
 				3166DB6416B0A5300089C0F2 /* AppDelegate.m in Sources */,
 				3166DB7016B0A5300089C0F2 /* LibraryViewController.m in Sources */,
@@ -1274,6 +1333,7 @@
 				56711E2617B7758F001B4585 /* LSScrollTabBarView.m in Sources */,
 				565B23A918FE3A030074E344 /* ConceptViewController.m in Sources */,
 				31F0CE3616C59DEC00E5CAC5 /* zip.c in Sources */,
+				563B51041919FA7A00FA0F34 /* CmapNodeParser.m in Sources */,
 				31A90BBD16C9B23B003E13E0 /* BookCell.m in Sources */,
 				5693B3FA19006E6A00AABE27 /* CmapScrollViewViewController.m in Sources */,
 				31B9150D16CB053B0040E8A2 /* BookViewController.m in Sources */,
@@ -1287,6 +1347,7 @@
 				56D76C2918BC05140041FA56 /* Connection.m in Sources */,
 				56D76C2C18BC05140041FA56 /* Relation.m in Sources */,
 				560B2F7718EDFE4D009B8CB7 /* ShangTextField.m in Sources */,
+				563B50FE1919F6CC00FA0F34 /* CmapNode.m in Sources */,
 				566EB44C18D7F90900BBC067 /* RelationViewController.m in Sources */,
 				56727D7A171E386800ACD92D /* WebBrowserViewController.m in Sources */,
 				56955C2518DCDAD60073A64C /* ZYQSphereView.m in Sources */,
@@ -1307,6 +1368,7 @@
 				56B0B98C18C522080016783E /* GHContextMenuView.m in Sources */,
 				565561B41798DAB800297BB8 /* HighLightWrapper.m in Sources */,
 				565561B71798DB1500297BB8 /* HighlightParser.m in Sources */,
+				563B51011919F99900FA0F34 /* CmapNodeWrapper.m in Sources */,
 				567E5C4117B2234F0047F995 /* ThumbNailIcon.m in Sources */,
 				565DA3F417B32F9C000DB171 /* ThumbNailIconWrapper.m in Sources */,
 				565DA3F717B33705000DB171 /* ThumbNailIconParser.m in Sources */,

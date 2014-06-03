@@ -26,11 +26,14 @@
 @synthesize bookTitle;
 @synthesize showType;
 @synthesize bookPagePosition;
+@synthesize waitAnim;
+@synthesize nodeType;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
          isInitialed=NO;
+        showType=1;
     }
     return self;
 }
@@ -68,19 +71,19 @@
         NSLog(@"become first responder!\n");
         [text becomeFirstResponder];
     }
+    
+    [self addNoteThumb];
+    [self addWebThumb];
+    [self addHighlightThumb];
 }
 
 
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
+    /*
     if([gestureRecognizer isKindOfClass:[UITapGestureRecognizer class]]&&[otherGestureRecognizer isKindOfClass:[UITapGestureRecognizer class]]){
         return YES;
-    }
+    }*/
     return NO;
-}
-
-
-- (void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer {
-    text.backgroundColor = [UIColor greenColor];
 }
 
 
@@ -104,10 +107,22 @@
     }
 }
 
+-(void)removeShadowAnim{
+    [self.view.layer removeAllAnimations];
+    self.view.layer.shadowOpacity = 0.4;
+    self.view.layer.shadowRadius = 3;
+    self.view.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.view.layer.shadowOffset = CGSizeMake(2, 2);
+}
 
 - (IBAction)pan:(UIPanGestureRecognizer *)gesture
 {
     static CGPoint originalCenter;
+    
+    if(1==nodeType){
+        return;
+    }
+    
     
     if (gesture.state == UIGestureRecognizerStateBegan)
     {
@@ -141,6 +156,8 @@
     if(YES==parentCmapController.isReadyToLink){
         [relatedNodesArray addObject:parentCmapController.nodesToLink];
         [parentCmapController.nodesToLink.relatedNodesArray addObject:self];
+        [parentCmapController.nodesToLink removeShadowAnim];
+        
         CAShapeLayer* layer = [CAShapeLayer layer];
         UITextView* relation= [[UITextView alloc]initWithFrame:CGRectMake(40, 40, 60, 35)];
         relation.textAlignment=NSTextAlignmentCenter;
@@ -158,8 +175,19 @@
     }
     parentCmapController.isReadyToLink=NO;
     [self updateLink];
-    [parentCmapController endWait];
+    //[parentCmapController endWait];
     [parentCmapController enableAllNodesEditting];
+}
+
+-(void)waitForLink{
+    self.view.layer.shadowColor=[UIColor redColor].CGColor;
+    waitAnim = [CABasicAnimation animationWithKeyPath:@"shadowOpacity"];
+    waitAnim.fromValue = [NSNumber numberWithFloat:1.0];
+    waitAnim.toValue = [NSNumber numberWithFloat:0.0];
+    waitAnim.duration = 1.0;
+    waitAnim.repeatCount=1000;
+    waitAnim.autoreverses=YES;
+    [self.view.layer addAnimation:waitAnim forKey:@"shadowOpacity"];
 }
 
 
@@ -308,7 +336,8 @@
             parentCmapController.isReadyToLink=YES;
             parentCmapController.nodesToLink=self;
             [parentCmapController disableAllNodesEditting];
-            [parentCmapController startWait];
+           // [parentCmapController startWait];
+            [self waitForLink];
             
             
             break;
@@ -326,6 +355,10 @@
             break;
         case 3:
             msg = @"Linkedin Selected";
+            
+            [parentCmapController.parent_ContentViewController showPageAtINdex:3];
+            NSLog(@"page");
+            
             break;
         case 4:
             msg = @"Pinterest Selected";
@@ -340,6 +373,10 @@
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
     // the user clicked OK
     if (buttonIndex == 1) {
+        
+        if(1==nodeType){
+            [self.view removeFromSuperview];
+        }
         NodeCell *cellToRemove;
         for(NodeCell* cell in parentCmapController.conceptNodeArray){
             if([cell.text.text isEqualToString:self.text.text]){
@@ -351,11 +388,27 @@
         [parentCmapController.conceptNodeArray removeObject:cellToRemove];
         [self removeFromParentViewController];
         [self.view removeFromSuperview];
-        
     }
 }
 
 
+-(void)addNoteThumb{
+    UIImageView *thumb = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"note_square.png"]];
+    [thumb setFrame:CGRectMake(30, 22, 14, 14)];
+    [self.view addSubview:thumb];
+}
+
+-(void)addWebThumb{
+    UIImageView *thumb = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"safari_square.png"]];
+    [thumb setFrame:CGRectMake(50, 22, 14, 14)];
+    [self.view addSubview:thumb];
+}
+
+-(void)addHighlightThumb{
+    UIImageView *thumb = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"colorPlate.png"]];
+    [thumb setFrame:CGRectMake(10, 22, 14, 14)];
+    [self.view addSubview:thumb];
+}
 
 
 -(void)showResources{

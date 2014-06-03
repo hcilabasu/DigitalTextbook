@@ -10,7 +10,6 @@
 #import "LSTabControl_Protected.h"
 #import "BadgeView.h"
 
-// View shortcuts
 #import "UIView+Addictions.h"
 
 
@@ -83,7 +82,7 @@
         [newButton setBackgroundImage:[UIImage imageNamed:@"TabNormal_skyBlue"]
                              forState:UIControlStateNormal];
         
-    }else if( [title isEqualToString:@"Other"]){
+    }else if( [title isEqualToString:@"Q&A"]){
         [newButton setBackgroundImage:[UIImage imageNamed:@"TabNormal_purple"]
                              forState:UIControlStateNormal];
     }else{
