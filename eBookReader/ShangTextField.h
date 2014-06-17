@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ShangTextField : UITextField
+@interface ShangTextField : UITextField <UITextFieldDelegate>
 @property BOOL enableRecognizer;
+@property BOOL disableEditting;
 
 @end

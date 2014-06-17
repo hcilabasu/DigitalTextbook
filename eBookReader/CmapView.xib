@@ -26,11 +26,15 @@
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="WwJ-GG-o7z"/>
                         <barButtonItem systemItem="reply" id="vK2-ej-jMd"/>
                         <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="A5u-Jd-qKF"/>
-                        <barButtonItem systemItem="action" id="wjb-dh-I1l"/>
-                        <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="aWd-38-OUj"/>
-                        <barButtonItem systemItem="save" id="0m2-ee-eXD">
+                        <barButtonItem title="Load" id="wjb-dh-I1l">
                             <connections>
-                                <action selector="saveMap:" destination="-1" id="mW2-WC-oia"/>
+                                <action selector="loadConceptMap:" destination="-1" id="3e8-SY-Scn"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="aWd-38-OUj"/>
+                        <barButtonItem title="Save" id="0m2-ee-eXD">
+                            <connections>
+                                <action selector="saveConceptMap:" destination="-1" id="y0D-cA-II9"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="fMT-cs-0Pc"/>

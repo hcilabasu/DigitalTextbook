@@ -13,16 +13,25 @@
 #import "HighLightWrapper.h"
 #import "GDataXMLNode.h"
 #import "HighLight.h"
+#import "ConceptLink.h"
 #import "ThumbNailIcon.h"
 #import "ThumbNailIconParser.h"
 #import "ThumbNailIconWrapper.h"
 #import "ContentViewController.h"
+#import "CmapLinkParser.h"
+#import "CmapNodeParser.h"
+#import "CmapNodeWrapper.h"
+#import "MBProgressHUD.h"
 @class NodeCell;
 @class BookViewController;
 @class HighLightWrapper;
 @class ThumbNailIconWrapper;
 @class ContentViewController;
-@interface CmapController : UIViewController <UIGestureRecognizerDelegate,UIWebViewDelegate,UIScrollViewDelegate,UINavigationControllerDelegate>
+@interface CmapController : UIViewController <UIGestureRecognizerDelegate,UIWebViewDelegate,UIScrollViewDelegate,UINavigationControllerDelegate,UITextViewDelegate, MBProgressHUDDelegate>{
+    long long expectedLength;
+	long long currentLength;
+    MBProgressHUD *HUD;
+}
 
 //@property (strong, nonatomic) IBOutlet UIWebView *webView;
 @property (strong, nonatomic) IBOutlet UIScrollView *conceptMapView;
@@ -47,8 +56,12 @@
 @property (strong, nonatomic) NSMutableArray*  conceptNamesArray;
 //the array that keeps trak of all the concept nodes in the Cmap view
 @property (strong, nonatomic) NSMutableArray*  conceptNodeArray;
+//stores the links between concepts
+@property (strong, nonatomic) NSMutableArray*  conceptLinkArray;
 
 
+@property  int nodeCount;
+@property  int linkCount;
 @property (strong, nonatomic) KnowledgeModule*  knowledgeModule;
 //link
 @property (nonatomic, assign) BOOL isReadyToLink;
@@ -63,6 +76,10 @@
 
 @property (nonatomic, retain) HighLightWrapper *bookHighlight;
 @property (nonatomic, retain) ThumbNailIconWrapper* bookThumbNial;
+@property (nonatomic, retain) CmapLinkWrapper* bookLinkWrapper;
+@property (nonatomic, retain) CmapNodeWrapper* bookNodeWrapper;
+
+
 @property (strong, nonatomic) NSString *bookTitle;
 @property (strong,nonatomic)  UIImageView *waitImageView;
 
@@ -79,4 +96,5 @@
 -(void)showResources;
 -(void)createNode:(CGPoint)position withName:(NSString*) name;
 -(void)createNodeFromBook:(CGPoint)position withName:(NSString*) name BookPos: (CGPoint)bookPosition;
+-(void)addConcpetLink: (ConceptLink*) m_link;
 @end

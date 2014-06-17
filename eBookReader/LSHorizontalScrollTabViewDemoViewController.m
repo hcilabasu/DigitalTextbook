@@ -145,7 +145,7 @@
     
     
     QAWebview=[[UIWebView alloc]initWithFrame:CGRectMake(0, 0,480 ,768)];
-    NSString* url = @"http://stackoverflow.com/questions/13898938/uiwebview-load-url-with-parameters";
+    NSString* url = @"http://2sigma.asu.edu/qa/";
     QAWebview.backgroundColor=[UIColor whiteColor];
     NSURL* nsUrl = [NSURL URLWithString:url];
     

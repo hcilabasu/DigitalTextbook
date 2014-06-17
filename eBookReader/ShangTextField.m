@@ -10,6 +10,7 @@
 
 @implementation ShangTextField
 @synthesize enableRecognizer;
+@synthesize disableEditting;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -19,6 +20,22 @@
     }
     return self;
 }
+
+
+/*
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
+    if(disableEditting){
+    return NO;
+    }else{
+        return NO;
+    }
+}
+ */
+
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    NSLog(@"Finish editting..");
+}
+
 
 -(void)addGestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
 {

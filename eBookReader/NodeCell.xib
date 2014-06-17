@@ -24,7 +24,6 @@
                     <textInputTraits key="textInputTraits"/>
                     <connections>
                         <outletCollection property="gestureRecognizers" destination="MhC-2O-bX9" appends="YES" id="wqc-Mv-PyL"/>
-                        <outletCollection property="gestureRecognizers" destination="MhC-2O-bX9" appends="YES" id="WcM-zJ-zuR"/>
                     </connections>
                 </textField>
             </subviews>

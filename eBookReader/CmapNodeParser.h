@@ -10,5 +10,5 @@
 #import "CmapNodeWrapper.h"
 @interface CmapNodeParser : NSObject
 + (CmapNodeWrapper *)loadCmapNode;
-+ (void)saveThumbnailIcon:(CmapNodeWrapper *)CmapNode;
++ (void)saveCmapNode:(CmapNodeWrapper *)CmapNode;
 @end

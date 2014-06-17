@@ -16,9 +16,12 @@
 #import "ThumbNailIcon.h"
 #import "ThumbNailIconParser.h"
 #import "ThumbNailIconWrapper.h"
+#import "ConceptLink.h"
+#import "CmapLink.h"
 @class CmapController;
+@class ContentViewController;
 
-@interface NodeCell : UIViewController<UIGestureRecognizerDelegate,UITextFieldDelegate,GHContextOverlayViewDataSource, GHContextOverlayViewDelegate>
+@interface NodeCell : UIViewController<UIGestureRecognizerDelegate,UITextFieldDelegate,UITextViewDelegate , GHContextOverlayViewDataSource, GHContextOverlayViewDelegate>
 
 @property (assign)CGPoint showPoint;
 @property int nodeType; //1: shows in book scroll thumb view; 0: shows in Cmap view;
@@ -26,6 +29,8 @@
 @property int showType; //0:full screen, 1: half screen;
 @property CGPoint bookPagePosition;
 @property (strong, nonatomic) CmapController* parentCmapController;
+@property (strong, nonatomic) ContentViewController *parentContentViewController;
+
 @property(assign,nonatomic) BOOL pressing;
 @property(assign,nonatomic) BOOL isInitialed;
 @property  CABasicAnimation *waitAnim;
@@ -41,4 +46,6 @@
 @property BOOL hasWeblink;
 - (CGSize) screenSize;// function that returns the size of the screen, used to deteremine where the icon and the popup view is shown.
 -(void)removeShadowAnim;
+-(void)removeLink;
+-(void)createLink: (NodeCell*)cellToLink name: (NSString*)relationName;
 @end

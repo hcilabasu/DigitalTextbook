@@ -151,6 +151,7 @@ static NSString *cellId2 = @"cellId2";
     
     [self.currentPageLabel setText:[NSString stringWithFormat:@"%d/%d",pageNum, totalpageNum]];
     //[self loadThumbNailIcon];
+    [self loadThumbNailIcon:firstRespondConcpet];
     
   //  UIBarButtonItem *conceptButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:nil];
    // self.parentViewController. navigationItem.rightBarButtonItem=conceptButton;
@@ -496,12 +497,14 @@ static NSString *cellId2 = @"cellId2";
     NodeCell *node=[[NodeCell alloc]initWithNibName:@"NodeCell" bundle:nil];
     node.nodeType=1;
     node.isInitialed=YES;
-    [node.text setEnabled:NO];
+    node.text.enabled=NO;
     int y=[thumbNailController getIconPos:pvPoint type:1];
     [node.view setFrame:CGRectMake(6, y,node.view.frame.size.width, node.view.frame.size.height)];
     [self addChildViewController:node];
     [ThumbScrollViewRight addSubview: node.view ];
     node.text.text=name;
+    node.text.disableEditting=YES;//disable editting
+
 }
 
 - (void)highlightStringWithColor:(NSString*)color{
@@ -806,7 +809,7 @@ static NSString *cellId2 = @"cellId2";
 -(void)loadThumbNailIcon: (NSString*)concpet{
     if(bookthumbNailIcon!=nil){
         for(ThumbNailIcon *thumbNailItem in bookthumbNailIcon.thumbnails){
-            if([thumbNailItem.relatedConcpet isEqualToString: concpet]){
+           // if([thumbNailItem.relatedConcpet isEqualToString: concpet]){
             
             if(thumbNailItem.page==pageNum && [bookTitle isEqualToString: thumbNailItem.bookTitle]){
                 if(1==thumbNailItem.type){
@@ -815,7 +818,7 @@ static NSString *cellId2 = @"cellId2";
                     [self createWebNote:thumbNailItem.showPoint URL:   [NSURLRequest requestWithURL:[NSURL URLWithString:thumbNailItem.url]] isWriteToFile:NO isNewIcon:YES ];
                 }
             }
-          }
+          //}
         }
     }
     
@@ -833,7 +836,26 @@ static NSString *cellId2 = @"cellId2";
 }
 
 
-
+-(void)autoGerenateConceptNode{
+    int conceptId=0;
+    if ( bookHighLight!= nil) {
+        for (HighLight *highLightText in bookHighLight.highLights) {
+            NSString *methodString=highLightText.text;
+            for (  Concept *cell in knowledge_module.conceptList) {
+                if([methodString rangeOfString:cell.conceptName].location != NSNotFound){
+                    /*
+                    if(![conceptNamesArray containsObject: cell.conceptName]){
+                        [conceptNamesArray addObject:cell.conceptName];
+                        CGPoint position= [self calculateNodePosition:conceptId];
+                        conceptId++;
+                        //[self createNode:position withName:cell.conceptName];
+                    }*/
+                    
+                }
+            }
+        }
+    }
+}
 
 -(UIImage*)getScreenShot{
     

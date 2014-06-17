@@ -7,10 +7,13 @@
 //
 
 #import "NodeCell.h"
+
 #import "CmapController.h"
+#import "ContentViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UIView+i7Rotate360.h"
 #import "LSHorizontalScrollTabViewDemoViewController.h"
+//#import "RelationTextView.h"
 @implementation NodeCell
 @synthesize showPoint;
 @synthesize text;
@@ -28,12 +31,18 @@
 @synthesize bookPagePosition;
 @synthesize waitAnim;
 @synthesize nodeType;
+@synthesize hasHighlight;
+@synthesize hasNote;
+@synthesize hasWeblink;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
          isInitialed=NO;
         showType=1;
+        relatedNodesArray=[[NSMutableArray alloc] init];
+        linkLayerArray=[[NSMutableArray alloc] init];
+        relationTextArray=[[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -41,6 +50,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    hasNote=YES;
+    hasHighlight=YES;
+    hasWeblink=YES;
     //set up the note view frame, size, icon image and gesture recognizer.
     text.textAlignment = NSTextAlignmentCenter;
     [self.view setFrame:CGRectMake(showPoint.x-self.view.frame.size.width/2, showPoint.y-self.view.frame.size.height/2, self.view.frame.size.width, self.view.frame.size.height)];
@@ -49,10 +61,11 @@
     [self.view addGestureRecognizer:panGesture];
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
     tapGesture.delegate=self;
-    [self.view addGestureRecognizer:tapGesture];
+    [self.view addGestureRecognizer:tapGesture];/*
     relatedNodesArray=[[NSMutableArray alloc] init];
     linkLayerArray=[[NSMutableArray alloc] init];
     relationTextArray=[[NSMutableArray alloc] init];
+                                                 */
     self.view.layer.shadowOpacity = 0.4;
     self.view.layer.shadowRadius = 3;
     self.view.layer.shadowColor = [UIColor blackColor].CGColor;
@@ -71,10 +84,15 @@
         NSLog(@"become first responder!\n");
         [text becomeFirstResponder];
     }
-    
+    if(hasNote){
     [self addNoteThumb];
+    }
+    if(hasWeblink){
     [self addWebThumb];
+    }
+    if(hasHighlight){
     [self addHighlightThumb];
+    }
 }
 
 
@@ -95,6 +113,17 @@
     newFrame.size = CGSizeMake(fmaxf(newSize.width, fixedWidth), newSize.height);
     textView.frame = newFrame;
 }
+
+
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
+    if(text.disableEditting){
+    return NO;
+    }
+    return YES;
+}
+
+
 
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
@@ -153,16 +182,24 @@
 
 - (IBAction)tap:(UIPanGestureRecognizer *)gesture
 {
+    
+   // NSLog(@"Tap gesture!");
     if(YES==parentCmapController.isReadyToLink){
+        
         [relatedNodesArray addObject:parentCmapController.nodesToLink];
         [parentCmapController.nodesToLink.relatedNodesArray addObject:self];
         [parentCmapController.nodesToLink removeShadowAnim];
-        
+    
         CAShapeLayer* layer = [CAShapeLayer layer];
         UITextView* relation= [[UITextView alloc]initWithFrame:CGRectMake(40, 40, 60, 35)];
+        relation.tag=parentCmapController.linkCount;
+        relation.delegate=self;
         relation.textAlignment=NSTextAlignmentCenter;
         relation.scrollEnabled=NO;
         [relationTextArray addObject:relation];
+        ConceptLink *link = [[ConceptLink alloc] initWithName:self conceptName:parentCmapController.nodesToLink relation:relation];
+        [parentCmapController addConcpetLink:link];
+        
         [parentCmapController.nodesToLink.relationTextArray addObject:relation];
         [linkLayerArray addObject:layer];
         [parentCmapController.nodesToLink.linkLayerArray addObject:layer];
@@ -171,12 +208,41 @@
         CGPoint p2=[self getViewCenterPoint:parentCmapController.nodesToLink.view];
         relation.center=CGPointMake((p1.x/2+p2.x/2), (p1.y/2+p2.y/2));
         [relation becomeFirstResponder];
-         [self.parentCmapController.conceptMapView addSubview:relation];
+        [self.parentCmapController.conceptMapView addSubview:relation];
     }
     parentCmapController.isReadyToLink=NO;
     [self updateLink];
     //[parentCmapController endWait];
     [parentCmapController enableAllNodesEditting];
+}
+
+
+-(void)createLink: (NodeCell*)cellToLink name: (NSString*)relationName{
+    
+    [relatedNodesArray addObject:cellToLink];
+    [cellToLink.relatedNodesArray addObject:self];
+    [cellToLink removeShadowAnim];
+    
+    CAShapeLayer* layer = [CAShapeLayer layer];
+    UITextView* relation= [[UITextView alloc]initWithFrame:CGRectMake(40, 40, 60, 35)];
+    relation.tag=parentCmapController.linkCount;
+    relation.delegate=self;
+    relation.textAlignment=NSTextAlignmentCenter;
+    relation.scrollEnabled=NO;
+    [relationTextArray addObject:relation];
+    ConceptLink *link = [[ConceptLink alloc] initWithName:self conceptName:cellToLink relation:relation];
+    [parentCmapController addConcpetLink:link];
+    
+    [cellToLink.relationTextArray addObject:relation];
+    [linkLayerArray addObject:layer];
+    [cellToLink.linkLayerArray addObject:layer];
+    
+    CGPoint p1=[self getViewCenterPoint:self.view];
+    CGPoint p2=[self getViewCenterPoint:cellToLink.view];
+    relation.center=CGPointMake((p1.x/2+p2.x/2), (p1.y/2+p2.y/2));
+    relation.text=relationName;
+    [self.parentCmapController.conceptMapView addSubview:relation];
+    [self updateLink];
 }
 
 -(void)waitForLink{
@@ -194,15 +260,27 @@
 //remove all the links between other nodes.
 -(void)removeLink{
     int i=0;
+    //NSMutableArray *deleteArray= [[NSMutableArray alloc]init];
     for (NodeCell* object in relatedNodesArray) {
         CAShapeLayer* layer=[linkLayerArray objectAtIndex:i];
         [layer removeFromSuperlayer];
         UITextView* relationText= [relationTextArray objectAtIndex:i];
         [relationText removeFromSuperview];
-        [object.relatedNodesArray removeObject:self];
+        //delete the link and text in the related node.
+        int j=0;
+        for(NodeCell *dCell in object.relatedNodesArray){
+            if([dCell.text.text isEqualToString:self.text.text]){
+                break;
+            }else{
+            j++;
+            }
+        }
+        [object.relatedNodesArray removeObjectAtIndex:j];
+        [object.linkLayerArray removeObjectAtIndex:j];
+        [object.relationTextArray removeObjectAtIndex:j];
+
         i++;
     }
-    
 }
 
 
@@ -213,7 +291,7 @@
         CGPoint p1=[self getViewCenterPoint:self.view];
         CGPoint p2=[self getViewCenterPoint:object.view];
         [self addLine:[self getViewCenterPoint:self.view] Point2:[self getViewCenterPoint:object.view] Layer:layer ];
-       UITextView* relationText= [relationTextArray objectAtIndex:i];
+        UITextView* relationText= [relationTextArray objectAtIndex:i];
         relationText.center=CGPointMake((p1.x/2+p2.x/2), (p1.y/2+p2.y/2));
         CGRect frame = relationText.frame;
         frame.size.height=relationText.contentSize.height;
@@ -415,6 +493,31 @@
     [self.parentCmapController showResources];
 }
 
+//after editting the text in the link, update the conceptLinkArray
+- (void)textViewDidEndEditing:(UITextView *)textView{
+   // ConceptLink* linkToUpdate;
+    if(0<textView.tag){ // finish editting relationship text
+        for(ConceptLink* view in parentCmapController.conceptLinkArray){
+            if(view.relation.tag== textView.tag){
+                view.relation.text=textView.text;
+                NSLog(@"update link text...\n");
+            }
+        }
+       // NSLog(@"finish editting");
+    }
+}
 
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    for(NodeCell* view in parentCmapController.conceptNodeArray){
+        
+        NSLog(@"Tag: %d",view.text.tag);
+        /*
+        if(view.text.tag== textField.tag){
+            view.text.text=textField.text;
+            NSLog(@"update Node text...\n");
+        }
+         */
+    }
+}
 
 @end

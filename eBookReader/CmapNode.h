@@ -13,6 +13,8 @@
 @property (assign)CGPoint showPoint;
 
 @property (strong, nonatomic)  NSString *text;
+@property int point_x;
+@property int point_y;
 @property CGPoint bookPagePosition;
 @property (strong, nonatomic) NSMutableArray*  relatedNodesArray;
 @property (strong, nonatomic) NSMutableArray*  linkLayerArray;
@@ -20,7 +22,8 @@
 //@property (nonatomic, retain) HighLightWrapper *bookHighLight;//the highlight wrapper pased from the bookviewcontroller to control the highlight info in the book
 //@property (nonatomic, retain) ThumbNailIconWrapper *bookthumbNailIcon;
 @property (strong, nonatomic) NSString *bookTitle;
-
-- (id)initWithName:(NSString*)m_text ShowType: (CGPoint)m_position RelatedNodeArray: (NSMutableArray*)m_relatedNodesArray linkArray:(NSMutableArray*)m_linkArray
-     linkTextArray: (NSMutableArray*)m_linkTextArray bookTitle:(NSString*)m_bookTitle;
+@property int tag;
+//- (id)initWithName:(NSString*)m_text ShowType: (CGPoint)m_position RelatedNodeArray: (NSMutableArray*)m_relatedNodesArray linkArray:(NSMutableArray*)m_linkArray
+ //    linkTextArray: (NSMutableArray*)m_linkTextArray bookTitle:(NSString*)m_bookTitle;
+- (id)initWithName:(NSString*)m_text bookTitle: (NSString*)m_bookTitle positionX:(int)m_pointX positionY: (int)m_positionY Tag: (int)m_tag;
 @end

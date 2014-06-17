@@ -13,5 +13,5 @@
 
 @property (nonatomic, retain) NSMutableArray *cmapNodes;
 -(void)addthumbnail: (CmapNode*)cmaps;
-
+-(void)clearAllData;
 @end

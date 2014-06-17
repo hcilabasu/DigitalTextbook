@@ -93,7 +93,6 @@
 		565B23AD18FE54430074E344 /* ConceptIconTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 565B23AC18FE54430074E344 /* ConceptIconTextField.m */; };
 		565DA3F417B32F9C000DB171 /* ThumbNailIconWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 565DA3F317B32F9C000DB171 /* ThumbNailIconWrapper.m */; };
 		565DA3F717B33705000DB171 /* ThumbNailIconParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 565DA3F617B33705000DB171 /* ThumbNailIconParser.m */; };
-		566EB44C18D7F90900BBC067 /* RelationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 566EB44B18D7F90900BBC067 /* RelationViewController.m */; };
 		566EB44E18DADC0700BBC067 /* idea.png in Resources */ = {isa = PBXBuildFile; fileRef = 566EB44D18DADC0700BBC067 /* idea.png */; };
 		566F09BF1721C15800412952 /* speak.png in Resources */ = {isa = PBXBuildFile; fileRef = 566F09BE1721C15800412952 /* speak.png */; };
 		566F09C11721C17400412952 /* question.png in Resources */ = {isa = PBXBuildFile; fileRef = 566F09C01721C17400412952 /* question.png */; };
@@ -135,6 +134,13 @@
 		56727D84171F290D00ACD92D /* noteTaking.png in Resources */ = {isa = PBXBuildFile; fileRef = 56727D83171F290D00ACD92D /* noteTaking.png */; };
 		56727D8A171F2B0300ACD92D /* take_note.png in Resources */ = {isa = PBXBuildFile; fileRef = 56727D89171F2B0300ACD92D /* take_note.png */; };
 		56727D8E171FD12B00ACD92D /* noteIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 56727D8D171FD12B00ACD92D /* noteIcon.png */; };
+		56746BFF194CFD8F00805820 /* CmapLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 56746BFE194CFD8F00805820 /* CmapLink.m */; };
+		56746C02194D00D600805820 /* CmapLinkWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 56746C01194D00D600805820 /* CmapLinkWrapper.m */; };
+		56746C05194D018400805820 /* CmapLinkParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 56746C04194D018400805820 /* CmapLinkParser.m */; };
+		56746C09194E3C8600805820 /* ConceptLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 56746C08194E3C8600805820 /* ConceptLink.m */; };
+		56746C0C194E54B200805820 /* RelationTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 56746C0B194E54B200805820 /* RelationTextView.m */; };
+		56746C101950C2D400805820 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 56746C0F1950C2D400805820 /* MBProgressHUD.m */; };
+		56746C121950C4D000805820 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56746C111950C4D000805820 /* Accelerate.framework */; };
 		567E5C4117B2234F0047F995 /* ThumbNailIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = 567E5C4017B2234F0047F995 /* ThumbNailIcon.m */; };
 		568251A618B48A2100F6412B /* Screen Shot 2014-02-18 at 11.43.22 PM.png in Resources */ = {isa = PBXBuildFile; fileRef = 568251A518B48A2100F6412B /* Screen Shot 2014-02-18 at 11.43.22 PM.png */; };
 		568251A818B48A6300F6412B /* cmap.png in Resources */ = {isa = PBXBuildFile; fileRef = 568251A718B48A6300F6412B /* cmap.png */; };
@@ -325,8 +331,6 @@
 		565DA3F317B32F9C000DB171 /* ThumbNailIconWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThumbNailIconWrapper.m; sourceTree = "<group>"; };
 		565DA3F517B33705000DB171 /* ThumbNailIconParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThumbNailIconParser.h; sourceTree = "<group>"; };
 		565DA3F617B33705000DB171 /* ThumbNailIconParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThumbNailIconParser.m; sourceTree = "<group>"; };
-		566EB44A18D7F90900BBC067 /* RelationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RelationViewController.h; sourceTree = "<group>"; };
-		566EB44B18D7F90900BBC067 /* RelationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RelationViewController.m; sourceTree = "<group>"; };
 		566EB44D18DADC0700BBC067 /* idea.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = idea.png; sourceTree = "<group>"; };
 		566F09BE1721C15800412952 /* speak.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = speak.png; sourceTree = "<group>"; };
 		566F09C01721C17400412952 /* question.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = question.png; sourceTree = "<group>"; };
@@ -373,6 +377,19 @@
 		56727D83171F290D00ACD92D /* noteTaking.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noteTaking.png; sourceTree = "<group>"; };
 		56727D89171F2B0300ACD92D /* take_note.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = take_note.png; sourceTree = "<group>"; };
 		56727D8D171FD12B00ACD92D /* noteIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noteIcon.png; sourceTree = "<group>"; };
+		56746BFD194CFD8F00805820 /* CmapLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CmapLink.h; sourceTree = "<group>"; };
+		56746BFE194CFD8F00805820 /* CmapLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CmapLink.m; sourceTree = "<group>"; };
+		56746C00194D00D600805820 /* CmapLinkWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CmapLinkWrapper.h; sourceTree = "<group>"; };
+		56746C01194D00D600805820 /* CmapLinkWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CmapLinkWrapper.m; sourceTree = "<group>"; };
+		56746C03194D018400805820 /* CmapLinkParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CmapLinkParser.h; sourceTree = "<group>"; };
+		56746C04194D018400805820 /* CmapLinkParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CmapLinkParser.m; sourceTree = "<group>"; };
+		56746C07194E3C8600805820 /* ConceptLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConceptLink.h; sourceTree = "<group>"; };
+		56746C08194E3C8600805820 /* ConceptLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConceptLink.m; sourceTree = "<group>"; };
+		56746C0A194E54B200805820 /* RelationTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RelationTextView.h; sourceTree = "<group>"; };
+		56746C0B194E54B200805820 /* RelationTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RelationTextView.m; sourceTree = "<group>"; };
+		56746C0E1950C2D400805820 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		56746C0F1950C2D400805820 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		56746C111950C4D000805820 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		567E5C3F17B2234F0047F995 /* ThumbNailIcon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThumbNailIcon.h; sourceTree = "<group>"; };
 		567E5C4017B2234F0047F995 /* ThumbNailIcon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThumbNailIcon.m; sourceTree = "<group>"; };
 		568251A518B48A2100F6412B /* Screen Shot 2014-02-18 at 11.43.22 PM.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Screen Shot 2014-02-18 at 11.43.22 PM.png"; sourceTree = "<group>"; };
@@ -469,6 +486,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56746C121950C4D000805820 /* Accelerate.framework in Frameworks */,
 				56E9B03318DE48AF00AADD2E /* CoreImage.framework in Frameworks */,
 				564C424D17060E0400B320EF /* QuartzCore.framework in Frameworks */,
 				56B6B7C8189C4AB700F3F400 /* Slt.framework in Frameworks */,
@@ -551,6 +569,7 @@
 		3166DB5216B0A5300089C0F2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				56746C111950C4D000805820 /* Accelerate.framework */,
 				560B2F4E18EBD85D009B8CB7 /* XCTest.framework */,
 				56E9B03218DE48AF00AADD2E /* CoreImage.framework */,
 				5647354B181AF1F100EE1640 /* Slt.framework */,
@@ -682,6 +701,7 @@
 		31DA906D16C3303E000DA6A3 /* External Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				56746C0D1950C2C600805820 /* MBProgressHUD */,
 				56955C1A18DCDA990073A64C /* SphereView */,
 				56B0B98918C521FB0016783E /* GHMenuView */,
 				56711DEC17B76F9D001B4585 /* TabView Library */,
@@ -764,14 +784,15 @@
 		563B50FA1919F64600FA0F34 /* SavingFile */ = {
 			isa = PBXGroup;
 			children = (
-				563B50FB1919F66B00FA0F34 /* Concept */,
+				56746BFC194C31EC00805820 /* ConceptLinks */,
+				563B50FB1919F66B00FA0F34 /* ConceptNodes */,
 				567E5C3E17B221AA0047F995 /* ThumbNailIcon */,
 				565561AE1798DA0100297BB8 /* HIghlight */,
 			);
 			name = SavingFile;
 			sourceTree = "<group>";
 		};
-		563B50FB1919F66B00FA0F34 /* Concept */ = {
+		563B50FB1919F66B00FA0F34 /* ConceptNodes */ = {
 			isa = PBXGroup;
 			children = (
 				563B50FC1919F6CC00FA0F34 /* CmapNode.h */,
@@ -781,7 +802,7 @@
 				563B51021919FA7A00FA0F34 /* CmapNodeParser.h */,
 				563B51031919FA7A00FA0F34 /* CmapNodeParser.m */,
 			);
-			name = Concept;
+			name = ConceptNodes;
 			sourceTree = "<group>";
 		};
 		56520806170418E6003272B0 /* UIMenuItem+CXAImageSupport */ = {
@@ -879,6 +900,44 @@
 			name = "Help Classes";
 			sourceTree = "<group>";
 		};
+		56746BFC194C31EC00805820 /* ConceptLinks */ = {
+			isa = PBXGroup;
+			children = (
+				56746BFD194CFD8F00805820 /* CmapLink.h */,
+				56746BFE194CFD8F00805820 /* CmapLink.m */,
+				56746C00194D00D600805820 /* CmapLinkWrapper.h */,
+				56746C01194D00D600805820 /* CmapLinkWrapper.m */,
+				56746C03194D018400805820 /* CmapLinkParser.h */,
+				56746C04194D018400805820 /* CmapLinkParser.m */,
+			);
+			name = ConceptLinks;
+			sourceTree = "<group>";
+		};
+		56746C06194E3C2F00805820 /* CmapDataStructure */ = {
+			isa = PBXGroup;
+			children = (
+				56B0B98418C512FC0016783E /* NodeCell.h */,
+				56B0B98518C512FC0016783E /* NodeCell.m */,
+				560B2F7518EDFE4D009B8CB7 /* ShangTextField.h */,
+				560B2F7618EDFE4D009B8CB7 /* ShangTextField.m */,
+				56B0B98718C5133F0016783E /* NodeCell.xib */,
+				56746C07194E3C8600805820 /* ConceptLink.h */,
+				56746C08194E3C8600805820 /* ConceptLink.m */,
+				56746C0A194E54B200805820 /* RelationTextView.h */,
+				56746C0B194E54B200805820 /* RelationTextView.m */,
+			);
+			name = CmapDataStructure;
+			sourceTree = "<group>";
+		};
+		56746C0D1950C2C600805820 /* MBProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				56746C0E1950C2D400805820 /* MBProgressHUD.h */,
+				56746C0F1950C2D400805820 /* MBProgressHUD.m */,
+			);
+			name = MBProgressHUD;
+			sourceTree = "<group>";
+		};
 		567E5C3E17B221AA0047F995 /* ThumbNailIcon */ = {
 			isa = PBXGroup;
 			children = (
@@ -974,6 +1033,7 @@
 		56D76C1218BC04850041FA56 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				56746C06194E3C2F00805820 /* CmapDataStructure */,
 				5693B3FC19006E7D00AABE27 /* CmapScrollView */,
 				56F30E3F18F5124100E8ECEF /* retation */,
 			);
@@ -1027,13 +1087,6 @@
 				56B0B98218C50F560016783E /* CmapView.m */,
 				56D76C1318BC04BB0041FA56 /* DragView.h */,
 				56D76C1418BC04BB0041FA56 /* DragView.m */,
-				56B0B98418C512FC0016783E /* NodeCell.h */,
-				56B0B98518C512FC0016783E /* NodeCell.m */,
-				560B2F7518EDFE4D009B8CB7 /* ShangTextField.h */,
-				560B2F7618EDFE4D009B8CB7 /* ShangTextField.m */,
-				56B0B98718C5133F0016783E /* NodeCell.xib */,
-				566EB44A18D7F90900BBC067 /* RelationViewController.h */,
-				566EB44B18D7F90900BBC067 /* RelationViewController.m */,
 				56F30E4018F5124F00E8ECEF /* UIView+i7Rotate360.h */,
 				56F30E4118F5124F00E8ECEF /* UIView+i7Rotate360.m */,
 			);
@@ -1306,6 +1359,7 @@
 				314B7E6316C2D9BF0061F0BF /* EBookImporter.m in Sources */,
 				5646970818B477BE00DB5E2A /* CmapController.m in Sources */,
 				560B2F7318ECC542009B8CB7 /* ConceptIconViewController.m in Sources */,
+				56746C101950C2D400805820 /* MBProgressHUD.m in Sources */,
 				560B2F5218EBD8B5009B8CB7 /* AWCollectionViewDialLayout.m in Sources */,
 				31A8258E16C2E7E000F18C1D /* Book.m in Sources */,
 				56711E2717B7759A001B4585 /* BadgeView.m in Sources */,
@@ -1314,6 +1368,7 @@
 				56711E2917B7759A001B4585 /* DrawingUtilities.m in Sources */,
 				56711E2A17B7759A001B4585 /* UIImage+shortcuts.m in Sources */,
 				56711E2B17B7759A001B4585 /* UIView+Addictions.m in Sources */,
+				56746BFF194CFD8F00805820 /* CmapLink.m in Sources */,
 				56D76C3618BC065B0041FA56 /* NSString+XMLEntities.m in Sources */,
 				56B0B98318C50F560016783E /* CmapView.m in Sources */,
 				31DA906C16C32DCC000DA6A3 /* GDataXMLNode.m in Sources */,
@@ -1348,11 +1403,13 @@
 				56D76C2C18BC05140041FA56 /* Relation.m in Sources */,
 				560B2F7718EDFE4D009B8CB7 /* ShangTextField.m in Sources */,
 				563B50FE1919F6CC00FA0F34 /* CmapNode.m in Sources */,
-				566EB44C18D7F90900BBC067 /* RelationViewController.m in Sources */,
 				56727D7A171E386800ACD92D /* WebBrowserViewController.m in Sources */,
+				56746C09194E3C8600805820 /* ConceptLink.m in Sources */,
+				56746C0C194E54B200805820 /* RelationTextView.m in Sources */,
 				56955C2518DCDAD60073A64C /* ZYQSphereView.m in Sources */,
 				56711E2217B77579001B4585 /* HorizontalTabControl.m in Sources */,
 				566F09D117220B6F00412952 /* NoteViewController.m in Sources */,
+				56746C05194D018400805820 /* CmapLinkParser.m in Sources */,
 				56C69D491725D2AD009419B3 /* WebMarkController.m in Sources */,
 				56F30E4218F5124F00E8ECEF /* UIView+i7Rotate360.m in Sources */,
 				56FB60D917286999008C1F0B /* KnowledgeModule.m in Sources */,
@@ -1365,6 +1422,7 @@
 				5619B28517963287001E5BA0 /* LogFileController.m in Sources */,
 				565561B11798DA5C00297BB8 /* HighLight.m in Sources */,
 				56D76C3518BC065B0041FA56 /* CMapImporterExporter.m in Sources */,
+				56746C02194D00D600805820 /* CmapLinkWrapper.m in Sources */,
 				56B0B98C18C522080016783E /* GHContextMenuView.m in Sources */,
 				565561B41798DAB800297BB8 /* HighLightWrapper.m in Sources */,
 				565561B71798DB1500297BB8 /* HighlightParser.m in Sources */,

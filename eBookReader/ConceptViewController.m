@@ -48,9 +48,12 @@
    return YES;
 }
 
+
+/*
+
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
     return NO;
-}
+}*/
 
 - (void)didReceiveMemoryWarning
 {

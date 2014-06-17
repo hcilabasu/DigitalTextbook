@@ -18,6 +18,7 @@
 #import "ThumbNailIconWrapper.h"
 #import "UIView+i7Rotate360.h"
 #import "LSHorizontalScrollTabViewDemoViewController.h"
+
 @interface CmapController ()<GHContextOverlayViewDataSource, GHContextOverlayViewDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 
@@ -48,9 +49,27 @@
 @synthesize showType;
 @synthesize parent_ContentViewController;
 @synthesize contentView;
+@synthesize conceptLinkArray;
+@synthesize nodeCount;
+@synthesize linkCount;
+@synthesize bookLinkWrapper;
+@synthesize bookNodeWrapper;
+
+- (id) init {
+	if (self = [super init]) {
+        nodeCount=1;
+        linkCount=1;
+	}
+	
+	return self;
+}
+
 - (void)viewDidLoad
 {
+    nodeCount=1;
+    linkCount=1;
     [super viewDidLoad];
+
    // if(2==showScenarioId){//the view is initialized in the book page.
         CGRect rect=CGRectMake(530, 0, 494, 768);
         [self.view setFrame:rect];
@@ -64,10 +83,12 @@
     conceptMapView.delegate=self;
     conceptMapView.minimumZoomScale = 1.0;
     conceptMapView.maximumZoomScale = 10.0;
-    
+    bookLinkWrapper= [[CmapLinkWrapper alloc]init];
+    bookNodeWrapper= [[CmapNodeWrapper alloc]init];
     knowledgeModule=[ [KnowledgeModule alloc] init ];
     conceptNamesArray=[[NSMutableArray alloc] init];
     conceptNodeArray=[[NSMutableArray alloc] init];
+    conceptLinkArray=[[NSMutableArray alloc] init];
     [self.navigationController setDelegate:self];
     [self.navigationController setNavigationBarHidden: YES animated:NO];
     
@@ -107,25 +128,6 @@
     recognizer.scale = 1;
     
     if(recognizer.state == UIGestureRecognizerStateEnded){
-        /*
-        if(originSize.size.width*1.2<recognizer.view.frame.size.width||1==showType){
-            CGRect rect=CGRectMake(530, 0, 494, 768);
-            [self.view setFrame:rect];
-           CmapController* cmapView=[[CmapController alloc] initWithNibName:@"CmapView" bundle:nil];
-            cmapView.parent_ContentViewController=parent_ContentViewController;
-            cmapView.dataObject=dataObject;
-            cmapView.showType=0;
-            cmapView.url=url;
-            cmapView.bookHighlight=bookHighlight;
-            cmapView.bookThumbNial=bookThumbNial;
-            cmapView.bookTitle=bookTitle;
-           [parent_ContentViewController.navigationController pushViewController:cmapView animated:NO];
-           // [parent_ContentViewController.navigationController.view addSubview:cmapView.view];
-        }else if (originSize.size.width<1.2*recognizer.view.frame.size.width||0==showType){
-           
-            [self.navigationController popViewControllerAnimated:NO ];
-         
-        } */
     }
 }
 
@@ -140,6 +142,119 @@
 }
 
 
+- (IBAction)loadConceptMap:(id)sender {
+  
+    HUD = [[MBProgressHUD alloc] initWithView:self.view];
+	[self.view addSubview:HUD];
+	HUD.delegate = self;
+	HUD.labelText = @"Loading...";
+	[HUD showWhileExecuting:@selector(WaitingTask) onTarget:self withObject:nil animated:YES];
+    
+    
+    
+    bookNodeWrapper=[CmapNodeParser loadCmapNode];
+    bookLinkWrapper=[CmapLinkParser loadCmapLink];
+    
+    for (NodeCell *cell in conceptNodeArray)
+    {
+        [cell removeLink];
+        [cell.view removeFromSuperview];
+    }
+    
+    
+    
+    [conceptNodeArray removeAllObjects];
+    [conceptLinkArray removeAllObjects];
+    
+    
+    
+    for(CmapNode* cell in bookNodeWrapper.cmapNodes){
+        [self createNode:CGPointMake(cell.point_x, cell.point_y) withName:cell.text];
+    }
+    for(CmapLink* link in bookLinkWrapper.cmapLinks){
+        
+        NodeCell* c1, *c2;
+        
+        for(NodeCell* node in conceptNodeArray){
+            if([link.leftConceptName isEqualToString:node.text.text]){
+                c1=node;
+            }
+            if([link.rightConceptName isEqualToString:node.text.text]){
+                c2=node;
+            }
+        }
+        [c1 createLink:c2 name:link.relationName];
+    }
+    
+    
+}
+
+
+
+-(void)createLink: (NodeCell*) leftCell rightCell: (NodeCell*) rightCell name: (NSString*)relationName{
+    CAShapeLayer* layer = [CAShapeLayer layer];
+    UITextView* relation= [[UITextView alloc]initWithFrame:CGRectMake(40, 40, 60, 35)];
+    relation.tag=linkCount;
+    relation.delegate=self;
+    relation.textAlignment=NSTextAlignmentCenter;
+    relation.scrollEnabled=NO;
+   // [relationTextArray addObject:relation];
+    //ConceptLink *link = [[ConceptLink alloc] initWithName:self conceptName:relationName relation:relation];
+    //[parentCmapController addConcpetLink:link];
+    
+    CGPoint p1=[self getViewCenterPoint:leftCell.view];
+    CGPoint p2=[self getViewCenterPoint:rightCell.view];
+    relation.center=CGPointMake((p1.x/2+p2.x/2), (p1.y/2+p2.y/2));
+    [self.view addSubview:relation];
+    relation.text=relationName;
+    
+    layer.strokeColor = [[UIColor grayColor] CGColor];
+    layer.lineWidth = 1.0;
+    layer.fillColor = [[UIColor clearColor] CGColor];
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    [path moveToPoint:p1];
+    [path addLineToPoint:p2];
+    layer.path = [path CGPath];
+    [self.view.layer insertSublayer:layer atIndex:0];
+    [leftCell.linkLayerArray addObject:layer];
+     [rightCell.linkLayerArray addObject:layer];
+}
+
+-(CGPoint)getViewCenterPoint:(UIView*)view{
+    CGPoint point=CGPointMake(0, 0);
+    point.x=view.frame.origin.x+view.frame.size.width/2;
+    point.y=view.frame.origin.y+view.frame.size.height/2;
+    return point;
+    
+}
+
+- (IBAction)saveConceptMap:(id)sender {
+    
+     HUD = [[MBProgressHUD alloc] initWithView:self.view];
+	[self.view addSubview:HUD];
+	HUD.delegate = self;
+	HUD.labelText = @"Saving...";
+	[HUD showWhileExecuting:@selector(WaitingTask) onTarget:self withObject:nil animated:YES];
+    
+    
+    
+     [bookLinkWrapper clearAllData];
+     [bookNodeWrapper clearAllData];
+    for(ConceptLink* m_link in conceptLinkArray){
+        CmapLink* link= [[CmapLink alloc] initWithName:m_link.leftNode.text.text conceptName:m_link.righttNode.text.text relation:m_link.relation.text];
+       
+        [bookLinkWrapper addLinks:link];
+    }
+    [ CmapLinkParser saveCmapLink:bookLinkWrapper];
+    
+    
+    for(NodeCell* m_node in conceptNodeArray){
+        CmapNode* node= [[CmapNode alloc] initWithName: m_node.text.text bookTitle:m_node.bookTitle positionX:m_node.view.frame.origin.x positionY:m_node.view.frame.origin.y Tag:m_node.text.tag];
+        [bookNodeWrapper addthumbnail:node];
+
+    }
+    [CmapNodeParser saveCmapNode:bookNodeWrapper];
+}
 
 
 - (void)LongPress:(UILongPressGestureRecognizer *)gestureRecognizer {
@@ -194,17 +309,20 @@
     NodeCell *node=[[NodeCell alloc]initWithNibName:@"NodeCell" bundle:nil];
     node.bookPagePosition=CGPointMake(0, 0);
     node.parentCmapController=self;
-    node.showPoint=position;
+    node.showPoint=CGPointMake(position.x+39, position.y+15);
     node.isInitialed=YES;
     node.bookthumbNailIcon=bookThumbNial;
     node.bookHighLight=bookHighlight;
     node.bookTitle=bookTitle;
     node.showType=showType;
-        [conceptNodeArray addObject:node];
+    
+    [conceptNodeArray addObject:node];
     [self addChildViewController:node];
     // [contentView addSubview: node.view ];
     [conceptMapView addSubview: node.view ];
     node.text.text=name;
+    node.text.tag=nodeCount;//use nodeCount to identify the node.
+    nodeCount++;
 }
 
 
@@ -222,7 +340,13 @@
     [self addChildViewController:node];
     [conceptMapView addSubview: node.view ];
     node.text.text=name;
+    node.text.tag=nodeCount;//use nodeCount to identify the node.
+    nodeCount++;
+}
 
+-(void)addConcpetLink: (ConceptLink*) m_link{
+    [conceptLinkArray addObject:m_link];
+    linkCount++;
 }
 
 -(void)showpageAtIntex: (int)page{
@@ -404,8 +528,23 @@
     [self.view addSubview:tabView.view];
 }
 
-- (IBAction)saveMap:(id)sender {
+- (void)textViewDidEndEditing:(UITextView *)textView{
+    // ConceptLink* linkToUpdate;
+    if(0<textView.tag){ // finish editting relationship text
+        for(ConceptLink* view in conceptLinkArray){
+            if(view.relation.tag== textView.tag){
+                view.relation.text=textView.text;
+                NSLog(@"update link text...\n");
+            }
+        }
+        // NSLog(@"finish editting");
+    }
+}
+
+- (void)WaitingTask {
+	sleep(1);
 }
 
 
 @end
+
