@@ -54,6 +54,7 @@
 @synthesize linkCount;
 @synthesize bookLinkWrapper;
 @synthesize bookNodeWrapper;
+@synthesize isFinishLoadMap;
 
 - (id) init {
 	if (self = [super init]) {
@@ -104,12 +105,13 @@
      object:nil];
     self.view.layer.borderColor = [UIColor grayColor].CGColor;
     self.view.layer.borderWidth = 2;
-    [self autoGerenateNode];
+    //[self autoGerenateNode]; generate nodes from highlights and notes.
     
     UIPinchGestureRecognizer *pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinch:)];
     pinchGesture.delegate=self;
        // [conceptMapView addGestureRecognizer:pinchGesture];
-
+ 
+    [self loadConceptMap:nil];
 }
 
 
@@ -136,22 +138,11 @@
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
 {
-     NSLog(@"eeee!");
     return contentView;
-   
 }
 
 
 - (IBAction)loadConceptMap:(id)sender {
-  
-    HUD = [[MBProgressHUD alloc] initWithView:self.view];
-	[self.view addSubview:HUD];
-	HUD.delegate = self;
-	HUD.labelText = @"Loading...";
-	[HUD showWhileExecuting:@selector(WaitingTask) onTarget:self withObject:nil animated:YES];
-    
-    
-    
     bookNodeWrapper=[CmapNodeParser loadCmapNode];
     bookLinkWrapper=[CmapLinkParser loadCmapLink];
     
@@ -160,14 +151,9 @@
         [cell removeLink];
         [cell.view removeFromSuperview];
     }
-    
-    
-    
+
     [conceptNodeArray removeAllObjects];
     [conceptLinkArray removeAllObjects];
-    
-    
-    
     for(CmapNode* cell in bookNodeWrapper.cmapNodes){
         [self createNode:CGPointMake(cell.point_x, cell.point_y) withName:cell.text];
     }
@@ -185,8 +171,7 @@
         }
         [c1 createLink:c2 name:link.relationName];
     }
-    
-    
+    isFinishLoadMap=YES;
 }
 
 
@@ -235,27 +220,39 @@
 	HUD.delegate = self;
 	HUD.labelText = @"Saving...";
 	[HUD showWhileExecuting:@selector(WaitingTask) onTarget:self withObject:nil animated:YES];
-    
-    
-    
-     [bookLinkWrapper clearAllData];
-     [bookNodeWrapper clearAllData];
+    [bookLinkWrapper clearAllData];
+    [bookNodeWrapper clearAllData];
     for(ConceptLink* m_link in conceptLinkArray){
         CmapLink* link= [[CmapLink alloc] initWithName:m_link.leftNode.text.text conceptName:m_link.righttNode.text.text relation:m_link.relation.text];
        
         [bookLinkWrapper addLinks:link];
     }
     [ CmapLinkParser saveCmapLink:bookLinkWrapper];
-    
-    
     for(NodeCell* m_node in conceptNodeArray){
         CmapNode* node= [[CmapNode alloc] initWithName: m_node.text.text bookTitle:m_node.bookTitle positionX:m_node.view.frame.origin.x positionY:m_node.view.frame.origin.y Tag:m_node.text.tag];
         [bookNodeWrapper addthumbnail:node];
-
     }
     [CmapNodeParser saveCmapNode:bookNodeWrapper];
 }
 
+
+
+-(void)autoSaveMap{
+    [bookLinkWrapper clearAllData];
+    [bookNodeWrapper clearAllData];
+    for(ConceptLink* m_link in conceptLinkArray){
+        CmapLink* link= [[CmapLink alloc] initWithName:m_link.leftNode.text.text conceptName:m_link.righttNode.text.text relation:m_link.relation.text];
+        
+        [bookLinkWrapper addLinks:link];
+    }
+    [ CmapLinkParser saveCmapLink:bookLinkWrapper];
+    for(NodeCell* m_node in conceptNodeArray){
+        CmapNode* node= [[CmapNode alloc] initWithName: m_node.text.text bookTitle:m_node.bookTitle positionX:m_node.view.frame.origin.x positionY:m_node.view.frame.origin.y Tag:m_node.text.tag];
+        [bookNodeWrapper addthumbnail:node];
+        
+    }
+    [CmapNodeParser saveCmapNode:bookNodeWrapper];
+}
 
 - (void)LongPress:(UILongPressGestureRecognizer *)gestureRecognizer {
     if (UIGestureRecognizerStateBegan==gestureRecognizer.state) {
@@ -266,7 +263,6 @@
 }
 
 -(void)disableAllNodesEditting{
-    
     for (NodeCell *node in conceptNodeArray){
         node.text.enabled=NO;
     }
@@ -323,6 +319,7 @@
     node.text.text=name;
     node.text.tag=nodeCount;//use nodeCount to identify the node.
     nodeCount++;
+    //[self autoSaveMap];
 }
 
 
@@ -342,6 +339,7 @@
     node.text.text=name;
     node.text.tag=nodeCount;//use nodeCount to identify the node.
     nodeCount++;
+    //[self autoSaveMap];
 }
 
 -(void)addConcpetLink: (ConceptLink*) m_link{
@@ -543,6 +541,17 @@
 
 - (void)WaitingTask {
 	sleep(1);
+}
+
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+     [self loadConceptMap:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated { //when it is about to disappera, save the current concept map.
+    [self autoSaveMap];
 }
 
 

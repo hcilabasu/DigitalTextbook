@@ -58,7 +58,7 @@
 @property (strong, nonatomic) NSMutableArray*  conceptNodeArray;
 //stores the links between concepts
 @property (strong, nonatomic) NSMutableArray*  conceptLinkArray;
-
+@property BOOL isFinishLoadMap;
 
 @property  int nodeCount;
 @property  int linkCount;
@@ -97,4 +97,6 @@
 -(void)createNode:(CGPoint)position withName:(NSString*) name;
 -(void)createNodeFromBook:(CGPoint)position withName:(NSString*) name BookPos: (CGPoint)bookPosition;
 -(void)addConcpetLink: (ConceptLink*) m_link;
+-(void)autoSaveMap;
+- (IBAction)loadConceptMap:(id)sender;
 @end

@@ -91,6 +91,13 @@ static NSString *cellId2 = @"cellId2";
     return slt;
 }
 
+-(void)viewDidAppear:(BOOL)animated{
+    //[super viewWillAppear:animated];
+    if(cmapView.isFinishLoadMap){
+        [cmapView loadConceptMap:nil];
+    }
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
