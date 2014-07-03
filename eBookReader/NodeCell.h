@@ -48,4 +48,6 @@
 -(void)removeShadowAnim;
 -(void)removeLink;
 -(void)createLink: (NodeCell*)cellToLink name: (NSString*)relationName;
+-(void)highlightNode;
+-(void)unHighlightNode;
 @end

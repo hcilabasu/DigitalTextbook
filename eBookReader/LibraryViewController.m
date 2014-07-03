@@ -9,7 +9,7 @@
 #import "LibraryViewController.h"
 #import "BookCell.h"
 #import "Book.h"
-
+#import "BookPageViewController.h"
 #import "BookViewController.h"
 
 @interface LibraryViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
@@ -33,7 +33,7 @@
 
 @synthesize bookImporter;
 @synthesize books;
-
+@synthesize cmapView;
 
 - (void)viewDidLoad
 {
@@ -100,6 +100,22 @@
     [self.libraryView setCollectionViewLayout:flowLayout];
 }
 
+
+
+-(void)createCmapView{
+    cmapView=[[CmapController alloc] initWithNibName:@"CmapView" bundle:nil];
+    //cmapView.parent_BookViewController=self;
+   // cmapView.dataObject=_dataObject;
+    //cmapView.showType=1;
+    [self addChildViewController:cmapView];
+    //[self.navigationController.view addSubview:cmapView.view];
+    //[self.parentViewController.view addSubview:cmapView.view];
+    //[self.view addSubview:cmapView.view];
+    [cmapView.view setUserInteractionEnabled:YES];
+    cmapView.view.center=CGPointMake(700, 384);
+    [cmapView.view setHidden:NO];
+}
+
 //change the background image when rotating the screen
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
@@ -154,13 +170,14 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     NSLog(@"in preparing for segue");
      if ([segue.identifier isEqualToString:@"OpenBookSegue"]) {
+         /*
     BookViewController *destination = [segue destinationViewController];
-    
     destination.bookImporter = bookImporter;
     destination.bookTitle = self.bookToOpen;
-    
+    destination.parent_LibraryViewController=self;
     [destination createContentPages]; //create page content
     [destination initialPageView];    //initial page view
+          */
      }
 }
 
@@ -223,7 +240,23 @@
     //[bookImporter importEBook:title];
     //Need to send notification to root view controller which should send a notification to bookview controller to
     //become visible and load that book.
-    [self performSegueWithIdentifier: @"OpenBookSegue" sender:self];
+    
+    BookPageViewController*  bookPage=[[BookPageViewController alloc] initWithNibName:@"BookPageViewController" bundle:nil];
+    [self.navigationController pushViewController:bookPage animated:YES];
+    
+    bookPage.bookView = [[BookViewController alloc]init];
+    bookPage.bookView.parent_BookPageViewController=bookPage;
+     bookPage.bookView.bookImporter = bookImporter;
+     bookPage.bookView.bookTitle = self.bookToOpen;
+     bookPage.bookView.parent_LibraryViewController=self;
+   // bookPage.bookView.parent_BookPageViewController=bookPage;
+    [ bookPage.bookView createContentPages]; //create page content
+    [ bookPage.bookView initialPageView];    //initial page view
+    //CGRect rect=CGRectMake(0, 0, bookPage.view.frame.size.height, bookPage.view.frame.size.width);
+    //[destination.view setFrame:rect];
+    [bookPage.view addSubview: bookPage.bookView.view];
+    [bookPage addChildViewController: bookPage.bookView];
+   // [self performSegueWithIdentifier: @"OpenBookSegue" sender:self];
 }
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
     // TODO: Deselect item

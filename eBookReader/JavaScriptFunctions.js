@@ -280,14 +280,7 @@ function findNodeCount(element,keyword,offset,container) {
                 if(element.isSameNode(container)&&idx){
                     MyNodeCount=MyApp_SearchResultCount;
                 }
-                
-//                var span = document.createElement("span");
-//                var text = document.createTextNode(value.substr(idx,keyword.length));
-//                span.appendChild(text);
-//                span.setAttribute("class",MyApp_SearchResultCount);
                 text = document.createTextNode(value.substr(idx+keyword.length));
-              //  element.deleteData(idx, value.length - idx);
-                //var next = element.nextSibling;
                 element = text;
             }//end of while
         }//end of if (element.nodeType == 3)
@@ -302,9 +295,6 @@ function findNodeCount(element,keyword,offset,container) {
     
 }
 ///////////////
-
-
-
 
 function HilightSearchEmelemt(element,keyword,searchCount){
     MyApp_SearchResultCount=0;
@@ -357,6 +347,42 @@ function getPos(el) {
 }
 
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*
+// We're using a global variable to store the number of occurrences
+var eReader_SearchResultCount = 0;
+
+// helper function, recursively searches in elements and their child nodes
+function eReader_HighlightAllOccurencesOfStringForElement(element,keyword) {
+    if (element) {
+         alert(eReader_SearchResultCount);
+        if (element.nodeType == 3) {        // Text node
+            while (true) {
+                var value = element.nodeValue;  // Search for keyword in text node
+                var idx = value.toLowerCase().indexOf(keyword);
+                
+                if (idx < 0) break;             // not found, abort
+                
+                      alert(eReader_SearchResultCount);
+                eReader_SearchResultCount++;
+                //return 1;	// update the counter
+            }
+        } else if (element.nodeType == 1) { // Element node
+            if (element.style.display != "none" && element.nodeName.toLowerCase() != 'select') {
+                for (var i=element.childNodes.length-1; i>=0; i--) {
+                    eReader_HighlightAllOccurencesOfStringForElement(element.childNodes[i],keyword);
+                }
+            }
+        }
+    }
+}
+
+// the main entry point to start the search
+function eReader_HighlightAllOccurencesOfString(keyword) {
+    eReader_HighlightAllOccurencesOfStringForElement(document.body, keyword.toLowerCase());
+}
+*/
 
 
 

@@ -520,4 +520,12 @@
     }
 }
 
+-(void)highlightNode{
+    text.backgroundColor=[UIColor colorWithRed:(255/255.0) green:(178/255.0) blue:(102/255.0) alpha:0.9];
+}
+
+-(void)unHighlightNode{
+    text.backgroundColor=[UIColor colorWithRed:(164/255.0) green:(219/255.0) blue:(232/255.0) alpha:1.0];
+}
+
 @end

@@ -10,8 +10,13 @@
 #import "EbookImporter.h"
 #import "Book.h"
 #import "contentViewController.h"
+#import "CmapController.h"
 @class HighLightWrapper;
 @class ThumbNailIconWrapper;
+@class CmapController;
+@class LibraryViewController;
+@class BookPageViewController;
+
 @interface BookViewController : UIViewController
 <UIPageViewControllerDataSource,UIPageViewControllerDelegate>{
     EBookImporter *bookImporter;
@@ -30,14 +35,17 @@
 @property (strong, nonatomic) NSMutableArray *highlightTextArrayByIndex;
 @property (nonatomic, retain) HighLightWrapper *highLight;//highlight wrapper for the book.
 @property (nonatomic, retain) ThumbNailIconWrapper *thumbnailIcon;//highlight wrapper for the book.
-
+@property (strong, nonatomic) CmapController *cmapView;
+@property (strong, nonatomic) LibraryViewController* parent_LibraryViewController;
+@property (strong, nonatomic) BookPageViewController* parent_BookPageViewController;
 
 - (void) loadFirstPage;
 -(void) createContentPages;
 -(void)initialPageView;
 - (ContentViewController *)viewControllerAtIndex:(NSUInteger)index;
 -(void)showFirstPage: (int) pageIndex;//show page accoding to index number
-
+-(void)searchAndHighlightNode;
+-(void)clearAllHighlightNode;
 - (NSInteger)pageNum;
-
+-(void)splitScreen;
 @end

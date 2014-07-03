@@ -14,6 +14,8 @@
 #import "ThumbNailIcon.h"
 #import "ThumbNailIconParser.h"
 #import "ThumbNailIconWrapper.h"
+#import "BookPageViewController.h"
+#import "LibraryViewController.h"
 
 @interface BookViewController () {
     NSUInteger _pageNum;
@@ -35,7 +37,9 @@
 @synthesize highlightTextArrayByIndex;
 @synthesize highLight;
 @synthesize thumbnailIcon;
-
+@synthesize cmapView;
+@synthesize parent_LibraryViewController;
+@synthesize parent_BookPageViewController;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -44,10 +48,29 @@
     [thumbnailIcon printAllThumbnails];
 }
 
+-(void)test{
+    NSLog(@"Test");
+}
 
 -(BOOL)prefersStatusBarHidden{
     return YES;
 }
+
+-(void)createCmapView{
+    cmapView=[[CmapController alloc] initWithNibName:@"CmapView" bundle:nil];
+    cmapView.neighbor_BookViewController=self;
+    cmapView.dataObject=_dataObject;
+    cmapView.showType=1;
+    cmapView.bookTitle=bookTitle;
+    [self addChildViewController:cmapView];
+   //[self.navigationController.view addSubview:cmapView.view];
+   //[self.parentViewController.view addSubview:cmapView.view];
+    //[self.view addSubview:cmapView.view];
+    [cmapView.view setUserInteractionEnabled:YES];
+    cmapView.view.center=CGPointMake(700, 384);
+    [cmapView.view setHidden:NO];
+}
+
 
 -(void)initialPageView{
     //initialize the page view by adding subviews to the BookView.
@@ -139,6 +162,8 @@
     // add the HTML content and the URL link.
     NSURL* baseURL = [NSURL fileURLWithPath:[book getHTMLURL]];
     dataViewController.url=baseURL;
+    
+    
     return dataViewController;
 }
 
@@ -191,14 +216,7 @@
     //set navigationBar style and background
     [navBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
     [navBar setBarStyle: UIStatusBarStyleDefault];
-   // [[navBar appearance] setTintColor:[UIColor whiteColor]];
-    
-  /*
-    UIImage *conceptMapButtonImg = [UIImage imageNamed:@"google-plus-white"];
-    conceptMapButtonImg=[self scaleToSize:CGSizeMake(40, 40) image:conceptMapButtonImg];
-    UIBarButtonItem *cMapButton = [[UIBarButtonItem alloc] initWithImage:conceptMapButtonImg style:UIBarButtonItemStylePlain target:self action:nil];
-    self.navigationItem.rightBarButtonItem = cMapButton;
- */
+
 }
 
 
@@ -250,6 +268,37 @@
     UIGraphicsEndImageContext();
     
     return scaledImage;
+}
+
+
+
+-(void)searchAndHighlightNode{
+    
+    if(thumbnailIcon!=nil){
+        for(ThumbNailIcon *thumbNailItem in thumbnailIcon.thumbnails){
+            // if([thumbNailItem.relatedConcpet isEqualToString: concpet]){
+            if(thumbNailItem.page==(_pageNum+1) && [bookTitle isEqualToString: thumbNailItem.bookTitle]){
+            if (3==thumbNailItem.type){
+                //if(parent_BookPageViewController.cmapView.isInitComplete){
+               [parent_BookPageViewController.cmapView highlightNode:thumbNailItem.text];
+               // }
+                }
+            }
+            //}
+        }
+    }
+}
+
+-(void)clearAllHighlightNode{
+[parent_BookPageViewController.cmapView clearAllHighlight];
+}
+ 
+
+-(void)splitScreen{
+
+    CGRect rec=CGRectMake(0, 0, 512, 768);
+    [self.view setFrame:rec];
+    //[self createCmapView];
 }
 
 

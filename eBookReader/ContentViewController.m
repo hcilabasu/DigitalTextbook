@@ -77,7 +77,6 @@ static NSString *cellId2 = @"cellId2";
 @synthesize ThumbScrollViewRight;
 @synthesize isleftThumbShow;
 @synthesize firstRespondConcpet;
-@synthesize cmapView;
 @synthesize isSplit;
 //initial methods for the open ears tts instance
 - (FliteController *)fliteController { if (fliteController == nil) {
@@ -91,12 +90,6 @@ static NSString *cellId2 = @"cellId2";
     return slt;
 }
 
--(void)viewDidAppear:(BOOL)animated{
-    //[super viewWillAppear:animated];
-    if(cmapView.isFinishLoadMap){
-        [cmapView loadConceptMap:nil];
-    }
-}
 
 - (void)viewDidLoad
 {
@@ -172,31 +165,15 @@ static NSString *cellId2 = @"cellId2";
     
     UIBarButtonItem *mailbutton =[[UIBarButtonItem alloc] initWithCustomView:someButton];
     self.parent_BookViewController.navigationItem.rightBarButtonItem=mailbutton;
-    
-    //initialize the Cmap view, but hide it if it's portrait.
-    
-    cmapView=[[CmapController alloc] initWithNibName:@"CmapView" bundle:nil];
-    cmapView.parent_ContentViewController=self;
-    cmapView.dataObject=_dataObject;
-    cmapView.showType=1;
-    cmapView.url=_url;
-    cmapView.bookHighlight=bookHighLight;
-    cmapView.bookThumbNial=bookthumbNailIcon;
-    cmapView.bookTitle=bookTitle;
-    [self.view addSubview:cmapView.view];
-    [cmapView.view setHidden:YES];
+
     if( ([[UIApplication sharedApplication] statusBarOrientation]==UIInterfaceOrientationLandscapeLeft)||([[UIApplication sharedApplication] statusBarOrientation]==UIInterfaceOrientationLandscapeRight)){
-        isSplit=YES;
-        [ThumbScrollViewLeft setHidden:YES];
-        [ThumbScrollViewRight setHidden:YES];
-        CGRect rec=CGRectMake(0, webView.frame.origin.y, 512, 768);
-        [webView setFrame:rec];
-        cmapView.view.center=CGPointMake(522, 384);
-        [cmapView.view setHidden:NO];
+        //[ThumbScrollViewRight setHidden:YES];
+        [self hideAllSubview:ThumbScrollViewRight];
     }
+    [parent_BookViewController clearAllHighlightNode];
+    [parent_BookViewController searchAndHighlightNode];
+
 }
-
-
 
 
 - (void)didReceiveMemoryWarning
@@ -493,10 +470,12 @@ static NSString *cellId2 = @"cellId2";
 
 - (void)dragAndDrop:(id)sender{
     if(YES==isSplit){
-        [cmapView createNodeFromBook:CGPointMake(200, 200) withName:[webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"] BookPos:pvPoint];
+       
     }
     if(NO==isSplit){
-        [self createConceptThumb:[webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"]];
+        //[self createConceptThumb:[webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"]];
+        NSString* h_text=[webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"];
+        [self createConceptIcon:pvPoint NoteText:h_text isWriteToFile:YES];
     }
 }
 
@@ -750,34 +729,26 @@ static NSString *cellId2 = @"cellId2";
 }
 
 
--(ConceptViewController*)createConceptIcon : (CGPoint) show_at_point NoteText:(NSString*) m_note_text isWriteToFile:(BOOL)iswrite  {
-
-  
-    
-    ConceptViewController *note= [[ConceptViewController alloc]
-                               initWithNibName:@"ConceptViewController" bundle:nil];
-    if(YES==isSplit){
-       [cmapView createNode:CGPointMake(200, 200) withName:m_note_text];
-         return note;
-    }
-    
-    note.pvPoint=show_at_point;
-    note.parentController=self;
-    CGPoint newPos;
-    newPos.x=show_at_point.x;
-    newPos.y=[thumbNailController getIconPos:show_at_point type: 0];
-    note.iconPoint=newPos;
-    [self addChildViewController:note];
-    [ThumbScrollViewRight addSubview: note.view ];
-    if(![m_note_text isEqualToString:@""]){
-     note.textField.text=m_note_text;
-    }
-   
+-(NodeCell*)createConceptIcon : (CGPoint) show_at_point NoteText:(NSString*) m_note_text isWriteToFile:(BOOL)iswrite{
+    NodeCell *node=[[NodeCell alloc]initWithNibName:@"NodeCell" bundle:nil];
+    node.nodeType=1;
+    node.isInitialed=YES;
+    node.text.enabled=NO;
+    int y=[thumbNailController getIconPos:show_at_point type:0];
+    [node.view setFrame:CGRectMake(6, y,node.view.frame.size.width, node.view.frame.size.height)];
+    [self addChildViewController:node];
+    [ThumbScrollViewRight addSubview: node.view ];
+    node.text.text=m_note_text;
+    node.text.disableEditting=YES;//disable editting
+    ThumbNailIcon *temp_thumbnail = [[ThumbNailIcon alloc] initWithName: 3 Text: m_note_text URL:@"" showPoint:show_at_point pageNum:pageNum bookTitle:bookTitle relatedConcept:nil];
     if(iswrite){
-
+        [bookthumbNailIcon addthumbnail:temp_thumbnail];
+        [bookthumbNailIcon printAllThumbnails];
+        [ThumbNailIconParser saveThumbnailIcon:bookthumbNailIcon];
     }
-    return note;
+    return node;
 }
+
 
 -(void)updateNoteText:(CGPoint) show_at_point PreText: (NSString*)pre_text NewText: (NSString *)new_text
 {
@@ -823,6 +794,8 @@ static NSString *cellId2 = @"cellId2";
                     [self createNote:thumbNailItem.showPoint NoteText:thumbNailItem.text isWriteToFile:NO];
                 }else if(2==thumbNailItem.type){
                     [self createWebNote:thumbNailItem.showPoint URL:   [NSURLRequest requestWithURL:[NSURL URLWithString:thumbNailItem.url]] isWriteToFile:NO isNewIcon:YES ];
+                }else if (3==thumbNailItem.type){
+                    [self createConceptIcon:thumbNailItem.showPoint NoteText:thumbNailItem.text isWriteToFile:NO];
                 }
             }
           //}
@@ -920,38 +893,6 @@ static NSString *cellId2 = @"cellId2";
 }
 
 
--(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
-{
-    //when retating the device, clear the thumbnail icons and reload
-    for (UIView *subviews in [ThumbScrollViewLeft subviews]) {
-        if(subviews.frame.size.height!=7){
-            [subviews removeFromSuperview];
-        }
-    }
-    if(YES==isleftThumbShow){
-    [thumbNailController clearAllThumbnail];
-    [self loadThumbNailIcon:firstRespondConcpet];
-    }
-    //if user rotate the screen from portrait to landscape, show the concept map view.
-    if(fromInterfaceOrientation==UIInterfaceOrientationPortrait||fromInterfaceOrientation==UIInterfaceOrientationPortraitUpsideDown){
-    [self splitScreen];
-    }
-    //otherwise, hide the concept map view.
-    if(fromInterfaceOrientation==UIInterfaceOrientationLandscapeLeft||fromInterfaceOrientation==UIInterfaceOrientationLandscapeRight){
-        [self resumeNormalScreen ];
-    }
-    
-}
-
--(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
-    if(toInterfaceOrientation==UIInterfaceOrientationPortrait||toInterfaceOrientation==UIInterfaceOrientationPortraitUpsideDown){
-      //  [self resumeNormalScreen ];
-    }
-}
-
-
-
-
 -(void)shakeImage:(id)sender {
     CABasicAnimation* shake = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
     shake.fromValue = [NSNumber numberWithFloat:-0.3];
@@ -1002,35 +943,7 @@ static NSString *cellId2 = @"cellId2";
     return YES;
 }
 
-//split the screen, the left side shows the textbook and the right side shows the concept map construction view.
--(void)splitScreen{
-    isSplit=YES;
-    [ThumbScrollViewLeft setHidden:YES];
-    [ThumbScrollViewRight setHidden:YES];
-    CGRect rec=CGRectMake(0, webView.frame.origin.y, 512, 768);
-    [webView setFrame:rec];
-    cmapView.view.center=CGPointMake(777, 384);
-    [cmapView.view setHidden:NO];
-}
 
--(void)resumeNormalScreen{
-    isSplit=NO;
-    CGRect rec=CGRectMake(52, webView.frame.origin.y, 653, 967);
-    [webView setFrame:rec];
-    [ThumbScrollViewLeft setHidden:NO];
-    [ThumbScrollViewRight setHidden:NO];
-    [cmapView.view setHidden:YES];
-   // [cmapView.view removeFromSuperview];
-}
-
--(void)resumeNormalScreenLandscape{
-    CGRect rec=CGRectMake(52, webView.frame.origin.y, 930, 720);
-    [webView setFrame:rec];
-    [ThumbScrollViewLeft setHidden:NO];
-    [ThumbScrollViewRight setHidden:NO];
-   // [cmapView.view removeFromSuperview];
-     [cmapView.view setHidden:YES];
-}
 
 -(void)showCmapFullScreen{
     //isSplit=NO;
@@ -1040,7 +953,7 @@ static NSString *cellId2 = @"cellId2";
 
 -(void)showRecourseFullScreen{
     isSplit=NO;
-    [self resumeNormalScreenLandscape];
+    //[self resumeNormalScreenLandscape];
     LSHorizontalScrollTabViewDemoViewController *tabView=[[LSHorizontalScrollTabViewDemoViewController alloc] initWithNibName:@"LSHorizontalScrollTabViewDemoViewController" bundle:nil];
     tabView.highlightWrapper=bookHighLight;
     tabView.thumbNailWrapper=bookthumbNailIcon;
@@ -1050,6 +963,36 @@ static NSString *cellId2 = @"cellId2";
     [self.navigationController pushViewController:tabView animated:NO];
     //[self addChildViewController:tabView];
     //[self.view addSubview:tabView.view];
+}
+
+-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    //when retating the device, clear the thumbnail icons and reload
+    if(fromInterfaceOrientation==UIInterfaceOrientationPortrait||fromInterfaceOrientation==UIInterfaceOrientationPortraitUpsideDown){
+        CGRect rec=CGRectMake(10, 8, 485, 760);
+        [webView setFrame:rec];
+        //[ThumbScrollViewRight setHidden:YES];
+        [self hideAllSubview:ThumbScrollViewRight];
+    }
+    //otherwise, hide the concept map view.
+    if(fromInterfaceOrientation==UIInterfaceOrientationLandscapeLeft||fromInterfaceOrientation==UIInterfaceOrientationLandscapeRight){
+         [self showAllSubview:ThumbScrollViewRight];
+        // [self hideAllSubview:ThumbScrollViewLeft];
+        //[self hideAllSubview:ThumbScrollViewRight];
+        //[self loadThumbNailIcon:firstRespondConcpet];
+    }
+}
+
+-(void)hideAllSubview: (UIView*)parentView{
+    for (UIView *subview in parentView.subviews){
+        [subview setHidden:YES];
+    }
+}
+
+-(void)showAllSubview: (UIView*)parentView{
+    for (UIView *subview in parentView.subviews){
+        [subview setHidden:NO];
+    }
 }
 
 @end

@@ -44,7 +44,7 @@
 @property (strong, nonatomic) IBOutlet UIWebView *webView; // the webview which displays the content
 @property (strong, nonatomic) IBOutlet UIScrollView *ThumbScrollViewLeft;
 @property (strong, nonatomic) IBOutlet UIScrollView *ThumbScrollViewRight;
-@property (strong, nonatomic) CmapController *cmapView;
+//@property (strong, nonatomic) CmapController *cmapView;
 @property BOOL isleftThumbShow;
 @property BOOL isSplit;//check if the concept map construction  view is showing.
 @property (strong, nonatomic) NSString *firstRespondConcpet;//the concept the student is working on

@@ -43,7 +43,7 @@
 //@property (nonatomic, retain) IBOutlet UILabel *currentPageLabel; //indicates the current page number
 @property (nonatomic) int pageNum; //current page number
 @property (nonatomic) int totalpageNum;//total page number
-@property (strong, nonatomic) BookViewController *parent_BookViewController;
+@property (strong, nonatomic) BookViewController *neighbor_BookViewController;
 @property (strong, nonatomic) ContentViewController *parent_ContentViewController;
 //@property (strong, nonatomic) IBOutlet UIBarButtonItem *returnToBook;
 @property (nonatomic) NSInteger prevIndex;
@@ -59,6 +59,7 @@
 //stores the links between concepts
 @property (strong, nonatomic) NSMutableArray*  conceptLinkArray;
 @property BOOL isFinishLoadMap;
+@property BOOL isInitComplete;
 
 @property  int nodeCount;
 @property  int linkCount;
@@ -99,4 +100,6 @@
 -(void)addConcpetLink: (ConceptLink*) m_link;
 -(void)autoSaveMap;
 - (IBAction)loadConceptMap:(id)sender;
+-(void)highlightNode: (NSString*)nodeName;
+-(void)clearAllHighlight;
 @end

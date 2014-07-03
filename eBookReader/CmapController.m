@@ -18,7 +18,7 @@
 #import "ThumbNailIconWrapper.h"
 #import "UIView+i7Rotate360.h"
 #import "LSHorizontalScrollTabViewDemoViewController.h"
-
+#import "BookViewController.h"
 @interface CmapController ()<GHContextOverlayViewDataSource, GHContextOverlayViewDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 
@@ -28,7 +28,7 @@
 @synthesize url;
 @synthesize pageNum;
 @synthesize totalpageNum;
-@synthesize parent_BookViewController;
+@synthesize neighbor_BookViewController;
 @synthesize prevIndex;
 @synthesize longPressLocation;
 @synthesize isShowing;
@@ -55,6 +55,7 @@
 @synthesize bookLinkWrapper;
 @synthesize bookNodeWrapper;
 @synthesize isFinishLoadMap;
+@synthesize isInitComplete;
 
 - (id) init {
 	if (self = [super init]) {
@@ -110,10 +111,17 @@
     UIPinchGestureRecognizer *pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinch:)];
     pinchGesture.delegate=self;
        // [conceptMapView addGestureRecognizer:pinchGesture];
- 
     [self loadConceptMap:nil];
+    isInitComplete=YES;
+    
+    
 }
 
+- (void) viewDidAppear:(BOOL) animated {
+    //do stuff...
+    [neighbor_BookViewController searchAndHighlightNode];
+    [super viewDidAppear:animated];
+}
 
 
 - (IBAction)handlePinch:(UIPinchGestureRecognizer *)recognizer
@@ -535,7 +543,6 @@
                 NSLog(@"update link text...\n");
             }
         }
-        // NSLog(@"finish editting");
     }
 }
 
@@ -554,6 +561,23 @@
     [self autoSaveMap];
 }
 
+
+-(void)highlightNode: (NSString*)nodeName{
+    NSLog(@"Highlight");
+    for(NodeCell* cell in conceptNodeArray){
+        if([cell.text.text isEqualToString:nodeName]){
+            [cell highlightNode];
+            return;
+        }
+    }
+}
+
+
+-(void)clearAllHighlight{
+    for(NodeCell* cell in conceptNodeArray){
+        [cell unHighlightNode];
+    }
+}
 
 @end
 

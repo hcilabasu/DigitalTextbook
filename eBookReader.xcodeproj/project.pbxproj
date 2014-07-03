@@ -192,6 +192,8 @@
 		56D76C3518BC065B0041FA56 /* CMapImporterExporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 56D76C3118BC065B0041FA56 /* CMapImporterExporter.m */; };
 		56D76C3618BC065B0041FA56 /* NSString+XMLEntities.m in Sources */ = {isa = PBXBuildFile; fileRef = 56D76C3318BC065B0041FA56 /* NSString+XMLEntities.m */; };
 		56E31A30172D063D0066C55D /* Experiment.m in Sources */ = {isa = PBXBuildFile; fileRef = 56E31A2F172D063D0066C55D /* Experiment.m */; };
+		56E55B8619540E6400B35924 /* BookPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56E55B8419540E6400B35924 /* BookPageViewController.m */; };
+		56E55B8719540E6400B35924 /* BookPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56E55B8519540E6400B35924 /* BookPageViewController.xib */; };
 		56E9B03318DE48AF00AADD2E /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56E9B03218DE48AF00AADD2E /* CoreImage.framework */; };
 		56E9B03918DE522E00AADD2E /* blurWallPaper.png in Resources */ = {isa = PBXBuildFile; fileRef = 56E9B03818DE522E00AADD2E /* blurWallPaper.png */; };
 		56F02EB6178FA29100C310F9 /* ThumbNailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56F02EB5178FA29100C310F9 /* ThumbNailController.m */; };
@@ -468,6 +470,9 @@
 		56D76C3318BC065B0041FA56 /* NSString+XMLEntities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+XMLEntities.m"; sourceTree = "<group>"; };
 		56E31A2E172D063D0066C55D /* Experiment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Experiment.h; sourceTree = "<group>"; };
 		56E31A2F172D063D0066C55D /* Experiment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Experiment.m; sourceTree = "<group>"; };
+		56E55B8319540E6400B35924 /* BookPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookPageViewController.h; sourceTree = "<group>"; };
+		56E55B8419540E6400B35924 /* BookPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookPageViewController.m; sourceTree = "<group>"; };
+		56E55B8519540E6400B35924 /* BookPageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookPageViewController.xib; sourceTree = "<group>"; };
 		56E9B03218DE48AF00AADD2E /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		56E9B03818DE522E00AADD2E /* blurWallPaper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blurWallPaper.png; sourceTree = "<group>"; };
 		56F02EB4178FA29100C310F9 /* ThumbNailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThumbNailController.h; sourceTree = "<group>"; };
@@ -1096,8 +1101,8 @@
 		56FB60D2172868F2008C1F0B /* Library */ = {
 			isa = PBXGroup;
 			children = (
-				3166DB6F16B0A5300089C0F2 /* LibraryViewController.m */,
 				3166DB6E16B0A5300089C0F2 /* LibraryViewController.h */,
+				3166DB6F16B0A5300089C0F2 /* LibraryViewController.m */,
 			);
 			name = Library;
 			sourceTree = "<group>";
@@ -1140,6 +1145,9 @@
 				31B9150C16CB053B0040E8A2 /* BookViewController.m */,
 				5623147D16F9027C00B40047 /* ContentViewController.h */,
 				5623147E16F9027C00B40047 /* ContentViewController.m */,
+				56E55B8319540E6400B35924 /* BookPageViewController.h */,
+				56E55B8419540E6400B35924 /* BookPageViewController.m */,
+				56E55B8519540E6400B35924 /* BookPageViewController.xib */,
 			);
 			name = BookView;
 			sourceTree = "<group>";
@@ -1281,6 +1289,7 @@
 				56727D84171F290D00ACD92D /* noteTaking.png in Resources */,
 				561C0D5818C52B7900B223D3 /* edit.png in Resources */,
 				56B0B99518C523B90016783E /* pinterest-white.png in Resources */,
+				56E55B8719540E6400B35924 /* BookPageViewController.xib in Resources */,
 				56B0B99318C523B90016783E /* google-plus-white.png in Resources */,
 				56727D8A171F2B0300ACD92D /* take_note.png in Resources */,
 				56727D8E171FD12B00ACD92D /* noteIcon.png in Resources */,
@@ -1409,6 +1418,7 @@
 				56955C2518DCDAD60073A64C /* ZYQSphereView.m in Sources */,
 				56711E2217B77579001B4585 /* HorizontalTabControl.m in Sources */,
 				566F09D117220B6F00412952 /* NoteViewController.m in Sources */,
+				56E55B8619540E6400B35924 /* BookPageViewController.m in Sources */,
 				56746C05194D018400805820 /* CmapLinkParser.m in Sources */,
 				56C69D491725D2AD009419B3 /* WebMarkController.m in Sources */,
 				56F30E4218F5124F00E8ECEF /* UIView+i7Rotate360.m in Sources */,

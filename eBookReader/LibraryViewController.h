@@ -9,11 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "EbookImporter.h"
 #import "Book.h"
-
+#import "CmapController.h"
 @interface LibraryViewController : UIViewController {
     EBookImporter *bookImporter;
     NSMutableArray* books;
 }
 
 @property (strong, nonatomic) id dataObject;
+@property (strong, nonatomic) CmapController *cmapView;
+-(void)createCmapView;
 @end
