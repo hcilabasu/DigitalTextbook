@@ -178,7 +178,7 @@
                 c2=node;
             }
         }
-        [c1 createLink:c2 name:link.relationName];
+        [c1 createLinkWithPageNum:c2 name:link.relationName page:link.pageNum];
     }
     isFinishLoadMap=YES;
 }
@@ -232,7 +232,7 @@
     [bookLinkWrapper clearAllData];
     [bookNodeWrapper clearAllData];
     for(ConceptLink* m_link in conceptLinkArray){
-        CmapLink* link= [[CmapLink alloc] initWithName:m_link.leftNode.text.text conceptName:m_link.righttNode.text.text relation:m_link.relation.text page:pageNum];
+        CmapLink* link= [[CmapLink alloc] initWithName:m_link.leftNode.text.text conceptName:m_link.righttNode.text.text relation:m_link.relation.text page:m_link.pageNum];
        
         [bookLinkWrapper addLinks:link];
     }
@@ -578,7 +578,9 @@
 -(void)clearAllHighlight{
     for(NodeCell* cell in conceptNodeArray){
         [cell unHighlightNode];
+        [cell unHighlightLink];
     }
+   // [self unHighlightLink];
 }
 
 
@@ -590,6 +592,13 @@
             [left highlightLink:link.righttNode.text.text];
             
         }
+    }
+}
+
+-(void)unHighlightLink{
+    for(ConceptLink *link in conceptLinkArray){
+        NodeCell* left=link.leftNode;
+        [left unHighlightLink];
     }
 }
 

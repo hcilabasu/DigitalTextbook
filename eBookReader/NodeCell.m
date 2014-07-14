@@ -214,6 +214,8 @@
         relation.scrollEnabled=NO;
         [relationTextArray addObject:relation];
         ConceptLink *link = [[ConceptLink alloc] initWithName:self conceptName:parentCmapController.nodesToLink relation:relation page:parentCmapController.pageNum];
+        NSLog(@"Parent page:  %d",parentContentViewController.pageNum);
+        NSLog(@"Link page:  %d",link.pageNum);
         [parentCmapController addConcpetLink:link];
         
         [parentCmapController.nodesToLink.relationTextArray addObject:relation];
@@ -257,9 +259,8 @@
     relation.textAlignment=NSTextAlignmentCenter;
     relation.scrollEnabled=NO;
     [relationTextArray addObject:relation];
-    ConceptLink *link = [[ConceptLink alloc] initWithName:self conceptName:cellToLink relation:relation page:parentCmapController.pageNum];
+    ConceptLink *link = [[ConceptLink alloc] initWithName:self conceptName:cellToLink relation:relation page:parentContentViewController.pageNum];
     [parentCmapController addConcpetLink:link];
-    
     [cellToLink.relationTextArray addObject:relation];
     [linkLayerArray addObject:layer];
     [cellToLink.linkLayerArray addObject:layer];
@@ -271,6 +272,34 @@
     [self.parentCmapController.conceptMapView addSubview:relation];
     [self updateLink];
 }
+
+-(void)createLinkWithPageNum: (NodeCell*)cellToLink name: (NSString*)relationName page:(int)m_PageNum{
+    
+    [relatedNodesArray addObject:cellToLink];
+    [cellToLink.relatedNodesArray addObject:self];
+    [cellToLink removeShadowAnim];
+    
+    CAShapeLayer* layer = [CAShapeLayer layer];
+    UITextView* relation= [[UITextView alloc]initWithFrame:CGRectMake(40, 40, 60, 35)];
+    relation.tag=parentCmapController.linkCount;
+    relation.delegate=self;
+    relation.textAlignment=NSTextAlignmentCenter;
+    relation.scrollEnabled=NO;
+    [relationTextArray addObject:relation];
+    ConceptLink *link = [[ConceptLink alloc] initWithName:self conceptName:cellToLink relation:relation page:m_PageNum];
+    [parentCmapController addConcpetLink:link];
+    [cellToLink.relationTextArray addObject:relation];
+    [linkLayerArray addObject:layer];
+    [cellToLink.linkLayerArray addObject:layer];
+    
+    CGPoint p1=[self getViewCenterPoint:self.view];
+    CGPoint p2=[self getViewCenterPoint:cellToLink.view];
+    relation.center=CGPointMake((p1.x/2+p2.x/2), (p1.y/2+p2.y/2));
+    relation.text=relationName;
+    [self.parentCmapController.conceptMapView addSubview:relation];
+    [self updateLink];
+}
+
 
 -(void)waitForLink{
     self.view.layer.shadowColor=[UIColor redColor].CGColor;
@@ -570,13 +599,20 @@
     for (NodeCell* object in relatedNodesArray) {
         CAShapeLayer* layer=[linkLayerArray objectAtIndex:i];
         if([object.text.text isEqualToString:relatedNodeName]){
-            layer.fillColor = [UIColor blueColor].CGColor;
+            layer.strokeColor = [UIColor orangeColor].CGColor;
+            layer.fillColor = [UIColor orangeColor].CGColor;
             return;
         }
         i++;
     }
-
 }
 
+
+-(void)unHighlightLink{
+    for(  CAShapeLayer* layer in linkLayerArray){
+            layer.strokeColor = [UIColor grayColor].CGColor;
+            layer.fillColor = [UIColor grayColor].CGColor;
+        }
+}
 
 @end

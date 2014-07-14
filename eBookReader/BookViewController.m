@@ -302,7 +302,9 @@
 -(void)clearAllHighlightNode{
 [parent_BookPageViewController.cmapView clearAllHighlight];
 }
- 
+
+
+
 
 -(void)splitScreen{
 

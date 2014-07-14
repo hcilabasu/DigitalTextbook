@@ -52,7 +52,9 @@
 -(void)removeShadowAnim;
 -(void)removeLink;
 -(void)createLink: (NodeCell*)cellToLink name: (NSString*)relationName;
+-(void)createLinkWithPageNum: (NodeCell*)cellToLink name: (NSString*)relationName page:(int)m_PageNum;
 -(void)highlightNode;
 -(void)unHighlightNode;
 -(void)highlightLink: (NSString*)relatedNodeName;
+-(void)unHighlightLink;
 @end

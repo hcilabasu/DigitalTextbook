@@ -102,10 +102,11 @@ static NSString *cellId2 = @"cellId2";
         [self hideAllSubview:ThumbScrollViewRight];
         isSplit=YES;
     }
-    
+     parent_BookViewController.parent_BookPageViewController.cmapView.pageNum=pageNum-1;
     [parent_BookViewController clearAllHighlightNode];
     [parent_BookViewController searchAndHighlightNode];
     [parent_BookViewController searchAndHighlightLink];
+   
 }
 
 - (void)viewDidLoad
