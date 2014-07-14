@@ -45,6 +45,11 @@
         gestureRecognizer.enabled = self.enableRecognizer;
         
     }
+    
+    if([gestureRecognizer isKindOfClass:[UITapGestureRecognizer class]]){
+        gestureRecognizer.enabled = self.enableRecognizer;
+    }
+    
     [super addGestureRecognizer:gestureRecognizer];
     return;
 }

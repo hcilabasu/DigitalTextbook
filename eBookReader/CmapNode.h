@@ -13,6 +13,7 @@
 @property (assign)CGPoint showPoint;
 
 @property (strong, nonatomic)  NSString *text;
+@property int pageNum;
 @property int point_x;
 @property int point_y;
 @property CGPoint bookPagePosition;
@@ -25,5 +26,5 @@
 @property int tag;
 //- (id)initWithName:(NSString*)m_text ShowType: (CGPoint)m_position RelatedNodeArray: (NSMutableArray*)m_relatedNodesArray linkArray:(NSMutableArray*)m_linkArray
  //    linkTextArray: (NSMutableArray*)m_linkTextArray bookTitle:(NSString*)m_bookTitle;
-- (id)initWithName:(NSString*)m_text bookTitle: (NSString*)m_bookTitle positionX:(int)m_pointX positionY: (int)m_positionY Tag: (int)m_tag;
+- (id)initWithName:(NSString*)m_text bookTitle: (NSString*)m_bookTitle positionX:(int)m_pointX positionY: (int)m_positionY Tag: (int)m_tag page: (int) m_pageNum;
 @end

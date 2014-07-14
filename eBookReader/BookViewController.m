@@ -239,6 +239,9 @@
     
     ContentViewController *initialViewController =
     [self viewControllerAtIndex:pageIndex];
+    initialViewController.pageNum=pageIndex+1;
+    _pageNum=pageIndex;
+    
     NSArray *viewControllers =
     [NSArray arrayWithObject:initialViewController];
     
@@ -288,6 +291,13 @@
         }
     }
 }
+
+
+-(void)searchAndHighlightLink{
+    [parent_BookPageViewController.cmapView highlightLink: parent_BookPageViewController.cmapView.pageNum];
+}
+
+
 
 -(void)clearAllHighlightNode{
 [parent_BookPageViewController.cmapView clearAllHighlight];

@@ -120,6 +120,7 @@
 - (void) viewDidAppear:(BOOL) animated {
     //do stuff...
     [neighbor_BookViewController searchAndHighlightNode];
+    [neighbor_BookViewController searchAndHighlightLink];
     [super viewDidAppear:animated];
 }
 
@@ -163,7 +164,7 @@
     [conceptNodeArray removeAllObjects];
     [conceptLinkArray removeAllObjects];
     for(CmapNode* cell in bookNodeWrapper.cmapNodes){
-        [self createNode:CGPointMake(cell.point_x, cell.point_y) withName:cell.text];
+        [self createNode:CGPointMake(cell.point_x, cell.point_y) withName:cell.text page:cell.pageNum];
     }
     for(CmapLink* link in bookLinkWrapper.cmapLinks){
         
@@ -231,13 +232,13 @@
     [bookLinkWrapper clearAllData];
     [bookNodeWrapper clearAllData];
     for(ConceptLink* m_link in conceptLinkArray){
-        CmapLink* link= [[CmapLink alloc] initWithName:m_link.leftNode.text.text conceptName:m_link.righttNode.text.text relation:m_link.relation.text];
+        CmapLink* link= [[CmapLink alloc] initWithName:m_link.leftNode.text.text conceptName:m_link.righttNode.text.text relation:m_link.relation.text page:pageNum];
        
         [bookLinkWrapper addLinks:link];
     }
     [ CmapLinkParser saveCmapLink:bookLinkWrapper];
     for(NodeCell* m_node in conceptNodeArray){
-        CmapNode* node= [[CmapNode alloc] initWithName: m_node.text.text bookTitle:m_node.bookTitle positionX:m_node.view.frame.origin.x positionY:m_node.view.frame.origin.y Tag:m_node.text.tag];
+        CmapNode* node= [[CmapNode alloc] initWithName: m_node.text.text bookTitle:m_node.bookTitle positionX:m_node.view.frame.origin.x positionY:m_node.view.frame.origin.y Tag:m_node.text.tag page:m_node.pageNum];
         [bookNodeWrapper addthumbnail:node];
     }
     [CmapNodeParser saveCmapNode:bookNodeWrapper];
@@ -249,13 +250,13 @@
     [bookLinkWrapper clearAllData];
     [bookNodeWrapper clearAllData];
     for(ConceptLink* m_link in conceptLinkArray){
-        CmapLink* link= [[CmapLink alloc] initWithName:m_link.leftNode.text.text conceptName:m_link.righttNode.text.text relation:m_link.relation.text];
+        CmapLink* link= [[CmapLink alloc] initWithName:m_link.leftNode.text.text conceptName:m_link.righttNode.text.text relation:m_link.relation.text page:pageNum];
         
         [bookLinkWrapper addLinks:link];
     }
     [ CmapLinkParser saveCmapLink:bookLinkWrapper];
     for(NodeCell* m_node in conceptNodeArray){
-        CmapNode* node= [[CmapNode alloc] initWithName: m_node.text.text bookTitle:m_node.bookTitle positionX:m_node.view.frame.origin.x positionY:m_node.view.frame.origin.y Tag:m_node.text.tag];
+        CmapNode* node= [[CmapNode alloc] initWithName: m_node.text.text bookTitle:m_node.bookTitle positionX:m_node.view.frame.origin.x positionY:m_node.view.frame.origin.y Tag:m_node.text.tag page:m_node.pageNum];
         [bookNodeWrapper addthumbnail:node];
         
     }
@@ -309,7 +310,7 @@
     return YES;
 }
 
--(void)createNode:(CGPoint)position withName:(NSString*) name{
+-(void)createNode:(CGPoint)position withName:(NSString*) name page: (int)m_pageNum{
     NodeCell *node=[[NodeCell alloc]initWithNibName:@"NodeCell" bundle:nil];
     node.bookPagePosition=CGPointMake(0, 0);
     node.parentCmapController=self;
@@ -319,7 +320,7 @@
     node.bookHighLight=bookHighlight;
     node.bookTitle=bookTitle;
     node.showType=showType;
-    
+    node.pageNum=m_pageNum;
     [conceptNodeArray addObject:node];
     [self addChildViewController:node];
     // [contentView addSubview: node.view ];
@@ -331,7 +332,7 @@
 }
 
 
--(void)createNodeFromBook:(CGPoint)position withName:(NSString*) name BookPos: (CGPoint)bookPosition{
+-(void)createNodeFromBook:(CGPoint)position withName:(NSString*) name BookPos: (CGPoint)bookPosition page:(int)m_pageNum{
     NodeCell *node=[[NodeCell alloc]initWithNibName:@"NodeCell" bundle:nil];
     node.parentCmapController=self;
     node.bookPagePosition=bookPosition;
@@ -341,6 +342,7 @@
     node.bookHighLight=bookHighlight;
     node.bookTitle=bookTitle;
     node.showType=showType;
+    node.pageNum=m_pageNum-1;
     [conceptNodeArray addObject:node];
     [self addChildViewController:node];
     [conceptMapView addSubview: node.view ];
@@ -501,7 +503,7 @@
                         [conceptNamesArray addObject:cell.conceptName];
                         CGPoint position= [self calculateNodePosition:conceptId];
                         conceptId++;
-                        [self createNode:position withName:cell.conceptName];
+                        [self createNode:position withName:cell.conceptName page:0];
                     }
                 }
             }
@@ -576,6 +578,18 @@
 -(void)clearAllHighlight{
     for(NodeCell* cell in conceptNodeArray){
         [cell unHighlightNode];
+    }
+}
+
+
+-(void)highlightLink: (int)page{
+    
+    for(ConceptLink *link in conceptLinkArray){
+        if(link.pageNum==pageNum){
+            NodeCell* left=link.leftNode;
+            [left highlightLink:link.righttNode.text.text];
+            
+        }
     }
 }
 

@@ -48,4 +48,5 @@
 -(void)clearAllHighlightNode;
 - (NSInteger)pageNum;
 -(void)splitScreen;
+-(void)searchAndHighlightLink;
 @end

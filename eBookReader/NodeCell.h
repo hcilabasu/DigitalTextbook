@@ -24,6 +24,7 @@
 @interface NodeCell : UIViewController<UIGestureRecognizerDelegate,UITextFieldDelegate,UITextViewDelegate , GHContextOverlayViewDataSource, GHContextOverlayViewDelegate>
 
 @property (assign)CGPoint showPoint;
+@property int pageNum;
 @property int nodeType; //1: shows in book scroll thumb view; 0: shows in Cmap view;
 @property (strong, nonatomic) IBOutlet ShangTextField *text;
 @property int showType; //0:full screen, 1: half screen;
@@ -35,6 +36,9 @@
 @property(assign,nonatomic) BOOL isInitialed;
 @property  CABasicAnimation *waitAnim;
 @property(strong,nonatomic) IBOutlet UILongPressGestureRecognizer* longPressRecognizer;
+@property(strong,nonatomic) IBOutlet UITapGestureRecognizer* tapRecognizer;
+
+
 @property (strong, nonatomic) NSMutableArray*  relatedNodesArray;
 @property (strong, nonatomic) NSMutableArray*  linkLayerArray;
 @property (strong, nonatomic) NSMutableArray*  relationTextArray;
@@ -50,4 +54,5 @@
 -(void)createLink: (NodeCell*)cellToLink name: (NSString*)relationName;
 -(void)highlightNode;
 -(void)unHighlightNode;
+-(void)highlightLink: (NSString*)relatedNodeName;
 @end

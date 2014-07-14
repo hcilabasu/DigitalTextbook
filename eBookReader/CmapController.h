@@ -95,11 +95,12 @@
 -(void)startWait;
 -(void)endWait;
 -(void)showResources;
--(void)createNode:(CGPoint)position withName:(NSString*) name;
--(void)createNodeFromBook:(CGPoint)position withName:(NSString*) name BookPos: (CGPoint)bookPosition;
+-(void)createNode:(CGPoint)position withName:(NSString*) name page: (int)m_pageNum;
+-(void)createNodeFromBook:(CGPoint)position withName:(NSString*) name BookPos: (CGPoint)bookPosition page:(int)m_pageNum;
 -(void)addConcpetLink: (ConceptLink*) m_link;
 -(void)autoSaveMap;
 - (IBAction)loadConceptMap:(id)sender;
 -(void)highlightNode: (NSString*)nodeName;
 -(void)clearAllHighlight;
+-(void)highlightLink: (int)page;
 @end

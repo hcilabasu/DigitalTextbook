@@ -13,8 +13,8 @@
 @property (strong, nonatomic) NSString*  leftConceptName;
 @property (strong, nonatomic) NSString*  rightConceptName;
 @property (strong, nonatomic) NSString*  relationName;
-
-- (id)initWithName:(NSString*)m_leftConceptName conceptName: (NSString*)m_rightConceptName relation: (NSString*)m_relationName;
+@property int pageNum;
+- (id)initWithName:(NSString*)m_leftConceptName conceptName: (NSString*)m_rightConceptName relation: (NSString*)m_relationName page: (int)m_pageNum;
 
 
 @end

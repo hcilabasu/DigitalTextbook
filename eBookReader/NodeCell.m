@@ -13,6 +13,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIView+i7Rotate360.h"
 #import "LSHorizontalScrollTabViewDemoViewController.h"
+#import "BookViewController.h"
 //#import "RelationTextView.h"
 @implementation NodeCell
 @synthesize showPoint;
@@ -34,6 +35,10 @@
 @synthesize hasHighlight;
 @synthesize hasNote;
 @synthesize hasWeblink;
+@synthesize parentContentViewController;
+@synthesize tapRecognizer;
+@synthesize pageNum;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -43,6 +48,7 @@
         relatedNodesArray=[[NSMutableArray alloc] init];
         linkLayerArray=[[NSMutableArray alloc] init];
         relationTextArray=[[NSMutableArray alloc] init];
+         pageNum=0;
     }
     return self;
 }
@@ -50,6 +56,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+   
     hasNote=YES;
     hasHighlight=YES;
     hasWeblink=YES;
@@ -80,6 +87,15 @@
     text.enableRecognizer=YES;
     [text addGestureRecognizer:longPressRecognizer];
     text.enableRecognizer=NO;
+    
+    tapRecognizer=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(singleTap:)];
+    tapRecognizer.delegate=self;
+    //    Attaching it to textfield
+    text.enableRecognizer=YES;
+    [text addGestureRecognizer:tapRecognizer];
+    text.enableRecognizer=NO;
+    
+    
     if(NO==isInitialed){
         NSLog(@"become first responder!\n");
         [text becomeFirstResponder];
@@ -197,7 +213,7 @@
         relation.textAlignment=NSTextAlignmentCenter;
         relation.scrollEnabled=NO;
         [relationTextArray addObject:relation];
-        ConceptLink *link = [[ConceptLink alloc] initWithName:self conceptName:parentCmapController.nodesToLink relation:relation];
+        ConceptLink *link = [[ConceptLink alloc] initWithName:self conceptName:parentCmapController.nodesToLink relation:relation page:parentCmapController.pageNum];
         [parentCmapController addConcpetLink:link];
         
         [parentCmapController.nodesToLink.relationTextArray addObject:relation];
@@ -217,6 +233,17 @@
 }
 
 
+- (IBAction)singleTap:(UIGestureRecognizer *)gesture{
+   // parentCmapController.neighbor_BookViewController.pageNum=pageNum;
+    [parentCmapController.neighbor_BookViewController showFirstPage:pageNum];
+    parentContentViewController.pageNum=pageNum+1;
+}
+
+
+
+
+
+
 -(void)createLink: (NodeCell*)cellToLink name: (NSString*)relationName{
     
     [relatedNodesArray addObject:cellToLink];
@@ -230,7 +257,7 @@
     relation.textAlignment=NSTextAlignmentCenter;
     relation.scrollEnabled=NO;
     [relationTextArray addObject:relation];
-    ConceptLink *link = [[ConceptLink alloc] initWithName:self conceptName:cellToLink relation:relation];
+    ConceptLink *link = [[ConceptLink alloc] initWithName:self conceptName:cellToLink relation:relation page:parentCmapController.pageNum];
     [parentCmapController addConcpetLink:link];
     
     [cellToLink.relationTextArray addObject:relation];
@@ -454,7 +481,18 @@
         
         if(1==nodeType){
             [self.view removeFromSuperview];
+            ThumbNailIcon *itemToDelete=nil;
+            for(ThumbNailIcon *thumb in   parentContentViewController.bookthumbNailIcon.thumbnails){
+                if(3==thumb.type&&[thumb.text isEqualToString:text.text]){
+                    itemToDelete=thumb;
+                    break;
+                }
+            }
+            [parentContentViewController.bookthumbNailIcon.thumbnails removeObject:itemToDelete];
+            [ThumbNailIconParser saveThumbnailIcon:parentContentViewController.bookthumbNailIcon];
+            
         }
+        
         NodeCell *cellToRemove;
         for(NodeCell* cell in parentCmapController.conceptNodeArray){
             if([cell.text.text isEqualToString:self.text.text]){
@@ -509,7 +547,6 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField{
     for(NodeCell* view in parentCmapController.conceptNodeArray){
-        
         NSLog(@"Tag: %d",view.text.tag);
         /*
         if(view.text.tag== textField.tag){
@@ -527,5 +564,19 @@
 -(void)unHighlightNode{
     text.backgroundColor=[UIColor colorWithRed:(164/255.0) green:(219/255.0) blue:(232/255.0) alpha:1.0];
 }
+
+-(void)highlightLink: (NSString*)relatedNodeName{
+    int i=0;
+    for (NodeCell* object in relatedNodesArray) {
+        CAShapeLayer* layer=[linkLayerArray objectAtIndex:i];
+        if([object.text.text isEqualToString:relatedNodeName]){
+            layer.fillColor = [UIColor blueColor].CGColor;
+            return;
+        }
+        i++;
+    }
+
+}
+
 
 @end

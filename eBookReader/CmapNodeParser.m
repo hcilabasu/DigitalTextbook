@@ -49,6 +49,7 @@
         int p_x;
         int p_y;
         NSString *bookTitle=@"";
+        int page;
         
         NSArray *titles = [partyMember elementsForName:@"ConceptName"];
         if (titles.count > 0) {
@@ -75,9 +76,17 @@
             GDataXMLElement *pointYItem = (GDataXMLElement *) [point_y objectAtIndex:0];
             p_y = pointYItem.stringValue.intValue;
         } else continue;
+        
+        
+        NSArray *showPoint_y = [partyMember elementsForName:@"PageNum"];
+        if (showPoint_y.count > 0) {
+            GDataXMLElement *point_y = (GDataXMLElement *) [showPoint_y objectAtIndex:0];
+            page=point_y.stringValue.floatValue;
+            
+        } else continue;
 
         
-        CmapNode *player = [[CmapNode alloc] initWithName:conceptName bookTitle:bookTitle positionX:p_x positionY:p_y Tag:0];
+        CmapNode *player = [[CmapNode alloc] initWithName:conceptName bookTitle:bookTitle positionX:p_x positionY:p_y Tag:0 page:page];
         [cmapNodeWrapper.cmapNodes addObject:player];
     }
     return cmapNodeWrapper;
@@ -112,11 +121,17 @@
         GDataXMLElement * pointY =
         [GDataXMLNode elementWithName:@"PointY" stringValue:
         [NSString stringWithFormat:@"%d", nodeItem.point_y]];
+        
+        GDataXMLElement * nodePageNum =
+        [GDataXMLNode elementWithName:@"PageNum" stringValue:
+         [NSString stringWithFormat:@"%d", nodeItem.pageNum]];
+        
   
         [itemElement addChild:conceptNameElement];
         [itemElement addChild:bookTitleElement];
         [itemElement addChild:pointX];
         [itemElement addChild:pointY];
+        [itemElement addChild:nodePageNum];
         [partyElement addChild: itemElement];
         NSLog(@"Add element");
     }

@@ -24,6 +24,7 @@
 #import "SampleViewController.h"
 #import "ZYQSphereView.h"
 #import "AWCollectionViewDialLayout.h"
+#import "BookPageViewController.h"
 // for the "quick help" feature, we haven't decided what interaction we want to add after user clicks the button so we define this array to display some default word.
 #define kStringArray [NSArray arrayWithObjects:@"YES", @"NO",@"Wiki",@"Google",@"Concept Map", nil]
 #define H_CONTROL_ORIGIN CGPointMake(200, 300)
@@ -90,6 +91,22 @@ static NSString *cellId2 = @"cellId2";
     return slt;
 }
 
+-(void)viewDidAppear:(BOOL)animated{
+    //[self refresh];
+    [self.currentPageLabel setText:[NSString stringWithFormat:@"%d/%d",pageNum, totalpageNum]];
+    //[self loadThumbNailIcon];
+    [self loadThumbNailIcon:firstRespondConcpet];
+    
+    if( ([[UIApplication sharedApplication] statusBarOrientation]==UIInterfaceOrientationLandscapeLeft)||([[UIApplication sharedApplication] statusBarOrientation]==UIInterfaceOrientationLandscapeRight)){
+        //[ThumbScrollViewRight setHidden:YES];
+        [self hideAllSubview:ThumbScrollViewRight];
+        isSplit=YES;
+    }
+    
+    [parent_BookViewController clearAllHighlightNode];
+    [parent_BookViewController searchAndHighlightNode];
+    [parent_BookViewController searchAndHighlightLink];
+}
 
 - (void)viewDidLoad
 {
@@ -149,9 +166,9 @@ static NSString *cellId2 = @"cellId2";
     ThumbScrollViewLeft.scrollEnabled=NO;
     
     
-    [self.currentPageLabel setText:[NSString stringWithFormat:@"%d/%d",pageNum, totalpageNum]];
+    //[self.currentPageLabel setText:[NSString stringWithFormat:@"%d/%d",pageNum, totalpageNum]];
     //[self loadThumbNailIcon];
-    [self loadThumbNailIcon:firstRespondConcpet];
+   // [self loadThumbNailIcon:firstRespondConcpet];
     
   //  UIBarButtonItem *conceptButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:nil];
    // self.parentViewController. navigationItem.rightBarButtonItem=conceptButton;
@@ -165,14 +182,16 @@ static NSString *cellId2 = @"cellId2";
     
     UIBarButtonItem *mailbutton =[[UIBarButtonItem alloc] initWithCustomView:someButton];
     self.parent_BookViewController.navigationItem.rightBarButtonItem=mailbutton;
-
+/*
     if( ([[UIApplication sharedApplication] statusBarOrientation]==UIInterfaceOrientationLandscapeLeft)||([[UIApplication sharedApplication] statusBarOrientation]==UIInterfaceOrientationLandscapeRight)){
         //[ThumbScrollViewRight setHidden:YES];
         [self hideAllSubview:ThumbScrollViewRight];
+        isSplit=YES;
     }
-    [parent_BookViewController clearAllHighlightNode];
-    [parent_BookViewController searchAndHighlightNode];
-
+ */
+   // [parent_BookViewController clearAllHighlightNode];
+   //// [parent_BookViewController searchAndHighlightNode];
+   // [parent_BookViewController searchAndHighlightLink];
 }
 
 
@@ -190,7 +209,6 @@ static NSString *cellId2 = @"cellId2";
         [webView setFrame:rec];
     }
 }
-
 
 
 //refresh the book page
@@ -470,7 +488,14 @@ static NSString *cellId2 = @"cellId2";
 
 - (void)dragAndDrop:(id)sender{
     if(YES==isSplit){
-       
+        NSString* h_text=[webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"];
+        [parent_BookViewController.parent_BookPageViewController.cmapView createNodeFromBook:CGPointMake(200, 200) withName:h_text BookPos:pvPoint page:pageNum];
+        [self createConceptIcon:pvPoint NoteText:h_text isWriteToFile:YES];
+         [self hideAllSubview:ThumbScrollViewRight];
+        [self saveHighlightToXML:@"#F2B36B" ];
+        [self highlightStringWithColor:@"#F2B36B"];
+        [parent_BookViewController.parent_BookPageViewController.cmapView highlightNode:h_text];
+        
     }
     if(NO==isSplit){
         //[self createConceptThumb:[webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"]];
@@ -734,6 +759,7 @@ static NSString *cellId2 = @"cellId2";
     node.nodeType=1;
     node.isInitialed=YES;
     node.text.enabled=NO;
+    node.parentContentViewController=self;
     int y=[thumbNailController getIconPos:show_at_point type:0];
     [node.view setFrame:CGRectMake(6, y,node.view.frame.size.width, node.view.frame.size.height)];
     [self addChildViewController:node];
@@ -973,19 +999,28 @@ static NSString *cellId2 = @"cellId2";
         [webView setFrame:rec];
         //[ThumbScrollViewRight setHidden:YES];
         [self hideAllSubview:ThumbScrollViewRight];
+        isSplit=YES;
     }
     //otherwise, hide the concept map view.
     if(fromInterfaceOrientation==UIInterfaceOrientationLandscapeLeft||fromInterfaceOrientation==UIInterfaceOrientationLandscapeRight){
          [self showAllSubview:ThumbScrollViewRight];
-        // [self hideAllSubview:ThumbScrollViewLeft];
-        //[self hideAllSubview:ThumbScrollViewRight];
-        //[self loadThumbNailIcon:firstRespondConcpet];
+         [self deleteAllSubview:ThumbScrollViewLeft];
+         [self deleteAllSubview:ThumbScrollViewRight];
+        
+        [self loadThumbNailIcon:firstRespondConcpet];
+        isSplit=NO;
     }
 }
 
 -(void)hideAllSubview: (UIView*)parentView{
     for (UIView *subview in parentView.subviews){
         [subview setHidden:YES];
+    }
+}
+-(void)deleteAllSubview:(UIView*)parentView{
+    NSArray *viewsToRemove = [parentView subviews];
+    for (UIView *v in viewsToRemove) {
+        [v removeFromSuperview];
     }
 }
 

@@ -45,6 +45,7 @@
         NSString *leftName=@"";
         NSString *rightName=@"";
         NSString *relationName=@"";
+        int page=0;
         
         NSArray *l_name = [partyMember elementsForName:@"leftConceptName"];
         if (l_name.count > 0) {
@@ -64,7 +65,17 @@
             relationName = titleitem.stringValue;
         } else continue;
         
-        CmapLink *player = [[CmapLink alloc] initWithName:leftName conceptName:rightName relation:relationName];
+        
+        NSArray *showPoint_y = [partyMember elementsForName:@"PageNum"];
+        if (showPoint_y.count > 0) {
+            GDataXMLElement *point_y = (GDataXMLElement *) [showPoint_y objectAtIndex:0];
+            page=point_y.stringValue.floatValue;
+            
+        } else continue;
+        
+        
+        
+        CmapLink *player = [[CmapLink alloc] initWithName:leftName conceptName:rightName relation:relationName page:page];
         [cmapLinkWrapper.cmapLinks addObject:player];
     }
     return cmapLinkWrapper;
@@ -91,9 +102,15 @@
         
         GDataXMLElement * conceptNameElementRelation =
         [GDataXMLNode elementWithName:@"relationName" stringValue:linkItem.relationName];
+        
+        GDataXMLElement * linkPageNum =
+        [GDataXMLNode elementWithName:@"PageNum" stringValue:
+         [NSString stringWithFormat:@"%d", linkItem.pageNum]];
+        
         [itemElement addChild:conceptNameElementLeft];
         [itemElement addChild:conceptNameElementRight];
         [itemElement addChild:conceptNameElementRelation];
+        [itemElement addChild:linkPageNum];
         [partyElement addChild:itemElement];
         NSLog(@"Add element");
         
