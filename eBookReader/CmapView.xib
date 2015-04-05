@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CmapController">
+            <connections>
+                <outlet property="conceptMapView" destination="wZh-Pi-Y71" id="L2k-fi-Gbt"/>
+                <outlet property="focusQuestionLable" destination="UGg-jx-3ZR" id="dpO-CF-IFz"/>
+                <outlet property="view" destination="v3U-L7-ECy" id="Sab-Vr-MfL"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="v3U-L7-ECy">
+            <rect key="frame" x="0.0" y="0.0" width="444" height="516"/>
+            <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="wZh-Pi-Y71">
+                    <rect key="frame" x="0.0" y="0.0" width="444" height="469"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What plant parts are involved in cross pollination?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UGg-jx-3ZR">
+                            <rect key="frame" x="65" y="8" width="403" height="37"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.40000000596046448" green="1" blue="0.40000000596046448" alpha="0.28000000000000003" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                </scrollView>
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="Ph4-gn-I2L">
+                    <rect key="frame" x="0.0" y="472" width="444" height="44"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <items>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="WwJ-GG-o7z"/>
+                        <barButtonItem systemItem="action" id="vK2-ej-jMd">
+                            <connections>
+                                <action selector="upLoad:" destination="-1" id="mHK-HH-MGw"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="A5u-Jd-qKF"/>
+                        <barButtonItem title="Load" id="wjb-dh-I1l">
+                            <connections>
+                                <action selector="loadConceptMap:" destination="-1" id="3e8-SY-Scn"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="aWd-38-OUj"/>
+                        <barButtonItem title="Save" id="0m2-ee-eXD">
+                            <connections>
+                                <action selector="saveConceptMap:" destination="-1" id="y0D-cA-II9"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="fMT-cs-0Pc"/>
+                    </items>
+                </toolbar>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+        </view>
+    </objects>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination"/>
+    </simulatedMetricsContainer>
+</document>
