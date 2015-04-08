@@ -6,50 +6,35 @@
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>04CD9BD4-9FCA-478A-9EBC-2DD1E6135A46</string>
+	<key>IDESourceControlProjectName</key>
+	<string>eBookReader</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>22754eea-fc93-e339-b032-c1f495b90c16++2896</key>
-		<string>http://gtm-oauth2.googlecode.com/svn/trunk/Source</string>
-		<key>b3aa69f0-f65c-a609-0a27-78855af037c1++2896</key>
-		<string>http://gtm-http-fetcher.googlecode.com/svn/trunk/Source</string>
+		<key>6464D1B802AA52B16B691A748C8D87A7ACE0711C</key>
+		<string>https://github.com/nberk/DigitalTextbook.git</string>
 	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>eBookReader.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>22754eea-fc93-e339-b032-c1f495b90c16++2896</key>
-		<string>OAuth2/</string>
-		<key>b3aa69f0-f65c-a609-0a27-78855af037c1++2896</key>
-		<string>HTTPFetcher/</string>
-	</dict>
-	<key>IDESourceControlProjectRepositoryRootDictionary</key>
-	<dict>
-		<key>22754eea-fc93-e339-b032-c1f495b90c16++2896</key>
-		<string>http://gtm-oauth2.googlecode.com/svn</string>
-		<key>b3aa69f0-f65c-a609-0a27-78855af037c1++2896</key>
-		<string>http://gtm-http-fetcher.googlecode.com/svn</string>
+		<key>6464D1B802AA52B16B691A748C8D87A7ACE0711C</key>
+		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>http://gtm-oauth2.googlecode.com/svn/trunk/Source</string>
+	<string>https://github.com/nberk/DigitalTextbook.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>22754eea-fc93-e339-b032-c1f495b90c16++2896</string>
+	<string>6464D1B802AA52B16B691A748C8D87A7ACE0711C</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.subversion</string>
+			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>b3aa69f0-f65c-a609-0a27-78855af037c1++2896</string>
+			<string>6464D1B802AA52B16B691A748C8D87A7ACE0711C</string>
 			<key>IDESourceControlWCCName</key>
-			<string>HTTPFetcher</string>
-		</dict>
-		<dict>
-			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.subversion</string>
-			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>22754eea-fc93-e339-b032-c1f495b90c16++2896</string>
-			<key>IDESourceControlWCCName</key>
-			<string>OAuth2</string>
+			<string>Shang</string>
 		</dict>
 	</array>
 </dict>

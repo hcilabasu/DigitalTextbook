@@ -993,23 +993,27 @@ static NSString *cellId2 = @"cellId2";
 
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
+    
     //when retating the device, clear the thumbnail icons and reload
     if(fromInterfaceOrientation==UIInterfaceOrientationPortrait||fromInterfaceOrientation==UIInterfaceOrientationPortraitUpsideDown){
         CGRect rec=CGRectMake(10, 8, 485, 760);
         [webView setFrame:rec];
         //[ThumbScrollViewRight setHidden:YES];
         [self hideAllSubview:ThumbScrollViewRight];
+        [self hideAllSubview:ThumbScrollViewLeft];
         isSplit=YES;
     }
     //otherwise, hide the concept map view.
     if(fromInterfaceOrientation==UIInterfaceOrientationLandscapeLeft||fromInterfaceOrientation==UIInterfaceOrientationLandscapeRight){
         [self showAllSubview:ThumbScrollViewRight];
+         [self showAllSubview:ThumbScrollViewLeft];
         [self deleteAllSubview:ThumbScrollViewLeft];
         [self deleteAllSubview:ThumbScrollViewRight];
         
         [self loadThumbNailIcon:firstRespondConcpet];
         isSplit=NO;
     }
+    
 }
 
 -(void)hideAllSubview: (UIView*)parentView{

@@ -67,7 +67,7 @@
     [self addChildViewController:cmapView];
     [self.view addSubview:cmapView.view];
     [cmapView.view setUserInteractionEnabled:YES];
-    cmapView.view.center=CGPointMake(777, 384);
+    cmapView.view.center=CGPointMake(768, 384);
     [cmapView.view setHidden:YES];
 }
 

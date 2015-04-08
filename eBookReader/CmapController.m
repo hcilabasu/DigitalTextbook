@@ -81,11 +81,11 @@
     [super viewDidLoad];
     
     // if(2==showScenarioId){//the view is initialized in the book page.
-    CGRect rect=CGRectMake(530, 0, 494, 768);
+    CGRect rect=CGRectMake(530, 0, 511, 768);
     [self.view setFrame:rect];
     //[self.conceptMapView setFrame:CGRectMake(0, 0, 494, 768)];
     //}
-    CGRect rect2=CGRectMake(0, 0, 494, 768);
+    CGRect rect2=CGRectMake(0, 0, 511, 768);
     contentView= [[UIView alloc]init];
     [contentView setFrame:rect2];
     [conceptMapView addSubview:contentView];
