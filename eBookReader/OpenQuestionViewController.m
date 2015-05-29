@@ -97,6 +97,7 @@
     NSString *speedLabel = [[NSString alloc] initWithFormat:@"%d ", second ];
      timeLable.text=speedLabel;
     if (remainingTime <= 0.0) {
+        
         [_timer invalidate];
     }
 }

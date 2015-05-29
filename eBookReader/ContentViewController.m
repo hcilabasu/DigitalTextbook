@@ -107,11 +107,12 @@ static NSString *cellId2 = @"cellId2";
         [self hideAllSubview:ThumbScrollViewRight];
         isSplit=YES;
     }
-    
     [parent_BookViewController clearAllHighlightNode];
     [parent_BookViewController searchAndHighlightNode];
     [parent_BookViewController searchAndHighlightLink];
 }
+
+
 
 - (void)viewDidLoad
 {
@@ -132,15 +133,17 @@ static NSString *cellId2 = @"cellId2";
     isMenuShow=NO;
     syn=[[AVSpeechSynthesizer alloc]init];
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(oneFingerOneTaps:)];
-    [singleTap setNumberOfTapsRequired:1];
+    [singleTap setNumberOfTapsRequired:2];
     singleTap.delegate=self;
     [webView addGestureRecognizer:singleTap];
     webView.scrollView.tag=0;
 
+    /*
     UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapped:)];
     [doubleTap setNumberOfTapsRequired:2];
     doubleTap.delegate=self;
     [webView addGestureRecognizer:doubleTap];
+     */
     //set up menu items, icons and methods
     [self setingUpMenuItem];
     
@@ -248,7 +251,7 @@ static NSString *cellId2 = @"cellId2";
     markIconSettingsYelow.image = [UIImage imageNamed:@"highlight_yellow"];
     markIconSettingsYelow.shadowDisabled = NO;
     markIconSettingsYelow.shrinkWidth = 4; //set menu item size and picture.
-    
+    /*
     CXAMenuItemSettings *markIconSettingsGreeen = [CXAMenuItemSettings new];
     markIconSettingsGreeen.image = [UIImage imageNamed:@"highlight_green"];
     markIconSettingsGreeen.shadowDisabled = NO;
@@ -268,6 +271,7 @@ static NSString *cellId2 = @"cellId2";
     markIconSettingsRed.image = [UIImage imageNamed:@"highlight_red"];
     markIconSettingsRed.shadowDisabled = NO;
     markIconSettingsRed.shrinkWidth = 4; //set menu item size and picture.
+     
     
     CXAMenuItemSettings *underLineSet = [CXAMenuItemSettings new];
     underLineSet.image = [UIImage imageNamed:@"underline2"];
@@ -278,7 +282,7 @@ static NSString *cellId2 = @"cellId2";
     undoSet.image = [UIImage imageNamed:@"undo"];
     undoSet.shadowDisabled = NO;
     undoSet.shrinkWidth = 4; //set menu item size and picture.
-    
+    */
     
     CXAMenuItemSettings *takeNoteSetting = [CXAMenuItemSettings new];
     takeNoteSetting.image = [UIImage imageNamed:@"take_note"];
@@ -294,7 +298,7 @@ static NSString *cellId2 = @"cellId2";
     
     UIMenuItem *markHighlightedStringYellow = [[UIMenuItem alloc] initWithTitle: @"mark yellow" action: @selector(markHighlightedStringInYellow:)];
     [markHighlightedStringYellow cxa_setSettings:markIconSettingsYelow];
-    
+   /*
     UIMenuItem *markHighlightedStringGreen = [[UIMenuItem alloc] initWithTitle: @"mark green" action: @selector(markHighlightedStringInGreen:)];
     [markHighlightedStringGreen cxa_setSettings:markIconSettingsGreeen];
     
@@ -312,7 +316,7 @@ static NSString *cellId2 = @"cellId2";
     
     UIMenuItem *undoItem = [[UIMenuItem alloc] initWithTitle: @"undo" action: @selector(removeFormat:)];
     [undoItem cxa_setSettings:undoSet];
-    
+    */
     UIMenuItem *takeNoteItem = [[UIMenuItem alloc] initWithTitle: @"take note" action: @selector(takeNote:)];
     [takeNoteItem cxa_setSettings:takeNoteSetting];
     
@@ -320,10 +324,10 @@ static NSString *cellId2 = @"cellId2";
     [speakItem cxa_setSettings:markIconSettingSpeak];
     
     
-    [menuController setMenuItems: [NSArray arrayWithObjects:getHighlightString,concept,markHighlightedStringYellow,markHighlightedStringGreen, markHighlightedStringBlue,
-                                   markHighlightedStringPurple,markHighlightedStringRed,underLineItem,undoItem,takeNoteItem,speakItem, nil]];
+    [menuController setMenuItems: [NSArray arrayWithObjects:concept,markHighlightedStringYellow,takeNoteItem,speakItem, nil]];
     
     [menuController setMenuVisible:YES animated:YES];
+    
     
 }
 
@@ -356,7 +360,7 @@ static NSString *cellId2 = @"cellId2";
         [ self.parentViewController.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
         CATransition *navigationBarAnimation = [CATransition animation];
         navigationBarAnimation.duration = 0.6;
-        navigationBarAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];;
+        navigationBarAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
         navigationBarAnimation.type = kCATransitionMoveIn;
         navigationBarAnimation.subtype = kCATransitionFromBottom;
         navigationBarAnimation.removedOnCompletion = YES;
@@ -474,6 +478,17 @@ static NSString *cellId2 = @"cellId2";
         ||action == @selector(removeFormat:))
     {
         return YES;
+    }
+    
+    
+    if (action == @selector(copy:))
+    {
+        return NO;
+    }
+    
+    if (action == @selector(define:))
+    {
+        return NO;
     }
     return NO;
 }
@@ -595,7 +610,6 @@ static NSString *cellId2 = @"cellId2";
 
 -(void)showPageAtINdex:(int)pageNumber{
     [parent_BookViewController showFirstPage:pageNumber];
-    
 }
 
 //shows the popup view

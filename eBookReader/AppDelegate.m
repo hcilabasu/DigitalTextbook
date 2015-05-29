@@ -44,18 +44,19 @@
     LogFileController* logfile=[[LogFileController alloc]init];
     [logfile writeToTextFile:@"\n\n\n\n\nLaunch Application.\n " logTimeStampOrNot:YES];
     
-    /*
-     NSString *dataPath2 = [documentsDirectory stringByAppendingPathComponent:@"MyBook"];
-    dataPath2 = [documentsDirectory stringByAppendingPathComponent:@"MyBook/book2"];
-    [fileManager createDirectoryAtPath:dataPath2 withIntermediateDirectories:NO attributes:nil error:&error];
     
-    NSString *txtPath2 = [dataPath2 stringByAppendingPathComponent:@"Plant.epub"];
-    
+
+    NSString *txtPath2 = [documentsDirectory stringByAppendingPathComponent:@"ExpertCmapLinkList.xml"];
+     NSString *txtPath3 = [documentsDirectory stringByAppendingPathComponent:@"ExpertCmapNodeList.xml"];
     if ([fileManager fileExistsAtPath:txtPath2] == NO) {
-        NSString *resourcePath = [[NSBundle mainBundle] pathForResource:@"Plant" ofType:@"epub"];
+        NSString *resourcePath = [[NSBundle mainBundle] pathForResource:@"ExpertCmapLinkList" ofType:@"xml"];
         [fileManager copyItemAtPath:resourcePath toPath:txtPath error:&error];
     }
-    */
+    if ([fileManager fileExistsAtPath:txtPath3] == NO) {
+        NSString *resourcePath = [[NSBundle mainBundle] pathForResource:@"ExpertCmapNodeList" ofType:@"xml"];
+        [fileManager copyItemAtPath:resourcePath toPath:txtPath error:&error];
+    }
+    
     
     // Override point for customization after app launch
     // Set these variables before launching the app

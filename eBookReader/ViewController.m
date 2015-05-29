@@ -40,6 +40,9 @@
    totalCountdownInterval=40;//identifies the total time of the quiz.
 
     NSTimer* timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(checkCountdown:) userInfo:nil repeats:YES];
+    
+    for(int i=0; i<50;i++)//initialize the concept Id list.
+        conceptIDList[i]=1;
    }
 
 
@@ -61,6 +64,7 @@
     }
     
     if (remainTime <= 0.0) {
+        isFinished=YES;
         [_timer invalidate];
         [self.navigationController popToViewController:self animated:false];
 

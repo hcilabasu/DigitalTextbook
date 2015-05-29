@@ -30,6 +30,7 @@
 @class BookViewController;
 @class HighLightWrapper;
 @class ThumbNailIconWrapper;
+@class BookPageViewController;
 @class ContentViewController;
 @interface CmapController : UIViewController <PopoverViewDelegate,UIGestureRecognizerDelegate,UIWebViewDelegate,UIScrollViewDelegate,UINavigationControllerDelegate,UITextViewDelegate, MBProgressHUDDelegate, DBRestClientDelegate>{
     long long expectedLength;
@@ -88,6 +89,8 @@
 @property (nonatomic, retain) CmapNodeWrapper* bookNodeWrapper;
 @property (nonatomic, retain) ConceptLink* linkJustAdded;
 @property (nonatomic, retain) LogDataWrapper* bookLogDataWrapper;
+
+@property (nonatomic, retain) BookPageViewController* parentBookPageViewController ;
 
 @property (strong, nonatomic) NSString *bookTitle;
 @property (strong,nonatomic)  UIImageView *waitImageView;

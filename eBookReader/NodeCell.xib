@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="7702" systemVersion="14B17" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NodeCell">
             <connections>
-                <outlet property="text" destination="Aip-lc-wFw" id="5f9-qt-Ddz"/>
+                <outlet property="text" destination="Aip-lc-wFw" id="LDf-2z-whz"/>
                 <outlet property="view" destination="UMO-Rv-7Gi" id="aut-46-1Ze"/>
             </connections>
         </placeholder>
@@ -15,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="75" height="30"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="Aip-lc-wFw" customClass="ShangTextField">
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="Concept" borderStyle="roundedRect" minimumFontSize="17" id="Aip-lc-wFw" customClass="ShangTextField">
                     <rect key="frame" x="-3" y="0.0" width="78" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.64521650888869164" green="0.85765282790905129" blue="0.91194993622448983" alpha="1" colorSpace="calibratedRGB"/>
@@ -29,7 +30,7 @@
             </subviews>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="661.5" y="40"/>
+            <point key="canvasLocation" x="214.5" y="76"/>
         </view>
         <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="MhC-2O-bX9">
             <connections>

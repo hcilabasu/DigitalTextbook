@@ -27,9 +27,13 @@
 @property int pageNum;
 @property int nodeType; //1: shows in book scroll thumb view; 0: shows in Cmap view;
 @property (strong, nonatomic) IBOutlet ShangTextField *text;
+
+@property (strong, nonatomic) NSString *conceptName;
+
+
 @property int showType; //0:full screen, 1: half screen;
 @property CGPoint bookPagePosition;
-@property (strong, nonatomic) CmapController* parentCmapController;
+@property (nonatomic, retain) CmapController* parentCmapController;
 @property (strong, nonatomic) ContentViewController *parentContentViewController;
 
 @property(assign,nonatomic) BOOL pressing;

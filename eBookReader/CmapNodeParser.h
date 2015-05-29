@@ -11,4 +11,7 @@
 @interface CmapNodeParser : NSObject
 + (CmapNodeWrapper *)loadCmapNode;
 + (void)saveCmapNode:(CmapNodeWrapper *)CmapNode;
+
++ (CmapNodeWrapper *)loadExpertCmapNode;
++ (void)saveExpertCmapNode:(CmapNodeWrapper *)wrapper;
 @end

@@ -15,6 +15,8 @@
 #import "LSHorizontalScrollTabViewDemoViewController.h"
 #import "BookViewController.h"
 #import "MapFinderViewController.h"
+#import "BookPageViewController.h"
+#import "QAFinderViewController.h"
 //#import "RelationTextView.h"
 @implementation NodeCell
 @synthesize showPoint;
@@ -39,7 +41,7 @@
 @synthesize parentContentViewController;
 @synthesize tapRecognizer;
 @synthesize pageNum;
-
+@synthesize conceptName;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -57,7 +59,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-   
+    //conceptName.text=text.text;
+   /*
     int r = arc4random_uniform(3);
     if(1==r||2==r||[text.text isEqualToString:@"bud"]||[text.text isEqualToString:@"yeast cell"]){
     hasNote=YES;
@@ -70,6 +73,7 @@
     if(1==r||2==r){
     hasWeblink=YES;
     }
+    */
     //set up the note view frame, size, icon image and gesture recognizer.
     text.textAlignment = NSTextAlignmentCenter;
     [self.view setFrame:CGRectMake(showPoint.x-self.view.frame.size.width/2, showPoint.y-self.view.frame.size.height/2, self.view.frame.size.width, self.view.frame.size.height)];
@@ -78,11 +82,12 @@
     [self.view addGestureRecognizer:panGesture];
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
     tapGesture.delegate=self;
-    [self.view addGestureRecognizer:tapGesture];/*
+    [self.view addGestureRecognizer:tapGesture];
+    /*
     relatedNodesArray=[[NSMutableArray alloc] init];
     linkLayerArray=[[NSMutableArray alloc] init];
     relationTextArray=[[NSMutableArray alloc] init];
-                                                 */
+    */
     self.view.layer.shadowOpacity = 0.4;
     self.view.layer.shadowRadius = 3;
     self.view.layer.shadowColor = [UIColor blackColor].CGColor;
@@ -98,18 +103,19 @@
     [text addGestureRecognizer:longPressRecognizer];
     text.enableRecognizer=NO;
     
+    /*
     tapRecognizer=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(singleTap:)];
     tapRecognizer.delegate=self;
     //    Attaching it to textfield
     text.enableRecognizer=YES;
     [text addGestureRecognizer:tapRecognizer];
     text.enableRecognizer=NO;
-    
+    */
     
     if(NO==isInitialed){
-        NSLog(@"become first responder!\n");
         [text becomeFirstResponder];
     }
+    /*
     if(hasNote){
     [self addNoteThumb];
     }
@@ -119,6 +125,8 @@
     if(hasHighlight){
     [self addHighlightThumb];
     }
+     */
+    [self becomeFirstResponder];
 }
 
 
@@ -148,7 +156,6 @@
     }
     return YES;
 }
-
 
 
 
@@ -211,9 +218,7 @@
     
    // NSLog(@"Tap gesture!");
     if(YES==parentCmapController.isReadyToLink){
-        
-        
-        NSLog(@"Link!!");
+        NSLog(@"Linking concepts!");
         
         MapFinderViewController* finder=[[MapFinderViewController alloc]initWithNibName:@"MapFinderViewController" bundle:nil];
         [parentCmapController addChildViewController:finder];
@@ -250,16 +255,25 @@
         relation.center=CGPointMake((p1.x/2+p2.x/2), (p1.y/2+p2.y/2));
         //[relation becomeFirstResponder];
         [self.parentCmapController.conceptMapView addSubview:relation];
+        parentCmapController.isReadyToLink=NO;
+        [self updateLink];
+        //[parentCmapController endWait];
+        [parentCmapController enableAllNodesEditting];
+        return;
     }
-    parentCmapController.isReadyToLink=NO;
-    [self updateLink];
-    //[parentCmapController endWait];
-    [parentCmapController enableAllNodesEditting];
+    if(-1==pageNum){
+        return;
+    }
+    [parentCmapController.neighbor_BookViewController showFirstPage:pageNum];
+    parentContentViewController.pageNum=pageNum+1;
 }
 
 
 - (IBAction)singleTap:(UIGestureRecognizer *)gesture{
    // parentCmapController.neighbor_BookViewController.pageNum=pageNum;
+    if(-1==pageNum){
+        return;
+    }
     [parentCmapController.neighbor_BookViewController showFirstPage:pageNum];
     parentContentViewController.pageNum=pageNum+1;
 }
@@ -412,7 +426,7 @@
 
 - (NSInteger) numberOfMenuItems
 {
-    return 5;
+    return 3;
 }
 
 -(UIImage*) imageForItemAtIndex:(NSInteger)index
@@ -420,7 +434,7 @@
     NSString* imageName = nil;
     switch (index) {
         case 0:
-            imageName = @"addConcpetNode";
+            imageName = @"QAWeb";
             break;
         case 1:
             imageName = @"link";
@@ -428,12 +442,7 @@
         case 2:
             imageName = @"deleteConcept";
             break;
-        case 3:
-            imageName = @"edit";
-            break;
-        case 4:
-            imageName = @"pinterest-white";
-            break;
+
         default:
             break;
     }
@@ -453,12 +462,27 @@
     NSString* msg = nil;
     switch (selectedIndex) {
         case 0:
-            msg = @"back to book";
         {
-            CAShapeLayer* layer=[CAShapeLayer layer];
-            CGPoint p1=bookPagePosition;
-            CGPoint p2=CGPointMake(self.view.frame.origin.x+512, self.view.frame.origin.y+self.view.frame.size.height/2);
-            [self addLineAtTop:p1 Point2:p2 Layer:layer ];
+            QAFinderViewController* finder=[[QAFinderViewController alloc]initWithNibName:@"QAFinderViewController" bundle:nil];
+           // finder.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+            //finder.fileList=finalFileList;
+            finder.parentQA=parentCmapController.parentBookPageViewController.QA;
+            finder.parentCmap=parentCmapController;
+            [finder.view setUserInteractionEnabled:YES];
+            [parentCmapController addChildViewController:finder];
+            [parentCmapController.view addSubview:finder.view];
+            [finder becomeFirstResponder];
+
+            /*
+            hasNote=YES;
+            [self addNoteThumb];
+            [parentCmapController.parent_ContentViewController showPageAtINdex:3];
+            [parentCmapController.parentBookPageViewController clickOnBulb:nil];
+            NSString* url = @"http://2sigma.asu.edu/qa/index.php?qa=questions&qa_1=chapter-1&qa_2=page-2";
+            NSURL* nsUrl = [NSURL URLWithString:url];
+            NSURLRequest* request = [NSURLRequest requestWithURL:nsUrl cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:30];
+            [parentCmapController.parentBookPageViewController.QA.webView loadRequest:request];
+             */
         }
             break;
         case 1:
@@ -481,14 +505,18 @@
                                                   otherButtonTitles:@"Yes", nil];
             [alert show];
         }
-            
             break;
         case 3:
-            msg = @"Linkedin Selected";
-            
+        {
+            hasNote=YES;
+            [self addNoteThumb];
             [parentCmapController.parent_ContentViewController showPageAtINdex:3];
-            NSLog(@"page");
-            
+            [parentCmapController.parentBookPageViewController clickOnBulb:nil];
+            NSString* url = @"http://2sigma.asu.edu/qa/index.php?qa=ask&cat=3";
+            NSURL* nsUrl = [NSURL URLWithString:url];
+            NSURLRequest* request = [NSURLRequest requestWithURL:nsUrl cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:30];
+            [parentCmapController.parentBookPageViewController.QA.webView loadRequest:request];
+        }
             break;
         case 4:
         {
@@ -564,6 +592,7 @@
     [thumb setFrame:CGRectMake(10, 22, 14, 14)];
     [self.view addSubview:thumb];
 }
+
 
 
 -(void)showResources{

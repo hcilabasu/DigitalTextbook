@@ -15,6 +15,7 @@
     ISSession* _session;
     int _questionIndex;
     ISQuiz* _quiz;
+    int conceptIDList[50]; // a list that maps to each question to a specific concetp, represented in ID
 }
 @property (weak, nonatomic) IBOutlet UIButton *quizButton;
 @property (weak, nonatomic) IBOutlet UIButton *myButton;

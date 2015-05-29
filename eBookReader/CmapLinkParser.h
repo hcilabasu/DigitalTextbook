@@ -12,4 +12,8 @@
 @interface CmapLinkParser : NSObject
 + (CmapLinkWrapper *)loadCmapLink;
 + (void)saveCmapLink:(CmapLinkWrapper *)CmapLink;
++ (void)saveExpertCmapLink:(CmapLinkWrapper *)wrapper;
++ (CmapLinkWrapper *)loadExpertCmapLink;
+
+
 @end

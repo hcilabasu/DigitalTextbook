@@ -104,13 +104,11 @@
                             completion:nil];
     
     [self addChildViewController:pageController];
-    
-    
-    
     [[self view] addSubview:[pageController view]];
     [pageController didMoveToParentViewController:self];
     
 }
+
 
 //creates pages and the content
 - (void) createContentPages

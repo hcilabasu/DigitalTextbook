@@ -21,7 +21,7 @@
 #import "BookViewController.h"
 #import "BookPageViewController.h"
 #import "LogData.h"
-
+#import "BookPageViewController.h"
 @interface CmapController ()<GHContextOverlayViewDataSource, GHContextOverlayViewDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 
@@ -65,12 +65,12 @@
 @synthesize bulbImageView;
 @synthesize focusQuestionLable;
 @synthesize isQuestionShow;
+@synthesize parentBookPageViewController;
 - (id) init {
     if (self = [super init]) {
         nodeCount=1;
         linkCount=1;
     }
-    
     return self;
 }
 
@@ -122,10 +122,11 @@
     [self loadConceptMap:nil];
     isInitComplete=YES;
     
-    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapped:)];
-    [doubleTap setNumberOfTapsRequired:2];
-    doubleTap.delegate=self;
-    [self.view addGestureRecognizer:doubleTap];
+    //double tap to pop up help menu
+ //   UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapped:)];
+  //  [doubleTap setNumberOfTapsRequired:2];
+  //  doubleTap.delegate=self;
+   // [self.view addGestureRecognizer:doubleTap];
     
     
     
@@ -183,8 +184,8 @@
 
 
 - (IBAction)loadConceptMap:(id)sender {
-    bookNodeWrapper=[CmapNodeParser loadCmapNode];
-    bookLinkWrapper=[CmapLinkParser loadCmapLink];
+    bookNodeWrapper=[CmapNodeParser loadExpertCmapNode];
+    bookLinkWrapper=[CmapLinkParser loadExpertCmapLink];
     
     for (NodeCell *cell in conceptNodeArray)
     {
@@ -195,17 +196,20 @@
     [conceptNodeArray removeAllObjects];
     [conceptLinkArray removeAllObjects];
     for(CmapNode* cell in bookNodeWrapper.cmapNodes){
+  
         [self createNode:CGPointMake(cell.point_x, cell.point_y) withName:cell.text page:cell.pageNum];
+      
+        
     }
     for(CmapLink* link in bookLinkWrapper.cmapLinks){
         
         NodeCell* c1, *c2;
         
         for(NodeCell* node in conceptNodeArray){
-            if([link.leftConceptName isEqualToString:node.text.text]){
+            if([link.leftConceptName isEqualToString:node.conceptName]){
                 c1=node;
             }
-            if([link.rightConceptName isEqualToString:node.text.text]){
+            if([link.rightConceptName isEqualToString:node.conceptName]){
                 c2=node;
             }
         }
@@ -213,6 +217,9 @@
     }
     isFinishLoadMap=YES;
 }
+
+
+
 
 
 
@@ -267,12 +274,14 @@
         
         [bookLinkWrapper addLinks:link];
     }
-    [ CmapLinkParser saveCmapLink:bookLinkWrapper];
+   // [ CmapLinkParser saveCmapLink:bookLinkWrapper];
+    [ CmapLinkParser saveExpertCmapLink:bookLinkWrapper];
     for(NodeCell* m_node in conceptNodeArray){
         CmapNode* node= [[CmapNode alloc] initWithName: m_node.text.text bookTitle:m_node.bookTitle positionX:m_node.view.frame.origin.x positionY:m_node.view.frame.origin.y Tag:m_node.text.tag page:m_node.pageNum];
         [bookNodeWrapper addthumbnail:node];
     }
-    [CmapNodeParser saveCmapNode:bookNodeWrapper];
+   // [CmapNodeParser saveCmapNode:bookNodeWrapper];
+    [CmapNodeParser saveExpertCmapNode:bookNodeWrapper];
 }
 
 
@@ -360,20 +369,22 @@
     node.bookTitle=bookTitle;
     node.showType=showType;
     node.pageNum=m_pageNum;
+    node.conceptName=name;
     [conceptNodeArray addObject:node];
+    
     [self addChildViewController:node];
     // [contentView addSubview: node.view ];
     [conceptMapView addSubview: node.view ];
     node.text.text=name;
     node.text.tag=nodeCount;//use nodeCount to identify the node.
-    nodeCount++;
+         nodeCount++;
+
     
-    if([node.text.text isEqualToString:@"bud"]){
-        [node addHighlightThumb];
+    if([name isEqualToString:@"seeds"]||[name isEqualToString:@"bud"]||[name isEqualToString:@"fusion"]||[name isEqualToString:@"plant"]||[name isEqualToString:@"spores"]){
+        node.text.text=@"???";
+        node.pageNum=-1;
     }
-    if([node.text.text isEqualToString:@"yeast cell"]){
-        [node addHighlightThumb];
-    }
+    
     //[self autoSaveMap];
 }
 
@@ -388,9 +399,6 @@
         [focusQuestionLable setHidden:NO];
         isQuestionShow=YES;
     }
-    
-    
-    
 }
 
 
@@ -575,7 +583,8 @@
 
 - (IBAction)upLoad:(id)sender {
     
-    [neighbor_BookViewController.parent_BookPageViewController upLoadLogFile];
+    [neighbor_BookViewController.parent_BookPageViewController upLoadCmap];
+    
     HUD = [[MBProgressHUD alloc] initWithView:self.view];
     [self.view addSubview:HUD];
     HUD.delegate = self;
@@ -663,6 +672,13 @@
 }
 
 
+-(void)modifyExpertMap{
+    
+    
+    
+    
+}
+
 -(void)clearAllHighlight{
     for(NodeCell* cell in conceptNodeArray){
         [cell unHighlightNode];
@@ -689,6 +705,10 @@
 - (void)restClient:(DBRestClient *)client uploadFileFailedWithError:(NSError *)error {
     NSLog(@"File upload failed with error: %@", error);
 }
+
+
+
+
 
 @end
 

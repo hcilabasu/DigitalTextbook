@@ -87,7 +87,6 @@ CGFloat const   GHAnimationDelay = GHAnimationDuration/5;
 {
         if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
         self.prevIndex = -1;
-        
         [[UIApplication sharedApplication].keyWindow addSubview:self];
         self.longPressLocation = [gestureRecognizer locationInView:self];
         CGPoint pointInView = [gestureRecognizer locationInView:gestureRecognizer.view];
