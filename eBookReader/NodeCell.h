@@ -30,7 +30,7 @@
 
 @property (strong, nonatomic) NSString *conceptName;
 
-
+@property (strong, nonatomic)   GHContextMenuView* overlay;
 @property int showType; //0:full screen, 1: half screen;
 @property CGPoint bookPagePosition;
 @property (nonatomic, retain) CmapController* parentCmapController;

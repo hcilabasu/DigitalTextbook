@@ -18,7 +18,8 @@
 @property (strong, nonatomic)  QAViewController *QA;
 @property (nonatomic, strong) DBRestClient *restClient;
 @property (nonatomic, retain)LogDataWrapper * logWrapper;
-@property(strong,nonatomic) UIImageView *bulbImageView;
+@property (strong,nonatomic) UIImageView *bulbImageView;
+@property (strong,nonatomic) NSString* userName;
 @property BOOL ShowingQA;
 
 -(void)test;

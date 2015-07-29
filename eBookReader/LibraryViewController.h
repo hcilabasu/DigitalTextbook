@@ -17,5 +17,6 @@
 
 @property (strong, nonatomic) id dataObject;
 @property (strong, nonatomic) CmapController *cmapView;
+@property (strong, nonatomic) NSString* userName;
 -(void)createCmapView;
 @end

@@ -18,6 +18,8 @@
 @synthesize fileList;
 @synthesize tableView;
 @synthesize parentCmap;
+@synthesize viewType;
+@synthesize conceptName;
 NSArray *recipes;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -26,6 +28,8 @@ NSArray *recipes;
     if (self) {
         // Custom initialization
         fileList=[[NSMutableArray alloc] init];
+        viewType=0;
+        conceptName=@"";
         
     }
     return self;
@@ -44,6 +48,9 @@ NSArray *recipes;
     // Do any additional setup after loading the view from its nib.
     
     recipes = [NSArray arrayWithObjects:@"What is a money plant?", @"What is the axil and what is its role in reproduction?", @"What are vegetative parts?", @"Are there any plants that can reproduce without seeds?", @"What is a vegetative part?", @"Can somebody give an example for reproduction by roots?", nil];
+    if(1==viewType){
+        recipes = [NSArray arrayWithObjects:@"Google seach result", @"Wiki result", @"Q&A", @"Article", @"Video", nil];
+    }
     
     /*
      NSError *error;
@@ -125,6 +132,10 @@ NSArray *recipes;
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
     }
+    cell.textLabel.text = [recipes objectAtIndex:indexPath.row];
+    if(1==viewType){
+         return cell;
+    }
     
     cell.imageView.frame=CGRectMake(0, 0, 28, 28);
     int r = arc4random_uniform(3);
@@ -140,7 +151,7 @@ NSArray *recipes;
     if(3==r){
         cell.imageView.image = [UIImage imageNamed:@"error_small"];
     }
-    cell.textLabel.text = [recipes objectAtIndex:indexPath.row];
+
     
     cell.imageView.frame=CGRectMake(0, 0, 28, 28);
     return cell;
@@ -152,14 +163,32 @@ NSArray *recipes;
 
     [self.view removeFromSuperview];
     [self removeFromParentViewController];
-    
     [parentCmap.parentBookPageViewController clickOnBulb:nil];
     NSString* url = @"http://2sigma.asu.edu/qa/index.php?qa=questions&qa_1=chapter-1&qa_2=page-2";
+    if(1==viewType){
+        
+        if(0==indexPath.row){
+        NSString *googleLink=@"https://www.google.com/search?q=";
+        NSString * concept = [conceptName stringByReplacingOccurrencesOfString:@" " withString:@"%20"]; //repacing " " with "%20" for google search results
+        url = [NSString stringWithFormat:@"%@%@", googleLink, concept];
+        }else if(1==indexPath.row){
+            
+            NSString *wikki=@"http://en.wikipedia.org/wiki/";
+            NSString * concept = [conceptName stringByReplacingOccurrencesOfString:@" " withString:@"_"]; //repacing " " with "%20" for google search results
+            url = [NSString stringWithFormat:@"%@%@", wikki, concept];
+
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
     NSURL* nsUrl = [NSURL URLWithString:url];
     NSURLRequest* request = [NSURLRequest requestWithURL:nsUrl cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:30];
     [parentCmap.parentBookPageViewController.QA.webView loadRequest:request];
-
-    
     
 }
 

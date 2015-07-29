@@ -70,6 +70,8 @@
 		563B50FE1919F6CC00FA0F34 /* CmapNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 563B50FD1919F6CC00FA0F34 /* CmapNode.m */; };
 		563B51011919F99900FA0F34 /* CmapNodeWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 563B51001919F99900FA0F34 /* CmapNodeWrapper.m */; };
 		563B51041919FA7A00FA0F34 /* CmapNodeParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 563B51031919FA7A00FA0F34 /* CmapNodeParser.m */; };
+		5643887E1B204286003330F6 /* CmapBookNoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5643887C1B204286003330F6 /* CmapBookNoteViewController.m */; };
+		5643887F1B204286003330F6 /* CmapBookNoteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5643887D1B204286003330F6 /* CmapBookNoteViewController.xib */; };
 		5645250A170A5D09005E2D17 /* cover_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 56452509170A5D09005E2D17 /* cover_default.png */; };
 		56465CD217B8813C00EE38FC /* controlUpBarBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 56465CD117B8813C00EE38FC /* controlUpBarBG.png */; };
 		56465CD717B8AF8300EE38FC /* TabNormal_skyBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = 56465CD317B8AF8200EE38FC /* TabNormal_skyBlue.png */; };
@@ -237,6 +239,10 @@
 		56E9B03918DE522E00AADD2E /* blurWallPaper.png in Resources */ = {isa = PBXBuildFile; fileRef = 56E9B03818DE522E00AADD2E /* blurWallPaper.png */; };
 		56EF20A219BF7F6E00A22FC8 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56EF20A119BF7F6E00A22FC8 /* Security.framework */; };
 		56F02EB6178FA29100C310F9 /* ThumbNailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56F02EB5178FA29100C310F9 /* ThumbNailController.m */; };
+		56F04AB31B6453250092A523 /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56F04AB21B6453250092A523 /* LogInViewController.m */; };
+		56F04AB71B645CDA0092A523 /* LoginBG.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 56F04AB61B645CDA0092A523 /* LoginBG.jpg */; };
+		56F04AB91B6463350092A523 /* LoginForm.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 56F04AB81B6463350092A523 /* LoginForm.jpg */; };
+		56F04ABB1B6464A50092A523 /* LoginButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 56F04ABA1B6464A50092A523 /* LoginButton.png */; };
 		56F30E4218F5124F00E8ECEF /* UIView+i7Rotate360.m in Sources */ = {isa = PBXBuildFile; fileRef = 56F30E4118F5124F00E8ECEF /* UIView+i7Rotate360.m */; };
 		56F30E4418F5130A00E8ECEF /* wait.png in Resources */ = {isa = PBXBuildFile; fileRef = 56F30E4318F5130A00E8ECEF /* wait.png */; };
 		56F935E41B0DBF1D00138A1A /* QAWeb.png in Resources */ = {isa = PBXBuildFile; fileRef = 56F935E31B0DBF1D00138A1A /* QAWeb.png */; };
@@ -350,6 +356,9 @@
 		563B51001919F99900FA0F34 /* CmapNodeWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CmapNodeWrapper.m; sourceTree = "<group>"; };
 		563B51021919FA7A00FA0F34 /* CmapNodeParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CmapNodeParser.h; sourceTree = "<group>"; };
 		563B51031919FA7A00FA0F34 /* CmapNodeParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CmapNodeParser.m; sourceTree = "<group>"; };
+		5643887B1B204286003330F6 /* CmapBookNoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CmapBookNoteViewController.h; sourceTree = "<group>"; };
+		5643887C1B204286003330F6 /* CmapBookNoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CmapBookNoteViewController.m; sourceTree = "<group>"; };
+		5643887D1B204286003330F6 /* CmapBookNoteViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CmapBookNoteViewController.xib; sourceTree = "<group>"; };
 		56452509170A5D09005E2D17 /* cover_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cover_default.png; sourceTree = "<group>"; };
 		56465CD117B8813C00EE38FC /* controlUpBarBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = controlUpBarBG.png; sourceTree = "<group>"; };
 		56465CD317B8AF8200EE38FC /* TabNormal_skyBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabNormal_skyBlue.png; sourceTree = "<group>"; };
@@ -583,6 +592,11 @@
 		56EF20A119BF7F6E00A22FC8 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		56F02EB4178FA29100C310F9 /* ThumbNailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThumbNailController.h; sourceTree = "<group>"; };
 		56F02EB5178FA29100C310F9 /* ThumbNailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThumbNailController.m; sourceTree = "<group>"; };
+		56F04AB11B6453250092A523 /* LogInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogInViewController.h; sourceTree = "<group>"; };
+		56F04AB21B6453250092A523 /* LogInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogInViewController.m; sourceTree = "<group>"; };
+		56F04AB61B645CDA0092A523 /* LoginBG.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = LoginBG.jpg; sourceTree = "<group>"; };
+		56F04AB81B6463350092A523 /* LoginForm.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = LoginForm.jpg; sourceTree = "<group>"; };
+		56F04ABA1B6464A50092A523 /* LoginButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LoginButton.png; sourceTree = "<group>"; };
 		56F30E4018F5124F00E8ECEF /* UIView+i7Rotate360.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+i7Rotate360.h"; sourceTree = "<group>"; };
 		56F30E4118F5124F00E8ECEF /* UIView+i7Rotate360.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+i7Rotate360.m"; sourceTree = "<group>"; };
 		56F30E4318F5130A00E8ECEF /* wait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wait.png; sourceTree = "<group>"; };
@@ -643,6 +657,9 @@
 		315F0AE016CC186C00300B19 /* Pictures */ = {
 			isa = PBXGroup;
 			children = (
+				56F04ABA1B6464A50092A523 /* LoginButton.png */,
+				56F04AB61B645CDA0092A523 /* LoginBG.jpg */,
+				56F04AB81B6463350092A523 /* LoginForm.jpg */,
 				567924BE1B12E7BB007B5038 /* finder_alert.png */,
 				567924BF1B12E7BB007B5038 /* finder_error.png */,
 				567924C01B12E7BB007B5038 /* finder_finish.png */,
@@ -790,6 +807,8 @@
 				3166DB6316B0A5300089C0F2 /* AppDelegate.m */,
 				31A90BBB16C9B23B003E13E0 /* BookCell.h */,
 				31A90BBC16C9B23B003E13E0 /* BookCell.m */,
+				56F04AB11B6453250092A523 /* LogInViewController.h */,
+				56F04AB21B6453250092A523 /* LogInViewController.m */,
 				31A90BBE16C9C07F003E13E0 /* BookCell.xib */,
 				5623147F16F9027C00B40047 /* ContentViewController.xib */,
 				56727D79171E386800ACD92D /* WebBrowserViewController.xib */,
@@ -971,6 +990,16 @@
 				563B51031919FA7A00FA0F34 /* CmapNodeParser.m */,
 			);
 			name = ConceptNodes;
+			sourceTree = "<group>";
+		};
+		5643887A1B20423F003330F6 /* Widgets */ = {
+			isa = PBXGroup;
+			children = (
+				5643887B1B204286003330F6 /* CmapBookNoteViewController.h */,
+				5643887C1B204286003330F6 /* CmapBookNoteViewController.m */,
+				5643887D1B204286003330F6 /* CmapBookNoteViewController.xib */,
+			);
+			name = Widgets;
 			sourceTree = "<group>";
 		};
 		56520806170418E6003272B0 /* UIMenuItem+CXAImageSupport */ = {
@@ -1390,6 +1419,7 @@
 		56FB60D51728692E008C1F0B /* BookView */ = {
 			isa = PBXGroup;
 			children = (
+				5643887A1B20423F003330F6 /* Widgets */,
 				560B2F5018EBD8B5009B8CB7 /* AWCollectionViewDialLayout.h */,
 				560B2F5118EBD8B5009B8CB7 /* AWCollectionViewDialLayout.m */,
 				560B2F4518EBD6C3009B8CB7 /* dialCell.xib */,
@@ -1505,6 +1535,7 @@
 				56711E2C17B776A2001B4585 /* LSHorizontalScrollTabView.xib in Resources */,
 				568251A618B48A2100F6412B /* Screen Shot 2014-02-18 at 11.43.22 PM.png in Resources */,
 				5693B3FB19006E6A00AABE27 /* CmapScrollViewViewController.xib in Resources */,
+				56F04AB91B6463350092A523 /* LoginForm.jpg in Resources */,
 				568251A818B48A6300F6412B /* cmap.png in Resources */,
 				5652081317041F86003272B0 /* JavaScriptFunctions.js in Resources */,
 				566D60181AC5D23500492921 /* TrueFalseViewController.xib in Resources */,
@@ -1533,6 +1564,7 @@
 				56FFE97419DC70D100364476 /* SubNodeViewController.xib in Resources */,
 				564725C01AC5EC49007BA8AE /* MultipleChoiceViewController.xib in Resources */,
 				564C425917064D7B00B320EF /* highlight_blue.png in Resources */,
+				56F04ABB1B6464A50092A523 /* LoginButton.png in Resources */,
 				56473546181AF0BD00EE1640 /* AcousticModelEnglish.bundle in Resources */,
 				56BF7F271ADEE94900B015C6 /* ExpertCmapLinkList.xml in Resources */,
 				564C425B17064D7E00B320EF /* highlight_red.png in Resources */,
@@ -1547,6 +1579,7 @@
 				566D601D1AC5D27700492921 /* programming.plist in Resources */,
 				5645250A170A5D09005E2D17 /* cover_default.png in Resources */,
 				560B2F6918EBE051009B8CB7 /* james_harden.png in Resources */,
+				5643887F1B204286003330F6 /* CmapBookNoteViewController.xib in Resources */,
 				56F935E41B0DBF1D00138A1A /* QAWeb.png in Resources */,
 				56B7BB4B170CD4B100037E9E /* underline2.png in Resources */,
 				567924C21B12E7BB007B5038 /* finder_alert.png in Resources */,
@@ -1572,6 +1605,7 @@
 				5651D62119079CFD0088E733 /* bb.png in Resources */,
 				568322F91B12EFED00D3C3D5 /* alert_small.png in Resources */,
 				56B0B99418C523B90016783E /* linkedin-white.png in Resources */,
+				56F04AB71B645CDA0092A523 /* LoginBG.jpg in Resources */,
 				56F935E91B0DC3A500138A1A /* QAFinderViewController.xib in Resources */,
 				566F09BF1721C15800412952 /* speak.png in Resources */,
 				56B0B9A018C529110016783E /* addConcpetNode.png in Resources */,
@@ -1652,6 +1686,7 @@
 				3166DB7016B0A5300089C0F2 /* LibraryViewController.m in Sources */,
 				314B7E6316C2D9BF0061F0BF /* EBookImporter.m in Sources */,
 				5646970818B477BE00DB5E2A /* CmapController.m in Sources */,
+				56F04AB31B6453250092A523 /* LogInViewController.m in Sources */,
 				560B2F7318ECC542009B8CB7 /* ConceptIconViewController.m in Sources */,
 				566D60011AC5D1FE00492921 /* ISQuestion.m in Sources */,
 				566D60171AC5D23500492921 /* TrueFalseViewController.m in Sources */,
@@ -1679,6 +1714,7 @@
 				56711E2317B7758F001B4585 /* LSTabControl.m in Sources */,
 				56FFE97319DC70D100364476 /* SubNodeViewController.m in Sources */,
 				56D76C2B18BC05140041FA56 /* Node.m in Sources */,
+				5643887E1B204286003330F6 /* CmapBookNoteViewController.m in Sources */,
 				56711E2417B7758F001B4585 /* LSTabItem.m in Sources */,
 				565B23AD18FE54430074E344 /* ConceptIconTextField.m in Sources */,
 				566D60151AC5D23500492921 /* OpenQuestionViewController.m in Sources */,

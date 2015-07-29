@@ -29,10 +29,10 @@
 #import "PopoverView.h"
 #import "NodeViewController.h"
 #import "SubNodeViewController.h"
+#import "CmapBookNoteViewController.h"
 // for the "quick help" feature, we haven't decided what interaction we want to add after user clicks the button so we define this array to display some default word.
 #define kStringArray [NSArray arrayWithObjects:@"YES", @"NO",@"Wiki",@"Google",@"Concept Map", nil]
 #define H_CONTROL_ORIGIN CGPointMake(200, 300)
-
 
 @interface ContentViewController ()
 @end
@@ -84,6 +84,10 @@ static NSString *cellId2 = @"cellId2";
 @synthesize firstRespondConcpet;
 @synthesize isSplit;
 @synthesize bookLogData;
+@synthesize overLayCmapView;
+@synthesize showingOverLayCmap;
+@synthesize userName;
+
 //initial methods for the open ears tts instance
 - (FliteController *)fliteController { if (fliteController == nil) {
     fliteController = [[FliteController alloc] init]; }
@@ -113,7 +117,6 @@ static NSString *cellId2 = @"cellId2";
 }
 
 
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -132,10 +135,14 @@ static NSString *cellId2 = @"cellId2";
     sv.delegate=self;
     isMenuShow=NO;
     syn=[[AVSpeechSynthesizer alloc]init];
-    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(oneFingerOneTaps:)];
-    [singleTap setNumberOfTapsRequired:2];
-    singleTap.delegate=self;
-    [webView addGestureRecognizer:singleTap];
+    UITapGestureRecognizer *twoTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(oneFingerOneTaps:)];
+    [twoTap setNumberOfTapsRequired:2];
+    twoTap.delegate=self;
+    [webView addGestureRecognizer:twoTap];
+    UITapGestureRecognizer *onetap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(updatePVPosition:)];
+    [onetap setNumberOfTapsRequired:1];
+    onetap.delegate=self;
+    [webView addGestureRecognizer:onetap];
     webView.scrollView.tag=0;
 
     /*
@@ -184,7 +191,6 @@ static NSString *cellId2 = @"cellId2";
     [someButton addTarget:self action:@selector(ConceptCloud:)
          forControlEvents:UIControlEventTouchUpInside];
     [someButton setShowsTouchWhenHighlighted:YES];
-    
     UIBarButtonItem *mailbutton =[[UIBarButtonItem alloc] initWithCustomView:someButton];
     self.parent_BookViewController.navigationItem.rightBarButtonItem=mailbutton;
     /*
@@ -197,6 +203,29 @@ static NSString *cellId2 = @"cellId2";
     // [parent_BookViewController clearAllHighlightNode];
     //// [parent_BookViewController searchAndHighlightNode];
     // [parent_BookViewController searchAndHighlightLink];
+   /*
+    CmapBookNoteViewController *cmapNote=[[CmapBookNoteViewController alloc] initWithNibName:@"CmapBookNoteViewController" bundle:nil];
+    cmapNote.view.frame = CGRectMake(230, 341, 55, 20);
+    [self.view addSubview:cmapNote.view];
+    [self addChildViewController:cmapNote];
+    cmapNote.parentContentView=self;
+    */
+    /////set up overlay Cmap view
+    overLayCmapView=[[CmapController alloc] initWithNibName:@"CmapView" bundle:nil];
+    //overLayCmapView.bookLogDataWrapper=logWrapper;
+    overLayCmapView.showType=1;
+    //overLayCmapView.neighbor_BookViewController=self.bookView;
+    [self addChildViewController:overLayCmapView];
+    [self.view addSubview:overLayCmapView.view];
+    [overLayCmapView.view setUserInteractionEnabled:NO];
+    overLayCmapView.view.center=CGPointMake(384, 384);
+    overLayCmapView.view.backgroundColor= [UIColor clearColor];
+    overLayCmapView.view.layer.borderWidth = 0;
+    [overLayCmapView.toolBar removeFromSuperview];
+    [overLayCmapView.bulbImageView removeFromSuperview];
+    [overLayCmapView.focusQuestionLable removeFromSuperview];
+    [overLayCmapView.view setHidden:YES];
+    //[overLayCmapView.view setHidden:YES];
 }
 
 
@@ -324,7 +353,7 @@ static NSString *cellId2 = @"cellId2";
     [speakItem cxa_setSettings:markIconSettingSpeak];
     
     
-    [menuController setMenuItems: [NSArray arrayWithObjects:concept,markHighlightedStringYellow,takeNoteItem,speakItem, nil]];
+    [menuController setMenuItems: [NSArray arrayWithObjects: concept,markHighlightedStringYellow,takeNoteItem,speakItem, nil]];
     
     [menuController setMenuVisible:YES animated:YES];
     
@@ -349,6 +378,10 @@ static NSString *cellId2 = @"cellId2";
     [self.navigationController pushViewController:quiz animated:YES];
 }
 
+- (void)updatePVPosition:(UITapGestureRecognizer *)tap
+{
+    pvPoint = [tap locationInView:self.view];
+}
 
 // invoke when user tap with one finger once
 - (void)oneFingerOneTaps:(UITapGestureRecognizer *)tap
@@ -502,8 +535,7 @@ static NSString *cellId2 = @"cellId2";
         [self saveHighlightToXML:@"#F2B36B" ];
         [self highlightStringWithColor:@"#F2B36B"];
         [parent_BookViewController.parent_BookPageViewController.cmapView highlightNode:h_text];
-        
-        LogData* log= [[LogData alloc]initWithName:@"Shang Wang" SessionID:@"session_id" action:@"creating concept node from book " selection:@"null" input:h_text pageNum:pageNum];
+        LogData* log= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"creating concept node from book " selection:@"null" input:h_text pageNum:pageNum];
         [bookLogData addLogs:log];
         [LogDataParser saveLogData:bookLogData];
     }
@@ -524,7 +556,6 @@ static NSString *cellId2 = @"cellId2";
     [ThumbScrollViewRight addSubview: node.view ];
     node.text.text=name;
     node.text.disableEditting=YES;//disable editting
-    
 }
 
 - (void)highlightStringWithColor:(NSString*)color{
@@ -542,7 +573,6 @@ static NSString *cellId2 = @"cellId2";
     startSearch=[startSearch stringByAppendingString:@"()"];
     [webView stringByEvaluatingJavaScriptFromString:startSearch];
 }
-
 
 //calling the function in HighlightedString.js to highlight the text in yellow
 - (IBAction)markHighlightedStringInYellow : (id)sender {
@@ -617,8 +647,8 @@ static NSString *cellId2 = @"cellId2";
     NSString *selection = [webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"];
     NSLog(@" %@",selection);
     NSString *definition=@"Textbook Definition: ";
-    NSString *textBookDefinition= [knowledge_module getTextBookDefinition:selection];
-    definition=[definition stringByAppendingString: textBookDefinition];
+  //  NSString *textBookDefinition= [knowledge_module getTextBookDefinition:selection];
+   // definition=[definition stringByAppendingString: textBookDefinition];
     NSString *wikiLink=@"See wikipedia definition.";
     NSString *googleLink=@"Search Google.";
     NSArray *popUpContent=[NSArray arrayWithObjects:selection, definition,wikiLink,googleLink, nil];
@@ -915,19 +945,15 @@ static NSString *cellId2 = @"cellId2";
 }
 - (IBAction)didShowEditMenu : (id)sender {
     isMenuShow=YES;
-    
-    
 }
 
 
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     if(0==scrollView.tag){
-        LogData* log= [[LogData alloc]initWithName:@"Shang Wang" SessionID:@"session_id" action:@"scroll page" selection:@"null" input:@"null" pageNum:pageNum];
+        LogData* log= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"scroll page" selection:@"null" input:@"null" pageNum:pageNum];
         [bookLogData addLogs:log];
         [LogDataParser saveLogData:bookLogData];
-        
-        
     }
 }
 
@@ -1104,5 +1130,18 @@ static NSString *cellId2 = @"cellId2";
     
 }
 
+-(void)showOverLayCmapView{
+
+    [overLayCmapView.view setHidden:NO];
+    showingOverLayCmap=YES;
+    
+}
+
+-(void)hideOverLayCmapView{
+    
+    [overLayCmapView.view setHidden:YES];
+    showingOverLayCmap=NO;
+    
+}
 
 @end

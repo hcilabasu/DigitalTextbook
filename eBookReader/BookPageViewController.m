@@ -21,6 +21,7 @@
 @synthesize QA;
 @synthesize bulbImageView;
 @synthesize ShowingQA;
+@synthesize userName;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -122,6 +123,7 @@
 
 -(void)createCmapView{
     cmapView=[[CmapController alloc] initWithNibName:@"CmapView" bundle:nil];
+    cmapView.userName=userName;
     cmapView.bookLogDataWrapper=logWrapper;
     cmapView.showType=1;
     cmapView.parentBookPageViewController=self;

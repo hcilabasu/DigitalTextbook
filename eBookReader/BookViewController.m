@@ -44,6 +44,8 @@
 @synthesize parent_LibraryViewController;
 @synthesize parent_BookPageViewController;
 @synthesize logWrapper;
+@synthesize userName;
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -64,6 +66,7 @@
 -(void)createCmapView{
     cmapView=[[CmapController alloc] initWithNibName:@"CmapView" bundle:nil];
     cmapView.neighbor_BookViewController=self;
+    cmapView.userName=userName;
     cmapView.dataObject=_dataObject;
     cmapView.showType=1;
     cmapView.bookTitle=bookTitle;
@@ -97,7 +100,6 @@
     [self viewControllerAtIndex:0];
     NSArray *viewControllers =
     [NSArray arrayWithObject:initialViewController];
-    
     [pageController setViewControllers:viewControllers
                              direction:UIPageViewControllerNavigationDirectionForward
                               animated:NO
@@ -150,7 +152,7 @@
     }
     
     NSString* logStr=[[NSString alloc] initWithFormat:@"Navigate to page: %d\n", index+1];
-    LogData* log= [[LogData alloc]initWithName:@"Shang Wang" SessionID:@"session_id" action:logStr selection:@"null" input:@"null" pageNum:index+1];
+    LogData* log= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:logStr selection:@"null" input:@"null" pageNum:index+1];
     [logWrapper addLogs:log];
     [LogDataParser saveLogData:logWrapper];
     
@@ -160,6 +162,7 @@
     [[ContentViewController alloc]
      initWithNibName:@"ContentViewController"
      bundle:nil];
+    dataViewController.userName=userName;
     dataViewController.bookTitle=bookTitle;
     dataViewController.parent_BookViewController=self;
     dataViewController.pageNum=_pageNum+1;
@@ -174,8 +177,6 @@
     // add the HTML content and the URL link.
     NSURL* baseURL = [NSURL fileURLWithPath:[book getHTMLURL]];
     dataViewController.url=baseURL;
-    
-    
     return dataViewController;
 }
 

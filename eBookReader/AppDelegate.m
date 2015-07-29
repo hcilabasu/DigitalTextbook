@@ -60,8 +60,11 @@
     
     // Override point for customization after app launch
     // Set these variables before launching the app
-    NSString* appKey = @"gj3h63qp8sf1ydd";
-	NSString* appSecret = @"oivc54pa1fxbv7v";
+   // NSString* appKey = @"gj3h63qp8sf1ydd";
+	//NSString* appSecret = @"oivc54pa1fxbv7v";
+    
+    NSString* appKey = @"scq2u5yv0ucrrcb";
+    NSString* appSecret = @"bucmawavc829vq6";
 	NSString *root = kDBRootAppFolder; // Should be set to either kDBRootAppFolder or kDBRootDropbox
 	// You can determine if you have App folder access or Full Dropbox along with your consumer key/secret
 	// from https://dropbox.com/developers/apps
@@ -89,11 +92,15 @@
 	
 	DBSession* session =
     [[DBSession alloc] initWithAppKey:appKey appSecret:appSecret root:root];
+    
 	session.delegate = self; // DBSessionDelegate methods allow you to handle re-authenticating
 	[DBSession setSharedSession:session];
 	[DBRequest setNetworkRequestDelegate:self];
+   // if(   ![[DBSession sharedSession] isLinked]){
+   // [[DBSession sharedSession] linkUserId:relinkUserId fromController:self];
+
+   //	}
     
-	
 	NSURL *launchURL = [launchOptions objectForKey:UIApplicationLaunchOptionsURLKey];
 	NSInteger majorVersion =
     [[[[[UIDevice currentDevice] systemVersion] componentsSeparatedByString:@"."] objectAtIndex:0] integerValue];

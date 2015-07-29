@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14B17" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="KdN-Nn-VnM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14B17" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="KdN-Nn-VnM">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <scenes>
         <!--Library View Controller-->
@@ -43,7 +43,95 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1880" y="-1423"/>
+            <point key="canvasLocation" x="2026" y="-1423"/>
+        </scene>
+        <!--Log In View Controller-->
+        <scene sceneID="0dU-Eg-HS3">
+            <objects>
+                <viewController id="0ol-Ns-sMu" customClass="LogInViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="U9R-1x-TtS"/>
+                        <viewControllerLayoutGuide type="bottom" id="6yq-3b-gxK"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="PRY-yJ-NHg">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pK4-My-r1v">
+                                <rect key="frame" x="0.0" y="45" width="768" height="1024"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Digital " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2pN-t0-Meg">
+                                        <rect key="frame" x="272" y="231" width="98" height="58"/>
+                                        <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="33"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Textbook" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AX2-Ha-oVo">
+                                        <rect key="frame" x="378" y="231" width="179" height="58"/>
+                                        <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="33"/>
+                                        <color key="textColor" red="0.46274509803921571" green="0.6470588235294118" blue="0.70196078431372544" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jRf-Lc-4Gc">
+                                        <rect key="frame" x="307" y="608" width="165" height="64"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="24"/>
+                                        <state key="normal" title="Sign In" backgroundImage="LoginButton.png">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="onClickLogin:" destination="0ol-Ns-sMu" eventType="touchUpInside" id="iqa-uf-Thp"/>
+                                        </connections>
+                                    </button>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="fill" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8EF-uP-Sii">
+                                        <rect key="frame" x="350" y="378" width="194" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tir-Az-764">
+                                        <rect key="frame" x="350" y="479" width="194" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" text="Plaese use the username and password we give you in the email to log in to the system" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jI4-NX-gFU">
+                                        <rect key="frame" x="267" y="282" width="244" height="80"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" red="0.078431375324726105" green="0.39607846736907959" blue="0.43137258291244507" alpha="1" colorSpace="deviceRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Username" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ooE-3t-5Fx">
+                                        <rect key="frame" x="247" y="382" width="79" height="21"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Password" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pIf-If-Bya">
+                                        <rect key="frame" x="247" y="482" width="76" height="21"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="LoginForm.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="Yaa-tP-2XF">
+                                        <rect key="frame" x="0.0" y="-45" width="768" height="1024"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="M3r-m0-KPT"/>
+                    <connections>
+                        <outlet property="BG" destination="Yaa-tP-2XF" id="bB3-yC-sf8"/>
+                        <outlet property="LoginButton" destination="jRf-Lc-4Gc" id="Ayh-1A-g0D"/>
+                        <outlet property="PasswordTextView" destination="tir-Az-764" id="soZ-cJ-pjr"/>
+                        <outlet property="UserNameTextView" destination="8EF-uP-Sii" id="TfV-zl-cnT"/>
+                        <segue destination="5" kind="push" identifier="OpenLibrary" id="7sL-AL-UwT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="W1n-3a-HU2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1040" y="-1423"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="1zI-VA-WYc">
@@ -57,17 +145,18 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
-                        <segue destination="5" kind="relationship" relationship="rootViewController" id="Xd1-Cg-VHO"/>
+                        <segue destination="0ol-Ns-sMu" kind="relationship" relationship="rootViewController" id="d4C-B3-oMp"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6aY-Dg-DGB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="872" y="-1423"/>
+            <point key="canvasLocation" x="-8" y="-1423"/>
         </scene>
         <!--Book View Controller-->
         <scene sceneID="OH6-RJ-2K5">
             <objects>
                 <pageViewController storyboardIdentifier="BookViewController" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="none" id="NLI-lb-tHz" customClass="BookViewController" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="Nud-ft-akr"/>
                     <connections>
                         <outlet property="bookView" destination="1u8-HC-lY8" id="1pb-zc-vPH"/>
                         <outlet property="view" destination="erm-JD-CyO" id="O9j-oO-dyD"/>
@@ -93,7 +182,7 @@
                     <barButtonItem key="backBarButtonItem" title="Library" id="Q9I-WY-xa7"/>
                 </navigationItem>
             </objects>
-            <point key="canvasLocation" x="2879" y="-1423"/>
+            <point key="canvasLocation" x="2981" y="-1423"/>
         </scene>
         <!--Content View Controller-->
         <scene sceneID="7zY-Wy-1J9">
@@ -115,6 +204,10 @@
             <point key="canvasLocation" x="4019" y="-1423"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="LoginButton.png" width="139" height="59"/>
+        <image name="LoginForm.jpg" width="768" height="1024"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

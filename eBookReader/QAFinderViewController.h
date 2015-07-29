@@ -14,4 +14,7 @@
 @property (strong, nonatomic) NSMutableArray* fileList;
 @property (strong, nonatomic) QAViewController* parentQA;
 @property (strong, nonatomic) CmapController* parentCmap;
+@property (strong, nonatomic) NSString *conceptName;
+@property int viewType; //this finder can be used in different views. The default value 0 is for QA finder. 1 is for web resource finder.
+
 @end

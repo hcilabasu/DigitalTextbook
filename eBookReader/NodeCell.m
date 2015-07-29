@@ -42,6 +42,7 @@
 @synthesize tapRecognizer;
 @synthesize pageNum;
 @synthesize conceptName;
+@synthesize overlay;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -52,6 +53,9 @@
         linkLayerArray=[[NSMutableArray alloc] init];
         relationTextArray=[[NSMutableArray alloc] init];
          pageNum=0;
+         overlay = [[GHContextMenuView alloc] init];
+        overlay.dataSource = self;
+        overlay.delegate = self;
     }
     return self;
 }
@@ -93,16 +97,19 @@
     self.view.layer.shadowColor = [UIColor blackColor].CGColor;
     self.view.layer.shadowOffset = CGSizeMake(2, 2);
     text.delegate=self;
-    GHContextMenuView* overlay = [[GHContextMenuView alloc] init];
+
+    
+    overlay = [[GHContextMenuView alloc] init];
     overlay.dataSource = self;
     overlay.delegate = self;
+
     longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:overlay action:@selector(longPressDetected:)];
-    longPressRecognizer.delegate=self;
+    //longPressRecognizer.delegate=overlay;
     //    Attaching it to textfield
     text.enableRecognizer=YES;
     [text addGestureRecognizer:longPressRecognizer];
     text.enableRecognizer=NO;
-    
+    [text setUserInteractionEnabled:YES];
     /*
     tapRecognizer=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(singleTap:)];
     tapRecognizer.delegate=self;
@@ -259,6 +266,9 @@
         [self updateLink];
         //[parentCmapController endWait];
         [parentCmapController enableAllNodesEditting];
+
+        [parentCmapController logLinkingConceptNodes:text.text ConnectedConcept:parentCmapController.nodesToLink.text.text];
+        
         return;
     }
     if(-1==pageNum){
@@ -266,6 +276,7 @@
     }
     [parentCmapController.neighbor_BookViewController showFirstPage:pageNum];
     parentContentViewController.pageNum=pageNum+1;
+    [parentCmapController logHyperNavigation:text.text];
 }
 
 
@@ -284,6 +295,9 @@
 
 
 -(void)createLink: (NodeCell*)cellToLink name: (NSString*)relationName{
+    if(!cellToLink){
+        return;
+    }
     
     [relatedNodesArray addObject:cellToLink];
     [cellToLink.relatedNodesArray addObject:self];
@@ -291,6 +305,7 @@
     
     CAShapeLayer* layer = [CAShapeLayer layer];
     UITextView* relation= [[UITextView alloc]initWithFrame:CGRectMake(40, 40, 60, 35)];
+    //relation.backgroundColor=[UIColor clearColor];
     relation.tag=parentCmapController.linkCount;
     relation.delegate=self;
     relation.textAlignment=NSTextAlignmentCenter;
@@ -442,7 +457,6 @@
         case 2:
             imageName = @"deleteConcept";
             break;
-
         default:
             break;
     }
@@ -508,35 +522,18 @@
             break;
         case 3:
         {
-            hasNote=YES;
-            [self addNoteThumb];
-            [parentCmapController.parent_ContentViewController showPageAtINdex:3];
-            [parentCmapController.parentBookPageViewController clickOnBulb:nil];
-            NSString* url = @"http://2sigma.asu.edu/qa/index.php?qa=ask&cat=3";
-            NSURL* nsUrl = [NSURL URLWithString:url];
-            NSURLRequest* request = [NSURLRequest requestWithURL:nsUrl cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:30];
-            [parentCmapController.parentBookPageViewController.QA.webView loadRequest:request];
+            QAFinderViewController* finder=[[QAFinderViewController alloc]initWithNibName:@"QAFinderViewController" bundle:nil];
+            finder.conceptName=text.text;
+            finder.viewType=1;//change the view type into web resource.
+            finder.parentQA=parentCmapController.parentBookPageViewController.QA;
+            finder.parentCmap=parentCmapController;
+            [finder.view setUserInteractionEnabled:YES];
+            [parentCmapController addChildViewController:finder];
+            [parentCmapController.view addSubview:finder.view];
+            [finder becomeFirstResponder];
         }
             break;
-        case 4:
-        {
-            msg = @"Pinterest Selected";
-             NSArray *popUpContent=[NSArray arrayWithObjects:@"Highlight", nil];
-           
-            PopoverView* pv = [PopoverView showPopoverAtPoint:self.view.frame.origin
-                                          inView:parentCmapController.view
-                                       withTitle:@"Key info"
-                                 withStringArray:popUpContent
-                                        delegate:self];
-          //  pv.parent_View_Controller=self;
-            pv.showPoint=self.view.frame.origin;
-           // pv.parentViewController=self;
-            [parentCmapController.view addSubview: pv];
-            
-           // [self showResources];
-            break;
-        }
-        default:
+               default:
             break;
     }
 }

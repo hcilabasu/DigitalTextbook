@@ -30,7 +30,6 @@ CGFloat const   GHAnimationDelay = GHAnimationDuration/5;
 
 @end
 
-
 @interface GHContextMenuView ()<UIGestureRecognizerDelegate>
 {
     CADisplayLink *displayLink;
@@ -86,6 +85,7 @@ CGFloat const   GHAnimationDelay = GHAnimationDuration/5;
 - (void) longPressDetected:(UIGestureRecognizer*) gestureRecognizer
 {
         if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+           // NSLog(@"Longpress begin.\n");
         self.prevIndex = -1;
         [[UIApplication sharedApplication].keyWindow addSubview:self];
         self.longPressLocation = [gestureRecognizer locationInView:self];
@@ -107,6 +107,7 @@ CGFloat const   GHAnimationDelay = GHAnimationDuration/5;
     }
     
     if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
+         //NSLog(@"Longpress end.\n\n");
         if(self.delegate && [self.delegate respondsToSelector:@selector(didSelectItemAtIndex: forMenuAtPoint:)] && self.prevIndex >= 0){
             [self.delegate didSelectItemAtIndex:self.prevIndex forMenuAtPoint:[self convertPoint:self.longPressLocation toView:gestureRecognizer.view]];
             self.prevIndex = -1;
@@ -165,6 +166,11 @@ CGFloat const   GHAnimationDelay = GHAnimationDuration/5;
 {
     [self.menuItems removeAllObjects];
     [self.itemLocations removeAllObjects];
+    
+    
+    if (self.dataSource == nil){
+        NSLog(@"Data source is empty!\n\n");
+    }
     
     if (self.dataSource != nil) {
         NSInteger count = [self.dataSource numberOfMenuItems];

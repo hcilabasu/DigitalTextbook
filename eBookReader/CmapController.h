@@ -94,6 +94,8 @@
 
 @property (strong, nonatomic) NSString *bookTitle;
 @property (strong,nonatomic)  UIImageView *waitImageView;
+@property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
+@property (strong, nonatomic) NSString* userName;
 
 -(void)disableAllNodesEditting;
 -(void)enableAllNodesEditting;
@@ -115,4 +117,7 @@
 -(void)clearAllHighlight;
 -(void)highlightLink: (int)page;
 -(void)upDateLinkText: (NSString*)text;
+
+-(void)logLinkingConceptNodes: (NSString*)Concept1 ConnectedConcept: (NSString*)Concept2;//log linking activity into log file
+-(void)logHyperNavigation:(NSString*)ConceptName;
 @end

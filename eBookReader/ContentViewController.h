@@ -66,7 +66,7 @@
 @property (strong, nonatomic) FliteController *fliteController;
 @property (strong, nonatomic) Slt *slt;
 @property (strong, nonatomic) LanguageModelGenerator *lmGenerator;// open ear languange generater
-
+@property (strong, nonatomic) NSString *userName;
 
 
 @property (strong, nonatomic) AVSpeechSynthesizer* syn;
@@ -77,13 +77,14 @@
 @property (nonatomic, retain) ThumbNailIconWrapper *bookthumbNailIcon;
 @property (nonatomic, retain) LogDataWrapper* bookLogData;
 
-
+@property (nonatomic, retain) CmapController *overLayCmapView;
 
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *CmapStart;
 @property(strong,nonatomic)UIImageView *bulbImageView;
 @property (strong, nonatomic) NSMutableArray*  conceptNamesArray;
 @property (nonatomic, strong) IBOutlet UICollectionView *linkCollectionView;
 @property (nonatomic) BOOL isCollectionShow;
+@property  BOOL showingOverLayCmap;
 -(void)showRecourseFullScreen;
 
 @property NSArray *linkItems;
@@ -104,5 +105,7 @@
 -(void)splitScreen;
 -(void)showPageAtINdex:(int)pageNumber;
 -(void)expandSubNode:(UIView*)node;
+-(void)showOverLayCmapView;
+-(void)hideOverLayCmapView;
 
 @end

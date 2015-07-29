@@ -35,11 +35,13 @@
 @property (strong, nonatomic) NSMutableArray *highlightTextArrayByIndex;
 @property (nonatomic, retain) HighLightWrapper *highLight;//highlight wrapper for the book.
 @property (nonatomic, retain) ThumbNailIconWrapper *thumbnailIcon;//highlight wrapper for the book.
-@property (nonatomic, retain)LogDataWrapper * logWrapper;
+@property (nonatomic, retain) LogDataWrapper * logWrapper;
 
 @property (strong, nonatomic) CmapController *cmapView;
 @property (strong, nonatomic) LibraryViewController* parent_LibraryViewController;
 @property (strong, nonatomic) BookPageViewController* parent_BookPageViewController;
+@property (strong, nonatomic) NSString* userName;
+
 
 - (void) loadFirstPage;
 -(void) createContentPages;

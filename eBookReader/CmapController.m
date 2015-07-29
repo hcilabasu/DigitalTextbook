@@ -7,7 +7,7 @@
 //
 
 #import "CmapController.h"
-#import "GHContextMenuView.h"
+//#import "GHContextMenuView.h"
 #import "NodeCell.h"
 #import "HighlightParser.h"
 #import "HighLightWrapper.h"
@@ -22,10 +22,11 @@
 #import "BookPageViewController.h"
 #import "LogData.h"
 #import "BookPageViewController.h"
+/*
 @interface CmapController ()<GHContextOverlayViewDataSource, GHContextOverlayViewDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
-
 @end
+ */
 @implementation CmapController
 @synthesize dataObject;
 @synthesize url;
@@ -65,6 +66,8 @@
 @synthesize bulbImageView;
 @synthesize focusQuestionLable;
 @synthesize isQuestionShow;
+@synthesize toolBar;
+@synthesize userName;
 @synthesize parentBookPageViewController;
 - (id) init {
     if (self = [super init]) {
@@ -101,10 +104,12 @@
     conceptLinkArray=[[NSMutableArray alloc] init];
     [self.navigationController setDelegate:self];
     [self.navigationController setNavigationBarHidden: YES animated:NO];
-    
+    /*
     GHContextMenuView* overlay = [[GHContextMenuView alloc] init];
     overlay.dataSource = self;
     overlay.delegate = self;
+     */
+    
     UILongPressGestureRecognizer* longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(LongPress:)];
     [conceptMapView addGestureRecognizer:longPressRecognizer];
     [[NSNotificationCenter defaultCenter]
@@ -311,12 +316,28 @@
         LogFileController* log=[[LogFileController alloc]init];
         NSString *logStr=[[NSString alloc] initWithFormat:@"Add new concept.\n"];
         
-        LogData* newlog= [[LogData alloc]initWithName:@"Shang Wang" SessionID:@"session_id" action:@"creating new concept node" selection:@"null" input:@"null" pageNum:pageNum];
+        LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"creating new concept node" selection:@"null" input:@"null" pageNum:pageNum];
         [bookLogDataWrapper addLogs:newlog];
         [LogDataParser saveLogData:bookLogDataWrapper];
-        
         [log writeToTextFile:logStr logTimeStampOrNot:YES];
     }
+}
+
+
+-(void)logLinkingConceptNodes: (NSString*)Concept1 ConnectedConcept: (NSString*)Concept2 {
+    NSString* LogString=[[NSString alloc] initWithFormat:@"Linking concept: %@ with: %@. ", Concept1, Concept2];
+    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:LogString selection:@"null" input:@"null" pageNum:pageNum];
+    [bookLogDataWrapper addLogs:newlog];
+    [LogDataParser saveLogData:bookLogDataWrapper];
+}
+
+
+-(void)logHyperNavigation:(NSString*)ConceptName{
+    NSString* LogString=[[NSString alloc] initWithFormat:@"Using hyperlink from concept: %@", ConceptName];
+    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:LogString selection:@"null" input:@"null" pageNum:pageNum];
+    [bookLogDataWrapper addLogs:newlog];
+    [LogDataParser saveLogData:bookLogDataWrapper];
+
 }
 
 -(void)disableAllNodesEditting{
@@ -380,10 +401,10 @@
          nodeCount++;
 
     
-    if([name isEqualToString:@"seeds"]||[name isEqualToString:@"bud"]||[name isEqualToString:@"fusion"]||[name isEqualToString:@"plant"]||[name isEqualToString:@"spores"]){
-        node.text.text=@"???";
-        node.pageNum=-1;
-    }
+    //if([name isEqualToString:@"seeds"]||[name isEqualToString:@"bud"]||[name isEqualToString:@"fusion"]||[name isEqualToString:@"plant"]||[name isEqualToString:@"spores"]){
+      //  node.text.text=@"???";
+       // node.pageNum=-1;
+    //}
     
     //[self autoSaveMap];
 }
@@ -471,31 +492,30 @@
     return NO;
 }
 
+/*
 - (NSInteger) numberOfMenuItems
 {
-    return 4;
+    return 3;
 }
+
 
 -(UIImage*) imageForItemAtIndex:(NSInteger)index
 {
     NSString* imageName = nil;
     switch (index) {
         case 0:
-            imageName = @"addConcpetNode";
+            imageName = @"link";
             break;
         case 1:
             imageName = @"link";
             break;
         case 2:
-            imageName = @"deleteConcept";
+            imageName = @"link";
             break;
         case 3:
             imageName = @"edit";
             break;
-        case 4:
-            imageName = @"pinterest-white";
-            break;
-        default:
+               default:
             break;
     }
     UIImage* img=[UIImage imageNamed:imageName];
@@ -508,7 +528,8 @@
     }
     return img;
 }
-
+*/
+/*
 - (void) didSelectItemAtIndex:(NSInteger)selectedIndex forMenuAtPoint:(CGPoint)point
 {
     NSString* msg = nil;
@@ -525,13 +546,12 @@
         case 3:
             msg = @"Linkedin Selected";
             break;
-        case 4:
-            msg = @"Pinterest Selected";
-            break;
         default:
             break;
     }
 }
+ 
+ */
 
 -(void)addConceptOnClick: (CGPoint)clickPoint
 {
@@ -584,13 +604,16 @@
 - (IBAction)upLoad:(id)sender {
     
     [neighbor_BookViewController.parent_BookPageViewController upLoadCmap];
-    
+    [neighbor_BookViewController.parent_BookPageViewController upLoadLogFile];
     HUD = [[MBProgressHUD alloc] initWithView:self.view];
     [self.view addSubview:HUD];
     HUD.delegate = self;
     HUD.labelText = @"Uploading log file...";
+
     [HUD showWhileExecuting:@selector(WaitingTask) onTarget:self withObject:nil animated:YES];
 }
+
+
 
 
 -(CGPoint)calculateNodePosition:(int) arrayId{
@@ -673,9 +696,6 @@
 
 
 -(void)modifyExpertMap{
-    
-    
-    
     
 }
 

@@ -34,13 +34,13 @@
 @synthesize bookImporter;
 @synthesize books;
 @synthesize cmapView;
+@synthesize userName;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
     //copy the default ebook in to the document folder
-    
     //initialize and book importer.
     self.bookImporter = [[EBookImporter alloc] init];
     
@@ -66,7 +66,6 @@
         //get the title and author of the book to be displayed to the user.
         NSString *bookLabel = [[book title] stringByAppendingString:@" - "];
         bookLabel = [bookLabel stringByAppendingString:[book author]];
-        
         NSString* coverImagePath = [book coverImagePath];
         UIImage *bookCover;
         NSString *hasCover = [[NSString alloc] init];
@@ -107,10 +106,9 @@
     
 }
 
-
-
 -(void)createCmapView{
     cmapView=[[CmapController alloc] initWithNibName:@"CmapView" bundle:nil];
+    cmapView.userName=userName;
     //cmapView.parent_BookViewController=self;
     // cmapView.dataObject=_dataObject;
     //cmapView.showType=1;
@@ -160,6 +158,8 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    self.navigationController.navigationBarHidden=NO;
+
     [super viewWillAppear:animated];
     UILabel *titleText = [[UILabel alloc] initWithFrame: CGRectMake(0, 0, 0, 20)];
     titleText.backgroundColor = [UIColor clearColor];
@@ -170,6 +170,7 @@
     [navBar setBarStyle: UIBarStyleDefault];
     [navBar setBackgroundImage:[UIImage imageNamed:@"navigation_bar.png"] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.translucent = NO;
+self.navigationItem.hidesBackButton = YES;
     
 }
 
@@ -249,9 +250,12 @@
     //become visible and load that book.
     
     BookPageViewController*  bookPage=[[BookPageViewController alloc] initWithNibName:@"BookPageViewController" bundle:nil];
+    bookPage.userName=userName;
     [self.navigationController pushViewController:bookPage animated:YES];
     
     bookPage.bookView = [[BookViewController alloc]init];
+    bookPage.bookView.userName=userName;
+    
     bookPage.bookView.parent_BookPageViewController=bookPage;
     bookPage.bookView.bookImporter = bookImporter;
     bookPage.bookView.bookTitle = self.bookToOpen;
