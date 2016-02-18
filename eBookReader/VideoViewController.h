@@ -1,0 +1,21 @@
+//
+//  VideoViewController.h
+//  TurkStudy
+//
+//  Created by Shang Wang on 11/8/15.
+//  Copyright © 2015 Shang Wang. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+@class BookPageViewController;
+@interface VideoViewController : UIViewController <UIWebViewDelegate,UIGestureRecognizerDelegate,UINavigationControllerDelegate >
+@property (weak, nonatomic) IBOutlet UIWebView *webView;
+@property (weak, nonatomic) IBOutlet UIImageView *teachImg;
+@property (weak, nonatomic) BookPageViewController* parentBookCtr;
+@property BOOL hideImg;
+@property NSTimeInterval totalCountdownInterval;
+@property NSTimeInterval remainTime;
+@property NSDate* startDate;
+@property (weak, nonatomic) IBOutlet UILabel *timerLable;
+-(void)startTimer;
+@end

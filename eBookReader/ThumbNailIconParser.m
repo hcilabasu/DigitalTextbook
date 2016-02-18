@@ -184,7 +184,7 @@
     NSData *xmlData = document.XMLData;
     
     NSString *filePath = [self dataFilePath:TRUE];
-    NSLog(@"Saving xml data to %@...", filePath);
+    //NSLog(@"Saving xml data to %@...", filePath);
     [xmlData writeToFile:filePath atomically:YES];
     
 }

@@ -7,6 +7,7 @@
 //
 
 #import "BookViewController.h"
+#import "QuizViewController.h"
 #import "HighlightParser.h"
 #import "HighLightWrapper.h"
 #import "GDataXMLNode.h"
@@ -45,7 +46,7 @@
 @synthesize parent_BookPageViewController;
 @synthesize logWrapper;
 @synthesize userName;
-
+@synthesize currentContentView;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -53,7 +54,10 @@
     thumbnailIcon=[ThumbNailIconParser loadThumbnailIcon];
     //logWrapper= [LogDataParser loadLogData];
     [thumbnailIcon printAllThumbnails];
-}
+    
+   }
+
+
 
 -(void)test{
     NSLog(@"Test");
@@ -88,7 +92,6 @@
     [NSDictionary dictionaryWithObject:
      [NSNumber numberWithInteger:UIPageViewControllerSpineLocationMin]
                                 forKey: UIPageViewControllerOptionSpineLocationKey];
-    
     self.pageController = [[UIPageViewController alloc]
                            initWithTransitionStyle:UIPageViewControllerTransitionStylePageCurl
                            navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal
@@ -145,14 +148,15 @@
 
 - (ContentViewController *)viewControllerAtIndex:(NSUInteger)index
 {
+    NSLog(@"Controller Index:%d",index);
     // Return the data view controller for the given index.
     if (([self.pageContent count] == 0) ||
         (index >= [self.pageContent count])) {
         return nil;
     }
     
-    NSString* logStr=[[NSString alloc] initWithFormat:@"Navigate to page: %d\n", index+1];
-    LogData* log= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:logStr selection:@"null" input:@"null" pageNum:index+1];
+    NSString* logStr=[[NSString alloc] initWithFormat:@"Navigate to page: %d", index+1];
+    LogData* log= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:logStr selection:@"Textbook" input:@"null" pageNum:index+1];
     [logWrapper addLogs:log];
     [LogDataParser saveLogData:logWrapper];
     
@@ -162,6 +166,7 @@
     [[ContentViewController alloc]
      initWithNibName:@"ContentViewController"
      bundle:nil];
+    
     dataViewController.userName=userName;
     dataViewController.bookTitle=bookTitle;
     dataViewController.parent_BookViewController=self;
@@ -170,6 +175,7 @@
     dataViewController.bookHighLight=highLight;
     dataViewController.bookthumbNailIcon=thumbnailIcon;
     dataViewController.bookLogData=logWrapper;
+    currentContentView=dataViewController;
     
     NSLog(@"Page: %d/%d", _pageNum+1,_totalPageNum);
     dataViewController.dataObject =
@@ -177,6 +183,7 @@
     // add the HTML content and the URL link.
     NSURL* baseURL = [NSURL fileURLWithPath:[book getHTMLURL]];
     dataViewController.url=baseURL;
+     
     return dataViewController;
 }
 
@@ -224,11 +231,12 @@
 {
     [super viewWillAppear:animated];
     //hides the navigationbar
-    self.navigationController.navigationBarHidden=YES;
+   // self.navigationController.navigationBarHidden=YES;
     UINavigationBar *navBar = self.navigationController.navigationBar;
     //set navigationBar style and background
     [navBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
     [navBar setBarStyle: UIStatusBarStyleDefault];
+   // [self.navigationController setNavigationBarHidden:YES];
     
 }
 
@@ -322,6 +330,29 @@
     CGRect rec=CGRectMake(0, 0, 512, 768);
     [self.view setFrame:rec];
     //[self createCmapView];
+}
+
+
+-(void)clearALlHighlight{
+    [highLight clearAllData];
+    [HighlightParser saveHighlight:highLight];
+    
+}
+
+-(void)deleteHighlightWithWord: (NSString*)name {
+    NSMutableArray* mutAry=[[NSMutableArray alloc]init];
+    for(HighLight* high in highLight.highLights){
+        if([high.text isEqualToString:name]){
+            [mutAry addObject:high];
+        }
+    }
+    
+    for(HighLight* highToDel in mutAry){
+        [highLight.highLights removeObject:highToDel];
+    }
+    
+    //[highLight.highLights removeObject:highToDelete];
+    [HighlightParser saveHighlight:highLight];
 }
 
 

@@ -65,7 +65,10 @@ static NSString * const _ISAnswerIndexKey = @"answerIndex";
 
 + (ISMultipleChoiceResponse*)responseWithIndex:(int)index
 {
-    return [[self alloc] initWithIndex:index];
+   // return [[self alloc] initWithIndex:index];
+    
+   // return [[self alloc]initWithIndex:index];
+    return self;
 }
 @end
 

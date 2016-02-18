@@ -12,7 +12,7 @@
 #import "HighLight.h"
 #import "LogFileController.h"
 #import <DropboxSDK/DropboxSDK.h>
-
+#import "TestFairy.h"
 
 @interface AppDelegate () <DBSessionDelegate, DBNetworkRequestDelegate>
 
@@ -22,6 +22,41 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    BOOL requireLogin=NO;
+    BOOL autoTimer=NO;
+    BOOL showPreview=YES;
+    BOOL allowmanuAdd=NO;
+    BOOL testMode=YES;
+    BOOL loadExpertMap=NO;
+    [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"testMode"];
+    [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"isLogin"];
+    [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"isTimer"];
+    [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"isPreview"];
+    [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"isManu"];
+     [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"loadExpertMap"];
+    
+    if(testMode){
+        [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"testMode"];
+    }
+    if(requireLogin){
+        [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"isLogin"];
+    }
+    if(autoTimer){
+        [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"isTimer"];
+    }
+    if(showPreview){
+        [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"isPreview"];
+    }
+    if(allowmanuAdd){
+        [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"isManu"];
+    }
+    if(loadExpertMap){
+         [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"loadExpertMap"];
+    }
+    
+    
+   // [TestFairy begin:@"e5748af60e023eec56df84a69ddfed6cd421b914"];
+    [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"HyperLinking"];
     // Override point for customization after application launch.
     NSError *error;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -56,51 +91,6 @@
         NSString *resourcePath = [[NSBundle mainBundle] pathForResource:@"ExpertCmapNodeList" ofType:@"xml"];
         [fileManager copyItemAtPath:resourcePath toPath:txtPath error:&error];
     }
-    
-    
-    // Override point for customization after app launch
-    // Set these variables before launching the app
-   // NSString* appKey = @"gj3h63qp8sf1ydd";
-	//NSString* appSecret = @"oivc54pa1fxbv7v";
-    
-    NSString* appKey = @"scq2u5yv0ucrrcb";
-    NSString* appSecret = @"bucmawavc829vq6";
-	NSString *root = kDBRootAppFolder; // Should be set to either kDBRootAppFolder or kDBRootDropbox
-	// You can determine if you have App folder access or Full Dropbox along with your consumer key/secret
-	// from https://dropbox.com/developers/apps
-	
-	// Look below where the DBSession is created to understand how to use DBSession in your app
-	
-	NSString* errorMsg = nil;
-	if ([appKey rangeOfCharacterFromSet:[[NSCharacterSet alphanumericCharacterSet] invertedSet]].location != NSNotFound) {
-		errorMsg = @"Make sure you set the app key correctly in DBRouletteAppDelegate.m";
-	} else if ([appSecret rangeOfCharacterFromSet:[[NSCharacterSet alphanumericCharacterSet] invertedSet]].location != NSNotFound) {
-		errorMsg = @"Make sure you set the app secret correctly in DBRouletteAppDelegate.m";
-	} else if ([root length] == 0) {
-		errorMsg = @"Set your root to use either App Folder of full Dropbox";
-	} else {
-		NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"Info" ofType:@"plist"];
-		NSData *plistData = [NSData dataWithContentsOfFile:plistPath];
-		NSDictionary *loadedPlist =
-        [NSPropertyListSerialization
-         propertyListFromData:plistData mutabilityOption:0 format:NULL errorDescription:NULL];
-		NSString *scheme = [[[[loadedPlist objectForKey:@"CFBundleURLTypes"] objectAtIndex:0] objectForKey:@"CFBundleURLSchemes"] objectAtIndex:0];
-		if ([scheme isEqual:@"db-APP_KEY"]) {
-			errorMsg = @"Set your URL scheme correctly in DBRoulette-Info.plist";
-		}
-	}
-	
-	DBSession* session =
-    [[DBSession alloc] initWithAppKey:appKey appSecret:appSecret root:root];
-    
-	session.delegate = self; // DBSessionDelegate methods allow you to handle re-authenticating
-	[DBSession setSharedSession:session];
-	[DBRequest setNetworkRequestDelegate:self];
-   // if(   ![[DBSession sharedSession] isLinked]){
-   // [[DBSession sharedSession] linkUserId:relinkUserId fromController:self];
-
-   //	}
-    
 	NSURL *launchURL = [launchOptions objectForKey:UIApplicationLaunchOptionsURLKey];
 	NSInteger majorVersion =
     [[[[[UIDevice currentDevice] systemVersion] componentsSeparatedByString:@"."] objectAtIndex:0] integerValue];
@@ -157,7 +147,6 @@
 
 #pragma mark -
 #pragma mark DBSessionDelegate methods
-
 - (void)sessionDidReceiveAuthorizationFailure:(DBSession*)session userId:(NSString *)userId {
 	relinkUserId = userId ;
 	[[[UIAlertView alloc]

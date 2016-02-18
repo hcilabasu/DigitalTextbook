@@ -12,7 +12,10 @@
     NSMutableArray *_highLights;
 }
 
+
+
 @property (nonatomic, retain) NSMutableArray *highLights;
 -(void)addHighlight: (HighLight*)highlight;
 -(void)printAllHighlight;
+-(void)clearAllData;
 @end

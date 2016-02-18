@@ -40,7 +40,7 @@
         NSInteger amin=[[timeArray objectAtIndex:1] integerValue];
         NSInteger asec=[[timeArray objectAtIndex:2] integerValue];
         
-        time= [NSString stringWithFormat:@"Time Stamp: %d - %d - %d   %d:%d:%d     ",ayear, amon, aday,ahour,amin,asec];
+        time= [NSString stringWithFormat:@"%d - %d - %d   %d:%d:%d     ",ayear, amon, aday,ahour,amin,asec];
         student_id=m_studentId;
         session_id=m_selection;
         timeZone=@"UTC";

@@ -18,6 +18,8 @@
 #import "ThumbNailIconWrapper.h"
 #import "ConceptLink.h"
 #import "CmapLink.h"
+#import "RelationTextView.h"
+#import "LogDataWrapper.h"
 @class CmapController;
 @class ContentViewController;
 
@@ -25,6 +27,7 @@
 
 @property (assign)CGPoint showPoint;
 @property int pageNum;
+@property int createType;
 @property int nodeType; //1: shows in book scroll thumb view; 0: shows in Cmap view;
 @property (strong, nonatomic) IBOutlet ShangTextField *text;
 
@@ -40,6 +43,7 @@
 @property(assign,nonatomic) BOOL isInitialed;
 @property  CABasicAnimation *waitAnim;
 @property(strong,nonatomic) IBOutlet UILongPressGestureRecognizer* longPressRecognizer;
+
 @property(strong,nonatomic) IBOutlet UITapGestureRecognizer* tapRecognizer;
 
 
@@ -52,6 +56,13 @@
 @property BOOL hasNote;
 @property BOOL hasHighlight;
 @property BOOL hasWeblink;
+@property (nonatomic, retain) LogDataWrapper* bookLogData;
+@property (strong, nonatomic) NSString *userName;
+@property (strong, nonatomic) RelationTextView*linkTextview;
+@property BOOL enableHyperLink;
+-(void)deleteLinkWithNode: (NodeCell*)cellToDel;
+-(void)removeLinkWithNode: (NodeCell*) LinkedNode;
+
 - (CGSize) screenSize;// function that returns the size of the screen, used to deteremine where the icon and the popup view is shown.
 -(void)removeShadowAnim;
 -(void)removeLink;
@@ -60,4 +71,6 @@
 -(void)unHighlightNode;
 -(void)highlightLink: (NSString*)relatedNodeName;
 -(void)addHighlightThumb;
+-(void)deleteNode: (BOOL)delByUser;
+-(void)updateViewSize;
 @end

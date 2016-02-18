@@ -60,7 +60,16 @@ CGFloat const   GHAnimationDelay = GHAnimationDuration/5;
 
 - (id)init
 {
-    self = [super initWithFrame:[[UIScreen mainScreen] applicationFrame]];
+    
+    CGRect fm=[[UIScreen mainScreen] applicationFrame];
+    if(fm.size.width>fm.size.height){
+        fm.size.height=fm.size.width;
+    }else{
+        fm.size.width=fm.size.height;
+    }
+    
+    self = [super initWithFrame:fm];
+    
     if (self) {
         // Initialization code
         self.userInteractionEnabled = YES;
@@ -77,15 +86,21 @@ CGFloat const   GHAnimationDelay = GHAnimationDuration/5;
         self.itemBGColor = [UIColor grayColor].CGColor;
         self.itemBGHighlightedColor = [UIColor redColor].CGColor;
         
+        
+        
+        UITapGestureRecognizer* tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickDetected:)];
+        //[self addGestureRecognizer:tapGesture];
+
+        
     }
     return self;
 }
 
-
+/*
 - (void) longPressDetected:(UIGestureRecognizer*) gestureRecognizer
 {
-        if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
-           // NSLog(@"Longpress begin.\n");
+    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+        // NSLog(@"Longpress begin.\n");
         self.prevIndex = -1;
         [[UIApplication sharedApplication].keyWindow addSubview:self];
         self.longPressLocation = [gestureRecognizer locationInView:self];
@@ -107,7 +122,7 @@ CGFloat const   GHAnimationDelay = GHAnimationDuration/5;
     }
     
     if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
-         //NSLog(@"Longpress end.\n\n");
+        //NSLog(@"Longpress end.\n\n");
         if(self.delegate && [self.delegate respondsToSelector:@selector(didSelectItemAtIndex: forMenuAtPoint:)] && self.prevIndex >= 0){
             [self.delegate didSelectItemAtIndex:self.prevIndex forMenuAtPoint:[self convertPoint:self.longPressLocation toView:gestureRecognizer.view]];
             self.prevIndex = -1;
@@ -115,6 +130,99 @@ CGFloat const   GHAnimationDelay = GHAnimationDuration/5;
         [self hideMenu];
     }
 }
+
+
+
+- (void) clickDetected:(UIGestureRecognizer*) gestureRecognizer{
+    
+    if(!self.isShowing){
+        self.prevIndex = -1;
+        [[UIApplication sharedApplication].keyWindow addSubview:self];
+        self.longPressLocation = [gestureRecognizer locationInView:self];
+        CGPoint pointInView = [gestureRecognizer locationInView:gestureRecognizer.view];
+        if (self.dataSource != nil && [self.dataSource respondsToSelector:@selector(shouldShowMenuAtPoint:)] && ![self.dataSource shouldShowMenuAtPoint:pointInView]){
+            return;
+        }
+        self.layer.backgroundColor = [UIColor colorWithWhite:0.1f alpha:.6f].CGColor;
+        self.isShowing = YES;
+        [self animateMenu:YES];
+        [self setNeedsDisplay];
+        self.isShowing=YES;
+    }else if(self.isShowing){
+        
+        if(self.delegate && [self.delegate respondsToSelector:@selector(didSelectItemAtIndex: forMenuAtPoint:)] && self.prevIndex >= 0){
+            [self.delegate didSelectItemAtIndex:self.prevIndex forMenuAtPoint:[self convertPoint:self.longPressLocation toView:gestureRecognizer.view]];
+            self.prevIndex = -1;
+        }
+        [self hideMenu];
+
+        
+    }
+
+    
+}
+
+*/
+
+
+
+
+
+- (void) longPressDetected:(UIGestureRecognizer*) gestureRecognizer
+{
+    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+        // NSLog(@"Longpress begin.\n");
+        self.prevIndex = -1;
+        [[UIApplication sharedApplication].keyWindow addSubview:self];
+        self.longPressLocation = [gestureRecognizer locationInView:self];
+        CGPoint pointInView = [gestureRecognizer locationInView:gestureRecognizer.view];
+        if (self.dataSource != nil && [self.dataSource respondsToSelector:@selector(shouldShowMenuAtPoint:)] && ![self.dataSource shouldShowMenuAtPoint:pointInView]){
+            return;
+        }
+        self.layer.backgroundColor = [UIColor colorWithWhite:0.1f alpha:.6f].CGColor;
+        self.isShowing = YES;
+        [self animateMenu:YES];
+        [self setNeedsDisplay];
+    }
+    
+    
+    if (gestureRecognizer.state == UIGestureRecognizerStateChanged) {
+        if (self.isShowing) {
+            self.isPaning = YES;
+            self.curretnLocation =  [gestureRecognizer locationInView:self];
+        }
+    }
+    
+    if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
+        //NSLog(@"Longpress end.\n\n");
+        if(self.delegate && [self.delegate respondsToSelector:@selector(didSelectItemAtIndex: forMenuAtPoint:)] && self.prevIndex >= 0){
+            [self.delegate didSelectItemAtIndex:self.prevIndex forMenuAtPoint:[self convertPoint:self.longPressLocation toView:gestureRecognizer.view]];
+            self.prevIndex = -1;
+        }
+        [self hideMenu];
+    }
+    
+}
+
+
+
+- (void) clickDetected:(UIGestureRecognizer*) gestureRecognizer{
+     self.curretnLocation =  [gestureRecognizer locationInView:self];
+ if(self.isShowing){
+        
+        if(self.delegate && [self.delegate respondsToSelector:@selector(didSelectItemAtIndex: forMenuAtPoint:)] && self.prevIndex >= 0){
+            
+            [self.delegate didSelectItemAtIndex:self.prevIndex forMenuAtPoint:[self convertPoint:self.curretnLocation toView:gestureRecognizer.view]];
+            self.prevIndex = -1;
+        }
+        [self hideMenu];
+     
+    }
+    
+    
+}
+
+
 
 - (void) showMenu
 {
@@ -157,7 +265,7 @@ CGFloat const   GHAnimationDelay = GHAnimationDuration/5;
 {
     _dataSource = dataSource;
     [self reloadData];
-
+    
 }
 
 # pragma mark - menu item layout
@@ -192,9 +300,9 @@ CGFloat const   GHAnimationDelay = GHAnimationDuration/5;
     self.arcAngle = ((itemRadius * self.menuItems.count) / self.radius) * 1.5;
     
     NSUInteger count = self.menuItems.count;
-	BOOL isFullCircle = (self.arcAngle == M_PI*2);
-	NSUInteger divisor = (isFullCircle) ? count : count - 1;
-
+    BOOL isFullCircle = (self.arcAngle == M_PI*2);
+    NSUInteger divisor = (isFullCircle) ? count : count - 1;
+    
     self.angleBetweenItems = self.arcAngle/divisor;
     
     for (int i = 0; i < self.menuItems.count; i++) {
@@ -205,10 +313,10 @@ CGFloat const   GHAnimationDelay = GHAnimationDuration/5;
 
 - (GHMenuItemLocation*) locationForItemAtIndex:(NSUInteger) index
 {
-	CGFloat itemAngle = [self itemAngleAtIndex:index];
-	
-	CGPoint itemCenter = CGPointMake(self.longPressLocation.x + cosf(itemAngle) * self.radius,
-									 self.longPressLocation.y + sinf(itemAngle) * self.radius);
+    CGFloat itemAngle = [self itemAngleAtIndex:index];
+    
+    CGPoint itemCenter = CGPointMake(self.longPressLocation.x + cosf(itemAngle) * self.radius,
+                                     self.longPressLocation.y + sinf(itemAngle) * self.radius);
     GHMenuItemLocation *location = [GHMenuItemLocation new];
     location.position = itemCenter;
     location.angle = itemAngle;
@@ -222,14 +330,14 @@ CGFloat const   GHAnimationDelay = GHAnimationDuration/5;
     
     CGFloat angle =  bearingRadians - self.arcAngle/2;
     
-	CGFloat itemAngle = angle + (index * self.angleBetweenItems);
+    CGFloat itemAngle = angle + (index * self.angleBetweenItems);
     
     if (itemAngle > 2 *M_PI) {
         itemAngle -= 2*M_PI;
     }else if (itemAngle < 0){
         itemAngle += 2*M_PI;
     }
-
+    
     return itemAngle;
 }
 
@@ -245,8 +353,8 @@ CGFloat const   GHAnimationDelay = GHAnimationDuration/5;
     CGFloat minRadius = (CGFloat)(mainRadius + itemRadius);
     CGFloat maxRadius = ((itemRadius * self.menuItems.count) / self.arcAngle) * 1.5;
     
-	CGFloat radius = MAX(minRadius, maxRadius);
-
+    CGFloat radius = MAX(minRadius, maxRadius);
+    
     return radius;
 }
 
@@ -256,7 +364,7 @@ CGFloat const   GHAnimationDelay = GHAnimationDuration/5;
     float bearingRadians = atan2f(originPoint.y, originPoint.x);
     
     bearingRadians = (bearingRadians > 0.0 ? bearingRadians : (M_PI*2 + bearingRadians));
-
+    
     return bearingRadians;
 }
 
@@ -288,7 +396,7 @@ CGFloat const   GHAnimationDelay = GHAnimationDuration/5;
         if (closeToIndex >= 0 && closeToIndex < self.menuItems.count) {
             
             GHMenuItemLocation* itemLocation = [self.itemLocations objectAtIndex:closeToIndex];
-
+            
             CGFloat distanceFromCenter = sqrt(pow(self.curretnLocation.x - self.longPressLocation.x, 2)+ pow(self.curretnLocation.y-self.longPressLocation.y, 2));
             
             CGFloat toleranceDistance = (self.radius - GHMainItemSize/(2*sqrt(2)) - GHMenuItemSize/(2*sqrt(2)) )/2;

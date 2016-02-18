@@ -104,6 +104,12 @@ static NSString * const _ISBonusTimeKey = @"bonusTime";
     return YES;
 }
 
+
+
+
+
+
+
 - (void)tick:(NSTimer*)timer
 {
     _time = [[NSDate date] timeIntervalSinceDate:_startDate];

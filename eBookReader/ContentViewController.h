@@ -9,8 +9,6 @@
 #import <UIKit/UIKit.h>
 
 #import <QuartzCore/QuartzCore.h>
-#import <Slt/Slt.h>
-#import <OpenEars/FliteController.h>
 #import "KnowledgeModule.h"
 #import "ThumbNailController.h"
 #import "PopoverView.h"
@@ -25,7 +23,7 @@
 #import "LogData.h"
 #import "LogDataParser.h"
 #import "LogDataWrapper.h"
-#import "ViewController.h"
+#import "QuizViewController.h"
 #ifndef CONTENTVIEWCONTROLLER_H
 #define CONTENTVIEWCONTROLLER_H
 
@@ -40,8 +38,6 @@
 {
     PopoverView *pv; //popOver view
     CGPoint pvPoint;// position where pop over view shows
-    FliteController *fliteController;
-    Slt *slt;
 }
 #endif
 
@@ -63,8 +59,6 @@
 @property (strong, nonatomic) BookViewController *parent_BookViewController; //stores the its parent view, in order to call the parent controlller methods
 @property (strong, nonatomic) NSMutableArray *highlightTextArray;//stores the highlighted text in an array
 @property (strong, nonatomic) KnowledgeModule *knowledge_module;
-@property (strong, nonatomic) FliteController *fliteController;
-@property (strong, nonatomic) Slt *slt;
 @property (strong, nonatomic) LanguageModelGenerator *lmGenerator;// open ear languange generater
 @property (strong, nonatomic) NSString *userName;
 
@@ -85,6 +79,17 @@
 @property (nonatomic, strong) IBOutlet UICollectionView *linkCollectionView;
 @property (nonatomic) BOOL isCollectionShow;
 @property  BOOL showingOverLayCmap;
+
+
+@property NSTimeInterval totalCountdownInterval;
+@property NSTimeInterval remainTime;
+@property NSDate* startDate;
+@property (weak, nonatomic) IBOutlet UILabel *timerLable;
+
+
+
+
+
 -(void)showRecourseFullScreen;
 
 @property NSArray *linkItems;
@@ -107,5 +112,4 @@
 -(void)expandSubNode:(UIView*)node;
 -(void)showOverLayCmapView;
 -(void)hideOverLayCmapView;
-
 @end

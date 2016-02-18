@@ -49,4 +49,9 @@
     }
 
 }
+
+
+-(void)clearAllData{
+    [self.highLights removeAllObjects];
+}
 @end

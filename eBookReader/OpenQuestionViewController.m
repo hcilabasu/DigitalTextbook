@@ -91,7 +91,6 @@
 -(void) checkCountdown:(NSTimer*)_timer {
     
     NSTimeInterval elapsedTime = [[NSDate date] timeIntervalSinceDate:startDate];
-    
     NSTimeInterval remainingTime = totalCountdownInterval - elapsedTime;
     int second=(int)remainingTime;
     NSString *speedLabel = [[NSString alloc] initWithFormat:@"%d ", second ];

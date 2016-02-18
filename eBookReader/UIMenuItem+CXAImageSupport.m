@@ -183,8 +183,9 @@ static CGSize newSizeWithFont(NSString *self, SEL _cmd, UIFont *font)
 {
     if ([self cxa_doesWrapInvisibleIdentifiers] &&
         titleSettingsPairs[self]){
-        CGSize size = [[titleSettingsPairs[self] image] size];
-        size.width -= [titleSettingsPairs[self] shrinkWidth];
+       // CGSize size = [[titleSettingsPairs[self] image] ];
+       // size.width -= [titleSettingsPairs[self] shrinkWidth];
+        CGSize size=CGSizeMake(100, 100);
         return size;
     }
     

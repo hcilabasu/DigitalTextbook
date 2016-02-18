@@ -17,7 +17,8 @@ NSArray *recipes;
 @synthesize tableView;
 @synthesize parentCmapController;
 @synthesize fileList;
-
+@synthesize bookLogData;
+@synthesize userName;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -42,21 +43,7 @@ NSArray *recipes;
     //tableView.delegate=self;
     // Do any additional setup after loading the view from its nib.
     
-    recipes = [NSArray arrayWithObjects:@"Include", @"Have", @"Involve", @"Increase", @"Reduce", @"Facilitate", @"Help", @"Control", nil];
-    
-    /*
-    NSError *error;
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *dataPath = [documentsDirectory stringByAppendingPathComponent:@"MyBook"];
-    [fileManager createDirectoryAtPath:dataPath withIntermediateDirectories:NO attributes:nil error:&error];
-    dataPath = [documentsDirectory stringByAppendingPathComponent:@"MyBook/book"];
-    NSArray *dirContents = [fileManager contentsOfDirectoryAtPath:dataPath error:nil];
-    NSPredicate *fltr = [NSPredicate predicateWithFormat:@"self ENDSWITH '.xml'"];
-    NSArray *fileList = [dirContents filteredArrayUsingPredicate:fltr];
-    [fileManager createDirectoryAtPath:dataPath withIntermediateDirectories:NO attributes:nil error:&error];
-    */
+    recipes = [NSArray arrayWithObjects:@"Include", @"Have", @"Involve", @"Increase", @"Reduce", @"Facilitate", @"Grow", @"Control", nil];
     
     [tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
     
@@ -73,11 +60,18 @@ NSArray *recipes;
 
 - (IBAction)Dismiss:(id)sender {
    // parentCmapController.isFinderWindowShow=NO;
+    [self resignFirstResponder];
     [self.view removeFromSuperview];
     [self removeFromParentViewController];
 
 }
 
+- (IBAction)EditLink:(id)sender {
+    [self.view removeFromSuperview];
+    [self removeFromParentViewController];
+    [parentCmapController editRelationLink];
+    
+}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -131,6 +125,12 @@ NSArray *recipes;
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     [parentCmapController upDateLinkText:cell.textLabel.text];
+    NSString* inputString=[[NSString alloc] initWithFormat:@"%@", cell.textLabel.text];
+    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Update Link name from list" selection:@"new concept link" input:inputString pageNum:0];
+    [bookLogData addLogs:newlog];
+    [LogDataParser saveLogData:bookLogData];
+    
+    
     [self.view removeFromSuperview];
     [self removeFromParentViewController];
     

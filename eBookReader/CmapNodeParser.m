@@ -191,23 +191,23 @@
         GDataXMLElement * pointX =
         [GDataXMLNode elementWithName:@"PointX" stringValue:
          [NSString stringWithFormat:@"%d", nodeItem.point_x]];
-
+        
         GDataXMLElement * pointY =
         [GDataXMLNode elementWithName:@"PointY" stringValue:
-        [NSString stringWithFormat:@"%d", nodeItem.point_y]];
+         [NSString stringWithFormat:@"%d", nodeItem.point_y]];
         
         GDataXMLElement * nodePageNum =
         [GDataXMLNode elementWithName:@"PageNum" stringValue:
          [NSString stringWithFormat:@"%d", nodeItem.pageNum]];
         
-  
+        
         [itemElement addChild:conceptNameElement];
         [itemElement addChild:bookTitleElement];
         [itemElement addChild:pointX];
         [itemElement addChild:pointY];
         [itemElement addChild:nodePageNum];
         [partyElement addChild: itemElement];
-       // NSLog(@"Add element");
+        // NSLog(@"Add element");
     }
     
     GDataXMLDocument *document = [[GDataXMLDocument alloc]
@@ -215,7 +215,7 @@
     NSData *xmlData = document.XMLData;
     
     NSString *filePath = [self dataFilePath:TRUE];
-    NSLog(@"Saving xml data to %@...", filePath);
+    //NSLog(@"Saving xml data to %@...", filePath);
     [xmlData writeToFile:filePath atomically:YES];
     
 }
@@ -266,7 +266,7 @@
     NSData *xmlData = document.XMLData;
     
     NSString *filePath = [self expertMapDataFilePath:TRUE];
-    NSLog(@"Saving xml data to %@...", filePath);
+    //NSLog(@"Saving xml data to %@...", filePath);
     [xmlData writeToFile:filePath atomically:YES];
     
 }

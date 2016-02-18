@@ -26,15 +26,17 @@
 #import "LogData.h"
 #import "LogDataParser.h"
 #import "LogDataWrapper.h"
+#import "NodeCell.h"
+#import "RelationTextView.h"
 @class NodeCell;
 @class BookViewController;
 @class HighLightWrapper;
 @class ThumbNailIconWrapper;
 @class BookPageViewController;
 @class ContentViewController;
-@interface CmapController : UIViewController <PopoverViewDelegate,UIGestureRecognizerDelegate,UIWebViewDelegate,UIScrollViewDelegate,UINavigationControllerDelegate,UITextViewDelegate, MBProgressHUDDelegate, DBRestClientDelegate>{
+@interface CmapController : UIViewController <UIAlertViewDelegate,PopoverViewDelegate,UIGestureRecognizerDelegate,UIWebViewDelegate,UIScrollViewDelegate,UINavigationControllerDelegate,UITextViewDelegate, MBProgressHUDDelegate, DBRestClientDelegate,UITextFieldDelegate>{
     long long expectedLength;
-	long long currentLength;
+    long long currentLength;
     MBProgressHUD *HUD;
 }
 
@@ -59,6 +61,8 @@
 @property (nonatomic, strong) NSMutableArray* menuItems;
 @property (nonatomic, assign) BOOL isBlockedByKeyboard;
 @property(strong,nonatomic) UIImageView *bulbImageView;
+@property(strong,nonatomic) UIImageView *previewImageView;
+
 @property (weak, nonatomic) IBOutlet UILabel *focusQuestionLable;
 @property BOOL isQuestionShow;
 @property (strong, nonatomic) NSMutableArray*  conceptNamesArray;
@@ -66,6 +70,12 @@
 @property (strong, nonatomic) NSMutableArray*  conceptNodeArray;
 //stores the links between concepts
 @property (strong, nonatomic) NSMutableArray*  conceptLinkArray;
+
+@property (strong, nonatomic) NSMutableArray*  lastStepConceptNodeArray;
+//stores the links between concepts
+@property (strong, nonatomic) NSMutableArray*  lastStepConceptLinkArray;
+
+
 @property BOOL isFinishLoadMap;
 @property BOOL isInitComplete;
 @property (nonatomic, strong) DBRestClient *restClient;
@@ -82,6 +92,10 @@
 @property (nonatomic, strong) NSMutableArray* itemLocations;
 @property (nonatomic) CGColorRef itemBGHighlightedColor;
 @property (nonatomic) CGColorRef itemBGColor;
+@property (nonatomic) int savedMapHeight;
+@property (nonatomic) int savedMapWidth;
+
+
 
 @property (nonatomic, retain) HighLightWrapper *bookHighlight;
 @property (nonatomic, retain) ThumbNailIconWrapper* bookThumbNial;
@@ -96,6 +110,18 @@
 @property (strong,nonatomic)  UIImageView *waitImageView;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
 @property (strong, nonatomic) NSString* userName;
+@property BOOL enableHyperLink;
+@property BOOL isUserAction;
+@property (weak, nonatomic) IBOutlet UIImageView *preView;
+@property CGSize sizebeforePinch;
+@property (strong, nonatomic) NodeCell* addedNode;
+
+@property (strong, nonatomic) NSString *nodeTextBeforeEditing;
+@property (strong, nonatomic) NSString *linkTextBeforeEditing;
+@property BOOL hasLogedModifyMap;
+
+@property (strong, nonatomic) UIImage* savedExpertImg;
+@property (nonatomic, strong) NSMutableArray* conceptsShowAry;
 
 -(void)disableAllNodesEditting;
 -(void)enableAllNodesEditting;
@@ -120,4 +146,23 @@
 
 -(void)logLinkingConceptNodes: (NSString*)Concept1 ConnectedConcept: (NSString*)Concept2;//log linking activity into log file
 -(void)logHyperNavigation:(NSString*)ConceptName;
+- (IBAction)upLoad:(id)sender;
+-(CGPoint)calculateNodePosition:(int) arrayId;
+-(void)editRelationLink;
+-(void)deleteConcept:(NSString*)name;
+-(void)updateNodesPosition: (CGPoint)position Node: (NodeCell*)m_node;
+- (IBAction)getPreView:(id)sender;
+-(void)showAlertwithTxt :(NSString*)title body: (NSString*)txt;
+-(void)removePreviewNode: (NSString*)nodeName;
+-(BOOL)isLinkExist: (NSString*)name1 OtherName: (NSString*)name2;
+-(void)SetNodesFirstResponder;
+-(void)uploadCMapImg;
+-(void)uploadExpertCMapImg;
+-(void)uploadCmapCocneptAddedList;
+-(void)deleteLink: (NSString* )leftName SecondNode: (NSString*)rightName;
+-(void)LogStudentMapNum;
+-(void)readSavedCmapSize;
+-(void)SaveCmapSize:(int)width Height: (int)height;
+-(void)savePreviousStep;
+-(void)deleteHighlightwithWord: (NSString*)name;
 @end

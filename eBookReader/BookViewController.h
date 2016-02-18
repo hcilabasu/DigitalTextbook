@@ -41,7 +41,7 @@
 @property (strong, nonatomic) LibraryViewController* parent_LibraryViewController;
 @property (strong, nonatomic) BookPageViewController* parent_BookPageViewController;
 @property (strong, nonatomic) NSString* userName;
-
+@property (strong, nonatomic) ContentViewController *currentContentView;
 
 - (void) loadFirstPage;
 -(void) createContentPages;
@@ -53,4 +53,6 @@
 - (NSInteger)pageNum;
 -(void)splitScreen;
 -(void)searchAndHighlightLink;
+-(void)clearALlHighlight;
+-(void)deleteHighlightWithWord: (NSString*)name;
 @end

@@ -30,6 +30,8 @@
 #import "NodeViewController.h"
 #import "SubNodeViewController.h"
 #import "CmapBookNoteViewController.h"
+//#import <KIF/KIF.h>
+//#import "TouchSynthesis.h"
 // for the "quick help" feature, we haven't decided what interaction we want to add after user clicks the button so we define this array to display some default word.
 #define kStringArray [NSArray arrayWithObjects:@"YES", @"NO",@"Wiki",@"Google",@"Concept Map", nil]
 #define H_CONTROL_ORIGIN CGPointMake(200, 300)
@@ -44,7 +46,6 @@ static NSString *cellId2 = @"cellId2";
     NSMutableDictionary *thumbnailCache;
     BOOL showingSettings;
     UIView *settingsView;
-    
     UILabel *radiusLabel;
     UISlider *radiusSlider;
     UILabel *angularSpacingLabel;
@@ -62,8 +63,6 @@ static NSString *cellId2 = @"cellId2";
 @synthesize totalpageNum;
 @synthesize parent_BookViewController;
 @synthesize highlightTextArray;
-@synthesize fliteController;
-@synthesize slt;
 @synthesize knowledge_module;
 @synthesize thumbNailController;
 @synthesize logFileController;
@@ -87,18 +86,11 @@ static NSString *cellId2 = @"cellId2";
 @synthesize overLayCmapView;
 @synthesize showingOverLayCmap;
 @synthesize userName;
+@synthesize totalCountdownInterval;
+@synthesize remainTime;
+@synthesize startDate;
+@synthesize timerLable;
 
-//initial methods for the open ears tts instance
-- (FliteController *)fliteController { if (fliteController == nil) {
-    fliteController = [[FliteController alloc] init]; }
-    return fliteController;
-}
-//initial methods for the open ears tts instance
-- (Slt *)slt {
-    if (slt == nil) {
-        slt = [[Slt alloc] init]; }
-    return slt;
-}
 
 -(void)viewDidAppear:(BOOL)animated{
     //[self refresh];
@@ -111,15 +103,46 @@ static NSString *cellId2 = @"cellId2";
         [self hideAllSubview:ThumbScrollViewRight];
         isSplit=YES;
     }
+    
     [parent_BookViewController clearAllHighlightNode];
     [parent_BookViewController searchAndHighlightNode];
     [parent_BookViewController searchAndHighlightLink];
+    
+    
+    [webView setFrame:self.view.frame];
+    [webView becomeFirstResponder];
+    
+    parent_BookViewController.parent_BookPageViewController.cmapView.parent_ContentViewController=self;
+   // [self.parentViewController.navigationController setNavigationBarHidden: YES animated:YES];
+    //[self.navigationController setNavigationBarHidden: YES animated:YES];
+
+    
 }
 
+
+/*
+- (void)performTouchInView:(UIView *)view
+{
+    //UITouch *touch = [UITouch alloc];
+    //[touch ssssssssssss];
+    UITouch *touch = [[UITouch alloc] initInView:view];
+    UIEvent *eventDown = [[UIEvent alloc] initWithTouch:touch];
+    
+    [touch.view touchesBegan:[eventDown allTouches] withEvent:eventDown];
+    
+    [touch setPhase:UITouchPhaseEnded];
+    UIEvent *eventUp = [[UIEvent alloc] initWithTouch:touch];
+    
+    [touch.view touchesEnded:[eventUp allTouches] withEvent:eventUp];
+    
+
+}
+*/
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+     startDate = [NSDate date];
     [webView setDelegate:self];
     [linkCollectionView setDataSource:self];
     [linkCollectionView setDelegate:self];
@@ -135,14 +158,26 @@ static NSString *cellId2 = @"cellId2";
     sv.delegate=self;
     isMenuShow=NO;
     syn=[[AVSpeechSynthesizer alloc]init];
+    
     UITapGestureRecognizer *twoTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(oneFingerOneTaps:)];
     [twoTap setNumberOfTapsRequired:2];
     twoTap.delegate=self;
+    NSString* isPreview=[[NSUserDefaults standardUserDefaults] stringForKey:@"isPreview"];
+    if([isPreview isEqualToString:@"YES"]){
     [webView addGestureRecognizer:twoTap];
+    }
     UITapGestureRecognizer *onetap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(updatePVPosition:)];
     [onetap setNumberOfTapsRequired:1];
     onetap.delegate=self;
     [webView addGestureRecognizer:onetap];
+     
+    
+    UILongPressGestureRecognizer *longpress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longpressAction:)];
+    longpress.delegate=self;
+    [webView addGestureRecognizer:longpress];
+
+    
+    
     webView.scrollView.tag=0;
 
     /*
@@ -170,6 +205,8 @@ static NSString *cellId2 = @"cellId2";
     //load page highlights
     
     [webView loadHTMLString:_dataObject baseURL:_url];
+    
+    
     ThumbScrollViewLeft.showsHorizontalScrollIndicator=NO;
     ThumbScrollViewLeft.showsVerticalScrollIndicator=NO;
     ThumbScrollViewLeft.pagingEnabled=YES;
@@ -211,12 +248,12 @@ static NSString *cellId2 = @"cellId2";
     cmapNote.parentContentView=self;
     */
     /////set up overlay Cmap view
-    overLayCmapView=[[CmapController alloc] initWithNibName:@"CmapView" bundle:nil];
+   // overLayCmapView=[[CmapController alloc] initWithNibName:@"CmapView" bundle:nil];
     //overLayCmapView.bookLogDataWrapper=logWrapper;
-    overLayCmapView.showType=1;
+    //overLayCmapView.showType=1;
     //overLayCmapView.neighbor_BookViewController=self.bookView;
-    [self addChildViewController:overLayCmapView];
-    [self.view addSubview:overLayCmapView.view];
+   // [self addChildViewController:overLayCmapView];
+    //[self.view addSubview:overLayCmapView.view];
     [overLayCmapView.view setUserInteractionEnabled:NO];
     overLayCmapView.view.center=CGPointMake(384, 384);
     overLayCmapView.view.backgroundColor= [UIColor clearColor];
@@ -226,7 +263,19 @@ static NSString *cellId2 = @"cellId2";
     [overLayCmapView.focusQuestionLable removeFromSuperview];
     [overLayCmapView.view setHidden:YES];
     //[overLayCmapView.view setHidden:YES];
+    // [self.parentViewController.navigationController setNavigationBarHidden: NO animated:YES];
+    // [self.navigationController setNavigationBarHidden: NO animated:YES];
+    [self.webView becomeFirstResponder];
+    
+
+    NSString *str=[[NSString alloc]initWithFormat:@"Page %d did load.",pageNum];
+    NSLog(str);
+    //[self performTouchInView:webView];
+    
 }
+
+
+
 
 
 - (void)didReceiveMemoryWarning
@@ -235,12 +284,22 @@ static NSString *cellId2 = @"cellId2";
     // Dispose of any resources that can be recreated.
 }
 
+
+
 //after the webview loads page, load highlight content
 -(void)webViewDidFinishLoad:(UIWebView *)m_webView{
     [self loadHghLight];
+    [webView becomeFirstResponder];
     if( ([[UIApplication sharedApplication] statusBarOrientation]==UIInterfaceOrientationLandscapeLeft)||([[UIApplication sharedApplication] statusBarOrientation]==UIInterfaceOrientationLandscapeRight)){
         CGRect rec=CGRectMake(0, webView.frame.origin.y, 512, 768);
         [webView setFrame:rec];
+        
+       // NSString *jsString2 = [[NSString alloc] initWithFormat:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '%d%%'",96];
+       // [webView stringByEvaluatingJavaScriptFromString:jsString2];
+    }else{
+        //NSString *jsString2 = [[NSString alloc] initWithFormat:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '%d%%'",118];
+  //  NSString *jsString2 = [[NSString alloc] initWithFormat:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '%d%%'",96];
+    //[webView stringByEvaluatingJavaScriptFromString:jsString2];
     }
 }
 
@@ -280,6 +339,7 @@ static NSString *cellId2 = @"cellId2";
     markIconSettingsYelow.image = [UIImage imageNamed:@"highlight_yellow"];
     markIconSettingsYelow.shadowDisabled = NO;
     markIconSettingsYelow.shrinkWidth = 4; //set menu item size and picture.
+
     /*
     CXAMenuItemSettings *markIconSettingsGreeen = [CXAMenuItemSettings new];
     markIconSettingsGreeen.image = [UIImage imageNamed:@"highlight_green"];
@@ -353,40 +413,55 @@ static NSString *cellId2 = @"cellId2";
     [speakItem cxa_setSettings:markIconSettingSpeak];
     
     
-    [menuController setMenuItems: [NSArray arrayWithObjects: concept,markHighlightedStringYellow,takeNoteItem,speakItem, nil]];
-    
-    [menuController setMenuVisible:YES animated:YES];
-    
+    [menuController setMenuItems: [NSArray arrayWithObjects: concept, nil]];
     
 }
 
 
 - (IBAction)ConceptCloud : (id)sender
 {
-    
+    /*
     SampleViewController* conceptCloud= [[SampleViewController alloc]init];
     conceptCloud.view.backgroundColor = [UIColor colorWithPatternImage: [UIImage imageNamed:@"blurWallPaper"] ];
     [self.navigationController pushViewController:conceptCloud animated:YES];
     [self.parentViewController.navigationController setNavigationBarHidden: NO animated:YES];
     self.parentViewController.navigationController.navigationBar.translucent = YES;
+     */
 }
 
 - (IBAction)goToQuiz : (id)sender
 {
-    ViewController *quiz=[[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
+    QuizViewController *quiz=[[QuizViewController alloc] initWithNibName:@"ViewController" bundle:nil];
     quiz.isFinished=false;
     [self.navigationController pushViewController:quiz animated:YES];
 }
 
 - (void)updatePVPosition:(UITapGestureRecognizer *)tap
 {
+    // [self becomeFirstResponder];
     pvPoint = [tap locationInView:self.view];
+  
+}
+
+
+- (void)longpressAction:(UITapGestureRecognizer *)tap
+{
+     NSString *selection = [webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"];
+      pvPoint = [tap locationInView:self.view];
+     [self becomeFirstResponder];
+   // UIMenuController *menuController = [UIMenuController sharedMenuController];
+   // [menuController setMenuVisible:YES animated:YES];
+   
+  
+    
 }
 
 // invoke when user tap with one finger once
 - (void)oneFingerOneTaps:(UITapGestureRecognizer *)tap
 {
+    // [self becomeFirstResponder];
     pvPoint = [tap locationInView:self.view];//track the last click position in order to show the popUp view
+    
     if(!isMenuShow){  //is the menu bar is showing, disable the gesture action
         //set navigation bar animation, which uses the QuartzCore framework.
         self.parentViewController.navigationController.navigationBar.translucent = YES;
@@ -408,6 +483,7 @@ static NSString *cellId2 = @"cellId2";
     }else{
         [self.parentViewController.navigationController setNavigationBarHidden: YES animated:YES];
     }
+     
     
 }
 
@@ -493,32 +569,36 @@ static NSString *cellId2 = @"cellId2";
     return YES;
 }
 
+
+- (BOOL)canBecomeFirstResponder{
+    return YES;
+}
+
+
 //give permission to show the menu item we added
 - (BOOL) canPerformAction:(SEL)action withSender:(id)sender
 {
     if (  action == @selector(markHighlightedString:)
-        ||action==@selector(dragAndDrop:)
-        ||action==@selector(popUp:)
+        ||action == @selector(dragAndDrop:)
+        ||action == @selector(popUp:)
         ||action == @selector(markHighlightedStringInYellow:)
         ||action == @selector(markHighlightedStringInGreen:)
-        ||action==@selector(speak:)
+        ||action == @selector(speak:)
         ||action == @selector(markHighlightedStringInBlue:)
         ||action == @selector(markHighlightedStringInPurple:)
         ||action == @selector(markHighlightedStringInRed:)
         ||action == @selector(underLine:)
-        ||action==@selector(takeNote:)
-        ||action==@selector(ConceptCloud:)
+        ||action == @selector(takeNote:)
+        ||action == @selector(ConceptCloud:)
         ||action == @selector(removeFormat:))
     {
         return YES;
     }
     
-    
     if (action == @selector(copy:))
     {
         return NO;
     }
-    
     if (action == @selector(define:))
     {
         return NO;
@@ -526,23 +606,34 @@ static NSString *cellId2 = @"cellId2";
     return NO;
 }
 
+
 - (void)dragAndDrop:(id)sender{
+    BOOL isHyperLink = [[NSUserDefaults standardUserDefaults] boolForKey:@"HyperLinking"];
     if(YES==isSplit){
         NSString* h_text=[webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"];
-        [parent_BookViewController.parent_BookPageViewController.cmapView createNodeFromBook:CGPointMake(200, 200) withName:h_text BookPos:pvPoint page:pageNum];
+        if(h_text.length>25){
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"You can not add concepts that have more than 35 charaters!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+             [alert show];
+            return;
+        }
+        
+        
+        [parent_BookViewController.parent_BookPageViewController.cmapView createNodeFromBook:CGPointMake( arc4random() % 400+30, 690) withName:h_text BookPos:pvPoint page:pageNum];
         [self createConceptIcon:pvPoint NoteText:h_text isWriteToFile:YES];
         [self hideAllSubview:ThumbScrollViewRight];
-        [self saveHighlightToXML:@"#F2B36B" ];
+
+        if(isHyperLink){//check if is group A
+                [self saveHighlightToXML:@"#F2B36B" ];
         [self highlightStringWithColor:@"#F2B36B"];
         [parent_BookViewController.parent_BookPageViewController.cmapView highlightNode:h_text];
-        LogData* log= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"creating concept node from book " selection:@"null" input:h_text pageNum:pageNum];
-        [bookLogData addLogs:log];
-        [LogDataParser saveLogData:bookLogData];
+        }
+ 
+        
     }
     if(NO==isSplit){
         //[self createConceptThumb:[webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"]];
-        NSString* h_text=[webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"];
-        [self createConceptIcon:pvPoint NoteText:h_text isWriteToFile:YES];
+       // NSString* h_text=[webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"];
+        //[self createConceptIcon:pvPoint NoteText:h_text isWriteToFile:YES];
     }
 }
 
@@ -672,6 +763,7 @@ static NSString *cellId2 = @"cellId2";
     }
     [HighlightParser saveHighlight:bookHighLight];
 }
+
 
 
 //handle situations when two hihglights collapse with each other
@@ -879,7 +971,7 @@ static NSString *cellId2 = @"cellId2";
     
     [self.bulbImageView addGestureRecognizer:bulbTap];
     
-    [ThumbScrollViewLeft addSubview:self.bulbImageView];
+   // [ThumbScrollViewLeft addSubview:self.bulbImageView]; //hide the quiz view button for the turk study
 }
 
 
@@ -940,7 +1032,7 @@ static NSString *cellId2 = @"cellId2";
 }
 //if the menu bar is about popup, hide the navigation bar
 - (IBAction)willShowEditMenu : (id)sender {
-    [self.parentViewController.navigationController setNavigationBarHidden: YES animated:YES];
+   //[self.parentViewController.navigationController setNavigationBarHidden: YES animated:YES];
     isMenuShow=YES;
 }
 - (IBAction)didShowEditMenu : (id)sender {
@@ -1039,9 +1131,13 @@ static NSString *cellId2 = @"cellId2";
         CGRect rec=CGRectMake(10, 8, 485, 760);
         [webView setFrame:rec];
         //[ThumbScrollViewRight setHidden:YES];
-        [self hideAllSubview:ThumbScrollViewRight];
-        [self hideAllSubview:ThumbScrollViewLeft];
+        //[self hideAllSubview:ThumbScrollViewRight];
+        //[self hideAllSubview:ThumbScrollViewLeft];
         isSplit=YES;
+        
+        
+       // NSString *jsString2 = [[NSString alloc] initWithFormat:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '%d%%'",96];
+        //[webView stringByEvaluatingJavaScriptFromString:jsString2];
     }
     //otherwise, hide the concept map view.
     if(fromInterfaceOrientation==UIInterfaceOrientationLandscapeLeft||fromInterfaceOrientation==UIInterfaceOrientationLandscapeRight){
@@ -1049,9 +1145,11 @@ static NSString *cellId2 = @"cellId2";
          [self showAllSubview:ThumbScrollViewLeft];
         [self deleteAllSubview:ThumbScrollViewLeft];
         [self deleteAllSubview:ThumbScrollViewRight];
-        
+        [self refresh];
+
         [self loadThumbNailIcon:firstRespondConcpet];
         isSplit=NO;
+        
     }
     
 }
@@ -1130,6 +1228,12 @@ static NSString *cellId2 = @"cellId2";
     
 }
 
+
+
+
+
+
+
 -(void)showOverLayCmapView{
 
     [overLayCmapView.view setHidden:NO];
@@ -1145,3 +1249,5 @@ static NSString *cellId2 = @"cellId2";
 }
 
 @end
+
+

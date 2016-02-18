@@ -16,7 +16,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code
+        // Initialization cod
     }
     return self;
 }
@@ -33,8 +33,10 @@
  */
 
 
+
 - (void)textFieldDidEndEditing:(UITextField *)textField{
     NSLog(@"Finish editting..");
+
 }
 
 

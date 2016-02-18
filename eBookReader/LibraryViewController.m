@@ -103,7 +103,8 @@
         [[DBSession sharedSession] linkFromController:self];
     }
     
-    
+    //[self.navigationController.navigationBar setHidden:YES];
+    [self viewFirstBook];
 }
 
 -(void)createCmapView{
@@ -158,7 +159,12 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    self.navigationController.navigationBarHidden=NO;
+    NSString* isPreview=[[NSUserDefaults standardUserDefaults] stringForKey:@"isPreview"];
+    if([isPreview isEqualToString:@"YES"]){
+        self.navigationController.navigationBarHidden=YES;
+    }else{
+        self.navigationController.navigationBarHidden=NO;
+    }
 
     [super viewWillAppear:animated];
     UILabel *titleText = [[UILabel alloc] initWithFrame: CGRectMake(0, 0, 0, 20)];
@@ -170,7 +176,7 @@
     [navBar setBarStyle: UIBarStyleDefault];
     [navBar setBackgroundImage:[UIImage imageNamed:@"navigation_bar.png"] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.translucent = NO;
-self.navigationItem.hidesBackButton = YES;
+    self.navigationItem.hidesBackButton = YES;
     
 }
 
@@ -240,6 +246,8 @@ self.navigationItem.hidesBackButton = YES;
 #pragma mark - UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)libraryView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    self.navigationController.navigationBarHidden=YES;
+    
     NSMutableArray *titles = [self.libraryTitles objectAtIndex:indexPath.section];
     NSString *title = [titles objectAtIndex:indexPath.row];
     
@@ -277,5 +285,39 @@ self.navigationItem.hidesBackButton = YES;
 - (UIEdgeInsets)collectionView:
 (UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
     return UIEdgeInsetsMake(-6, 16, 15, 16);
+}
+
+
+
+-(void)viewFirstBook {
+    
+    NSMutableArray *titles = [self.libraryTitles objectAtIndex:0];
+    NSString *title = [titles objectAtIndex:0];
+    
+    // TODO: Select Item
+    self.bookToOpen = title;
+    //[bookImporter importEBook:title];
+    //Need to send notification to root view controller which should send a notification to bookview controller to
+    //become visible and load that book.
+    
+    BookPageViewController*  bookPage=[[BookPageViewController alloc] initWithNibName:@"BookPageViewController" bundle:nil];
+    bookPage.userName=userName;
+    [self.navigationController pushViewController:bookPage animated:YES];
+    
+    bookPage.bookView = [[BookViewController alloc]init];
+    bookPage.bookView.userName=userName;
+    
+    bookPage.bookView.parent_BookPageViewController=bookPage;
+    bookPage.bookView.bookImporter = bookImporter;
+    bookPage.bookView.bookTitle = self.bookToOpen;
+    bookPage.bookView.parent_LibraryViewController=self;
+    // bookPage.bookView.parent_BookPageViewController=bookPage;
+    [ bookPage.bookView createContentPages]; //create page content
+    [ bookPage.bookView initialPageView];    //initial page view
+    //CGRect rect=CGRectMake(0, 0, bookPage.view.frame.size.height, bookPage.view.frame.size.width);
+    //[destination.view setFrame:rect];
+    [bookPage.view addSubview: bookPage.bookView.view];
+    [bookPage addChildViewController: bookPage.bookView];
+    // [self performSegueWithIdentifier: @"OpenBookSegue" sender:self];
 }
 @end

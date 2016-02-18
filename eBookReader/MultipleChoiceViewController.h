@@ -6,8 +6,8 @@
 #import <UIKit/UIKit.h>
 #import "ISQuizKit.h"
 #import "QuizController.h"
-
-@interface MultipleChoiceViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource>
+@class QuizViewController;
+@interface MultipleChoiceViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource, UIGestureRecognizerDelegate>
 {
     IBOutlet UITextView* _questionTextView;
     IBOutlet UIPickerView* _pickerView;
@@ -25,6 +25,18 @@
 @property NSTimeInterval totalCountdownInterval;
 @property (weak, nonatomic) IBOutlet UILabel *titleLable;
 @property NSDate* startDate;
+@property (strong,nonatomic) QuizViewController* parentQuizController;
 @property int  totalQuestion;
+@property (weak, nonatomic) IBOutlet UIButton *answerA;
+@property (weak, nonatomic) IBOutlet UIButton *answerB;
+@property (weak, nonatomic) IBOutlet UIButton *answerC;
+@property (weak, nonatomic) IBOutlet UIButton *answerD;
+@property int testType;
+@property (weak, nonatomic) IBOutlet UIButton *fwdBtn;
+@property (weak, nonatomic) IBOutlet UIButton *bkBtn;
+
+
+@property(strong,nonatomic)NSString* currentAnswer;
+-(void)autoChoose:(NSString*) answer;
 
 @end

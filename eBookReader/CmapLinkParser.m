@@ -192,14 +192,14 @@
         [itemElement addChild:conceptNameElementRelation];
         [itemElement addChild:linkPageNum];
         [partyElement addChild:itemElement];
-       // NSLog(@"Add element");
+        // NSLog(@"Add element");
         
     }
     GDataXMLDocument *document = [[GDataXMLDocument alloc]
                                   initWithRootElement:partyElement];
     NSData *xmlData = document.XMLData;
     NSString *filePath = [self dataFilePath:TRUE];
-    NSLog(@"Saving xml data to %@...", filePath);
+    //NSLog(@"Saving xml data to %@...", filePath);
     [xmlData writeToFile:filePath atomically:YES];
     
 }
@@ -243,7 +243,7 @@
                                   initWithRootElement:partyElement];
     NSData *xmlData = document.XMLData;
     NSString *filePath = [self expertMapDataFilePath:TRUE];
-    NSLog(@"Saving xml data to %@...", filePath);
+   // NSLog(@"Saving xml data to %@...", filePath);
     [xmlData writeToFile:filePath atomically:YES];
     
 }

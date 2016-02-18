@@ -72,7 +72,7 @@
     // Dispose of any resources that can be recreated.
 }
 -(void)startTimeer: (int)remainTime{
-    NSTimer* timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(checkCountdown:) userInfo:nil repeats:YES];
+  //  NSTimer* timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(checkCountdown:) userInfo:nil repeats:YES];
      totalCountdownInterval=remainTime;
 }
 

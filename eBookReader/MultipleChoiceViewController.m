@@ -4,7 +4,7 @@
  */
 
 #import "MultipleChoiceViewController.h"
-
+#import "QuizViewController.h"
 @interface MultipleChoiceViewController ()
 
 @end
@@ -15,6 +15,16 @@
 @synthesize totalCountdownInterval;
 @synthesize titleLable;
 @synthesize totalQuestion;
+@synthesize answerA;
+@synthesize answerB;
+@synthesize answerC;
+@synthesize answerD;
+@synthesize testType;
+@synthesize parentQuizController;
+@synthesize fwdBtn;
+@synthesize bkBtn;
+@synthesize currentAnswer;
+
 - (id)initWithMultipleChoiceQuestion:(ISMultipleChoiceQuestion*)question
                             response:(ISMultipleChoiceOption*)response
                           controller:(id <QuizController>)controller
@@ -27,23 +37,44 @@
     return self;
 }
 
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     _questionTextView.text = _question.text;
+    _questionTextView.editable=NO;
     
     if([_controller getQuestionIndex]!=[_controller getTotalQuestionNumber]){//display next only when its not the last question
     UIBarButtonItem *anotherButton = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStylePlain target:self action:@selector(next:)];
     self.navigationItem.rightBarButtonItem = anotherButton;
     }
-    
+    if([_controller getQuestionIndex]!=1){
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(back:)];
     self.navigationItem.leftBarButtonItem = backButton;
+    }else{
+        [self.navigationItem setHidesBackButton:YES animated:YES]; //if its the first question, hide the back button
+    }
 
-    NSString *title = [[NSString alloc] initWithFormat:@"Question %d / %d",[_controller getQuestionIndex]  , [_controller getTotalQuestionNumber]];
+    NSString *title = [[NSString alloc] initWithFormat:@"Question %d / 4",[_controller getQuestionIndex] ];
     [titleLable setText:title];
+   
+    //[answerA setImage:[UIImage imageNamed:@"LoginButton.png"] forState:UIControlStateNormal];
+   // NSString* anA=[_question.options objectAtIndex:0];
     
+    
+    [answerC setHidden:YES];
+    [answerD setHidden:YES];
+    
+    if([_controller getQuestionIndex]==1){
+        [bkBtn setHidden:YES];
+    }
+    if([_controller getQuestionIndex]==4){
+        [fwdBtn setHidden:YES];
+    }
+
+    if(currentAnswer.length>1){
+        [self autoChoose:currentAnswer];
+    }
+
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -52,7 +83,7 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    //self.navigationController.navigationBar.backItem.title=@"Back";
+   
 }
 - (void)next:(id)sender
 {
@@ -91,6 +122,8 @@
 -(void)startTiming{
     
 }
+
+
 -(void)startTimeer: (int)remainTime{
     NSTimer* timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(checkCountdown:) userInfo:nil repeats:YES];
      totalCountdownInterval=remainTime;
@@ -108,5 +141,111 @@
         [_timer invalidate];
     }
 }
+
+- (IBAction)clickonA:(id)sender {
+    
+    if(1==[_controller getQuestionIndex] ){
+        parentQuizController.question1=@"true";
+    }else if(2==[_controller getQuestionIndex] ){
+        parentQuizController.question2=@"true";
+    }else if(3==[_controller getQuestionIndex] ){
+        parentQuizController.question3=@"true";
+    }
+    else {
+        parentQuizController.question4=@"true";
+    }
+
+    
+    
+    
+    
+    if ([sender isSelected]) {
+        //[sender setSelected: NO];
+    } else {
+        [sender setSelected: YES];
+        [answerB setSelected:NO];
+        [answerC setSelected:NO];
+        [answerD setSelected:NO];
+    }
+
+}
+
+- (IBAction)clickonB:(id)sender {
+    if(1==[_controller getQuestionIndex] ){
+        parentQuizController.question1=@"false";
+    }else if(2==[_controller getQuestionIndex] ){
+        parentQuizController.question2=@"false";
+    }else if(3==[_controller getQuestionIndex] ){
+        parentQuizController.question3=@"false";
+    }
+    else {
+        parentQuizController.question4=@"false";
+    }
+    
+    if ([sender isSelected]) {
+        if(1==[_controller getQuestionIndex] ){
+            parentQuizController.question1=@"false";
+        }else if(2==[_controller getQuestionIndex] ){
+            parentQuizController.question2=@"false";
+        }else if(3==[_controller getQuestionIndex] ){
+            parentQuizController.question3=@"false";
+        }
+        else {
+            parentQuizController.question4=@"false";
+        }
+    } else {
+        [sender setSelected: YES];
+        [answerA setSelected:NO];
+        [answerC setSelected:NO];
+        [answerD setSelected:NO];
+    }
+
+}
+
+
+-(void)autoChoose:(NSString*) answer{
+    if([answer isEqualToString:@"true"]){
+        [answerA setSelected:YES];
+        [answerB setSelected:NO];
+        
+    }else{
+        [answerA setSelected:NO];
+        [answerB setSelected:YES];
+       }
+}
+
+- (IBAction)clickonC:(id)sender {
+    if ([sender isSelected]) {
+        [sender setSelected: NO];
+    } else {
+        [sender setSelected: YES];
+        [answerA setSelected:NO];
+        [answerB setSelected:NO];
+        [answerD setSelected:NO];
+    }
+
+}
+
+- (IBAction)clickonD:(id)sender {
+    if ([sender isSelected]) {
+        [sender setSelected: NO];
+    } else {
+        [sender setSelected: YES];
+        [answerB setSelected:NO];
+        [answerC setSelected:NO];
+        [answerA setSelected:NO];
+    }
+
+}
+
+- (IBAction)nxtQuestion:(id)sender {
+    [_controller nextQuestion];
+}
+
+- (IBAction)preQuestion:(id)sender {
+    [self.navigationController popViewControllerAnimated:NO];
+    [_controller decreaseIndex];
+}
+
 
 @end
