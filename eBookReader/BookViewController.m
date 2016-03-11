@@ -47,6 +47,7 @@
 @synthesize logWrapper;
 @synthesize userName;
 @synthesize currentContentView;
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -54,8 +55,49 @@
     thumbnailIcon=[ThumbNailIconParser loadThumbnailIcon];
     //logWrapper= [LogDataParser loadLogData];
     [thumbnailIcon printAllThumbnails];
+
+    NSArray * ary=self.view.gestureRecognizers;
+    for (UIGestureRecognizer *recognizer in self.view.gestureRecognizers) {
+        if ([recognizer isKindOfClass:[UITapGestureRecognizer class]]) {
+            recognizer.enabled = NO;
+        }
+    }
     
-   }
+    for (UIGestureRecognizer *gR in self.view.gestureRecognizers) {
+        gR.delegate = self;
+    }
+
+}
+
+
+-(void)viewDidAppear:(BOOL)animated{
+    NSArray * ary=self.view.gestureRecognizers;
+    for (UIGestureRecognizer *recognizer in self.view.gestureRecognizers) {
+        if ([recognizer isKindOfClass:[UITapGestureRecognizer class]]) {
+            recognizer.enabled = NO;
+        }
+    }
+
+}
+
+
+
+
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    //Touch gestures below top bar should not make the page turn.
+    //EDITED Check for only Tap here instead.
+    if ([gestureRecognizer isKindOfClass:[UITapGestureRecognizer class]]) {
+        CGPoint touchPoint = [touch locationInView:self.view];
+        if (touchPoint.y > 40) {
+            return NO;
+        }
+        else if (touchPoint.x > 50 && touchPoint.x < 430) {//Let the buttons in the middle of the top bar receive the touch
+            return NO;
+        }
+    }
+    return NO;
+}
+
 
 
 
@@ -190,7 +232,8 @@
 
 - (NSUInteger)indexOfViewController:(ContentViewController *)viewController
 {
-    return [self.pageContent indexOfObject:viewController.dataObject];
+    NSUInteger ind=[self.pageContent indexOfObject:viewController.dataObject];
+    return ind;
 }
 
 
@@ -237,7 +280,12 @@
     [navBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
     [navBar setBarStyle: UIStatusBarStyleDefault];
    // [self.navigationController setNavigationBarHidden:YES];
-    
+    NSArray * ary=self.view.gestureRecognizers;
+    for (UIGestureRecognizer *recognizer in self.view.gestureRecognizers) {
+        if ([recognizer isKindOfClass:[UITapGestureRecognizer class]]) {
+            recognizer.enabled = NO;
+        }
+    }
 }
 
 

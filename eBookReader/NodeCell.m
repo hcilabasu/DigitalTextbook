@@ -159,6 +159,7 @@
      */
     [self becomeFirstResponder];
     //self.view.layer.zPosition=2;
+    enableHyperLink=YES;
 }
 
 
@@ -347,7 +348,7 @@
         
        [parentCmapController updateNodesPosition:self.view.center Node:self];
        [parentCmapController getPreView:nil];
-        [parentCmapController autoSaveMap];
+       [parentCmapController autoSaveMap];
     }
     
     if (gesture.state == UIGestureRecognizerStateChanged)
@@ -382,8 +383,6 @@
     {
         // gesture.view.layer.shouldRasterize = NO;
     }
-    
-    
 }
 
 
@@ -469,10 +468,23 @@
     if(-1==pageNum){
         return;
     }
+  //  if(enableHyperLink&&(createType!=0)){
     if(enableHyperLink){
         [parentCmapController.neighbor_BookViewController showFirstPage:pageNum];
         parentContentViewController.pageNum=pageNum+1;
         [parentCmapController logHyperNavigation:text.text];
+        //log the hyperlinking action
+        NSString* LogString=[[NSString alloc] initWithFormat:@"%d", (pageNum+1)];
+        NSString* selectionString;
+        if(createType==0){
+            selectionString=@"Expert Node";
+        }else{
+            selectionString=@"Student Node";
+        }
+        
+        LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Use Hyperlinking" selection:selectionString input:LogString pageNum:pageNum];
+        [bookLogData addLogs:newlog];
+        [LogDataParser saveLogData:bookLogData];
     }
 }
 
@@ -852,6 +864,8 @@
     [self.view removeFromSuperview];
     [parentCmapController deleteHighlightwithWord:text.text];
     
+    [parentCmapController updateNodesPosition:self.view.center Node:self];
+    [parentCmapController getPreView:nil];
     
     //only logs concepts delete if it's user action
     if(delByUser){

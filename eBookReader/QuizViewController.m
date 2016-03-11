@@ -33,11 +33,17 @@
 @synthesize question2;
 @synthesize question3;
 @synthesize question4;
+@synthesize question5;
+@synthesize question6;
+
 
 @synthesize question1Answer;
 @synthesize question2Answer;
 @synthesize question3Answer;
 @synthesize question4Answer;
+@synthesize question5Answer;
+@synthesize question6Answer;
+
 
 @synthesize correctIndexAry;
 @synthesize wrongIndexAry;
@@ -66,7 +72,7 @@
     if (self)
     {
         // Custom stuff
-        questionNum=4;
+        questionNum=6;
         randomQuestionArray=[[NSMutableArray alloc] init];
     }
     return self;
@@ -89,7 +95,7 @@
     
     self.navigationController.delegate = self;
     isQiuzStart=false;
-    _scoreLabel.text = @"This quiz contains 4 questions. You  have 60 seconds to finish the quiz.\n If you finish early, just review your answers.";
+    _scoreLabel.text = @"This quiz contains 6 questions. You  have 90 seconds to finish the quiz.\n If you finish early, just review your answers.";
     //isFinished=false;
     [self.navigationController setNavigationBarHidden: NO animated:YES];
     self.parentViewController.navigationController.navigationBar.translucent = YES;
@@ -100,7 +106,7 @@
     }else{
       [quizButton setTitle:@"Start" forState:UIControlStateNormal];
     }
-    totalCountdownInterval=60;//identifies the total time of the quiz.
+    totalCountdownInterval=90;//identifies the total time of the quiz.
     //totalCountdownInterval=2;//identifies the total time of the quiz.
 
    // NSString *speedLabel = [[NSString alloc] initWithFormat:@"Time remaining %02d : %02d ", (int)totalCountdownInterval/60, (int)totalCountdownInterval%60];
@@ -112,7 +118,7 @@
         conceptIDList[i]=1;
     
     int r1 = arc4random_uniform(10);
-    int r2,r3,r4;
+    int r2,r3,r4,r5,r6;
     
     do{r2=arc4random_uniform(10);}
     while(r2==r1);
@@ -124,22 +130,37 @@
     do{r4=arc4random_uniform(10);}
     while(r4==r1||r4==r2||r4==r3);
     
+    do{r5=arc4random_uniform(10);}
+    while(r5==r1||r5==r2||r5==r3||r5==r4);
+    
+    do{r6=arc4random_uniform(10);}
+    while(r6==r1||r6==r2||r6==r3||r6==r4||r6==r5);
+    
+    
     question1Answer=[self getQuestionAnswerById:r1];
     question2Answer=[self getQuestionAnswerById:r2];
     question3Answer=[self getQuestionAnswerById:r3];
     question4Answer=[self getQuestionAnswerById:r4];
+    question5Answer=[self getQuestionAnswerById:r5];
+    question6Answer=[self getQuestionAnswerById:r6];
+    
     
     NSNumber* wrapR1 = [NSNumber numberWithInt:r1];
     NSNumber* wrapR2 = [NSNumber numberWithInt:r2];
     NSNumber* wrapR3 = [NSNumber numberWithInt:r3];
     NSNumber* wrapR4 = [NSNumber numberWithInt:r4];
+    NSNumber* wrapR5 = [NSNumber numberWithInt:r5];
+    NSNumber* wrapR6 = [NSNumber numberWithInt:r6];
     
     [randomQuestionArray addObject:wrapR1];
     [randomQuestionArray addObject:wrapR2];
     [randomQuestionArray addObject:wrapR3];
     [randomQuestionArray addObject:wrapR4];
+    [randomQuestionArray addObject:wrapR5];
+    [randomQuestionArray addObject:wrapR6];
     
-    NSString* inputString=[[NSString alloc] initWithFormat:@"%d, %d, %d, %d", r1,r2,r3,r4];
+    
+    NSString* inputString=[[NSString alloc] initWithFormat:@"%d, %d, %d, %d, %d, %d", r1,r2,r3,r4,r5, r6];
     
     NSLog(@"Test questions ID:");
     NSLog(inputString);
@@ -201,18 +222,17 @@
             NSString *speedLabel = [[NSString alloc] initWithFormat:@"Finished"];
             self.navigationController.navigationBar.topItem.title=speedLabel;
             
-            NSString* inputString=[[NSString alloc] initWithFormat:@"Q1 Answer:%@, Q2 Answer:%@, Q3 Answer:%@, Q4 Answer:%@.", question1,question2,question3,question4];
+            NSString* inputString=[[NSString alloc] initWithFormat:@"Q1 Answer:%@, Q2 Answer:%@, Q3 Answer:%@, Q4 Answer:%@, Q5 Answer:%@, Q6 Answer:%@.", question1,question2,question3,question4,question5,question6];
             LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Finish Pre Test" selection:@"quiz view" input:inputString pageNum:0];
             [bookLogDataWrapper addLogs:newlog];
             [LogDataParser saveLogData:bookLogDataWrapper];
             
-            NSString* inputString2=[[NSString alloc] initWithFormat:@"Pretest Correct Answers: %@, %@, %@, %@", question1Answer,question2Answer,question3Answer,question4Answer];
+            NSString* inputString2=[[NSString alloc] initWithFormat:@"Pretest Correct Answers: %@, %@, %@, %@,%@, %@", question1Answer,question2Answer,question3Answer,question4Answer,question5Answer,question6Answer];
             LogData* newlog2= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Getting answer" selection:@"quiz view" input:inputString2 pageNum:0];
             [bookLogDataWrapper addLogs:newlog2];
             [LogDataParser saveLogData:bookLogDataWrapper];
-            
-            
-            int total=[self getTotalScore:question1 Q2:question2 Q3:question3 Q4:question4 A1:question1Answer A2:question2Answer A3:question3Answer A4:question4Answer];
+    
+            int total=[self getTotalScore:question1 Q2:question2 Q3:question3 Q4:question4 Q5:question5 Q6:question6 A1:question1Answer A2:question2Answer A3:question3Answer A4:question4Answer A5:question5Answer A6:question6Answer];
             NSString* scoreSring=[[NSString alloc] initWithFormat:@"Pretest Score: %d", total];
             LogData* scoreLog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Getting answer" selection:@"quiz view" input:scoreSring pageNum:0];
             [bookLogDataWrapper addLogs:scoreLog];
@@ -248,7 +268,7 @@
             [LogDataParser saveLogData:bookLogDataWrapper];
             [parentBookPageViewController upLoadLogFile];
             
-            int total=[self getTotalScore:question1 Q2:question2 Q3:question3 Q4:question4 A1:question1Answer A2:question2Answer A3:question3Answer A4:question4Answer];
+             int total=[self getTotalScore:question1 Q2:question2 Q3:question3 Q4:question4 Q5:question5 Q6:question6 A1:question1Answer A2:question2Answer A3:question3Answer A4:question4Answer A5:question5Answer A6:question6Answer];
             NSString* scoreSring=[[NSString alloc] initWithFormat:@"Posttest Score: %d", total];
             LogData* scoreLog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Getting answer" selection:@"quiz view" input:scoreSring pageNum:0];
             [bookLogDataWrapper addLogs:scoreLog];
@@ -298,7 +318,7 @@
 
 
 
--(int)getTotalScore: (NSString*)q1 Q2:(NSString*)q2 Q3:(NSString*)q3 Q4:(NSString*)q4 A1:(NSString*)a1 A2:(NSString*)a2 A3:(NSString*)a3 A4:(NSString*)a4{
+-(int)getTotalScore: (NSString*)q1 Q2:(NSString*)q2 Q3:(NSString*)q3 Q4:(NSString*)q4 Q5:(NSString*)q5 Q6:(NSString*)q6   A1:(NSString*)a1 A2:(NSString*)a2 A3:(NSString*)a3 A4:(NSString*)a4 A5:(NSString*)a5 A6:(NSString*)a6{
     int total=0;
     if([q1 isEqualToString:a1]) {
         total++;
@@ -325,6 +345,20 @@
     }else{
         [wrongIndexAry addObject:[randomQuestionArray objectAtIndex:3]];
     }
+    if([q5 isEqualToString:a5]) {
+        [correctIndexAry addObject:[randomQuestionArray objectAtIndex:4]];
+        total++;
+    }else{
+        [wrongIndexAry addObject:[randomQuestionArray objectAtIndex:4]];
+    }
+    if([q6 isEqualToString:a6]) {
+        [correctIndexAry addObject:[randomQuestionArray objectAtIndex:5]];
+        total++;
+    }else{
+        [wrongIndexAry addObject:[randomQuestionArray objectAtIndex:5]];
+    }
+    
+    
     return total;
 }
 
@@ -496,6 +530,14 @@
             case 3:
                 currentAnswer=question4;
                 break;
+            case 4:
+                currentAnswer=question5;
+                break;
+
+            case 5:
+                currentAnswer=question6;
+                break;
+
             default:
                 break;
         }

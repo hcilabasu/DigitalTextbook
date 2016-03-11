@@ -34,7 +34,7 @@
 @class ThumbNailIconWrapper;
 @class CmapController;
 
-@interface ContentViewController : UIViewController< PopoverViewDelegate, UITableViewDataSource, UITableViewDelegate,UIGestureRecognizerDelegate,UIWebViewDelegate,UIScrollViewDelegate,UICollectionViewDataSource, UICollectionViewDelegate>
+@interface ContentViewController : UIViewController< PopoverViewDelegate, UITableViewDataSource, UITableViewDelegate,UIGestureRecognizerDelegate,UIWebViewDelegate,UIScrollViewDelegate,UICollectionViewDataSource, UICollectionViewDelegate,UIGestureRecognizerDelegate>
 {
     PopoverView *pv; //popOver view
     CGPoint pvPoint;// position where pop over view shows

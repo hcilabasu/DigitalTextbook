@@ -54,20 +54,20 @@
         [self.navigationItem setHidesBackButton:YES animated:YES]; //if its the first question, hide the back button
     }
 
-    NSString *title = [[NSString alloc] initWithFormat:@"Question %d / 4",[_controller getQuestionIndex] ];
+    NSString *title = [[NSString alloc] initWithFormat:@"Question %d / 6",[_controller getQuestionIndex] ];
     [titleLable setText:title];
    
     //[answerA setImage:[UIImage imageNamed:@"LoginButton.png"] forState:UIControlStateNormal];
    // NSString* anA=[_question.options objectAtIndex:0];
     
     
-    [answerC setHidden:YES];
+    //[answerC setHidden:YES];
     [answerD setHidden:YES];
     
     if([_controller getQuestionIndex]==1){
         [bkBtn setHidden:YES];
     }
-    if([_controller getQuestionIndex]==4){
+    if([_controller getQuestionIndex]==6){
         [fwdBtn setHidden:YES];
     }
 
@@ -151,14 +151,15 @@
     }else if(3==[_controller getQuestionIndex] ){
         parentQuizController.question3=@"true";
     }
-    else {
+    else if(4==[_controller getQuestionIndex] ){
         parentQuizController.question4=@"true";
     }
-
-    
-    
-    
-    
+    else if(5==[_controller getQuestionIndex] ){
+        parentQuizController.question5=@"true";
+    }
+    else {
+        parentQuizController.question6=@"true";
+    }
     if ([sender isSelected]) {
         //[sender setSelected: NO];
     } else {
@@ -178,21 +179,18 @@
     }else if(3==[_controller getQuestionIndex] ){
         parentQuizController.question3=@"false";
     }
-    else {
+    else if(4==[_controller getQuestionIndex] ){
         parentQuizController.question4=@"false";
+    }
+
+    else if(5==[_controller getQuestionIndex] ){
+        parentQuizController.question5=@"false";
+    }
+    else {
+        parentQuizController.question6=@"false";
     }
     
     if ([sender isSelected]) {
-        if(1==[_controller getQuestionIndex] ){
-            parentQuizController.question1=@"false";
-        }else if(2==[_controller getQuestionIndex] ){
-            parentQuizController.question2=@"false";
-        }else if(3==[_controller getQuestionIndex] ){
-            parentQuizController.question3=@"false";
-        }
-        else {
-            parentQuizController.question4=@"false";
-        }
     } else {
         [sender setSelected: YES];
         [answerA setSelected:NO];
@@ -203,28 +201,56 @@
 }
 
 
--(void)autoChoose:(NSString*) answer{
-    if([answer isEqualToString:@"true"]){
-        [answerA setSelected:YES];
-        [answerB setSelected:NO];
-        
-    }else{
-        [answerA setSelected:NO];
-        [answerB setSelected:YES];
-       }
-}
-
 - (IBAction)clickonC:(id)sender {
+    
+    if(1==[_controller getQuestionIndex] ){
+        parentQuizController.question1=@"null";
+    }else if(2==[_controller getQuestionIndex] ){
+        parentQuizController.question2=@"null";
+    }else if(3==[_controller getQuestionIndex] ){
+        parentQuizController.question3=@"null";
+    }
+    else if(4==[_controller getQuestionIndex] ){
+        parentQuizController.question4=@"null";
+    }
+    else if(5==[_controller getQuestionIndex] ){
+        parentQuizController.question5=@"null";
+    }
+    else {
+        parentQuizController.question6=@"null";
+    }
     if ([sender isSelected]) {
-        [sender setSelected: NO];
+        //[sender setSelected: NO];
     } else {
         [sender setSelected: YES];
-        [answerA setSelected:NO];
         [answerB setSelected:NO];
+        [answerA setSelected:NO];
         [answerD setSelected:NO];
     }
 
 }
+
+
+
+
+
+-(void)autoChoose:(NSString*) answer{
+    if([answer isEqualToString:@"true"]){
+        [answerA setSelected:YES];
+        [answerB setSelected:NO];
+        [answerC setSelected:NO];
+        
+    }else if([answer isEqualToString:@"false"]){
+        [answerA setSelected:NO];
+        [answerB setSelected:YES];
+        [answerC setSelected:NO];
+    }else{
+        [answerA setSelected:NO];
+        [answerB setSelected:NO];
+        [answerC setSelected:YES];
+    }
+}
+
 
 - (IBAction)clickonD:(id)sender {
     if ([sender isSelected]) {

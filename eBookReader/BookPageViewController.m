@@ -115,6 +115,10 @@
 {
     [super viewDidLoad];
     self.navigationController.delegate = self;
+    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"See Tutorial"
+                                                                   style:UIBarButtonItemStyleDone target:self action:@selector(showTutorial)];
+    self.navigationItem.rightBarButtonItem = leftButton;
+
     //[self.navigationItem setHidesBackButton:YES animated:YES];
     
    // [self.parentViewController.navigationController.navigationBar setHidden:YES];
@@ -228,9 +232,6 @@
     if(orientation==UIInterfaceOrientationLandscapeLeft||orientation==UIInterfaceOrientationLandscapeRight){
         [self splitScreen];
     }
-    
-    
-    
     //do stuff
     NSLog(@"Orientation changed");
 }
@@ -803,4 +804,19 @@
     // [self startTimer];
 }
 
+-(void)showAdminPsdAlert{
+    DTAlertView *alertView  = [DTAlertView alertViewWithTitle:@"Please Input Password!!" message:@"Password is \"1234567890\"" delegate:self cancelButtonTitle:@"Cancel" positiveButtonTitle:@"OK"];
+    [alertView setAlertViewMode:DTAlertViewModeTextInput];
+    [alertView setPositiveButtonEnable:NO];
+    
+    [alertView setTextFieldDidChangeBlock:^(DTAlertView *_alertView, NSString *text) {
+        [_alertView setPositiveButtonEnable:(text.length >= 5)];
+    }];
+    
+    [alertView showForPasswordInputWithAnimation:DTAlertViewAnimationDefault];
+    
+    // Set text field to secure text mode after show.
+    [alertView.textField setSecureTextEntry:YES];
+
+}
 @end

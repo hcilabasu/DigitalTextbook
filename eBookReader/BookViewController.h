@@ -18,7 +18,7 @@
 @class BookPageViewController;
 @class LogDataWrapper;
 @interface BookViewController : UIViewController
-<UIPageViewControllerDataSource,UIPageViewControllerDelegate>{
+<UIPageViewControllerDataSource,UIPageViewControllerDelegate,UIGestureRecognizerDelegate>{
     EBookImporter *bookImporter;
     Book* book;
     UIPageViewController *pageController;

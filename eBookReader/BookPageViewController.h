@@ -12,6 +12,7 @@
 #import <DropboxSDK/DropboxSDK.h>
 #import "VideoViewController.h"
 #import "QAViewController.h"
+#import "DTAlertView.h"
 @class LogDataWrapper;
 @interface BookPageViewController : UIViewController <DBRestClientDelegate,UIGestureRecognizerDelegate,UIAlertViewDelegate,UINavigationControllerDelegate>
 @property (strong, nonatomic) CmapController *cmapView;
@@ -46,6 +47,7 @@
 -(void)hideAndShowPreView;
 -(void)startCmapTimer;
 -(void)addTutorial;
+-(void)showAdminPsdAlert;
 @end
 
 

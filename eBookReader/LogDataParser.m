@@ -28,6 +28,7 @@
 
 
 + (LogDataWrapper *)loadLogData{
+    
     LogDataWrapper *logDatakWrapper = [[LogDataWrapper alloc] init];
     NSString *filePath = [self dataFilePath:FALSE];
     NSData *xmlData = [[NSMutableData alloc] initWithContentsOfFile:filePath];
@@ -39,10 +40,17 @@
         return logDatakWrapper;
     }
     
-    // NSLog(@"%@", doc.rootElement);
-    //NSArray *partyMembers = [doc.rootElement elementsForName:@"tutor_related_message_sequence  context_message_id=\"0CEF2E07-24DE-BFDA-9BAB-957C3AE236CE\""];
-     NSArray *partyMembers = [doc.rootElement elementsForName:@"tutor_related_message_sequence  context_message_id=\"B7AE5D-B8B9-3AAA-0B01-26CAA3302205\""];
-     
+
+   //  NSArray *partyMembers = [doc.rootElement elementsForName:@"tutor_related_message_sequence  context_message_id=\"B7AE5D-B8B9-3AAA-0B01-26CAA3302205\""];
+    NSString* isPreview=[[NSUserDefaults standardUserDefaults] stringForKey:@"isPreview"];
+    NSArray *partyMembers;
+    if([isPreview isEqualToString:@"YES"]){
+    
+    partyMembers = [doc.rootElement elementsForName:@"tool_message"];
+    }else{
+    partyMembers = [doc.rootElement elementsForName:@"tutor_related_message_sequence  context_message_id=\"B7AE5D-B8B9-3AAA-0B01-26CAA3302205\""];
+    }
+    
     if([partyMembers count]==0){
         NSLog(@"Empty!!!!\n\n\n");
     }

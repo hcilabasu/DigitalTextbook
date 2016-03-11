@@ -27,14 +27,17 @@
 #import "LogDataParser.h"
 #import "LogDataWrapper.h"
 #import "NodeCell.h"
+#import "ZCTradeView.h"
 #import "RelationTextView.h"
+#import "DTAlertView.h"
 @class NodeCell;
 @class BookViewController;
 @class HighLightWrapper;
 @class ThumbNailIconWrapper;
 @class BookPageViewController;
+
 @class ContentViewController;
-@interface CmapController : UIViewController <UIAlertViewDelegate,PopoverViewDelegate,UIGestureRecognizerDelegate,UIWebViewDelegate,UIScrollViewDelegate,UINavigationControllerDelegate,UITextViewDelegate, MBProgressHUDDelegate, DBRestClientDelegate,UITextFieldDelegate>{
+@interface CmapController : UIViewController <UIAlertViewDelegate,PopoverViewDelegate,UIGestureRecognizerDelegate,UIWebViewDelegate,UIScrollViewDelegate,UINavigationControllerDelegate,UITextViewDelegate, MBProgressHUDDelegate, DBRestClientDelegate,UITextFieldDelegate,ZCTradeViewDelegate,DTAlertViewDelegate>{
     long long expectedLength;
     long long currentLength;
     MBProgressHUD *HUD;

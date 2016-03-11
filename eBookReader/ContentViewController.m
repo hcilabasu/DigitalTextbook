@@ -96,6 +96,8 @@ static NSString *cellId2 = @"cellId2";
     //[self refresh];
     [self.currentPageLabel setText:[NSString stringWithFormat:@"%d/%d",pageNum, totalpageNum]];
     //[self loadThumbNailIcon];
+
+    
     [self loadThumbNailIcon:firstRespondConcpet];
     
     if( ([[UIApplication sharedApplication] statusBarOrientation]==UIInterfaceOrientationLandscapeLeft)||([[UIApplication sharedApplication] statusBarOrientation]==UIInterfaceOrientationLandscapeRight)){
@@ -142,6 +144,7 @@ static NSString *cellId2 = @"cellId2";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [ThumbScrollViewRight setHidden:YES];
      startDate = [NSDate date];
     [webView setDelegate:self];
     [linkCollectionView setDataSource:self];
@@ -179,6 +182,10 @@ static NSString *cellId2 = @"cellId2";
     
     
     webView.scrollView.tag=0;
+    NSString* previewBtn=[[NSUserDefaults standardUserDefaults] stringForKey:@"isPreview"];
+    if([previewBtn isEqualToString:@"YES"]){
+        self.currentPageLabel.center=CGPointMake(self.currentPageLabel.center.x, self.currentPageLabel.center.y+50);
+    }
 
     /*
     UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapped:)];
@@ -205,7 +212,7 @@ static NSString *cellId2 = @"cellId2";
     //load page highlights
     
     [webView loadHTMLString:_dataObject baseURL:_url];
-    
+   // [self refresh];
     
     ThumbScrollViewLeft.showsHorizontalScrollIndicator=NO;
     ThumbScrollViewLeft.showsVerticalScrollIndicator=NO;
@@ -222,6 +229,9 @@ static NSString *cellId2 = @"cellId2";
     //  UIBarButtonItem *conceptButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:nil];
     // self.parentViewController. navigationItem.rightBarButtonItem=conceptButton;
     UIImage* image3 = [UIImage imageNamed:@"idea"];
+
+    
+    
     CGRect frameimg = CGRectMake(0, 0, 40, 40);
     UIButton *someButton = [[UIButton alloc] initWithFrame:frameimg];
     [someButton setBackgroundImage:image3 forState:UIControlStateNormal];
@@ -272,7 +282,9 @@ static NSString *cellId2 = @"cellId2";
     NSLog(str);
     //[self performTouchInView:webView];
     
+
 }
+
 
 
 
@@ -332,6 +344,12 @@ static NSString *cellId2 = @"cellId2";
     
     CXAMenuItemSettings *markIconSettingsConcpet = [CXAMenuItemSettings new];
     markIconSettingsConcpet.image = [UIImage imageNamed:@"bb"];
+    NSString* isPreviewShow=[[NSUserDefaults standardUserDefaults] stringForKey:@"isPreview"];
+    if([isPreviewShow isEqualToString:@"YES"]){
+        //markIconSettingsConcpet.image = [UIImage imageNamed:@"CmapIcon"];
+    }
+    
+    
     markIconSettingsConcpet.shadowDisabled = NO;
     markIconSettingsConcpet.shrinkWidth = 4; //set menu item size and picture
     
@@ -459,6 +477,7 @@ static NSString *cellId2 = @"cellId2";
 // invoke when user tap with one finger once
 - (void)oneFingerOneTaps:(UITapGestureRecognizer *)tap
 {
+    [self becomeFirstResponder];
     // [self becomeFirstResponder];
     pvPoint = [tap locationInView:self.view];//track the last click position in order to show the popUp view
     
@@ -612,7 +631,7 @@ static NSString *cellId2 = @"cellId2";
     if(YES==isSplit){
         NSString* h_text=[webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"];
         if(h_text.length>25){
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"You can not add concepts that have more than 35 charaters!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"You can not add concepts that have more than 25 charaters!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
              [alert show];
             return;
         }
@@ -1050,7 +1069,6 @@ static NSString *cellId2 = @"cellId2";
 }
 
 
-
 -(void)shakeImage:(id)sender {
     CABasicAnimation* shake = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
     shake.fromValue = [NSNumber numberWithFloat:-0.3];
@@ -1062,6 +1080,7 @@ static NSString *cellId2 = @"cellId2";
     // self.bulbImageView.alpha = 1.0;
     [UIView animateWithDuration:2.0 delay:2.0 options:UIViewAnimationOptionCurveEaseIn animations:nil completion:nil];
 }
+
 
 - (UIImage*)scaleToSize:(CGSize)size image:(UIImage*) img {
     UIGraphicsBeginImageContext(size);
@@ -1206,7 +1225,6 @@ static NSString *cellId2 = @"cellId2";
                 for(UIView* snode in ThumbScrollViewRight.subviews){
                     if(snode.frame.origin.y>subnode.frame.origin.y){
                         [snode setFrame:CGRectMake(snode.frame.origin.x,snode.frame.origin.y-200,snode.frame.size.width,snode.frame.size.height)];
-                        
                     }
                 }
                 

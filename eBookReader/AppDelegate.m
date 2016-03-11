@@ -33,7 +33,7 @@
     [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"isTimer"];
     [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"isPreview"];
     [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"isManu"];
-     [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"loadExpertMap"];
+    [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"loadExpertMap"];
     
     if(testMode){
         [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"testMode"];
@@ -54,8 +54,7 @@
          [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"loadExpertMap"];
     }
     
-    
-   // [TestFairy begin:@"e5748af60e023eec56df84a69ddfed6cd421b914"];
+    [TestFairy begin:@"e5748af60e023eec56df84a69ddfed6cd421b914"];
     [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"HyperLinking"];
     // Override point for customization after application launch.
     NSError *error;
@@ -75,12 +74,9 @@
      [fileManager copyItemAtPath:resourcePath toPath:txtPath error:&error];
      }
     
-    
     LogFileController* logfile=[[LogFileController alloc]init];
     [logfile writeToTextFile:@"\n\n\n\n\nLaunch Application.\n " logTimeStampOrNot:YES];
     
-    
-
     NSString *txtPath2 = [documentsDirectory stringByAppendingPathComponent:@"ExpertCmapLinkList.xml"];
      NSString *txtPath3 = [documentsDirectory stringByAppendingPathComponent:@"ExpertCmapNodeList.xml"];
     if ([fileManager fileExistsAtPath:txtPath2] == NO) {

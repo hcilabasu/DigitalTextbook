@@ -33,11 +33,15 @@
 @property NSString* question2;
 @property NSString* question3;
 @property NSString* question4;
+@property NSString* question5;
+@property NSString* question6;
 
 @property NSString* question1Answer;
 @property NSString* question2Answer;
 @property NSString* question3Answer;
 @property NSString* question4Answer;
+@property NSString* question5Answer;
+@property NSString* question6Answer;
 
 @property NSMutableArray* correctIndexAry;
 @property NSMutableArray* wrongIndexAry;
