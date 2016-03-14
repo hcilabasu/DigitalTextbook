@@ -117,8 +117,6 @@ static NSString *cellId2 = @"cellId2";
     parent_BookViewController.parent_BookPageViewController.cmapView.parent_ContentViewController=self;
    // [self.parentViewController.navigationController setNavigationBarHidden: YES animated:YES];
     //[self.navigationController setNavigationBarHidden: YES animated:YES];
-
-    
 }
 
 
@@ -136,8 +134,6 @@ static NSString *cellId2 = @"cellId2";
     UIEvent *eventUp = [[UIEvent alloc] initWithTouch:touch];
     
     [touch.view touchesEnded:[eventUp allTouches] withEvent:eventUp];
-    
-
 }
 */
 

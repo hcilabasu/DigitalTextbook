@@ -84,6 +84,8 @@
 @synthesize previewImageView;
 @synthesize lastStepConceptLinkArray;
 @synthesize lastStepConceptNodeArray;
+@synthesize positionBeforeZoom;
+@synthesize sacleBeforeZooming;
 - (id) init {
     if (self = [super init]) {
         nodeCount=1;
@@ -96,6 +98,7 @@
 {
     nodeCount=1;
     linkCount=1;
+    sacleBeforeZooming=1;
     [super viewDidLoad];
     addedNode=nil;
     // if(2==showScenarioId){//the view is initialized in the book page.
@@ -115,6 +118,8 @@
     bookNodeWrapper= [[CmapNodeWrapper alloc]init];
     knowledgeModule=[ [KnowledgeModule alloc] init ];
     conceptNamesArray=[[NSMutableArray alloc] init];
+    positionBeforeZoom=[[NSMutableArray alloc] init];
+    
     conceptNodeArray=[[NSMutableArray alloc] init];
     conceptLinkArray=[[NSMutableArray alloc] init];
     conceptsShowAry=[[NSMutableArray alloc] init];
@@ -296,6 +301,7 @@
     if(contentView.frame.size.width>2500){
        // return NULL;
     }
+    
     
     return contentView;
 }
@@ -1361,18 +1367,73 @@
     
     //[self getPreView:nil];
     //[self updatePreviewLocation];
+
+}
+
+-(void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(UIView *)view{
+    positionBeforeZoom=[[NSMutableArray alloc] init];
+    sacleBeforeZooming=conceptMapView.zoomScale;
+    
+    for (NodeCell* cell in conceptNodeArray  ){
+        CGPoint p=cell.view.center;
+        [positionBeforeZoom addObject:[NSValue valueWithCGPoint:p]];
+    }
 }
 
 -(void)scrollViewDidZoom:(UIScrollView *)scrollView{
    // [self SaveCmapSize:contentView.frame.size.width Height:contentView.frame.size.height];
+
     
     [self SaveCmapScale:conceptMapView.zoomScale];
     NSLog(@"Zooming Scale: %f\n",conceptMapView.zoomScale);
     
+    NSLog(@"content width: %f\n",conceptMapView.contentSize.width);
+    NSLog(@"view width: %f\n",conceptMapView.frame.size.width);
+    
+    float extraWidth=(conceptMapView.contentSize.width-conceptMapView.frame.size.width)/2;
+    float extraHeight=(conceptMapView.contentSize.height-conceptMapView.frame.size.height)/2;
+    float scale2= conceptMapView.zoomScale;
+    // scale=sqrtf(scale);
+    extraWidth=conceptMapView.frame.size.width*(conceptMapView.zoomScale-sacleBeforeZooming)/2;
+    extraHeight=conceptMapView.frame.size.height*(conceptMapView.zoomScale-sacleBeforeZooming)/2;
+    int i=0;
+    for (NodeCell* cell in conceptNodeArray  ){
+        NSValue *CGPointValue=[positionBeforeZoom objectAtIndex:i];
+        CGPoint savedPoint=[CGPointValue CGPointValue];
+        //[cell.view setFrame:CGRectMake(cell.view.frame.origin.x*scale, cell.view.frame.origin.y*scale, cell.view.frame.size.width,  cell.view.frame.size.height)];
+        cell.view.center=CGPointMake(savedPoint.x+extraWidth, savedPoint.y+extraWidth);
+        
+        [cell updateLink];
+        //[self getPreView:nil];
+        [self updateNodesPosition:cell.view.center Node:cell];
+        //[self updatePreviewLocation];
+        i++;
+    }
     [self getPreView:nil];
     [self updatePreviewLocation];
     
     
+    
+    for(NodeCell* cell in conceptNodeArray){
+        if(  (cell.view.frame.origin.x+cell.view.frame.size.width)  >contentView.frame.size.width){
+            cell.view.center=CGPointMake(cell.view.center.x-1,cell.view.center.y);
+            conceptMapView.zoomScale=sacleBeforeZooming;
+            
+        }
+        
+        if((cell.view.frame.origin.y+cell.view.frame.size.height)>contentView.frame.size.height){
+            cell.view.center=CGPointMake(cell.view.center.x,cell.view.center.y-1);
+            conceptMapView.zoomScale=sacleBeforeZooming;
+        }
+        
+    }
+    [self getPreView:nil];
+    [self updatePreviewLocation];
+    
+    
+    return;
+
+
 }
 
 

@@ -97,7 +97,8 @@
 @property (nonatomic) CGColorRef itemBGColor;
 @property (nonatomic) int savedMapHeight;
 @property (nonatomic) int savedMapWidth;
-
+@property (nonatomic, strong) NSMutableArray* positionBeforeZoom;
+@property (nonatomic) float sacleBeforeZooming;
 
 
 @property (nonatomic, retain) HighLightWrapper *bookHighlight;
@@ -168,4 +169,5 @@
 -(void)SaveCmapSize:(int)width Height: (int)height;
 -(void)savePreviousStep;
 -(void)deleteHighlightwithWord: (NSString*)name;
+-(void)updatePreviewLocation;
 @end

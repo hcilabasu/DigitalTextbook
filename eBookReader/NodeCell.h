@@ -73,4 +73,5 @@
 -(void)addHighlightThumb;
 -(void)deleteNode: (BOOL)delByUser;
 -(void)updateViewSize;
+-(void)updateLink;
 @end

@@ -349,6 +349,7 @@
        [parentCmapController updateNodesPosition:self.view.center Node:self];
        [parentCmapController getPreView:nil];
        [parentCmapController autoSaveMap];
+        [parentCmapController updatePreviewLocation];
     }
     
     if (gesture.state == UIGestureRecognizerStateChanged)
