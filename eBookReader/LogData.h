@@ -18,4 +18,5 @@
 @property (strong, nonatomic) NSString* input;
 @property (nonatomic, assign) int page;
 - (id)initWithName:(NSString*)m_studentId SessionID: (NSString*)m_sessionId action:(NSString*)m_action selection:(NSString*)m_selection input: (NSString*)m_input pageNum: (int) m_page;
+- (id)initWithNameAndTime:(NSString*)m_studentId SessionID: (NSString*)m_sessionId action:(NSString*)m_action selection:(NSString*)m_selection input: (NSString*)m_input pageNum: (int) m_page time: (NSString*)timeString;
 @end

@@ -35,7 +35,7 @@
 @class HighLightWrapper;
 @class ThumbNailIconWrapper;
 @class BookPageViewController;
-
+@class TrainingViewController;
 @class ContentViewController;
 @interface CmapController : UIViewController <UIAlertViewDelegate,PopoverViewDelegate,UIGestureRecognizerDelegate,UIWebViewDelegate,UIScrollViewDelegate,UINavigationControllerDelegate,UITextViewDelegate, MBProgressHUDDelegate, DBRestClientDelegate,UITextFieldDelegate,ZCTradeViewDelegate,DTAlertViewDelegate>{
     long long expectedLength;
@@ -60,6 +60,15 @@
 @property (nonatomic) CGPoint longPressLocation;
 @property (nonatomic) CGPoint curretnLocation;
 @property (nonatomic, assign) BOOL isShowing;
+@property (nonatomic, assign) BOOL isTraining;
+@property (nonatomic, assign) BOOL isNavigateTraining;
+@property (nonatomic, assign) BOOL isPinchTraining;
+@property (nonatomic, assign) BOOL isAlertShowing;
+@property (nonatomic, assign) BOOL isHyperlinkTraining;
+@property (nonatomic, assign) BOOL isAddNodeTraining;
+@property (nonatomic, assign) BOOL isKeyboardOffset;
+@property (nonatomic, assign) int keyboardOffset;
+
 @property (nonatomic, assign) BOOL isPaning;
 @property (nonatomic, strong) NSMutableArray* menuItems;
 @property (nonatomic, assign) BOOL isBlockedByKeyboard;
@@ -88,7 +97,7 @@
 //link
 @property (nonatomic, assign) BOOL isReadyToLink;
 @property (strong, nonatomic) NodeCell* nodesToLink;
-@property int showType; //the id that indicates the scenario of the view, //0: full screen, 1: half screen
+@property int showType; //the id that indicates the scenario of the view, //0: full screen, 1: half screen 2://linking concept in the training view
 @property (nonatomic) CGFloat radius;
 @property (nonatomic) CGFloat arcAngle;
 @property (nonatomic) CGFloat angleBetweenItems;
@@ -107,12 +116,17 @@
 @property (nonatomic, retain) CmapNodeWrapper* bookNodeWrapper;
 @property (nonatomic, retain) ConceptLink* linkJustAdded;
 @property (nonatomic, retain) LogDataWrapper* bookLogDataWrapper;
+@property (nonatomic, retain) RelationTextView* linkJustCreated;
 
 @property (nonatomic, retain) BookPageViewController* parentBookPageViewController ;
 
 @property (strong, nonatomic) NSString *bookTitle;
 @property (strong,nonatomic)  UIImageView *waitImageView;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
+
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *upLoadIcon;
+
+
 @property (strong, nonatomic) NSString* userName;
 @property BOOL enableHyperLink;
 @property BOOL isUserAction;
@@ -126,6 +140,7 @@
 
 @property (strong, nonatomic) UIImage* savedExpertImg;
 @property (nonatomic, strong) NSMutableArray* conceptsShowAry;
+@property (nonatomic, strong)TrainingViewController* parentTrainingCtr;
 
 -(void)disableAllNodesEditting;
 -(void)enableAllNodesEditting;
@@ -170,4 +185,9 @@
 -(void)savePreviousStep;
 -(void)deleteHighlightwithWord: (NSString*)name;
 -(void)updatePreviewLocation;
+-(BOOL)isNodeExist: (NSString*)name;
+-(NodeCell*)createNodeFromBookForLink:(CGPoint)position withName:(NSString*) name BookPos: (CGPoint)bookPosition page:(int)m_pageNum;
+-(void)highlightPageNode: (int)page;
+-(void)showLinkHint;
+-(void)dismissLinkHint;
 @end

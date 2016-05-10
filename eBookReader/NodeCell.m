@@ -18,6 +18,7 @@
 #import "BookPageViewController.h"
 #import "QAFinderViewController.h"
 #import "RelationTextView.h"
+#import "TrainingViewController.h"
 //#import "RelationTextView.h"
 @implementation NodeCell
 @synthesize showPoint;
@@ -46,10 +47,10 @@
 @synthesize overlay;
 @synthesize bookLogData;
 @synthesize userName;
-@synthesize linkTextview;
+@synthesize linkTextview2;
 @synthesize enableHyperLink;
 @synthesize createType;
-
+@synthesize isAlertShowing;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -159,7 +160,7 @@
      */
     [self becomeFirstResponder];
     //self.view.layer.zPosition=2;
-    enableHyperLink=YES;
+    enableHyperLink=NO;
 }
 
 
@@ -168,18 +169,18 @@
     CGRect textFrame=text.frame;
     CGRect viewFrame=self.view.frame;
     
-    int length=(int) (7*text.text.length+20);
-    if(length>160){
-        length=160;
+    CGFloat length =  [text.text sizeWithAttributes:@{NSFontAttributeName:text.font}].width;
+    length+=25;
+    if(length>180){
+        length=180;
     }
     textFrame.size.width=length;
     viewFrame.size.width=length;
-
-    
-    if(textFrame.size.width<1||viewFrame.size.width<1){
-        return;
+    if(text.text.length<1){
+        textFrame.size.width=20;
+        viewFrame.size.width=20;
     }
-    text.frame=textFrame;
+    self.text.frame=textFrame;
     self.view.frame=viewFrame;
     
     [self updateLink];
@@ -187,7 +188,6 @@
 
 
 -(void)viewWillAppear:(BOOL)animated{
-
     CGFloat fontSize= 14.0f;
     CGRect r = [text.text boundingRectWithSize:CGSizeMake(200, 0)
                                        options:NSStringDrawingUsesLineFragmentOrigin
@@ -196,32 +196,34 @@
    // NSLog(@"fontSize = %f\tbounds = (%f x %f)",fontSize,r.size.width,r.size.height);//output the wrap size of the text
     CGRect textFrame=text.frame;
     CGRect viewFrame=self.view.frame;
-    int length=(int) (7*text.text.length+20);
-    if(length>160){
-        length=160;
+    CGFloat length =  [text.text sizeWithAttributes:@{NSFontAttributeName:text.font}].width;
+    length+=25;
+    if(length>180){
+        length=180;
     }
     textFrame.size.width=length;
     viewFrame.size.width=length;
-
-    
     if(text.text.length<1){
         textFrame.size.width=20;
         viewFrame.size.width=20;
     }
     self.text.frame=textFrame;
     self.view.frame=viewFrame;
+    
     [self becomeFirstResponder];
     [self updateLink];
-    
 }
 
 
 -(void)updateViewSize{
     CGRect textFrame=text.frame;
     CGRect viewFrame=self.view.frame;
-    int length=(int) (7*text.text.length+20);
-    if(length>160){
-        length=160;
+    //int length=(int) (7*text.text.length+20);
+    
+    CGFloat length =  [text.text sizeWithAttributes:@{NSFontAttributeName:text.font}].width;
+    length+=20;
+    if(length>180){
+        length=180;
     }
     textFrame.size.width=length;
     viewFrame.size.width=length;
@@ -273,11 +275,11 @@
     parentCmapController.nodeTextBeforeEditing=textField.text;
     //textField.text=@"";
     CGSize screenSZ=[self screenSize];
-    CGFloat offSet=(textField.superview.frame.size.height+ textField.superview.frame.origin.y)-(768-352)+88;
+    CGFloat offSet=(textField.superview.frame.size.height+ textField.superview.frame.origin.y-parentCmapController.conceptMapView.contentOffset.y)-(768-352)+88;
     // NSLog(@"Offset: %f",offSet);
     if(offSet>0){
         // NSLog(@"Blocked by keyboard!!");
-        [parentCmapController scrollCmapView:(offSet+100)];
+        [parentCmapController scrollCmapView:(offSet)];
     }
 }
 
@@ -285,13 +287,11 @@
     parentCmapController.linkTextBeforeEditing=textView.text;
     CGSize screenSZ=[self screenSize];
    
-    
-    
-    CGFloat offSet=(textView.frame.size.height+ textView.frame.origin.y)-(768-352)+88;
+    CGFloat offSet=(textView.frame.size.height+ textView.frame.origin.y-parentCmapController.conceptMapView.contentOffset.y)-(768-352)+88;
     NSLog(@"Height: %f, Origin: %f",textView.frame.size.height,textView.frame.origin.y);
     if(offSet>0){
         // NSLog(@"Blocked by keyboard!!");
-        [parentCmapController scrollCmapView:(offSet+100)];
+        [parentCmapController scrollCmapView:(offSet)];
     }
 }
 
@@ -322,19 +322,16 @@
     self.view.layer.shadowRadius = 3;
     self.view.layer.shadowColor = [UIColor blackColor].CGColor;
     self.view.layer.shadowOffset = CGSizeMake(2, 2);
+    [parentCmapController dismissLinkHint];
 }
 
 - (IBAction)pan:(UIPanGestureRecognizer *)gesture
 {
-    
-    
-    
     static CGPoint originalCenter;
     
     if(1==nodeType){
         return;
     }
-    
     
     if (gesture.state == UIGestureRecognizerStateBegan)
     {
@@ -389,7 +386,6 @@
 
 - (IBAction)tap:(UIPanGestureRecognizer *)gesture
 {
-    
     // NSLog(@"Tap gesture!");
     if(YES==parentCmapController.isReadyToLink){
         if([text.text isEqualToString:parentCmapController.nodesToLink.text.text]){
@@ -414,8 +410,11 @@
          [bookLogData addLogs:newlog];
          [LogDataParser saveLogData:bookLogData];
          */
+      
         MapFinderViewController* finder=[[MapFinderViewController alloc]initWithNibName:@"MapFinderViewController" bundle:nil];
         finder.userName=userName;
+        finder.parentBookPageView=parentCmapController.parentBookPageViewController;
+        finder.parentTrainingCtr=parentCmapController.parentTrainingCtr;
         finder.bookLogData=bookLogData;
         [parentCmapController addChildViewController:finder];
         finder.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -426,13 +425,17 @@
         [parentCmapController.view addSubview:finder.view];
         //[finder becomeFirstResponder];
         [text resignFirstResponder];
-        [self becomeFirstResponder];
+        //[self becomeFirstResponder];
+
+        [parentCmapController resignFirstResponder];
+        [finder becomeFirstResponder];
+        
         [relatedNodesArray addObject:parentCmapController.nodesToLink];
         [parentCmapController.nodesToLink.relatedNodesArray addObject:self];
         [parentCmapController.nodesToLink removeShadowAnim];
         
         CAShapeLayer* layer = [CAShapeLayer layer];
-        linkTextview= [[RelationTextView alloc]initWithFrame:CGRectMake(40, 40, 90, 35)];
+       RelationTextView* linkTextview= [[RelationTextView alloc]initWithFrame:CGRectMake(40, 40, 90, 35)];
         linkTextview.keyboardType=UIKeyboardTypeASCIICapable;
         //[linkTextview setReturnKeyType:UIReturnKeyDone];
         linkTextview.tag=parentCmapController.linkCount;
@@ -443,7 +446,7 @@
         linkTextview.parentCmapCtr=parentCmapController;
         linkTextview.leftNodeName=text.text;
         linkTextview.rightNodeName=parentCmapController.nodesToLink.text.text;
-        
+        parentCmapController.linkJustCreated=linkTextview;
         
         [relationTextArray addObject:linkTextview];
         ConceptLink *link = [[ConceptLink alloc] initWithName:self conceptName:parentCmapController.nodesToLink relation:linkTextview page:parentCmapController.pageNum];
@@ -464,12 +467,25 @@
         //[parentCmapController endWait];
         [parentCmapController enableAllNodesEditting];
         [parentCmapController logLinkingConceptNodes:text.text ConnectedConcept:parentCmapController.nodesToLink.text.text];
+        //check if it's in training mode
+        if(parentCmapController.parentBookPageViewController.isTraining){
+            UIImage *image = [UIImage imageNamed:@"Train_selectRelation"];
+            image=[self imageWithImage:image scaledToSize:CGSizeMake(300, 200)];
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+            
+        [parentCmapController.parentBookPageViewController showAlertWithString:@"Good job! Now choose a word to represent the relationship from the list or input your own word":imageView];
+        }
         return;
     }
     if(-1==pageNum){
         return;
     }
   //  if(enableHyperLink&&(createType!=0)){
+    NSString* istest=[[NSUserDefaults standardUserDefaults] stringForKey:@"isHyperLinking"];
+    
+    if([istest isEqualToString:@"YES"]){
+        enableHyperLink=YES;
+    }
     if(enableHyperLink){
         [parentCmapController.neighbor_BookViewController showFirstPage:pageNum];
         parentContentViewController.pageNum=pageNum+1;
@@ -486,6 +502,16 @@
         LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Use Hyperlinking" selection:selectionString input:LogString pageNum:pageNum];
         [bookLogData addLogs:newlog];
         [LogDataParser saveLogData:bookLogData];
+    }
+    
+    
+    
+    if(parentCmapController.isNavigateTraining&&enableHyperLink&&parentCmapController.isHyperlinkTraining){
+        [parentCmapController.parentBookPageViewController showLinkingHint];
+        
+        NodeCell* cell= [parentCmapController createNodeFromBookForLink:CGPointMake( 250, 300) withName:@"link me" BookPos:CGPointMake(0, 0) page:1];
+        cell.text.backgroundColor=[UIColor colorWithRed:247.0/255.0 green:176.0/255.0 blue:143.0/255.0 alpha:1];
+        parentCmapController.isNavigateTraining=NO;
     }
 }
 
@@ -515,7 +541,7 @@
     RelationTextView* relation= [[RelationTextView alloc]initWithFrame:CGRectMake(40, 40, 80, 35)];
     relation.delegate=self;
     //relation.keyboardType=UIKeyboardTypeASCIICapable;
-    [linkTextview setReturnKeyType:UIReturnKeyDone];
+   // [linkTextview setReturnKeyType:UIReturnKeyDone];
     if(relationName.length<6){
         relation.frame=CGRectMake(relation.frame.origin.x, relation.frame.origin.y, 40, relation.frame.size.height);
     }
@@ -668,8 +694,6 @@
         [parentCmapController.conceptLinkArray removeObject:link];
     }
 
-    
-    
 }
 
 
@@ -793,7 +817,7 @@
         {
             {
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Deleting"
-                                                                message:@"Do you want to delete this concept node?."
+                                                                message:@"Do you want to delete this concept node?"
                                                                delegate:self
                                                       cancelButtonTitle:@"Cancel"
                                                       otherButtonTitles:@"Yes", nil];
@@ -803,6 +827,7 @@
             break;
         case 1:
             msg = @"link Selected";
+            [parentCmapController showLinkHint];
             parentCmapController.isReadyToLink=YES;
             parentCmapController.nodesToLink=self;
             [parentCmapController disableAllNodesEditting];
@@ -875,14 +900,53 @@
         [bookLogData addLogs:newlog];
         [LogDataParser saveLogData:bookLogData];
     }
+    [parentCmapController updatePreviewLocation];
+}
+
+-(UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
+    //UIGraphicsBeginImageContext(newSize);
+    // In next line, pass 0.0 to use the current device's pixel scaling factor (and thus account for Retina resolution).
+    // Pass 1.0 to force exact pixel size.
+    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
+    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
     // the user clicked OK
     if (buttonIndex == 1) {
         [self deleteNode:YES];
-        
     }
+    if(parentCmapController.parentBookPageViewController.isTraining&&[text.text isEqualToString:@"delete me"]){
+        
+        UIImage *image = [UIImage imageNamed:@"Train_pinch"];
+        image=[self imageWithImage:image scaledToSize:CGSizeMake(300, 200)];
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+        
+    [parentCmapController.parentBookPageViewController showAlertWithString:@"Good job! Now pinch to increase space for the concept mapping panel":imageView];
+    parentCmapController.isPinchTraining=YES;
+        
+        for (NodeCell *cell in parentCmapController.conceptNodeArray)
+        {
+            [cell removeLink];
+            [cell.view removeFromSuperview];
+        }
+        [parentCmapController.conceptNodeArray removeAllObjects];
+        [parentCmapController.conceptLinkArray removeAllObjects];
+    }
+    
+    /*
+    for (NodeCell *cell in parentCmapController.conceptNodeArray)
+    {
+        [cell removeLink];
+        [cell.view removeFromSuperview];
+    }
+     if(parentCmapController.parentBookPageViewController.isTraining&&[text.text isEqualToString:@"delete me"]){
+         [parentCmapController.conceptNodeArray removeAllObjects];
+         [parentCmapController.conceptLinkArray removeAllObjects];
+     }*/
 }
 
 -(void)addNoteThumb{
@@ -938,6 +1002,11 @@
         // NSLog(@"finish editting");
     }
     
+    if(parentCmapController.isTraining){
+        [parentCmapController.parentTrainingCtr showAlertWithString:@"Good job! Now try to delete a concept node"];
+        [parentCmapController.parentTrainingCtr createDeleteTraining];
+    }
+    
     [textView resignFirstResponder];
 }
 
@@ -945,29 +1014,70 @@
 
 
 - (void)textFieldDidEndEditing:(UITextField *)textField{
-    /*
-     for(NodeCell* view in parentCmapController.conceptNodeArray){
-     NSLog(@"Tag: %d",view.text.tag);
-     
-     if(view.text.tag== textField.tag){
-     //view.text.text=textField.text;
-     NSLog(@"update Node text...\n");
-     NSLog(@"%d,",textField.tag);
-     // NSLog(textField.text);
-     
-     NSString* inputString=[[NSString alloc] initWithFormat:@"with new Name:%@", textField.text];
-     LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Update Concept Name" selection:@"null" input:inputString pageNum:pageNum];
-     [bookLogData addLogs:newlog];
-     [LogDataParser saveLogData:bookLogData];
-     }
-     }
-     */
+
     NSString* inputString=[[NSString alloc] initWithFormat:@"%@", textField.text];
     NSString* parTxt=parentCmapController.nodeTextBeforeEditing;
     LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Update Concept Name" selection:parentCmapController.nodeTextBeforeEditing input:inputString pageNum:pageNum];
     [bookLogData addLogs:newlog];
     [LogDataParser saveLogData:bookLogData];
     [textField resignFirstResponder];
+    
+    if([inputString isEqualToString:@""]){
+        [NSTimer scheduledTimerWithTimeInterval:1.0
+                                         target:self
+                                       selector:@selector(showEMptyNodeAlert)
+                                       userInfo:nil
+                                        repeats:NO];
+    }
+    
+    int sameNodeCount=0;
+    for(NodeCell* cell in parentCmapController.conceptNodeArray){
+        if([text.text isEqualToString:cell.text.text]){
+            sameNodeCount++;
+        }
+    }//end for
+    
+    if(sameNodeCount>1){
+        [NSTimer scheduledTimerWithTimeInterval:1.0
+                                         target:self
+                                       selector:@selector(showDupliAlert)
+                                       userInfo:nil
+                                        repeats:NO];
+    }
+    
+    /*
+    if([parentCmapController isNodeExist:textField.text]){
+        [NSTimer scheduledTimerWithTimeInterval:2.0
+                                         target:self
+                                       selector:@selector(showDupliAlert)
+                                       userInfo:nil
+                                        repeats:NO];
+
+    }*/
+    
+    
+}
+
+-(void)showDupliAlert{
+    [text becomeFirstResponder];
+     NSString* msg=[[NSString alloc]initWithFormat:@"Node with name \"%@\" already exists!",text.text];
+    if(!isAlertShowing){
+        [parentCmapController showAlertwithTxt:@"Warning" body:msg];
+        isAlertShowing=YES;
+    }else{
+        isAlertShowing=NO;
+    }
+}
+
+
+-(void)showEMptyNodeAlert{
+    [text becomeFirstResponder];
+    if(!isAlertShowing){
+        [parentCmapController showAlertwithTxt:@"Warning" body:@"Please input the node name!"];
+        isAlertShowing=YES;
+    }else{
+        isAlertShowing=NO;
+    }
 }
 
 

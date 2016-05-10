@@ -24,6 +24,7 @@
 @property (strong,nonatomic) UIImageView *bulbImageView;
 @property (strong,nonatomic) NSString* userName;
 @property BOOL ShowingQA;
+@property BOOL isTraining;
 @property BOOL enableHyperLink;
 @property NSTimeInterval totalCountdownInterval; 
 @property NSTimeInterval remainTime;
@@ -37,6 +38,13 @@
 @property (strong, nonatomic) NSMutableArray*  conceptNodeArray;
 @property BOOL isSecondShow;
 @property NSTimer* CmapTimer;
+
+
+@property (strong, nonatomic)  UILabel *webFocusQuestionLable;
+@property (strong, nonatomic)  UILabel *cmapFocusQuestionLable;
+@property (strong, nonatomic)  UIImageView *hintImg;
+-(void)showAlertWithString: (NSString*) str : (UIView*)imgView;
+-(void)createDeleteTraining;
 -(void)test;
 -(void)upLoadLogFile;
 -(void)upLoadCmap;
@@ -48,6 +56,12 @@
 -(void)startCmapTimer;
 -(void)addTutorial;
 -(void)showAdminPsdAlert;
+-(void)showWebhint;
+-(void)showLinkingHint;
+-(void)showFlipPageHint;
+-(void)showAlertWithText: (NSString*) str;
+-(void)showLinkingWarning;
+-(void)hideLinkingWarning;
 @end
 
 

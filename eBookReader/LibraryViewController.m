@@ -35,7 +35,7 @@
 @synthesize books;
 @synthesize cmapView;
 @synthesize userName;
-
+@synthesize titleLabel;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -46,7 +46,8 @@
     
     //find the documents directory and start reading book.
     self.books = [bookImporter importLibrary];
-    
+    NSString* iPadId=[[NSUserDefaults standardUserDefaults] stringForKey:@"iPadId"];
+    titleLabel.text=iPadId;
     NSLog(@"imported all books");
     
     //set the background color to something that looks like a library.
@@ -102,10 +103,11 @@
     if (![[DBSession sharedSession] isLinked]) {
         [[DBSession sharedSession] linkFromController:self];
     }
-    
     //[self.navigationController.navigationBar setHidden:YES];
-    [self viewFirstBook];
+   // [self viewFirstBook];
 }
+
+
 
 -(void)createCmapView{
     cmapView=[[CmapController alloc] initWithNibName:@"CmapView" bundle:nil];

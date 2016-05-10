@@ -109,7 +109,8 @@ static NSString *cellId2 = @"cellId2";
     [parent_BookViewController clearAllHighlightNode];
     [parent_BookViewController searchAndHighlightNode];
     [parent_BookViewController searchAndHighlightLink];
-    
+    [parent_BookViewController.parent_BookPageViewController.cmapView getPreView:nil];
+    [parent_BookViewController.parent_BookPageViewController.cmapView updatePreviewLocation];
     
     [webView setFrame:self.view.frame];
     [webView becomeFirstResponder];
@@ -297,7 +298,33 @@ static NSString *cellId2 = @"cellId2";
 //after the webview loads page, load highlight content
 -(void)webViewDidFinishLoad:(UIWebView *)m_webView{
     [self loadHghLight];
+    [parent_BookViewController.parent_BookPageViewController.cmapView updatePreviewLocation];
     [webView becomeFirstResponder];
+    NSString* istest=[[NSUserDefaults standardUserDefaults] stringForKey:@"isHyperLinking"];
+    BOOL ishyperlinking;
+    if([istest isEqualToString:@"YES"]){
+        ishyperlinking=YES;
+    }
+    
+    NSString* savedPageString=[[NSUserDefaults standardUserDefaults] stringForKey:@"savedPage"];
+    int PagetoGo=[savedPageString intValue]+1;
+    
+    if(parent_BookViewController.parent_BookPageViewController.cmapView.isNavigateTraining&&pageNum==PagetoGo&&ishyperlinking){
+        
+        UIImage *image = [UIImage imageNamed:@"Train_HyperNavi"];
+        image=[self imageWithImage:image scaledToSize:CGSizeMake(300, 200)];
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+        
+        [parent_BookViewController.parent_BookPageViewController showAlertWithString:@"Good job! Now you can click on the node to go to where the node is created":imageView];
+        parent_BookViewController.parent_BookPageViewController.cmapView.isHyperlinkTraining=YES;
+    }else if(parent_BookViewController.parent_BookPageViewController.cmapView.isNavigateTraining&&pageNum==PagetoGo){
+        [parent_BookViewController.parent_BookPageViewController showLinkingHint];
+        NodeCell* cell= [parent_BookViewController.parent_BookPageViewController.cmapView createNodeFromBookForLink:CGPointMake( 250, 300) withName:@"link me" BookPos:CGPointMake(0, 0) page:1];
+        cell.text.backgroundColor=[UIColor colorWithRed:247.0/255.0 green:176.0/255.0 blue:143.0/255.0 alpha:1];
+        parent_BookViewController.parent_BookPageViewController.cmapView.isNavigateTraining=NO;
+
+    }
+    
     if( ([[UIApplication sharedApplication] statusBarOrientation]==UIInterfaceOrientationLandscapeLeft)||([[UIApplication sharedApplication] statusBarOrientation]==UIInterfaceOrientationLandscapeRight)){
         CGRect rec=CGRectMake(0, webView.frame.origin.y, 512, 768);
         [webView setFrame:rec];
@@ -309,6 +336,18 @@ static NSString *cellId2 = @"cellId2";
   //  NSString *jsString2 = [[NSString alloc] initWithFormat:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '%d%%'",96];
     //[webView stringByEvaluatingJavaScriptFromString:jsString2];
     }
+}
+
+
+- (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
+    //UIGraphicsBeginImageContext(newSize);
+    // In next line, pass 0.0 to use the current device's pixel scaling factor (and thus account for Retina resolution).
+    // Pass 1.0 to force exact pixel size.
+    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
+    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
 }
 
 
@@ -623,17 +662,31 @@ static NSString *cellId2 = @"cellId2";
 
 
 - (void)dragAndDrop:(id)sender{
+    
+    if(parent_BookViewController.parent_BookPageViewController.cmapView.isReadyToLink){
+        [parent_BookViewController.parent_BookPageViewController showAlertWithText:@"There is a concept waiting to be linked!"];
+        return;
+    }
+    
+    
     BOOL isHyperLink = [[NSUserDefaults standardUserDefaults] boolForKey:@"HyperLinking"];
+     NSString* h_text=[webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"];
     if(YES==isSplit){
-        NSString* h_text=[webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"];
         if(h_text.length>25){
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"You can not add concepts that have more than 25 charaters!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
              [alert show];
             return;
         }
         
+        if([parent_BookViewController.parent_BookPageViewController.cmapView isNodeExist:h_text]){
+            NSString *msg=[[NSString alloc]initWithFormat:@"Node with name \"%@\" already exist!",h_text];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:msg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+            return;
+        }
         
         [parent_BookViewController.parent_BookPageViewController.cmapView createNodeFromBook:CGPointMake( arc4random() % 400+30, 690) withName:h_text BookPos:pvPoint page:pageNum];
+        
         [self createConceptIcon:pvPoint NoteText:h_text isWriteToFile:YES];
         [self hideAllSubview:ThumbScrollViewRight];
 
@@ -642,13 +695,12 @@ static NSString *cellId2 = @"cellId2";
         [self highlightStringWithColor:@"#F2B36B"];
         [parent_BookViewController.parent_BookPageViewController.cmapView highlightNode:h_text];
         }
- 
-        
+    }
+    
+    if(parent_BookViewController.parent_BookPageViewController.isTraining&&parent_BookViewController.parent_BookPageViewController.cmapView.isAddNodeTraining){
+       [parent_BookViewController.parent_BookPageViewController showFlipPageHint];
     }
     if(NO==isSplit){
-        //[self createConceptThumb:[webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"]];
-       // NSString* h_text=[webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"];
-        //[self createConceptIcon:pvPoint NoteText:h_text isWriteToFile:YES];
     }
 }
 

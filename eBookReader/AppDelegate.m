@@ -22,18 +22,33 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    UITextField *lagFreeField = [[UITextField alloc] init];
+    [self.window addSubview:lagFreeField];
+    [lagFreeField becomeFirstResponder];
+    [lagFreeField resignFirstResponder];
+    [lagFreeField removeFromSuperview];
+    
     BOOL requireLogin=NO;
     BOOL autoTimer=NO;
     BOOL showPreview=YES;
     BOOL allowmanuAdd=NO;
     BOOL testMode=YES;
     BOOL loadExpertMap=NO;
+    BOOL isHyperLink=YES;
     [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"testMode"];
     [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"isLogin"];
     [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"isTimer"];
     [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"isPreview"];
     [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"isManu"];
     [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"loadExpertMap"];
+    [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"isHyperLinking"];
+    
+    
+    ///////////////////////set iPad id://///////////////////////////////
+    [[NSUserDefaults standardUserDefaults] setObject:@"8" forKey:@"iPadId"];
+    /////////////////////////////////////////////////////////////////////
+    
     
     if(testMode){
         [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"testMode"];
@@ -51,8 +66,12 @@
         [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"isManu"];
     }
     if(loadExpertMap){
-         [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"loadExpertMap"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"loadExpertMap"];
     }
+    if(isHyperLink){
+        [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"isHyperLinking"];
+    }
+    
     
     [TestFairy begin:@"e5748af60e023eec56df84a69ddfed6cd421b914"];
     [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"HyperLinking"];

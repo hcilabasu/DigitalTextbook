@@ -15,6 +15,7 @@
     NSMutableArray* books;
 }
 
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (strong, nonatomic) id dataObject;
 @property (strong, nonatomic) CmapController *cmapView;
 @property (strong, nonatomic) NSString* userName;

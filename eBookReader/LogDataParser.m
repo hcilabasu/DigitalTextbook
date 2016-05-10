@@ -44,12 +44,14 @@
    //  NSArray *partyMembers = [doc.rootElement elementsForName:@"tutor_related_message_sequence  context_message_id=\"B7AE5D-B8B9-3AAA-0B01-26CAA3302205\""];
     NSString* isPreview=[[NSUserDefaults standardUserDefaults] stringForKey:@"isPreview"];
     NSArray *partyMembers;
+    partyMembers = [doc.rootElement elementsForName:@"tool_message"];
+    /*
     if([isPreview isEqualToString:@"YES"]){
     
     partyMembers = [doc.rootElement elementsForName:@"tool_message"];
     }else{
     partyMembers = [doc.rootElement elementsForName:@"tutor_related_message_sequence  context_message_id=\"B7AE5D-B8B9-3AAA-0B01-26CAA3302205\""];
-    }
+    }*/
     
     if([partyMembers count]==0){
         NSLog(@"Empty!!!!\n\n\n");
@@ -64,6 +66,13 @@
          NSString* selection=@"";
          NSString* action=@"";
          NSString* input=@"";
+        
+        
+        NSArray *savedTime = [partyMember elementsForName:@"time"];
+        
+        GDataXMLElement *savedTimeElement = (GDataXMLElement *) [savedTime objectAtIndex:0];
+        NSString *savedTimeString = savedTimeElement.stringValue;
+     
         
         NSArray *l_name = [partyMember elementsForName:@"user_id"];
         if (l_name.count > 0) {
@@ -113,7 +122,8 @@
             page=point_y.stringValue.floatValue;
         } else continue;
         
-        LogData *player = [[LogData alloc] initWithName:student_id SessionID:session_id  action:action selection:selection input:input pageNum:page];
+        LogData *player = [[LogData alloc] initWithNameAndTime:student_id SessionID:session_id  action:action selection:selection input:input pageNum:page time:savedTimeString];
+        
         [logDatakWrapper.logArray addObject:player];
     }
     return logDatakWrapper;
@@ -122,10 +132,10 @@
 
 + (void)saveLogData:(LogDataWrapper *)LogDatas{
     
-    GDataXMLElement * partyElement = [GDataXMLNode elementWithName:@"tutor_related_message_sequence"];
+    GDataXMLElement * partyElement = [GDataXMLNode elementWithName:@"LogData"];
     
-    GDataXMLElement * attibute = [GDataXMLNode attributeWithName:@"context_message_id" stringValue:@"B7AE5D-B8B9-3AAA-0B01-26CAA3302205"];
-    [partyElement addAttribute:attibute];
+    //GDataXMLElement * attibute = [GDataXMLNode attributeWithName:@"context_message_id" stringValue:@"B7AE5D-B8B9-3AAA-0B01-26CAA3302205"];
+   // [partyElement addAttribute:attibute];
     
     if([LogDatas.logArray count]==0){
         NSLog(@"logdata empty!!");
@@ -156,6 +166,9 @@
         
         GDataXMLElement * e_input =
         [GDataXMLNode elementWithName:@"input" stringValue:linkItem.input];
+        
+        NSString* pageStr=[[NSString alloc]initWithFormat:@"%d", linkItem.page];
+        GDataXMLElement * e_page =[GDataXMLNode elementWithName:@"PageNum" stringValue:pageStr];
 
         
         [itemElement addChild:e_userId];
@@ -165,10 +178,9 @@
         [itemElement addChild:e_selection];
         [itemElement addChild:e_action];
         [itemElement addChild:e_input];
+        [itemElement addChild:e_page];
         [partyElement addChild:itemElement];
-        
        // NSLog(@"Add element");
-        
     }
     GDataXMLDocument *document = [[GDataXMLDocument alloc]
                                   initWithRootElement:partyElement];
