@@ -18,6 +18,7 @@
     return self;
 }
 
+
 -(id)initWithRadius: (CGFloat) radius andAngularSpacing: (CGFloat) spacing andCellSize: (CGSize) cell andAlignment:(WheelAlignmentType)alignment andItemHeight:(CGFloat)height andXOffset: (CGFloat) xOff{
     if ((self = [super init]) != NULL)
     {

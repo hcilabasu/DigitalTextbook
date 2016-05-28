@@ -20,8 +20,6 @@
     CGRect rect=CGRectMake(530, 0, 511, 768);
     [self.view setFrame:rect];
 
-    
-    
     NSString* url =  [NSString stringWithFormat:@"http://2sigma.asu.edu/qa/index.php?qa=questions&qa_1=chapter-1&qa_2=page-%d", 1];
     webView.backgroundColor=[UIColor whiteColor];
     NSURL* nsUrl = [NSURL URLWithString:url];

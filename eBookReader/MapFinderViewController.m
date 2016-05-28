@@ -8,6 +8,8 @@
 
 #import "MapFinderViewController.h"
 #import "CmapController.h"
+#import "TrainingViewController.h"
+#import "BookPageViewController.h"
 @interface MapFinderViewController ()
 
 @end
@@ -19,6 +21,9 @@ NSArray *recipes;
 @synthesize fileList;
 @synthesize bookLogData;
 @synthesize userName;
+@synthesize parentTrainingCtr;
+@synthesize parentBookPageView;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -46,8 +51,13 @@ NSArray *recipes;
     recipes = [NSArray arrayWithObjects:@"Include", @"Have", @"Involve", @"Increase", @"Reduce", @"Facilitate", @"Grow", @"Control", nil];
     
     [tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
+    [parentCmapController resignFirstResponder];
     
-    
+}
+
+
+-(void)viewDidAppear:(BOOL)animated{
+    [self becomeFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning
@@ -60,6 +70,8 @@ NSArray *recipes;
 
 - (IBAction)Dismiss:(id)sender {
    // parentCmapController.isFinderWindowShow=NO;
+    [parentCmapController deleteLink:parentCmapController.linkJustCreated.leftNodeName SecondNode:parentCmapController.linkJustCreated.rightNodeName];
+    [parentCmapController dismissLinkHint];
     [self resignFirstResponder];
     [self.view removeFromSuperview];
     [self removeFromParentViewController];
@@ -69,6 +81,7 @@ NSArray *recipes;
 - (IBAction)EditLink:(id)sender {
     [self.view removeFromSuperview];
     [self removeFromParentViewController];
+    [parentCmapController dismissLinkHint];
     [parentCmapController editRelationLink];
     
 }
@@ -115,7 +128,6 @@ NSArray *recipes;
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
     }
-    
     cell.textLabel.text = [recipes objectAtIndex:indexPath.row];
     return cell;
 }
@@ -130,13 +142,33 @@ NSArray *recipes;
     [bookLogData addLogs:newlog];
     [LogDataParser saveLogData:bookLogData];
     
+    //[parentTrainingCtr showAlertWithString:@"Good job! Now try to delete a concept node"];
+    //[parentTrainingCtr createDeleteTraining];
     
+    if(parentCmapController.parentBookPageViewController.isTraining){
+        UIImage *image = [UIImage imageNamed:@"Train_delete"];
+        image=[self imageWithImage:image scaledToSize:CGSizeMake(300, 200)];
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+        
+    [parentBookPageView showAlertWithString:@"Good job! Now try to delete a concept node":imageView];
+    [parentBookPageView createDeleteTraining];
+    }
+    [parentCmapController dismissLinkHint];
     [self.view removeFromSuperview];
     [self removeFromParentViewController];
     
 }
 
-
+- (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
+    //UIGraphicsBeginImageContext(newSize);
+    // In next line, pass 0.0 to use the current device's pixel scaling factor (and thus account for Retina resolution).
+    // Pass 1.0 to force exact pixel size.
+    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
+    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
+}
 
 
 @end

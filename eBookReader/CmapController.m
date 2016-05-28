@@ -25,6 +25,7 @@
 #import "BookPageViewController.h"
 #import "ZCTradeView.h"
 #import "MyAlertView.h"
+#import "TrainingViewController.h"
 /*
  @interface CmapController ()<GHContextOverlayViewDataSource, GHContextOverlayViewDelegate>
  @property (weak, nonatomic) IBOutlet UIImageView *imageView;
@@ -86,6 +87,18 @@
 @synthesize lastStepConceptNodeArray;
 @synthesize positionBeforeZoom;
 @synthesize sacleBeforeZooming;
+@synthesize isTraining;
+@synthesize parentTrainingCtr;
+@synthesize isNavigateTraining;
+@synthesize isPinchTraining;
+@synthesize isAlertShowing;
+@synthesize isHyperlinkTraining;
+@synthesize isAddNodeTraining;
+@synthesize isKeyboardOffset;
+@synthesize keyboardOffset;
+@synthesize linkJustCreated;
+@synthesize upLoadIcon;
+//@synthesize myWebView;
 - (id) init {
     if (self = [super init]) {
         nodeCount=1;
@@ -101,6 +114,11 @@
     sacleBeforeZooming=1;
     [super viewDidLoad];
     addedNode=nil;
+    
+    
+    [upLoadIcon  setEnabled:NO];
+    [upLoadIcon setTintColor: [UIColor clearColor]];
+    
     // if(2==showScenarioId){//the view is initialized in the book page.
     CGRect rect=CGRectMake(530, 0, 511, 768);
     [self.view setFrame:rect];
@@ -108,7 +126,7 @@
     //}
     CGRect rect2=CGRectMake(0, 0, 511, 768);
     contentView= [[UIView alloc]init];
-    [contentView setFrame:rect2];
+    [contentView setFrame:conceptMapView.frame];
     [conceptMapView addSubview:contentView];
     
     conceptMapView.delegate=self;
@@ -126,13 +144,22 @@
     lastStepConceptNodeArray=[[NSMutableArray alloc] init];
     lastStepConceptLinkArray=[[NSMutableArray alloc] init];
     
+  //  myWebView=[[WebBrowserViewController alloc]initWithNibName:@"WebBrowserViewController" bundle:nil];
+    
     [self.navigationController setDelegate:self];
-    [self.navigationController setNavigationBarHidden: YES animated:NO];
+    // [self.navigationController setNavigationBarHidden: YES animated:NO];
     /*
      GHContextMenuView* overlay = [[GHContextMenuView alloc] init];
      overlay.dataSource = self;
      overlay.delegate = self;
      */
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toolBarTap:)];
+    tapGesture.numberOfTapsRequired=3;
+    tapGesture.delegate=self;
+    [toolBar addGestureRecognizer:tapGesture];
+    
+    
     
     UILongPressGestureRecognizer* longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(LongPress:)];
     //[conceptMapView addGestureRecognizer:longPressRecognizer];
@@ -158,11 +185,6 @@
     // [self loadConceptMap:nil];
     isInitComplete=YES;
     
-    //double tap to pop up help menu
-    //UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapped:)];
-    //[doubleTap setNumberOfTapsRequired:2];
-    //doubleTap.delegate=self;
-    //[self.view addGestureRecognizer:doubleTap];
     
     bulbImageView = [[UIImageView alloc]initWithFrame:CGRectMake(450, 700, 40, 40)];
     [bulbImageView setImage:[UIImage imageNamed:@"addIcon"]];
@@ -176,6 +198,11 @@
     
     UITapGestureRecognizer *bulbTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickOnBulb:)];
     [self.bulbImageView addGestureRecognizer:bulbTap];
+    
+    
+    UITapGestureRecognizer *cmapTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mapViewTap:)];
+    cmapTap.delegate=self;
+   // [self.view addGestureRecognizer:cmapTap];
     
     
     previewImageView = [[UIImageView alloc]initWithFrame:CGRectMake(30, 700, 40, 40)];
@@ -239,14 +266,146 @@
      [self.view addSubview:but];*/
     //  [self loadConceptMap: nil];
     conceptMapView.maximumZoomScale=5.0;
-    //conceptMapView.zoomScale=2.0;
+   // conceptMapView.zoomScale=2.0;
     //[self readSavedCmapSize];
-    [self readSavedCmapScale];
-    [self loadConceptMap:nil];
-    
+    if(!parentBookPageViewController.isTraining){
+        [self readSavedCmapScale];
+        //[self readSavedOrigin];
+    }
+    if(!isTraining){
+        [self loadConceptMap:nil];
+    }
     [self.view bringSubviewToFront:toolBar];
     
+    if(conceptMapView.zoomScale<1.2){
+        conceptMapView.zoomScale=3.0;
+    }
+    [self getPreView:nil];
+    [self updatePreviewLocation];
+    
 }
+
+
+
+
+-(void)uploadCmapXML{
+    [self uploadMapLinkXML];
+    [self uploadMapNodeXML];
+    
+}
+
+-(void)uploadMapNodeXML{
+    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    sessionConfiguration.HTTPAdditionalHeaders = @{
+                                                   @"Authorization" : [NSString stringWithFormat:@"Bearer %@", @"BFPZY5kp2NAAAAAAAAAAJHzSODkGgGqThiZaKH2pCafGwX1kKVs2UVSVnwMiRj9c"],
+                                                   @"Content-Type"  : @"application/zip"
+                                                   };
+    
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains
+    (NSDocumentDirectory, NSUserDomainMask, YES);
+    
+    //make a file name to write the data to using the documents directory:
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *fileName = [documentsDirectory
+                          stringByAppendingPathComponent:@"CmapNodeList.xml"];
+    
+    NSString *content = [[NSString alloc] initWithContentsOfFile:fileName
+                                                    usedEncoding:nil
+                                                           error:nil];
+    NSString *filename = @"HighSchoolMapNode/";
+    NSString* usrName=[[NSUserDefaults standardUserDefaults] stringForKey:@"UserName"];
+    // filename=[filename stringByAppendingString:usrName];
+    
+    NSString* iPadId=[[NSUserDefaults standardUserDefaults] stringForKey:@"iPadId"];
+    filename=[filename stringByAppendingString:iPadId];
+    
+    filename=[filename stringByAppendingString:@"_CmapNodeList.xml"];
+    NSString *localDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+    NSString *localPath = [localDir stringByAppendingPathComponent:filename];
+    [content writeToFile:localPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
+    
+    
+    NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration: sessionConfiguration delegate: self delegateQueue: [NSOperationQueue mainQueue]];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://api-content.dropbox.com/1/files_put/auto/%@?overwrite=false",filename]]];
+    [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
+    NSData *data = [[NSFileManager defaultManager] contentsAtPath:fileName];
+    [request setHTTPMethod:@"PUT"];
+    [request setHTTPBody:data];
+    [request setTimeoutInterval:1000];
+    
+    NSURLSessionDataTask *doDataTask = [defaultSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (!error){
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Finish Upload Logfile" message:@"Success!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            // [alertView show];
+        } else {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Finish Upload Logfile" message:@"Error!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            // [alertView show];
+        }
+    }];
+    [doDataTask resume];
+    
+}
+
+-(void)uploadMapLinkXML{
+    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    sessionConfiguration.HTTPAdditionalHeaders = @{
+                                                   @"Authorization" : [NSString stringWithFormat:@"Bearer %@", @"BFPZY5kp2NAAAAAAAAAAJHzSODkGgGqThiZaKH2pCafGwX1kKVs2UVSVnwMiRj9c"],
+                                                   @"Content-Type"  : @"application/zip"
+                                                   };
+    
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains
+    (NSDocumentDirectory, NSUserDomainMask, YES);
+    
+    //make a file name to write the data to using the documents directory:
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *fileName = [documentsDirectory
+                          stringByAppendingPathComponent:@"CmapLinkList.xml"];
+    
+    NSString *content = [[NSString alloc] initWithContentsOfFile:fileName
+                                                    usedEncoding:nil
+                                                           error:nil];
+    NSString *filename = @"HighSchoolMapLink/";
+    NSString* usrName=[[NSUserDefaults standardUserDefaults] stringForKey:@"UserName"];
+    // filename=[filename stringByAppendingString:usrName];
+    
+    NSString* iPadId=[[NSUserDefaults standardUserDefaults] stringForKey:@"iPadId"];
+    filename=[filename stringByAppendingString:iPadId];
+    
+    filename=[filename stringByAppendingString:@"_CmapLinkList.xml"];
+    NSString *localDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+    NSString *localPath = [localDir stringByAppendingPathComponent:filename];
+    [content writeToFile:localPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
+    
+    
+    NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration: sessionConfiguration delegate: self delegateQueue: [NSOperationQueue mainQueue]];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://api-content.dropbox.com/1/files_put/auto/%@?overwrite=false",filename]]];
+    [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
+    NSData *data = [[NSFileManager defaultManager] contentsAtPath:fileName];
+    [request setHTTPMethod:@"PUT"];
+    [request setHTTPBody:data];
+    [request setTimeoutInterval:1000];
+    
+    NSURLSessionDataTask *doDataTask = [defaultSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (!error){
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Finish Upload Logfile" message:@"Success!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            //[alertView show];
+        } else {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Finish Upload Logfile" message:@"Error!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            // [alertView show];
+        }
+    }];
+    [doDataTask resume];
+}
+
+
+- (void)toolBarTap:(UILongPressGestureRecognizer *)gestureRecognizer{
+    [upLoadIcon  setEnabled:YES];
+    [upLoadIcon setTintColor: nil];
+}
+
+
 
 - (IBAction)hideAndShow:(id)sender {
     [parentBookPageViewController hideAndShowPreView];
@@ -271,6 +430,7 @@
     [neighbor_BookViewController searchAndHighlightNode];
     [neighbor_BookViewController searchAndHighlightLink];
     [super viewDidAppear:animated];
+    [self updatePreviewLocation];
 }
 
 
@@ -299,10 +459,8 @@
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
 {
     if(contentView.frame.size.width>2500){
-       // return NULL;
+        // return NULL;
     }
-    
-    
     return contentView;
 }
 
@@ -418,11 +576,6 @@
                name:UITextViewTextDidEndEditingNotification
              object:nil];
     
-    //relation.frame = CGRectMake(relation.frame.origin.x, relation.frame.origin.y, relation.contentSize.width, relation.contentSize.height);
-    // [relationTextArray addObject:relation];
-    //ConceptLink *link = [[ConceptLink alloc] initWithName:self conceptName:relationName relation:relation];
-    //[parentCmapController addConcpetLink:link];
-    
     CGPoint p1=[self getViewCenterPoint:leftCell.view];
     CGPoint p2=[self getViewCenterPoint:rightCell.view];
     relation.center=CGPointMake((p1.x/2+p2.x/2), (p1.y/2+p2.y/2));
@@ -480,6 +633,11 @@
 
 
 -(void)autoSaveMap{
+    if(isTraining){
+        return;
+    }
+    
+    
     [bookLinkWrapper clearAllData];
     [bookNodeWrapper clearAllData];
     for(ConceptLink* m_link in conceptLinkArray){
@@ -513,7 +671,7 @@
 
 
 -(void)logLinkingConceptNodes: (NSString*)Concept1 ConnectedConcept: (NSString*)Concept2 {
-    NSString* LogString=[[NSString alloc] initWithFormat:@"Linking concept: %@ with: %@. ", Concept1, Concept2];
+    NSString* LogString=[[NSString alloc] initWithFormat:@"Linking concept: %@ with: %@.", Concept1, Concept2];
     NSString* selectionString=[[NSString alloc] initWithFormat:@" %@ and %@. ", Concept1, Concept2];
     LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:LogString selection:selectionString input:@"null" pageNum:pageNum];
     [bookLogDataWrapper addLogs:newlog];
@@ -569,25 +727,6 @@
 }
 
 -(void)createNode:(CGPoint)position withName:(NSString*) name page: (int)m_pageNum{
-    //[self savePreviousStep];
-    /*
-     NodeCell *node=[[NodeCell alloc]initWithNibName:@"NodeCell" bundle:nil];
-     node.parentCmapController=self;
-     node.showPoint=CGPointMake(position.x+39, position.y+15);;
-     node.bookHighLight=bookHighlight;
-     node.isInitialed=YES;
-     node.bookTitle=bookTitle;
-     node.bookthumbNailIcon=bookThumbNial;
-     node.text.text=name;
-     node.conceptName=name;
-     [self addChildViewController:node];
-     [conceptNodeArray addObject:node];
-     [conceptMapView addSubview: node.view ];
-     node.text.text=name;
-     node.conceptName=name;
-     */
-    
-    
     NodeCell *node=[[NodeCell alloc]initWithNibName:@"NodeCell" bundle:nil];
     node.createType=0;
     node.bookPagePosition=CGPointMake(0, 0);
@@ -609,15 +748,16 @@
     node.text.tag=nodeCount;//use nodeCount to identify the node.
     nodeCount++;
     [node becomeFirstResponder];
-    
-    //  [self autoSaveMap];
-    //if([name isEqualToString:@"seeds"]||[name isEqualToString:@"bud"]||[name isEqualToString:@"fusion"]||[name isEqualToString:@"plant"]||[name isEqualToString:@"spores"]){
-    //  node.text.text=@"???";
-    // node.pageNum=-1;
-    //}
-    //[self autoSaveMap];
 }
 
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    if ([touch.view isDescendantOfView:self.view.subviews]) {
+        return NO;
+    }
+    return YES;
+}
 
 -(void)modifyMap{
     
@@ -687,40 +827,40 @@
 -(void)modifyExpertMap{
     int sectionsToShow = arc4random_uniform(10);
     //sectionsToShow=0;
-   // if(sectionsToShow!=9&&sectionsToShow!=10){
-        NSMutableArray* delAry=[[NSMutableArray alloc]init];
-        for (int i=0; i<sectionsToShow;i++){
-            int ran=0;
-            NSString* ranString=[NSString stringWithFormat: @"%d", ran];
-            do {
-                ran  = arc4random_uniform(10);
-                ranString=[NSString stringWithFormat: @"%d", ran];
-            } while ( [delAry containsObject: ranString]);
-            [delAry addObject:ranString];
+    // if(sectionsToShow!=9&&sectionsToShow!=10){
+    NSMutableArray* delAry=[[NSMutableArray alloc]init];
+    for (int i=0; i<sectionsToShow;i++){
+        int ran=0;
+        NSString* ranString=[NSString stringWithFormat: @"%d", ran];
+        do {
+            ran  = arc4random_uniform(10);
+            ranString=[NSString stringWithFormat: @"%d", ran];
+        } while ( [delAry containsObject: ranString]);
+        [delAry addObject:ranString];
+    }
+    
+    for (id obj in delAry) {
+        NSString* objString=(NSString*)obj;
+        int objInt=[objString intValue];
+        [self addConceptByIndex: objInt];
+        //  [self deleteConceptByIndex:objInt];
+    }
+    
+    int t=[conceptsShowAry count];
+    NSMutableArray* delnamesAry=[[NSMutableArray alloc]init];
+    for (NodeCell *node in conceptNodeArray){
+        if (![conceptsShowAry containsObject: node.text.text]) // YES
+        {
+            NSString* del=node.text.text;
+            [delnamesAry addObject:del];
         }
-
-        for (id obj in delAry) {
-            NSString* objString=(NSString*)obj;
-            int objInt=[objString intValue];
-            [self addConceptByIndex: objInt];
-            //  [self deleteConceptByIndex:objInt];
-        }
-        
-        int t=[conceptsShowAry count];
-        NSMutableArray* delnamesAry=[[NSMutableArray alloc]init];
-        for (NodeCell *node in conceptNodeArray){
-            if (![conceptsShowAry containsObject: node.text.text]) // YES
-            {
-                NSString* del=node.text.text;
-                [delnamesAry addObject:del];
-            }
-        }
-        
-        for(NSString* name in delnamesAry){
-            [self deleteConcept:name];
-        }
-        
-   // }//end if !=10&&!=0
+    }
+    
+    for(NSString* name in delnamesAry){
+        [self deleteConcept:name];
+    }
+    
+    // }//end if !=10&&!=0
     
     
     //save the number of concepts in the expert map to log file
@@ -864,12 +1004,33 @@
 }
 
 
+-(IBAction)mapViewTap:(id)sender{
+    if(isReadyToLink){
+        [nodesToLink removeShadowAnim];
+        [nodesToLink becomeFirstResponder];
+        nodesToLink=nil;
+        isReadyToLink=NO;
+    }
+}
 
 
 - (IBAction)clickOnBulb : (id)sender
 {
+    
+    if(isReadyToLink){
+        [parentBookPageViewController showAlertWithText:@"There is a concept waiting to be linked!"];
+        return;
+    }
     int r = arc4random_uniform(300)+50;
-    CGPoint location=CGPointMake(r, 650);
+    //r = arc4random_uniform(300)+50;
+    
+    CGPoint location=CGPointMake(r, 150);
+    
+    location.x+=conceptMapView.contentOffset.x;
+    location.y+=conceptMapView.contentOffset.y;
+    
+    
+    
     LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"creating new concept node" selection:@"new concept map node" input:@"null" pageNum:pageNum];
     [bookLogDataWrapper addLogs:newlog];
     [LogDataParser saveLogData:bookLogDataWrapper];
@@ -881,6 +1042,9 @@
     numInt++;
     numString=[[NSString alloc]initWithFormat:@"%d",numInt];
     [[NSUserDefaults standardUserDefaults] setObject:numString forKey:@"NumOfConcepts"];
+    
+    [self getPreView:nil];
+    [self updatePreviewLocation];
     /*
      NSLog( @"click focus question");
      if(YES==isQuestionShow){
@@ -893,11 +1057,6 @@
      */
 }
 
-
-- (IBAction)uppCmap : (id)sender
-{
-    [self uploadConceptMapImg];
-}
 
 
 -(void)createNodeFromBook:(CGPoint)position withName:(NSString*) name BookPos: (CGPoint)bookPosition page:(int)m_pageNum{
@@ -916,11 +1075,9 @@
     pointInView.x+=conceptMapView.contentOffset.x;
     pointInView.y+=conceptMapView.contentOffset.y;
     
-    
     LogData* log= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"creating concept node from book " selection:@"textbook" input:name pageNum:pageNum];
     [bookLogDataWrapper addLogs:log];
     [LogDataParser saveLogData:bookLogDataWrapper];
-    
     
     NodeCell *node=[[NodeCell alloc]initWithNibName:@"NodeCell" bundle:nil];
     node.createType=1;
@@ -949,8 +1106,62 @@
     [[NSUserDefaults standardUserDefaults] setObject:numString forKey:@"NumOfConcepts"];
     
     [self getPreView:nil];
+    [self updatePreviewLocation];
     [self autoSaveMap];
 }
+
+-(NodeCell*)createNodeFromBookForLink:(CGPoint)position withName:(NSString*) name BookPos: (CGPoint)bookPosition page:(int)m_pageNum{
+    [self savePreviousStep];
+    for(NodeCell* cell in conceptNodeArray){
+        if([cell.text.text isEqualToString:name]){
+            NSString* msg=[[NSString alloc]initWithFormat:@"Concept %@ already exist.", name];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:msg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            alert.tag=1;
+            [alert show];
+            return nil;
+        }
+    }
+    
+    CGPoint pointInView=position;
+    pointInView.x+=conceptMapView.contentOffset.x;
+    pointInView.y+=conceptMapView.contentOffset.y;
+    
+    LogData* log= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"creating concept node from book " selection:@"textbook" input:name pageNum:pageNum];
+    [bookLogDataWrapper addLogs:log];
+    [LogDataParser saveLogData:bookLogDataWrapper];
+    
+    NodeCell *node=[[NodeCell alloc]initWithNibName:@"NodeCell" bundle:nil];
+    node.createType=1;
+    node.parentCmapController=self;
+    node.bookLogData=bookLogDataWrapper;
+    node.bookPagePosition=bookPosition;
+    node.showPoint=pointInView;
+    node.isInitialed=YES;
+    node.bookthumbNailIcon=bookThumbNial;
+    node.bookHighLight=bookHighlight;
+    node.bookTitle=bookTitle;
+    node.showType=showType;
+    node.enableHyperLink=YES;
+    node.pageNum=m_pageNum-1;
+    node.showType=2;
+    [conceptNodeArray addObject:node];
+    [self addChildViewController:node];
+    [conceptMapView addSubview: node.view ];
+    node.text.tag=nodeCount;//use nodeCount to identify the node.
+    node.text.text=name;
+    [node updateViewSize];
+    nodeCount++;
+    NSString* numString=[[NSUserDefaults standardUserDefaults] stringForKey:@"NumOfConcepts"];
+    int numInt=[numString intValue];
+    numInt++;
+    numString=[[NSString alloc]initWithFormat:@"%d",numInt];
+    [[NSUserDefaults standardUserDefaults] setObject:numString forKey:@"NumOfConcepts"];
+    
+    [self getPreView:nil];
+    [self autoSaveMap];
+    return node;
+}
+
 
 -(void)addConcpetLink: (ConceptLink*) m_link{
     [conceptLinkArray addObject:m_link];
@@ -1011,6 +1222,7 @@
     node.showPoint=clickPoint;
     node.bookLogData=bookLogDataWrapper;
     node.bookHighLight=bookHighlight;
+    node.pageNum=parent_ContentViewController.pageNum-1;
     node.bookTitle=bookTitle;
     node.bookthumbNailIcon=bookThumbNial;
     [self addChildViewController:node];
@@ -1021,14 +1233,18 @@
 
 -(void)scrollCmapView :(CGFloat)length
 {
-    [conceptMapView setContentOffset:CGPointMake(0, length) animated:YES];
+    //  [conceptMapView setContentOffset:CGPointMake(conceptMapView.contentOffset.x, 10+conceptMapView.contentOffset.y) animated:YES];
+    [conceptMapView setContentOffset:CGPointMake(conceptMapView.contentOffset.x, length+conceptMapView.contentOffset.y) animated:YES];
+    
+    isKeyboardOffset=YES;
+    keyboardOffset=length;
 }
 
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
     nodeTextBeforeEditing=textField.text;
     
-   // textField.text=@"";
+    // textField.text=@"";
     CGSize screenSZ=[self screenSize];
     CGFloat offSet=(textField.superview.frame.size.height+ textField.superview.frame.origin.y)-(768-352);
     // NSLog(@"Offset: %f",offSet);
@@ -1086,7 +1302,7 @@
         self.conceptMapView.zoomScale=1.0;
         [self SaveCmapScale:1.0];
         
-      //  [contentView setFrame:CGRectMake(0, 0, conceptMapView.frame.size.width, conceptMapView.frame.size.height)];
+        //  [contentView setFrame:CGRectMake(0, 0, conceptMapView.frame.size.width, conceptMapView.frame.size.height)];
         
         
         // [contentView setFrame:conceptMapView.frame];
@@ -1102,11 +1318,13 @@
         
         //Code for OK button
     }if (buttonIndex == 1&&alertView.tag==3){
-         NSString *pasd = [alertView textFieldAtIndex:0].text;
+        NSString *pasd = [alertView textFieldAtIndex:0].text;
         if([pasd isEqualToString:@"2sigma"]){
             NSLog(@"Correct");
             [self upLoadLogFiletoDropBox];
             [self uploadCMapImg];
+            [self uploadCmapXML];
+            
         }else{
             [NSTimer scheduledTimerWithTimeInterval:2.0
                                              target:self
@@ -1139,14 +1357,17 @@
 
 
 - (void)keyboardWillHide:(NSNotification*)notification {
-    /*
-     if ([addedNode.text.text isEqualToString:@""] ){
-     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"Node is empty!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-     //[alert show];
-     //[addedNode.text becomeFirstResponder];
-     }
-     */
-    [self scrollCmapView: -10];
+    int sameNodeCount=0;
+    for(NodeCell* cell in conceptNodeArray){
+        if([addedNode.text.text isEqualToString:cell.text.text]){
+            sameNodeCount++;
+        }
+    }
+    
+    if(isKeyboardOffset&&(![addedNode.text.text isEqualToString:@""]&&(sameNodeCount<2))){
+        [self scrollCmapView: -keyboardOffset];
+        isKeyboardOffset=NO;
+    }
 }
 
 
@@ -1155,20 +1376,16 @@
     if ([addedNode.text.text isEqualToString:@""] ){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"Node is empty!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         // [alert show];
-    }else{
-        for(NodeCell* cell in conceptNodeArray){
-            if([addedNode.text.text isEqualToString:cell.text.text]){
-                sameNodeCount++;
-            }
-        }//end for
-        if(sameNodeCount>1){
-            NSString* msg=[[NSString alloc]initWithFormat:@"Node %@ already exists!",addedNode.text.text];
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:msg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [alert show];
-            // return;
-        }//end if
-        
-    }//end else
+    }
+}
+
+-(void)showDepliAlert{
+    if(!isAlertShowing){
+        NSString* msg=[[NSString alloc]initWithFormat:@"Node %@ already exists!",addedNode.text.text];
+        [self showAlertwithTxt:@"Warning" body:msg];
+        isAlertShowing=YES;
+    }
+    [addedNode.text becomeFirstResponder];
 }
 
 
@@ -1254,6 +1471,10 @@
             }
         }
     }
+    
+    if(isTraining){
+        [parentTrainingCtr showAlertWithString:@"Good job! Now try to delete a concept node"];
+    }
 }
 
 
@@ -1263,6 +1484,7 @@
     CGRect textFrame=linkJustAdded.relation.frame;
     textFrame.size.width=7*text.length+20;
     linkJustAdded.relation.frame=textFrame;
+    [self autoSaveMap];
     
 }
 
@@ -1281,6 +1503,8 @@
 {
     [super viewWillAppear:animated];
     [self getPreView:nil];
+    [upLoadIcon  setEnabled:NO];
+    [upLoadIcon setTintColor: [UIColor clearColor]];
     // [self loadConceptMap:nil];
 }
 
@@ -1297,6 +1521,20 @@
             return;
         }
     }
+    
+}
+
+
+
+-(void)highlightPageNode: (int)page{
+    NSLog(@"Highlight");
+    for(NodeCell* cell in conceptNodeArray){
+        if(cell.pageNum==(page-1)){
+            [cell highlightNode];
+            return;
+        }
+    }
+    
 }
 
 - (void)doubleTapped:(UITapGestureRecognizer *)tap
@@ -1346,6 +1584,7 @@
 }
 
 
+
 -(void)removePreviewNode: (NSString*)nodeName{
     
 }
@@ -1367,7 +1606,7 @@
     
     //[self getPreView:nil];
     //[self updatePreviewLocation];
-
+    
 }
 
 -(void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(UIView *)view{
@@ -1380,9 +1619,27 @@
     }
 }
 
--(void)scrollViewDidZoom:(UIScrollView *)scrollView{
-   // [self SaveCmapSize:contentView.frame.size.width Height:contentView.frame.size.height];
 
+-(UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
+    //UIGraphicsBeginImageContext(newSize);
+    // In next line, pass 0.0 to use the current device's pixel scaling factor (and thus account for Retina resolution).
+    // Pass 1.0 to force exact pixel size.
+    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
+    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
+}
+
+-(void)scrollViewDidZoom:(UIScrollView *)scrollView{
+    // [self SaveCmapSize:contentView.frame.size.width Height:contentView.frame.size.height];
+    if(conceptMapView.zoomScale>sacleBeforeZooming*1.5&&isPinchTraining){
+        UIImage *image = [UIImage imageNamed:@"finishTraining"];
+        image=[self imageWithImage:image scaledToSize:CGSizeMake(300, 200)];
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+        [parentBookPageViewController showAlertWithString:@"Good job! You have learned how to use the concept mapping tool. Click on finish to exist" :imageView];
+        isPinchTraining=NO;
+    }
     
     [self SaveCmapScale:conceptMapView.zoomScale];
     NSLog(@"Zooming Scale: %f\n",conceptMapView.zoomScale);
@@ -1426,14 +1683,19 @@
             conceptMapView.zoomScale=sacleBeforeZooming;
         }
         
+        if(cell.view.frame.origin.y<cell.view.frame.size.height/2||cell.view.frame.origin.x<cell.view.frame.size.width/2){
+            cell.view.center=CGPointMake(cell.view.center.x,cell.view.center.y-1);
+            conceptMapView.zoomScale=sacleBeforeZooming;
+        }
+        
     }
     [self getPreView:nil];
     [self updatePreviewLocation];
     
     
     return;
-
-
+    
+    
 }
 
 
@@ -1458,6 +1720,7 @@
     CGRect fra=parentBookPageViewController.PreviewRect.frame;
     [parentBookPageViewController.PreviewRect setFrame:CGRectMake(position.x+2, position.y+2, fra.size.width, fra.size.height)];
     
+    // [self saveOrigin];
 }
 
 -(void)updateNodesPosition: (CGPoint)position Node: (NodeCell*)m_node{
@@ -1470,6 +1733,12 @@
         index++;
     }
 }
+
+
+-(void)highlightPreviewNode{
+    
+}
+
 
 -(void)showAlertwithTxt :(NSString*)title body: (NSString*)txt{
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:txt delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -1500,66 +1769,6 @@
     }
 }
 
-
-
-- (void) uploadConceptMapImg{
-    /*
-     UIGraphicsBeginImageContextWithOptions(conceptMapView.bounds.size, NO, 0.0);
-     [conceptMapView.layer renderInContext:UIGraphicsGetCurrentContext()];
-     
-     UIImage * img = UIGraphicsGetImageFromCurrentImageContext();
-     [[UIColor whiteColor] set];
-     
-     UIGraphicsEndImageContext();
-     
-     
-     
-     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-     NSString *filePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"ExpertScreenShot.png"];
-     
-     // Save image.
-     // [UIImagePNGRepresentation(img) writeToFile:filePath atomically:YES];
-     
-     //return img;
-     
-     NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
-     sessionConfiguration.HTTPAdditionalHeaders = @{
-     @"Authorization" : [NSString stringWithFormat:@"Bearer %@", @"BFPZY5kp2NAAAAAAAAAAJHzSODkGgGqThiZaKH2pCafGwX1kKVs2UVSVnwMiRj9c"],
-     @"Content-Type"  : @"application/zip"
-     };
-     
-     
-     //make a file name to write the data to using the documents directory:
-     NSString *documentsDirectory = [paths objectAtIndex:0];
-     
-     NSString *content = [[NSString alloc] initWithContentsOfFile:filePath
-     usedEncoding:nil
-     error:nil];
-     // NSString *filename = @"Maps/ScreenShot.png";
-     // NSString *localDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-     //NSString *localPath = [localDir stringByAppendingPathComponent:filename];
-     /// [content writeToFile:localPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
-     
-     
-     NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration: sessionConfiguration delegate: self delegateQueue: [NSOperationQueue mainQueue]];
-     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://api-content.dropbox.com/1/files_put/auto/%@?overwrite=false",filename]]];
-     [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
-     NSData *data = [[NSFileManager defaultManager] contentsAtPath:filePath];
-     [request setHTTPMethod:@"PUT"];
-     [request setHTTPBody:data];
-     [request setTimeoutInterval:1000];
-     
-     NSURLSessionDataTask *doDataTask = [defaultSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-     if (!error){
-     NSLog(@"WORKED!!!!");
-     } else {
-     NSLog(@"ERROR: %@", error);
-     }
-     }];
-     
-     [doDataTask resume];
-     */
-}
 
 
 -(void)deleteLink: (NSString* )leftName SecondNode: (NSString*)rightName{
@@ -1640,7 +1849,7 @@
 -(void)uploadCMapImg
 {
     
-   
+    /*
     UIGraphicsBeginImageContextWithOptions(conceptMapView.bounds.size, NO, 0.0);
     [conceptMapView.layer renderInContext:UIGraphicsGetCurrentContext()];
     
@@ -1657,7 +1866,33 @@
     // Save image.
     [UIImagePNGRepresentation(img) writeToFile:filePath atomically:YES];
     
-    //return img;
+    //return img;*/
+    
+    UIImage* image = nil;
+    
+    UIGraphicsBeginImageContext(conceptMapView.contentSize);
+    {
+        CGPoint savedContentOffset = conceptMapView.contentOffset;
+        CGRect savedFrame = conceptMapView.frame;
+        
+        conceptMapView.contentOffset = CGPointZero;
+        conceptMapView.frame = CGRectMake(0, 0, conceptMapView.contentSize.width, conceptMapView.contentSize.height);
+        
+        [conceptMapView.layer renderInContext: UIGraphicsGetCurrentContext()];
+        image = UIGraphicsGetImageFromCurrentImageContext();
+        
+        conceptMapView.contentOffset = savedContentOffset;
+        conceptMapView.frame = savedFrame;
+    }
+    UIGraphicsEndImageContext();
+    
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *filePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"FinalScreenShot.png"];
+    
+    // Save image.
+    [UIImagePNGRepresentation(image) writeToFile:filePath atomically:YES];
+
     
     NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
     sessionConfiguration.HTTPAdditionalHeaders = @{
@@ -1672,10 +1907,13 @@
     NSString *content = [[NSString alloc] initWithContentsOfFile:filePath
                                                     usedEncoding:nil
                                                            error:nil];
-    NSString *filename = @"TurkStudyMaps/";
+    NSString *filename = @"HighSchoolStudyMaps/";
     NSString* usrName=[[NSUserDefaults standardUserDefaults] stringForKey:@"UserName"];
-    filename=[filename stringByAppendingString:usrName];
+    //filename=[filename stringByAppendingString:usrName];
     
+    NSString* iPadId=[[NSUserDefaults standardUserDefaults] stringForKey:@"iPadId"];
+    filename=[filename stringByAppendingString:iPadId];
+
     filename=[filename stringByAppendingString:@"_FinalMap.png"];
     NSString *localDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
     NSString *localPath = [localDir stringByAppendingPathComponent:filename];
@@ -1744,7 +1982,7 @@
     
     NSString *filename = @"TurkStudyMaps/";
     NSString* usrName=[[NSUserDefaults standardUserDefaults] stringForKey:@"UserName"];
-    filename=[filename stringByAppendingString:usrName];
+   // filename=[filename stringByAppendingString:usrName];
     filename=[filename stringByAppendingString:@"_ExpertMap.png"];
     
     NSString *localDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
@@ -1800,7 +2038,7 @@
     
     NSString *filename = @"ExpertMap/ExpertLink";
     NSString* usrName=[[NSUserDefaults standardUserDefaults] stringForKey:@"UserName"];
-    filename=[filename stringByAppendingString:userName];
+    //filename=[filename stringByAppendingString:userName];
     filename=[filename stringByAppendingString:@".xml"];
     NSString *localDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
     NSString *localPath = [localDir stringByAppendingPathComponent:filename];
@@ -1853,7 +2091,7 @@
     
     NSString *filename = @"ExpertMap/ExpertNode";
     NSString* usrName=[[NSUserDefaults standardUserDefaults] stringForKey:@"UserName"];
-    filename=[filename stringByAppendingString:userName];
+    //filename=[filename stringByAppendingString:userName];
     filename=[filename stringByAppendingString:@".xml"];
     NSString *localDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
     NSString *localPath = [localDir stringByAppendingPathComponent:filename];
@@ -1894,36 +2132,78 @@
     savedMapWidth=[widthString intValue];
     NSString* heightString=[[NSUserDefaults standardUserDefaults] stringForKey:@"savedheight"];
     savedMapHeight=[heightString intValue];
+    
+    // NSString* oroginXString=[[NSUserDefaults standardUserDefaults] stringForKey:@"savedOriginX"];
+    // NSString* originYString=[[NSUserDefaults standardUserDefaults] stringForKey:@"savedOriginY"];
+    // int originX= [oroginXString intValue];
+    // int originY= [originYString intValue];
+    // [parentBookPageViewController.PreviewRect setFrame:CGRectMake(originX, originY, parentBookPageViewController.PreviewRect.frame.size.width, parentBookPageViewController.PreviewRect.frame.size.height)];
+    
     if(savedMapWidth>contentView.frame.size.width){
         [contentView setFrame:CGRectMake(0, 0, savedMapWidth, savedMapHeight)];
         [conceptMapView setContentSize:CGSizeMake(savedMapWidth, savedMapHeight)];
     }
-
+    
 }
 
 
 -(void)SaveCmapSize:(int)width Height: (int)height{
+    int originX=parentBookPageViewController.PreviewRect.frame.origin.x;
+    int originY=parentBookPageViewController.PreviewRect.frame.origin.y;
+    
+    
     savedMapWidth=width;
     savedMapHeight=height;
     NSString* widthString= [NSString stringWithFormat:@"%d",width];
     NSString* heightString= [NSString stringWithFormat:@"%d",height];
     
+    NSString* originXString= [NSString stringWithFormat:@"%d",originX];
+    NSString* originYString= [NSString stringWithFormat:@"%d",originY];
+    
     [[NSUserDefaults standardUserDefaults] setObject:widthString forKey:@"savedWidth"];
     [[NSUserDefaults standardUserDefaults] setObject:heightString forKey:@"savedheight"];
+    
+    // [[NSUserDefaults standardUserDefaults] setObject:originXString forKey:@"savedOriginX"];
+    // [[NSUserDefaults standardUserDefaults] setObject:originYString forKey:@"savedOriginY"];
 }
 
 
 -(void)SaveCmapScale:(float)scale{
+    if(parentBookPageViewController.isTraining){
+        return;
+    }
     NSString* scaleString= [NSString stringWithFormat:@"%f",scale];
     [[NSUserDefaults standardUserDefaults] setObject:scaleString forKey:@"savedScale"];
+    
 }
 
 -(void)readSavedCmapScale{
     NSString* widthString=[[NSUserDefaults standardUserDefaults] stringForKey:@"savedScale"];
     float scale=[widthString floatValue];
     conceptMapView.zoomScale=scale;
+    
 }
 
+
+-(void)saveOrigin{
+    int originX=parentBookPageViewController.PreviewRect.frame.origin.x;
+    int originY=parentBookPageViewController.PreviewRect.frame.origin.y;
+    NSString* originXString= [NSString stringWithFormat:@"%d",originX];
+    NSString* originYString= [NSString stringWithFormat:@"%d",originY];
+    [[NSUserDefaults standardUserDefaults] setObject:originXString forKey:@"savedOriginX"];
+    [[NSUserDefaults standardUserDefaults] setObject:originYString forKey:@"savedOriginY"];
+}
+
+
+
+-(void)readSavedOrigin{
+    NSString* oroginXString=[[NSUserDefaults standardUserDefaults] stringForKey:@"savedOriginX"];
+    NSString* originYString=[[NSUserDefaults standardUserDefaults] stringForKey:@"savedOriginY"];
+    int originX= [oroginXString intValue];
+    int originY= [originYString intValue];
+    [parentBookPageViewController.PreviewRect setFrame:CGRectMake(originX, originY, parentBookPageViewController.PreviewRect.frame.size.width, parentBookPageViewController.PreviewRect.frame.size.height)];
+    
+}
 
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
@@ -1979,9 +2259,9 @@
 
 - (IBAction)AdminUpload:(id)sender {
     /*
-    ZCTradeView* trade=[[ZCTradeView alloc]init];
-    trade.delegate=self;
-    [trade show];*/
+     ZCTradeView* trade=[[ZCTradeView alloc]init];
+     trade.delegate=self;
+     [trade show];*/
     
     
     MyAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Admin" message:@"Enter admin password:" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Ok", nil];
@@ -1991,9 +2271,9 @@
     [alertView show];
     
     //[parentBookPageViewController showAdminPsdAlert];
-
-
-
+    
+    
+    
 }
 
 
@@ -2017,10 +2297,14 @@
     NSString *content = [[NSString alloc] initWithContentsOfFile:fileName
                                                     usedEncoding:nil
                                                            error:nil];
-    NSString *filename = @"TurkLogfile/LogData_";
+    NSString *filename = @"TestLogfile/";
     NSString* usrName=[[NSUserDefaults standardUserDefaults] stringForKey:@"UserName"];
-    filename=[filename stringByAppendingString:usrName];
-    filename=[filename stringByAppendingString:@".xml"];
+   // filename=[filename stringByAppendingString:usrName];
+    
+    NSString* iPadId=[[NSUserDefaults standardUserDefaults] stringForKey:@"iPadId"];
+    filename=[filename stringByAppendingString:iPadId];
+    
+    filename=[filename stringByAppendingString:@"_LogData.xml"];
     NSString *localDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
     NSString *localPath = [localDir stringByAppendingPathComponent:filename];
     [content writeToFile:localPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
@@ -2043,12 +2327,40 @@
             [alertView show];
         }
     }];
-    
     [doDataTask resume];
     
 }
 
 
+-(BOOL)isNodeExist: (NSString*)name{
+    for(NodeCell* cell in conceptNodeArray){
+        if([cell.text.text isEqualToString:name]){
+            return YES;
+        }
+    }
+    return NO;
+}
+
+-(void)showLinkHint{
+    /*
+    [conceptMapView bringSubviewToFront:focusQuestionLable];
+    //[focusQuestionLable removeFromSuperview];
+    //[self.view addSubview:focusQuestionLable];
+    focusQuestionLable.text=@"Click on the node you want to link. To cancel linking, click on the node itself.";
+    focusQuestionLable.center=CGPointMake(200+conceptMapView.contentOffset.x, 15+conceptMapView.contentOffset.y);
+    [focusQuestionLable setHidden:NO];*/
+    [parentBookPageViewController showLinkingWarning];
+}
+
+-(void)dismissLinkHint{
+    //[focusQuestionLable setHidden:YES];
+    [parentBookPageViewController hideLinkingWarning];
+}
+
+-(void)displayWebView{
+   /// WebBrowserViewController *myweb=[[WebBrowserViewController alloc]initWithNibName:@"WebBrowserViewController" bundle:nil];
+
+}
 
 
 @end

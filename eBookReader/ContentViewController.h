@@ -112,4 +112,5 @@
 -(void)expandSubNode:(UIView*)node;
 -(void)showOverLayCmapView;
 -(void)hideOverLayCmapView;
+-(void)showFlipPageHint;
 @end

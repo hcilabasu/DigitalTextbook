@@ -11,6 +11,7 @@
 @interface PreViewNode : UIViewController
 @property NSString* name;
 @property UIView* ParentPreView;
+@property (weak, nonatomic) IBOutlet UIImageView *img;
 
 -(void)createLink: (PreViewNode*)cellToLink name: (NSString*)relationName;
 @end

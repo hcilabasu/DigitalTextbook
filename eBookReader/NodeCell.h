@@ -40,6 +40,8 @@
 @property (strong, nonatomic) ContentViewController *parentContentViewController;
 
 @property(assign,nonatomic) BOOL pressing;
+@property(assign,nonatomic) BOOL isAlertShowing;
+
 @property(assign,nonatomic) BOOL isInitialed;
 @property  CABasicAnimation *waitAnim;
 @property(strong,nonatomic) IBOutlet UILongPressGestureRecognizer* longPressRecognizer;
@@ -58,7 +60,7 @@
 @property BOOL hasWeblink;
 @property (nonatomic, retain) LogDataWrapper* bookLogData;
 @property (strong, nonatomic) NSString *userName;
-@property (strong, nonatomic) RelationTextView*linkTextview;
+@property (strong, nonatomic) RelationTextView*linkTextview2;
 @property BOOL enableHyperLink;
 -(void)deleteLinkWithNode: (NodeCell*)cellToDel;
 -(void)removeLinkWithNode: (NodeCell*) LinkedNode;

@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "WebMarkController.h"
 #import "ContentViewController.h"
+@class BookPageViewController;
 
-
-@interface WebBrowserViewController : UIViewController <UIWebViewDelegate>{
+@interface WebBrowserViewController : UIViewController <UIWebViewDelegate,UIGestureRecognizerDelegate>{
   // ContentViewController *parent_View;
 
 }
@@ -21,7 +21,10 @@
 @property (strong, nonatomic)  NSURL *url;//the URL link to display HTML content
 @property (strong, nonatomic)  NSURLRequest *requestObj;
 
-@property (nonatomic, strong)  ContentViewController *parent_View_Controller;
+
+@property (strong, nonatomic)ContentViewController* parent_View_Controller;
+@property (nonatomic, strong)  BookPageViewController *parentBookPageViewCtr;;
+
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *refresh;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *next;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *pre;
@@ -35,5 +38,6 @@
 @property  (nonatomic) int urlId;
 @property  (nonatomic) BOOL isNew;
 -(void)setParent_View:(ContentViewController *)view;
+-(void)SearchKeyWord: (NSString*) keywrod;
 @end
 
