@@ -69,12 +69,12 @@
         [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"loadExpertMap"];
     }
     if(isHyperLink){
-        [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"isHyperLinking"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"isHyperLinking"];
     }
     
     
     [TestFairy begin:@"e5748af60e023eec56df84a69ddfed6cd421b914"];
-    [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"HyperLinking"];
+    [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"HyperLinking"];
     // Override point for customization after application launch.
     NSError *error;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);

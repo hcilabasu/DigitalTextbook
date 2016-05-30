@@ -93,31 +93,23 @@ static NSString *cellId2 = @"cellId2";
 
 
 -(void)viewDidAppear:(BOOL)animated{
-    //[self refresh];
-    [self.currentPageLabel setText:[NSString stringWithFormat:@"%d/%d",pageNum, totalpageNum]];
-    //[self loadThumbNailIcon];
 
-    
+    [self.currentPageLabel setText:[NSString stringWithFormat:@"%d/%d",pageNum, totalpageNum]];
     [self loadThumbNailIcon:firstRespondConcpet];
-    
     if( ([[UIApplication sharedApplication] statusBarOrientation]==UIInterfaceOrientationLandscapeLeft)||([[UIApplication sharedApplication] statusBarOrientation]==UIInterfaceOrientationLandscapeRight)){
         //[ThumbScrollViewRight setHidden:YES];
         [self hideAllSubview:ThumbScrollViewRight];
         isSplit=YES;
     }
-    
     [parent_BookViewController clearAllHighlightNode];
     [parent_BookViewController searchAndHighlightNode];
     [parent_BookViewController searchAndHighlightLink];
     [parent_BookViewController.parent_BookPageViewController.cmapView getPreView:nil];
     [parent_BookViewController.parent_BookPageViewController.cmapView updatePreviewLocation];
-    
     [webView setFrame:self.view.frame];
     [webView becomeFirstResponder];
-    
     parent_BookViewController.parent_BookPageViewController.cmapView.parent_ContentViewController=self;
-   // [self.parentViewController.navigationController setNavigationBarHidden: YES animated:YES];
-    //[self.navigationController setNavigationBarHidden: YES animated:YES];
+
 }
 
 
@@ -154,7 +146,6 @@ static NSString *cellId2 = @"cellId2";
     [onetap setNumberOfTapsRequired:1];
     onetap.delegate=self;
     [webView addGestureRecognizer:onetap];
-     
     
     UILongPressGestureRecognizer *longpress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longpressAction:)];
     longpress.delegate=self;
@@ -167,13 +158,6 @@ static NSString *cellId2 = @"cellId2";
     if([previewBtn isEqualToString:@"YES"]){
         self.currentPageLabel.center=CGPointMake(self.currentPageLabel.center.x, self.currentPageLabel.center.y+50);
     }
-
-    /*
-    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapped:)];
-    [doubleTap setNumberOfTapsRequired:2];
-    doubleTap.delegate=self;
-    [webView addGestureRecognizer:doubleTap];
-     */
     //set up menu items, icons and methods
     [self setingUpMenuItem];
     
@@ -203,12 +187,7 @@ static NSString *cellId2 = @"cellId2";
     ThumbScrollViewLeft.tag=1;
     ThumbScrollViewLeft.scrollEnabled=NO;
     ThumbScrollViewRight.contentSize = CGSizeMake(80, self.view.frame.size.height-50);
-    //[self.currentPageLabel setText:[NSString stringWithFormat:@"%d/%d",pageNum, totalpageNum]];
-    //[self loadThumbNailIcon];
-    // [self loadThumbNailIcon:firstRespondConcpet];
-    
-    //  UIBarButtonItem *conceptButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:nil];
-    // self.parentViewController. navigationItem.rightBarButtonItem=conceptButton;
+
     UIImage* image3 = [UIImage imageNamed:@"idea"];
 
     
@@ -221,30 +200,7 @@ static NSString *cellId2 = @"cellId2";
     [someButton setShowsTouchWhenHighlighted:YES];
     UIBarButtonItem *mailbutton =[[UIBarButtonItem alloc] initWithCustomView:someButton];
     self.parent_BookViewController.navigationItem.rightBarButtonItem=mailbutton;
-    /*
-     if( ([[UIApplication sharedApplication] statusBarOrientation]==UIInterfaceOrientationLandscapeLeft)||([[UIApplication sharedApplication] statusBarOrientation]==UIInterfaceOrientationLandscapeRight)){
-     //[ThumbScrollViewRight setHidden:YES];
-     [self hideAllSubview:ThumbScrollViewRight];
-     isSplit=YES;
-     }
-     */
-    // [parent_BookViewController clearAllHighlightNode];
-    //// [parent_BookViewController searchAndHighlightNode];
-    // [parent_BookViewController searchAndHighlightLink];
-   /*
-    CmapBookNoteViewController *cmapNote=[[CmapBookNoteViewController alloc] initWithNibName:@"CmapBookNoteViewController" bundle:nil];
-    cmapNote.view.frame = CGRectMake(230, 341, 55, 20);
-    [self.view addSubview:cmapNote.view];
-    [self addChildViewController:cmapNote];
-    cmapNote.parentContentView=self;
-    */
-    /////set up overlay Cmap view
-   // overLayCmapView=[[CmapController alloc] initWithNibName:@"CmapView" bundle:nil];
-    //overLayCmapView.bookLogDataWrapper=logWrapper;
-    //overLayCmapView.showType=1;
-    //overLayCmapView.neighbor_BookViewController=self.bookView;
-   // [self addChildViewController:overLayCmapView];
-    //[self.view addSubview:overLayCmapView.view];
+
     [overLayCmapView.view setUserInteractionEnabled:NO];
     overLayCmapView.view.center=CGPointMake(384, 384);
     overLayCmapView.view.backgroundColor= [UIColor clearColor];
@@ -253,15 +209,8 @@ static NSString *cellId2 = @"cellId2";
     [overLayCmapView.bulbImageView removeFromSuperview];
     [overLayCmapView.focusQuestionLable removeFromSuperview];
     [overLayCmapView.view setHidden:YES];
-    //[overLayCmapView.view setHidden:YES];
-    // [self.parentViewController.navigationController setNavigationBarHidden: NO animated:YES];
-    // [self.navigationController setNavigationBarHidden: NO animated:YES];
     [self.webView becomeFirstResponder];
-    
 
-    NSString *str=[[NSString alloc]initWithFormat:@"Page %d did load.",pageNum];
-    NSLog(str);
-    //[self performTouchInView:webView];
     
 
 }
@@ -312,13 +261,8 @@ static NSString *cellId2 = @"cellId2";
     if( ([[UIApplication sharedApplication] statusBarOrientation]==UIInterfaceOrientationLandscapeLeft)||([[UIApplication sharedApplication] statusBarOrientation]==UIInterfaceOrientationLandscapeRight)){
         CGRect rec=CGRectMake(0, webView.frame.origin.y, 512, 768);
         [webView setFrame:rec];
-        
-       // NSString *jsString2 = [[NSString alloc] initWithFormat:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '%d%%'",96];
-       // [webView stringByEvaluatingJavaScriptFromString:jsString2];
+    
     }else{
-        //NSString *jsString2 = [[NSString alloc] initWithFormat:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '%d%%'",118];
-  //  NSString *jsString2 = [[NSString alloc] initWithFormat:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '%d%%'",96];
-    //[webView stringByEvaluatingJavaScriptFromString:jsString2];
     }
 }
 
@@ -449,7 +393,7 @@ static NSString *cellId2 = @"cellId2";
     UIMenuItem *speakItem = [[UIMenuItem alloc] initWithTitle: @"speak" action: @selector(speak:)];
     [speakItem cxa_setSettings:markIconSettingSpeak];
     
-    
+    //add the icon to the menu bar
     [menuController setMenuItems: [NSArray arrayWithObjects: concept, nil]];
     
 }
@@ -483,14 +427,8 @@ static NSString *cellId2 = @"cellId2";
 
 - (void)longpressAction:(UITapGestureRecognizer *)tap
 {
-     NSString *selection = [webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"];
       pvPoint = [tap locationInView:self.view];
      [self becomeFirstResponder];
-   // UIMenuController *menuController = [UIMenuController sharedMenuController];
-   // [menuController setMenuVisible:YES animated:YES];
-   
-  
-    
 }
 
 // invoke when user tap with one finger once
@@ -632,15 +570,7 @@ static NSString *cellId2 = @"cellId2";
     {
         return YES;
     }
-    
-    if (action == @selector(copy:))
-    {
-        return NO;
-    }
-    if (action == @selector(define:))
-    {
-        return NO;
-    }
+  
     return NO;
 }
 
@@ -1029,6 +959,7 @@ static NSString *cellId2 = @"cellId2";
 -(void)autoGerenateConceptNode{
     int conceptId=0;
     if ( bookHighLight!= nil) {
+        
         for (HighLight *highLightText in bookHighLight.highLights) {
             NSString *methodString=highLightText.text;
             for (  Concept *cell in knowledge_module.conceptList) {
@@ -1040,7 +971,6 @@ static NSString *cellId2 = @"cellId2";
                      conceptId++;
                      //[self createNode:position withName:cell.conceptName];
                      }*/
-                    
                 }
             }
         }
@@ -1185,8 +1115,6 @@ static NSString *cellId2 = @"cellId2";
         //[self hideAllSubview:ThumbScrollViewRight];
         //[self hideAllSubview:ThumbScrollViewLeft];
         isSplit=YES;
-        
-        
        // NSString *jsString2 = [[NSString alloc] initWithFormat:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '%d%%'",96];
         //[webView stringByEvaluatingJavaScriptFromString:jsString2];
     }
@@ -1197,12 +1125,9 @@ static NSString *cellId2 = @"cellId2";
         [self deleteAllSubview:ThumbScrollViewLeft];
         [self deleteAllSubview:ThumbScrollViewRight];
         [self refresh];
-
         [self loadThumbNailIcon:firstRespondConcpet];
         isSplit=NO;
-        
     }
-    
 }
 
 -(void)hideAllSubview: (UIView*)parentView{
@@ -1234,7 +1159,6 @@ static NSString *cellId2 = @"cellId2";
                 }
                 
                 for(int i=0; i<5; i++){
-                    
                     SubNodeViewController *newNode=[[SubNodeViewController alloc]initWithNibName:@"SubNodeViewController" bundle:nil];
                     newNode.parentController=self;
                     newNode.parentBookViewController=parent_BookViewController;
@@ -1248,8 +1172,6 @@ static NSString *cellId2 = @"cellId2";
                     newNode.view.tag=2;
                     
                 }
-                
-                
                 subnode.tag=1;//mark the node, indicating that it's been expanded
             }//end if
             
@@ -1267,9 +1189,6 @@ static NSString *cellId2 = @"cellId2";
                         // Do nothing - not a UIButton or subclass instance
                     }
                 }
-                
-                
-                
                 subnode.tag=0;//mark the node back to unexpanded
             }
             

@@ -56,7 +56,6 @@
 
     urlId=0;
     [webBrowserView setDelegate:self];
-   // [webBrowserView becomeFirstResponder];
     webBrowserView.scalesPageToFit=YES;
     [refresh setTarget:self];
     [refresh setAction:@selector(refreshWebPage:)];
@@ -66,7 +65,7 @@
     [back setAction:@selector(backToBook:)];
     
     
-    /*
+    
     UIMenuController *menuController = [UIMenuController sharedMenuController];
         CXAMenuItemSettings *markIconSettingSpeak = [CXAMenuItemSettings new];
     markIconSettingSpeak.image = [UIImage imageNamed:@"question"];
@@ -75,28 +74,29 @@
     UIMenuItem *speakItem = [[UIMenuItem alloc] initWithTitle: @"speak" action: @selector(bookMark:)];
     [speakItem cxa_setSettings:markIconSettingSpeak];
     [menuController setMenuItems: [NSArray arrayWithObjects: speakItem, nil]];
-*/
-    /*
     UILongPressGestureRecognizer *longpress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longpressAction:)];
     longpress.delegate=self;
-    [webBrowserView addGestureRecognizer:longpress];*/
-     
+    [webBrowserView addGestureRecognizer:longpress];
+    //[webBrowserView becomeFirstResponder];
 }
 
 
+//need this function for IOS 9 to call the menubar when longclick happens
 - (void)longpressAction:(UITapGestureRecognizer *)tap
 {
-    NSString *selection = [webBrowserView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"];
+    UIMenuController *menuController = [UIMenuController sharedMenuController];
+    CXAMenuItemSettings *markIconSettingSpeak = [CXAMenuItemSettings new];
+    markIconSettingSpeak.image = [UIImage imageNamed:@"question"];
+    markIconSettingSpeak.shadowDisabled = NO;
+    markIconSettingSpeak.shrinkWidth = 4; //set menu item size and picture.
+    UIMenuItem *speakItem = [[UIMenuItem alloc] initWithTitle: @"speak" action: @selector(bookMark:)];
+    [speakItem cxa_setSettings:markIconSettingSpeak];
+    [menuController setMenuItems: [NSArray arrayWithObjects: speakItem, nil]];
     [self becomeFirstResponder];
-    // UIMenuController *menuController = [UIMenuController sharedMenuController];
-    // [menuController setMenuVisible:YES animated:YES];
-    
-    
-    
 }
 
 - (void)bookMark:(id)sender{
-    
+    NSLog(@"Book Mark");
     
 }
 - (void)didReceiveMemoryWarning
@@ -115,21 +115,12 @@
 - (BOOL) canPerformAction:(SEL)action withSender:(id)sender
 {
     if (  action == @selector(bookMark:)
-        ||action == @selector(refreshWebPage:)
-        ||action==@selector(addWebMark:)
-        ||action==@selector(backToBook:))
+        ||action==@selector(longpressAction:)
+        )
     {
         return YES;
     }
-    
-    if (action == @selector(copy:))
-    {
-        return NO;
-    }
-    if (action == @selector(define:))
-    {
-        return NO;
-    }
+
     return NO;
 }
 
