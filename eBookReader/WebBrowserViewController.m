@@ -66,38 +66,25 @@
     [back setAction:@selector(backToBook:)];
     
     
-    /*
+    //get the shared menubar.
     UIMenuController *menuController = [UIMenuController sharedMenuController];
-        CXAMenuItemSettings *markIconSettingSpeak = [CXAMenuItemSettings new];
+    //create a menu item
+    CXAMenuItemSettings *markIconSettingSpeak = [CXAMenuItemSettings new];
     markIconSettingSpeak.image = [UIImage imageNamed:@"question"];
     markIconSettingSpeak.shadowDisabled = NO;
     markIconSettingSpeak.shrinkWidth = 4; //set menu item size and picture.
+    //set up the function called when user click the button
     UIMenuItem *speakItem = [[UIMenuItem alloc] initWithTitle: @"speak" action: @selector(bookMark:)];
     [speakItem cxa_setSettings:markIconSettingSpeak];
+    //add the menu item to the menubar.
     [menuController setMenuItems: [NSArray arrayWithObjects: speakItem, nil]];
-*/
-    /*
-    UILongPressGestureRecognizer *longpress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longpressAction:)];
-    longpress.delegate=self;
-    [webBrowserView addGestureRecognizer:longpress];*/
-     
-}
 
 
-- (void)longpressAction:(UITapGestureRecognizer *)tap
-{
-    NSString *selection = [webBrowserView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"];
-    [self becomeFirstResponder];
-    // UIMenuController *menuController = [UIMenuController sharedMenuController];
-    // [menuController setMenuVisible:YES animated:YES];
-    
-    
-    
 }
+
 
 - (void)bookMark:(id)sender{
-    
-    
+    //do stuff here...
 }
 - (void)didReceiveMemoryWarning
 {
@@ -120,15 +107,6 @@
         ||action==@selector(backToBook:))
     {
         return YES;
-    }
-    
-    if (action == @selector(copy:))
-    {
-        return NO;
-    }
-    if (action == @selector(define:))
-    {
-        return NO;
     }
     return NO;
 }
