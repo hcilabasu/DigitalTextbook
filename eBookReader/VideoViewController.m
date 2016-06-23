@@ -11,6 +11,7 @@
 #import "AVFoundation/AVFoundation.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import "BookPageViewController.h"
+#import "TrainingViewController.h"
 @interface VideoViewController ()
 
 @end
@@ -24,7 +25,9 @@
 @synthesize remainTime;
 @synthesize startDate;
 @synthesize timerLable;
-
+@synthesize bookImporter;
+@synthesize bookTitle;
+@synthesize logWrapper;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationController.delegate = self;
@@ -63,10 +66,24 @@
     }
     
     
-    
-    
+
     UIDeviceOrientation Devorientation = [[UIDevice currentDevice] orientation];
-    NSURL *url = [NSURL URLWithString:@"https://invis.io/JN5N1N9WK"];
+    //NSURL *url = [NSURL URLWithString:@"https://invis.io/JN5N1N9WK"];
+    [teachImg setHidden:YES];
+    
+    NSString* istest=[[NSUserDefaults standardUserDefaults] stringForKey:@"isHyperLinking"];
+    
+    NSURL *url=[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"index" ofType:@"html" inDirectory:@"NonHyperLink"]];
+    if([istest isEqualToString:@"YES"]){
+    
+   url= [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"index" ofType:@"html" inDirectory:@"Tutorial"]];
+    }
+    
+    
+    
+    [webView loadRequest:[NSURLRequest requestWithURL:url]];
+    
+    /*
     switch (Devorientation) {
         case UIDeviceOrientationPortrait:
         case UIDeviceOrientationPortraitUpsideDown:
@@ -81,11 +98,82 @@
             
         default:
             break;
-    }
+    }*/
 
-    
+    // Do any additional setup after loading the view from its nib.
+    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"Practice"
+                                                                   style:UIBarButtonItemStyleDone target:self action:@selector(showTutorial)];
+    self.navigationItem.rightBarButtonItem = leftButton;    
 }
 
+
+
+
+
+-(void)showTutorial{
+    /*
+    TrainingViewController *tutorial= [[TrainingViewController alloc]initWithNibName:@"TrainingViewController" bundle:nil];
+    tutorial.bookImporter=bookImporter;
+    tutorial.bookTitle=bookTitle;
+    //tutorial.hideImg=YES;
+    ///[tutorial.teachImg removeFromSuperview];
+    [self.navigationController pushViewController:tutorial animated:NO];*/
+    
+    
+    
+    BookPageViewController*  bookPage=[[BookPageViewController alloc] initWithNibName:@"BookPageViewController" bundle:nil];
+    bookPage.isTraining=YES;
+    // bookPage.userName=userName;
+    [self.navigationController pushViewController:bookPage animated:YES];
+    
+    bookPage.bookView = [[BookViewController alloc]init];
+    //bookPage.bookView.userName=userName;
+    
+    bookPage.bookView.parent_BookPageViewController=bookPage;
+    bookPage.bookView.bookImporter = bookImporter;
+    bookPage.bookView.bookTitle = bookTitle;
+    
+    //bookPage.bookView.parent_LibraryViewController=self;
+    // bookPage.bookView.parent_BookPageViewController=bookPage;
+    [ bookPage.bookView createContentPages]; //create page content
+    [ bookPage.bookView initialPageView];    //initial page view
+    
+    
+    //[self.navigationController pushViewController:bookPage animated:YES];
+    
+    //CGRect rect=CGRectMake(0, 0, bookPage.view.frame.size.height, bookPage.view.frame.size.width);
+    //[destination.view setFrame:rect];
+    [bookPage.view addSubview: bookPage.bookView.view];
+    [bookPage addChildViewController: bookPage.bookView];
+    [bookPage showWebhint];
+    bookPage.cmapView.isAddNodeTraining=YES;
+    UIImage *image = [UIImage imageNamed:@"Train_AddNode"];
+    image=[self imageWithImage:image scaledToSize:CGSizeMake(300, 200)];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+    [bookPage showAlertWithString:@"Welcome to the training session! Now please add a concept node from the textbook!": imageView];
+    
+    /*
+    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"Finish"
+                                                                   style:UIBarButtonItemStyleDone target:self action:@selector(finishTraining)];
+    self.navigationItem.rightBarButtonItem = leftButton;
+    */
+}
+
+- (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
+    //UIGraphicsBeginImageContext(newSize);
+    // In next line, pass 0.0 to use the current device's pixel scaling factor (and thus account for Retina resolution).
+    // Pass 1.0 to force exact pixel size.
+    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
+    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
+}
+
+
+-(void)finishTraining{
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
 
 -(BOOL)prefersStatusBarHidden{
     return YES;
@@ -132,7 +220,8 @@
 
 
 -(void)Goback{
-    [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:2] animated:YES];
+    //[self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:2] animated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 

@@ -329,6 +329,8 @@ static NSString *cellId2 = @"cellId2";
 }
 
 
+
+
 - (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
     //UIGraphicsBeginImageContext(newSize);
     // In next line, pass 0.0 to use the current device's pixel scaling factor (and thus account for Retina resolution).
@@ -658,9 +660,7 @@ static NSString *cellId2 = @"cellId2";
         [parent_BookViewController.parent_BookPageViewController showAlertWithText:@"There is a concept waiting to be linked!"];
         return;
     }
-    NSLog(@"Current Sender Id %@", sender);
-    
-    
+
     BOOL isHyperLink = [[NSUserDefaults standardUserDefaults] boolForKey:@"HyperLinking"];
     //Gets string
     //web view not our web browser

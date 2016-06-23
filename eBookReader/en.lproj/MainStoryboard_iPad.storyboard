@@ -38,6 +38,7 @@
                     <connections>
                         <outlet property="libraryLabel" destination="14" id="eVw-lZ-len"/>
                         <outlet property="libraryView" destination="13" id="chW-1c-Soz"/>
+                        <outlet property="titleLabel" destination="14" id="XIH-dw-PTY"/>
                         <segue destination="NLI-lb-tHz" kind="push" identifier="OpenBookSegue" id="egF-RJ-XxJ"/>
                     </connections>
                 </viewController>
@@ -102,13 +103,13 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Username" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ooE-3t-5Fx">
                                         <rect key="frame" x="247" y="382" width="79" height="21"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Password" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pIf-If-Bya">
                                         <rect key="frame" x="247" y="482" width="76" height="21"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="LoginForm.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="Yaa-tP-2XF">
@@ -127,12 +128,11 @@
                         <outlet property="LoginButton" destination="jRf-Lc-4Gc" id="Ayh-1A-g0D"/>
                         <outlet property="PasswordTextView" destination="tir-Az-764" id="soZ-cJ-pjr"/>
                         <outlet property="UserNameTextView" destination="8EF-uP-Sii" id="TfV-zl-cnT"/>
-                        <segue destination="5" kind="push" id="uhf-gt-e2S"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W1n-3a-HU2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1054" y="-1428"/>
+            <point key="canvasLocation" x="964" y="-582"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="1zI-VA-WYc">
@@ -146,7 +146,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
-                        <segue destination="0ol-Ns-sMu" kind="relationship" relationship="rootViewController" id="osl-pG-KfZ"/>
+                        <segue destination="5" kind="relationship" relationship="rootViewController" id="39l-0O-OTu"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6aY-Dg-DGB" userLabel="First Responder" sceneMemberID="firstResponder"/>

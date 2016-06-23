@@ -68,5 +68,6 @@
 -(void)hideLinkingWarning;
 -(void)showWebView: (NSString*)conceptName atNode: (NodeCell*) relatedNode;
 -(void)hideWebView;
+
 @end
 

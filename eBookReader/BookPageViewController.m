@@ -48,6 +48,7 @@
 @synthesize hintImg;
 @synthesize myWebView;
 @synthesize subViewType;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -118,6 +119,8 @@
 
 
 
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -125,8 +128,9 @@
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"See Tutorial"
                                                                    style:UIBarButtonItemStyleDone target:self action:@selector(showTutorial)];
     self.navigationItem.rightBarButtonItem = leftButton;
+
     
-    
+
     if(isTraining){
         UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"Finish"
                                                                        style:UIBarButtonItemStyleDone target:self action:@selector(finishTraining)];
@@ -134,10 +138,13 @@
     }
     //[self.navigationItem setHidesBackButton:YES animated:YES];
    // [self.parentViewController.navigationController.navigationBar setHidden:YES];
+
+    
     [[NSNotificationCenter defaultCenter] addObserver:self // put here the view controller which has to be notified
                                              selector:@selector(orientationChanged:)
                                                  name:@"UIDeviceOrientationDidChangeNotification"
                                                object:nil];
+
     //[self.navigationController setNavigationBarHidden:YES];
     // self.navigationController.navigationBar.translucent = NO;
     //self.parentViewController.navigationController.navigationBar.translucent = YES;
@@ -198,7 +205,7 @@
     if(isTraining){
         self.navigationItem.title=@"Training";
     }
-    
+
 }
 
 
@@ -1050,7 +1057,6 @@
     
     [cmapView.conceptNodeArray removeAllObjects];
     [cmapView.conceptLinkArray removeAllObjects];
-    
     NodeCell* cell= [cmapView createNodeFromBookForLink:CGPointMake( 250, 300) withName:@"delete me" BookPos:CGPointMake(0, 0) page:1];
     cell.text.backgroundColor=[UIColor colorWithRed:247.0/255.0 green:176.0/255.0 blue:143.0/255.0 alpha:1];
     webFocusQuestionLable.text=@"Long click on a concept and drag to the delete option.";
@@ -1070,5 +1076,6 @@
      [myWebView.view setHidden:YES];
     [previewImg setHidden:NO];
 }
+
 
 @end

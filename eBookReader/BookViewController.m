@@ -53,7 +53,7 @@
     [super viewDidLoad];
     highLight = [HighlightParser loadHighlight];
     thumbnailIcon=[ThumbNailIconParser loadThumbnailIcon];
-    //logWrapper= [LogDataParser loadLogData];
+    logWrapper= [LogDataParser loadLogData];
     [thumbnailIcon printAllThumbnails];
 
     NSArray * ary=self.view.gestureRecognizers;
@@ -198,7 +198,7 @@
     }
     
     NSString* logStr=[[NSString alloc] initWithFormat:@"Navigate to page: %d", index+1];
-    LogData* log= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:logStr selection:@"Textbook" input:@"null" pageNum:index+1];
+    LogData* log= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:logStr selection:@"Textbook" input:@"null" pageNum:index];
     [logWrapper addLogs:log];
     [LogDataParser saveLogData:logWrapper];
     
@@ -352,7 +352,8 @@
             if(thumbNailItem.page==(_pageNum+1) && [bookTitle isEqualToString: thumbNailItem.bookTitle]){
                 if (3==thumbNailItem.type){
                     //if(parent_BookPageViewController.cmapView.isInitComplete){
-                    [parent_BookPageViewController.cmapView highlightNode:thumbNailItem.text];
+                   // [parent_BookPageViewController.cmapView highlightNode:thumbNailItem.text];
+                    [parent_BookPageViewController.cmapView highlightPageNode:currentContentView.pageNum];
                     // }
                 }
             }

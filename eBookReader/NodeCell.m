@@ -54,8 +54,6 @@
 @synthesize createType;
 @synthesize isAlertShowing;
 
-
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -168,8 +166,7 @@
     [self becomeFirstResponder];
     //self.view.layer.zPosition=2;
     enableHyperLink=NO;
-    
-    //linkingUrl = nil;
+
 }
 
 //enters a url string into the "savedUrls" array
@@ -966,6 +963,7 @@
         [cell removeLink];
         [cell.view removeFromSuperview];
     }
+
      if(parentCmapController.parentBookPageViewController.isTraining&&[text.text isEqualToString:@"delete me"]){
          [parentCmapController.conceptNodeArray removeAllObjects];
          [parentCmapController.conceptLinkArray removeAllObjects];

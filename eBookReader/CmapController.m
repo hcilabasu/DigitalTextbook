@@ -98,7 +98,7 @@
 @synthesize keyboardOffset;
 @synthesize linkJustCreated;
 @synthesize upLoadIcon;
-//@synthesize myWebView;
+
 - (id) init {
     if (self = [super init]) {
         nodeCount=1;
@@ -1101,6 +1101,7 @@
     [conceptMapView addSubview: node.view ];
     node.text.tag=nodeCount;//use nodeCount to identify the node.
     node.text.text=name;
+
     node.conceptName=name;
     [node updateViewSize];
     nodeCount++;
@@ -1113,11 +1114,9 @@
     [self getPreView:nil];
     [self updatePreviewLocation];
     [self autoSaveMap];
-    
 }
 
 -(NodeCell*)createNodeFromBookForLink:(CGPoint)position withName:(NSString*) name BookPos: (CGPoint)bookPosition page:(int)m_pageNum{
-    NSLog(@"Code reaches CMap createNodeFromBooktoLink");
     [self savePreviousStep];
     for(NodeCell* cell in conceptNodeArray){
         if([cell.text.text isEqualToString:name]){
@@ -1364,6 +1363,15 @@
 
 
 - (void)keyboardWillHide:(NSNotification*)notification {
+
+    /*
+     if ([addedNode.text.text isEqualToString:@""] ){
+     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"Node is empty!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+     //[alert show];
+     //[addedNode.text becomeFirstResponder];
+     }
+     */
+    
     int sameNodeCount=0;
     for(NodeCell* cell in conceptNodeArray){
         if([addedNode.text.text isEqualToString:cell.text.text]){
@@ -1384,6 +1392,35 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"Node is empty!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         // [alert show];
     }
+
+   // if(isKeyboardOffset){
+     //   [self scrollCmapView: -keyboardOffset];
+      //  isKeyboardOffset=NO;
+   // }
+    
+    /*
+     else{
+     
+     for(NodeCell* cell in conceptNodeArray){
+     if([addedNode.text.text isEqualToString:cell.text.text]){
+     sameNodeCount++;
+     }
+     }//end for
+     if(sameNodeCount>1){
+     NSString* msg=[[NSString alloc]initWithFormat:@"Node %@ already exists!",addedNode.text.text];
+     [NSTimer scheduledTimerWithTimeInterval:2.0
+     target:self
+     selector:@selector(showDepliAlert)
+     userInfo:nil
+     repeats:NO];
+     
+     // return;
+     }else{
+     isAlertShowing=NO;
+     }//end if
+     
+     }//end else*/
+
 }
 
 -(void)showDepliAlert{
@@ -1401,7 +1438,6 @@
 }
 
 -(void)autoGerenateNode{
-    NSLog(@"Code reaches CMap autoGerenateNode");
     int conceptId=0;
     if ( bookHighlight!= nil) {
         for (HighLight *highLightText in bookHighlight.highLights) {
@@ -1539,7 +1575,7 @@
     for(NodeCell* cell in conceptNodeArray){
         if(cell.pageNum==(page-1)){
             [cell highlightNode];
-          //  return;
+            return;
         }
     }
     
@@ -1902,6 +1938,13 @@
     [UIImagePNGRepresentation(image) writeToFile:filePath atomically:YES];
 
     
+    /*
+    if (image != nil) {
+        [UIImagePNGRepresentation(image) writeToFile: @"/tmp/test.png" atomically: YES];
+        system("open /tmp/test.png");
+    }*/
+    
+    
     NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
     sessionConfiguration.HTTPAdditionalHeaders = @{
                                                    @"Authorization" : [NSString stringWithFormat:@"Bearer %@", @"BFPZY5kp2NAAAAAAAAAAJHzSODkGgGqThiZaKH2pCafGwX1kKVs2UVSVnwMiRj9c"],
@@ -2214,6 +2257,8 @@
 }
 
 
+
+
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
     return textView.text.length + (text.length - range.length) <= 140;
@@ -2305,7 +2350,8 @@
     NSString *content = [[NSString alloc] initWithContentsOfFile:fileName
                                                     usedEncoding:nil
                                                            error:nil];
-    NSString *filename = @"TestLogfile/";
+
+    NSString *filename = @"HighSchoolLogfile/";
     NSString* usrName=[[NSUserDefaults standardUserDefaults] stringForKey:@"UserName"];
    // filename=[filename stringByAppendingString:usrName];
     
