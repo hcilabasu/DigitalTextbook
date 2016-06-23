@@ -13,6 +13,9 @@
 #import "ConceptLink.h"
 #import "PreViewNode.h"
 #import "VideoViewController.h"
+#import "UIMenuItem+CXAImageSupport.h"
+
+
 @interface BookPageViewController ()
 
 @end
@@ -38,7 +41,13 @@
 @synthesize  originalFrame;
 @synthesize isSecondShow;
 @synthesize CmapTimer;
+@synthesize isTraining;
 @synthesize videoView;
+@synthesize webFocusQuestionLable;
+@synthesize cmapFocusQuestionLable;
+@synthesize hintImg;
+@synthesize myWebView;
+@synthesize subViewType;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -49,34 +58,25 @@
         logWrapper= [LogDataParser loadLogData];
         ShowingQA=true;
         conceptNodeArray=[[NSMutableArray alloc] init];
-        
+        subViewType=0;
     }
     return self;
 }
 
--(void)test{
-    NSLog(@"Test");
-}
-
 
 -(void)addSwitchView{
-    
     bulbImageView = [[UIImageView alloc]initWithFrame:CGRectMake(498, 350, 30, 30)];
     [bulbImageView setImage:[UIImage imageNamed:@"switch.png"]];
     //bulbImageView.alpha=0.8;
     bulbImageView.userInteractionEnabled = YES;
-    
     UITapGestureRecognizer *bulbTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickOnBulb:)];
-    
     [self.bulbImageView addGestureRecognizer:bulbTap];
-    
     [self.view addSubview:bulbImageView];
     [bulbImageView setHidden:YES];
     bulbImageView.layer.shadowOpacity = 0.4;
     bulbImageView.layer.shadowRadius = 4;
     bulbImageView.layer.shadowColor = [UIColor blackColor].CGColor;
     bulbImageView.layer.shadowOffset = CGSizeMake(2, 2);
-    
 }
 
 - (IBAction)clickOnBulb : (id)sender
@@ -91,7 +91,6 @@
         ShowingQA=true;
     }
     [self.view bringSubviewToFront:bulbImageView];
-    
 }
 
 
@@ -100,15 +99,23 @@
     if(ShowingQA){
         [self.view bringSubviewToFront:cmapView.view];
         [cmapView loadConceptMap:nil];
-        
         ShowingQA=false;
     }else{
         [self.view bringSubviewToFront:QA.view];
         ShowingQA=true;
     }
     [self.view bringSubviewToFront:bulbImageView];
-    
 }
+
+-(void)finishTraining{
+    NSArray *array = [self.navigationController viewControllers];
+    [self.navigationController popToViewController:[array objectAtIndex:1] animated:YES];
+    
+    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Finish Tutorial View" selection:@"Tutorial View" input:@"null" pageNum:bookView.currentContentView.pageNum];
+    [logWrapper addLogs:newlog];
+    [LogDataParser saveLogData:logWrapper];
+}
+
 
 
 - (void)viewDidLoad
@@ -118,17 +125,19 @@
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"See Tutorial"
                                                                    style:UIBarButtonItemStyleDone target:self action:@selector(showTutorial)];
     self.navigationItem.rightBarButtonItem = leftButton;
-
+    
+    
+    if(isTraining){
+        UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"Finish"
+                                                                       style:UIBarButtonItemStyleDone target:self action:@selector(finishTraining)];
+        self.navigationItem.rightBarButtonItem = leftButton;
+    }
     //[self.navigationItem setHidesBackButton:YES animated:YES];
-    
    // [self.parentViewController.navigationController.navigationBar setHidden:YES];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self // put here the view controller which has to be notified
                                              selector:@selector(orientationChanged:)
                                                  name:@"UIDeviceOrientationDidChangeNotification"
                                                object:nil];
-    
-    
     //[self.navigationController setNavigationBarHidden:YES];
     // self.navigationController.navigationBar.translucent = NO;
     //self.parentViewController.navigationController.navigationBar.translucent = YES;
@@ -137,7 +146,10 @@
     
     //[self.navigationController setNavigationBarHidden:YES animated:YES];
     // Do any additional setup after loading the view from its nib.
+    [self createMenuItems];
     [self createCmapView];
+    [self createWebView];
+  
     //[self createQA];
     //[self addSwitchView];
     bookView.parent_BookPageViewController=self;
@@ -165,38 +177,7 @@
         [PreviewRect setHidden:YES];
         
     }
-    /*
-    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
-    if(orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight)
-    {
-        if([isPreview isEqualToString:@"NO"]){
-            [previewImg setHidden:YES];
-            [PreviewRect setHidden:YES];
-        }
-        else{
-            [previewImg setHidden:NO];
-            [PreviewRect setHidden:NO];
-            
-        }
-    }else{
-        [previewImg setHidden:NO];
-        [PreviewRect setHidden:NO];
-        
-    }*/
 
-    
-    
-    /* [cmapView loadConceptMap:nil];
-       NSTimer* timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(checkCountdown:) userInfo:nil repeats:YES];
-     QuizViewController *quiz=[[QuizViewController alloc] initWithNibName:@"ViewController" bundle:nil];
-     quiz.isFinished=false;
-     quiz.userName=userName;
-     quiz.bookLogDataWrapper=logWrapper;
-     quiz.testType=0;//pre test
-     quiz.parentBookPageViewController=self;
-     [self.navigationController pushViewController:quiz animated:YES];
-     */
-  
     if([isPreview isEqualToString:@"YES"]){
     
      UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
@@ -214,14 +195,15 @@
     }
     // [self splitScreen];
     
+    if(isTraining){
+        self.navigationItem.title=@"Training";
+    }
+    
 }
 
 
 - (void)orientationChanged:(NSNotification *)notification{
     UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
-    
-    
-    
     
     //when retating the device, clear the thumbnail icons and reload
     if(orientation==UIInterfaceOrientationPortrait||orientation==UIInterfaceOrientationPortraitUpsideDown){
@@ -266,18 +248,6 @@
         }
         
     }
-    /*
-     self.parentViewController.navigationController.navigationBar.translucent = YES;
-     self.navigationController.navigationBar.translucent = YES;
-     [ self.parentViewController.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
-     [ self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
-     [self.navigationController.navigationBar setBackgroundImage:[UIImage new]
-     forBarMetrics:UIBarMetricsDefault];
-     self.navigationController.navigationBar.shadowImage = [UIImage new];
-     self.navigationController.navigationBar.translucent = YES;
-     
-     [self.navigationController.navigationBar setFrame:CGRectMake(0, 0, self.navigationController.navigationBar.frame.size.width, 30)];*/
-    // [self.navigationController.navigationBar setFrame:CGRectMake(0, 0, self.navigationController.navigationBar.frame.size.width, 40)];
     
 }
 
@@ -314,7 +284,18 @@
 -(void)showTutorial{
     VideoViewController *tutorial= [[VideoViewController alloc]initWithNibName:@"VideoViewController" bundle:nil];
     tutorial.hideImg=YES;
+    tutorial.bookTitle=bookView.bookTitle;
+    tutorial.bookImporter=bookView.bookImporter;
+    tutorial.logWrapper=logWrapper;
     ///[tutorial.teachImg removeFromSuperview];
+    
+    
+    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Go to tutorial view" selection:@"Tutorial View" input:@"null" pageNum:bookView.currentContentView.pageNum];
+    [logWrapper addLogs:newlog];
+    [LogDataParser saveLogData:logWrapper];
+
+    
+    
     [self.navigationController pushViewController:tutorial animated:NO];
 }
 
@@ -396,8 +377,85 @@
     return YES;
 }
 
+
+//Sets up the menu items that pop up
+-(void) createMenuItems{
+    //get the shared menubar.
+    UIMenuController *menuController = [UIMenuController sharedMenuController];
+    //create a menu item
+    CXAMenuItemSettings *markIconSettingSpeak = [CXAMenuItemSettings new];
+    markIconSettingSpeak.image = [UIImage imageNamed:@"bb"];
+    markIconSettingSpeak.shadowDisabled = NO;
+    markIconSettingSpeak.shrinkWidth = 4; //set menu item size and picture.
+    //set up the function called when user click the button
+    UIMenuItem *speakItem = [[UIMenuItem alloc] initWithTitle: @"speak" action: @selector(dragAndDropConcept:)];
+    [speakItem cxa_setSettings:markIconSettingSpeak];
+    //add the menu item to the menubar.
+    [menuController setMenuItems: [NSArray arrayWithObjects: speakItem, nil]];
+}
+
+//enables menu item buttons to perform action
+-(BOOL) canPerformAction:(SEL)action withSender:(id)sender{
+    if (action == @selector(dragAndDropConcept:)){
+        return YES;
+    }
+    return NO;
+}
+
+//Creates concept node from selections
+-(void)dragAndDropConcept:(id)sender{
+    NSLog(@"dadc");
+    NSString *selection = @"";
+    if(0==subViewType){ //selection comes from content view controller
+        NSLog(@"Content View");
+        selection = [self.bookView.currentContentView.webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"]; //selection is selected string in content view
+        NSLog(@"Selection = %@", selection);
+        if(selection.length>25){ //selection is too long
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"You can not add concepts that have more than 25 charaters!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+            return;
+        }
+        
+        if([self.cmapView isNodeExist:selection]){ //selected string already exists
+            NSString *msg=[[NSString alloc]initWithFormat:@"Node with name \"%@\" already exist!",selection];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:msg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+            return;
+         }
+            [self.cmapView createNodeFromBook:CGPointMake( arc4random() % 400+30, 690) withName:selection BookPos:CGPointMake(0, 0) page:self.bookView.currentContentView.pageNum];
+        
+    }
+    else if(1==subViewType){ //selection comes from web browser view controller
+        NSLog(@"Web browser");
+        selection = [self.myWebView.webBrowserView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"]; //selection is selected string in web browser view
+        NSLog(@"Selection = %@", selection);
+        if(selection.length>25){ //selection is too long
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"You can not add concepts that have more than 25 charaters!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+            return;
+        }
+        
+        if([self.cmapView isNodeExist:selection]){ //selected string already exists
+            NSString *msg=[[NSString alloc]initWithFormat:@"Node with name \"%@\" already exist!",selection];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:msg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+            return;
+        }
+            [self.cmapView createNodeFromBook:CGPointMake( arc4random() % 400+30, 690) withName:selection BookPos:CGPointMake(0, 0) page:0];
+    }
+    else{
+        NSLog(@"Something has gone wrong in drag and drop concept");
+    }
+    
+}
+
+
 -(void)createCmapView{
     cmapView=[[CmapController alloc] initWithNibName:@"CmapView" bundle:nil];
+    
+    if(isTraining){
+        cmapView.isTraining=YES;
+    }
     cmapView.userName=userName;
     cmapView.bookLogDataWrapper=logWrapper;
     cmapView.showType=1;
@@ -420,6 +478,25 @@
     [QA.view setHidden:YES];
 }
 
+//creates our web browser view
+-(void)createWebView{
+    myWebView=[[WebBrowserViewController alloc] initWithNibName:@"WebBrowserViewController" bundle:nil];
+    myWebView.parentBookPageViewCtr=self;
+    [self addChildViewController:myWebView];
+    [self.view addSubview:myWebView.view];
+    [myWebView.view setUserInteractionEnabled:YES];
+   //CGPoint decides where webview is showing, lookup screen resolution to ipad 2
+    //if that doesn't work go to view didload in web browser.m
+    myWebView.view.center=CGPointMake(768, 384);
+    //myWebView.view.center=CGPointMake(256, 384);
+    [myWebView.view setHidden:YES];
+    myWebView.view.clipsToBounds = YES;
+   
+    //myWebView.view.layer.zPosition = 1;
+   // [self.view bringSubviewToFront:myWebView.view];
+}
+
+
 
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
@@ -435,11 +512,12 @@
 }
 
 
-
+//Screen splits when screen is rotated sideways. This is what happens when screen is split
 -(void)splitScreen{
     CGRect rec=CGRectMake(0, 0, 512, 768);
     [bookView.view setFrame:rec];
     [cmapView.view setHidden:NO];
+    //[myWebView.view setHidden:NO];
     [QA.view setHidden:NO];
     [bulbImageView setHidden:NO];
     LogFileController *logFile=[[LogFileController alloc]init];
@@ -522,7 +600,7 @@
         [self.view.layer insertSublayer:upperBorder below:previewImg.layer];
         
         //[previewImg becomeFirstResponder];
-        
+        [cmapView updatePreviewLocation];
         isShowPreView=YES;
         
     }
@@ -768,6 +846,13 @@
         [pNode.view setFrame:CGRectMake(cell.showPoint.x*xRatio, cell.showPoint.y*yRatio,6, 6)];
         pNode.ParentPreView=previewImg;
         pNode.name=cell.text.text;
+        if(cell.pageNum==(bookView.currentContentView.pageNum-1)){
+            UIImage* orgImg =[UIImage imageNamed:@"orangeRec"];
+            orgImg=[self imageWithImage:orgImg scaledToSize:CGSizeMake(20, 20)];
+            UIImageView *dot =[[UIImageView alloc]initWithImage:orgImg];
+            [pNode.img setImage:orgImg];
+        }
+        
         [conceptNodeArray addObject:pNode];
         [previewImg addSubview:pNode.view];
     }
@@ -819,4 +904,171 @@
     [alertView.textField setSecureTextEntry:YES];
 
 }
+
+////////////////////functions for tutorial///////////////////////
+
+-(void)showWebhint{
+    webFocusQuestionLable = [[UILabel alloc] initWithFrame:CGRectMake(350, 55, 350, 33)];
+    webFocusQuestionLable.backgroundColor=[UIColor colorWithRed:247.0/255.0 green:176.0/255.0 blue:143.0/255.0 alpha:1];
+    webFocusQuestionLable.text=@"Long press on the word you want to add";
+    webFocusQuestionLable.alpha=0.8;
+    webFocusQuestionLable.textAlignment = NSTextAlignmentCenter;
+    webFocusQuestionLable.layer.shadowOpacity = 0.4;
+    webFocusQuestionLable.layer.shadowRadius = 3;
+    webFocusQuestionLable.layer.shadowColor = [UIColor blackColor].CGColor;
+    webFocusQuestionLable.layer.shadowOffset = CGSizeMake(2, 2);
+    [self.view addSubview:webFocusQuestionLable];
+    UIImage *image = [UIImage imageNamed:@"hintbulb"];
+    image=[self imageWithImage:image scaledToSize:CGSizeMake(26, 36)];
+    
+    hintImg = [[UIImageView alloc] initWithFrame:CGRectMake(310, 55, 28, 35)];
+    [hintImg setImage:image];
+    
+    [self.view addSubview: hintImg];
+}
+
+
+-(void)showLinkingHint{
+    UIImage *image = [UIImage imageNamed:@"Train_link"];
+    image=[self imageWithImage:image scaledToSize:CGSizeMake(400, 200)];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+    [self showAlertWithString:@"Good job! Now link the concept you created with the node named link me": imageView];
+    [ webFocusQuestionLable setFrame: CGRectMake(90, 35, 430, 50)];
+    webFocusQuestionLable.text=@"Long click on a concept and drag to the linking option. When the node is blinking, click on the node you want to link it with.";
+    webFocusQuestionLable.font=[webFocusQuestionLable.font fontWithSize:14];
+    webFocusQuestionLable.lineBreakMode = NSLineBreakByWordWrapping;
+    webFocusQuestionLable.numberOfLines = 0;
+    webFocusQuestionLable.center=CGPointMake(780, 73);
+    hintImg.center=CGPointMake(530, 75);
+}
+
+-(void)showLinkingWarning{
+    webFocusQuestionLable = [[UILabel alloc] initWithFrame:CGRectMake(350, 55, 350, 33)];
+    webFocusQuestionLable.backgroundColor=[UIColor colorWithRed:247.0/255.0 green:176.0/255.0 blue:143.0/255.0 alpha:1];
+    webFocusQuestionLable.alpha=0.8;
+    webFocusQuestionLable.textAlignment = NSTextAlignmentCenter;
+    webFocusQuestionLable.layer.shadowOpacity = 0.4;
+    webFocusQuestionLable.layer.shadowRadius = 3;
+    webFocusQuestionLable.layer.shadowColor = [UIColor blackColor].CGColor;
+    webFocusQuestionLable.layer.shadowOffset = CGSizeMake(2, 2);
+    UIImage *image = [UIImage imageNamed:@"Train_link"];
+    image=[self imageWithImage:image scaledToSize:CGSizeMake(400, 200)];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+    [ webFocusQuestionLable setFrame: CGRectMake(90, 35, 430, 50)];
+    webFocusQuestionLable.text=@"Click on the node you want to link with. Click on the node itself to cancel linking";
+    webFocusQuestionLable.font=[webFocusQuestionLable.font fontWithSize:14];
+    webFocusQuestionLable.lineBreakMode = NSLineBreakByWordWrapping;
+    webFocusQuestionLable.numberOfLines = 0;
+    webFocusQuestionLable.center=CGPointMake(780, 73);
+    hintImg.center=CGPointMake(530, 75);
+    [self.view addSubview:webFocusQuestionLable];
+    [self.view addSubview: hintImg];
+    //[webFocusQuestionLable setHidden:NO];
+    //[hintImg setHidden:NO];
+}
+
+
+-(void)hideLinkingWarning{
+    [webFocusQuestionLable removeFromSuperview];
+    [hintImg removeFromSuperview];
+    //[webFocusQuestionLable setHidden:YES];
+    //[hintImg setHidden:YES];
+}
+
+
+
+
+
+-(void)showFlipPageHint{
+    UIImage *image = [UIImage imageNamed:@"Train_pageflip"];
+    image=[self imageWithImage:image scaledToSize:CGSizeMake(250, 250)];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+    self.cmapView.isNavigateTraining=YES;
+    [self showAlertWithString:@"Good job! Now try to go to next page":imageView];
+    [webFocusQuestionLable setFrame: CGRectMake(90, 35, 430, 50)];
+    webFocusQuestionLable.text=@"Drag a page to the left to go to next page.";
+    webFocusQuestionLable.font=[webFocusQuestionLable.font fontWithSize:14];
+    webFocusQuestionLable.lineBreakMode = NSLineBreakByWordWrapping;
+    webFocusQuestionLable.numberOfLines = 0;
+    webFocusQuestionLable.center=CGPointMake(580, 73);
+    hintImg.center=CGPointMake(330, 75);
+    
+    NSString *savedPage=[[NSString alloc]initWithFormat:@"%d",bookView.currentContentView.pageNum];
+    [[NSUserDefaults standardUserDefaults] setObject:savedPage forKey:@"savedPage"];
+    cmapView.isAddNodeTraining=NO;
+    
+}
+
+
+
+- (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
+    //UIGraphicsBeginImageContext(newSize);
+    // In next line, pass 0.0 to use the current device's pixel scaling factor (and thus account for Retina resolution).
+    // Pass 1.0 to force exact pixel size.
+    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
+    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
+}
+
+
+-(void)showAlertWithString: (NSString*) str : (UIView*)imgView{
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"To do"
+                                                    message:str
+                                                   delegate:self
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    //UIImage *image = [UIImage imageNamed:@"Train_AddNode"];
+    //image=[self imageWithImage:image scaledToSize:CGSizeMake(300, 200)];
+    //UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+    
+    [alert setValue:imgView forKey:@"accessoryView"];
+    [alert show];
+
+}
+
+
+-(void)showAlertWithText: (NSString*) str {
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning"
+                                                    message:str
+                                                   delegate:self
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
+    
+}
+
+-(void)createDeleteTraining{
+    for (NodeCell *cell in cmapView.conceptNodeArray)
+    {
+        [cell removeLink];
+        [cell.view removeFromSuperview];
+    }
+    
+    [cmapView.conceptNodeArray removeAllObjects];
+    [cmapView.conceptLinkArray removeAllObjects];
+    
+    NodeCell* cell= [cmapView createNodeFromBookForLink:CGPointMake( 250, 300) withName:@"delete me" BookPos:CGPointMake(0, 0) page:1];
+    cell.text.backgroundColor=[UIColor colorWithRed:247.0/255.0 green:176.0/255.0 blue:143.0/255.0 alpha:1];
+    webFocusQuestionLable.text=@"Long click on a concept and drag to the delete option.";
+}
+
+
+-(void)showWebView: (NSString*)conceptName atNode:(NodeCell *)relatedNode  {
+     [myWebView.view setHidden:NO];
+    subViewType=1;
+    [myWebView SearchKeyWord:conceptName];
+    [myWebView setRelatedNode:relatedNode];
+    [previewImg setHidden:YES];
+}
+
+-(void)hideWebView{
+    subViewType=0;
+     [myWebView.view setHidden:YES];
+    [previewImg setHidden:NO];
+}
+
 @end

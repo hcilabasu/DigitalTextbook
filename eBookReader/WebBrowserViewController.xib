@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WebBrowserViewController">
@@ -11,11 +11,10 @@
                 <outlet property="markPage" destination="178" id="179"/>
                 <outlet property="next" destination="163" id="170"/>
                 <outlet property="pre" destination="164" id="171"/>
-                <outlet property="refresh" destination="118" id="176"/>
                 <outlet property="serchBar" destination="119" id="173"/>
                 <outlet property="view" destination="2" id="148"/>
                 <outlet property="webAdr" destination="134" id="172"/>
-                <outlet property="webAdrText" destination="133" id="175"/>
+                <outlet property="webAdrText" destination="133" id="lut-5F-q14"/>
                 <outlet property="webBrowserView" destination="4" id="147"/>
             </connections>
         </placeholder>
@@ -45,15 +44,27 @@
                             <color key="tintColor" name="controlShadowColor" catalog="System" colorSpace="catalog"/>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="122"/>
-                        <barButtonItem style="plain" systemItem="rewind" id="164"/>
+                        <barButtonItem style="plain" systemItem="rewind" id="164">
+                            <connections>
+                                <action selector="goBack" destination="4" id="Pca-VI-S9a"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="166"/>
-                        <barButtonItem style="plain" systemItem="fastForward" id="163"/>
+                        <barButtonItem style="plain" systemItem="fastForward" id="163">
+                            <connections>
+                                <action selector="goForward" destination="4" id="snQ-tM-xuz"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="167"/>
-                        <barButtonItem style="plain" systemItem="refresh" id="118"/>
+                        <barButtonItem systemItem="search" id="Ugx-9K-G4y">
+                            <connections>
+                                <action selector="search_go:" destination="-1" id="RwT-Qa-u3m"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="168"/>
                         <barButtonItem style="plain" id="134">
                             <textField key="customView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" id="133">
-                                <rect key="frame" x="165" y="7" width="401" height="30"/>
+                                <rect key="frame" x="311" y="7" width="255" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -71,7 +82,7 @@
                             <color key="tintColor" name="controlShadowColor" catalog="System" colorSpace="catalog"/>
                         </barButtonItem>
                     </items>
-                    <color key="tintColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                    <color key="tintColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                 </toolbar>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>

@@ -40,13 +40,16 @@
 @property (strong, nonatomic) ContentViewController *parentContentViewController;
 
 @property(assign,nonatomic) BOOL pressing;
+@property(assign,nonatomic) BOOL isAlertShowing;
+
 @property(assign,nonatomic) BOOL isInitialed;
 @property  CABasicAnimation *waitAnim;
 @property(strong,nonatomic) IBOutlet UILongPressGestureRecognizer* longPressRecognizer;
 
 @property(strong,nonatomic) IBOutlet UITapGestureRecognizer* tapRecognizer;
 
-
+@property (strong, nonatomic) NSMutableArray*  savedUrls; //bookmarked urls from web browser
+@property (strong, nonatomic) NSURL* linkingUrl; //associated url when created from web browser
 @property (strong, nonatomic) NSMutableArray*  relatedNodesArray;
 @property (strong, nonatomic) NSMutableArray*  linkLayerArray;
 @property (strong, nonatomic) NSMutableArray*  relationTextArray;
@@ -58,8 +61,9 @@
 @property BOOL hasWeblink;
 @property (nonatomic, retain) LogDataWrapper* bookLogData;
 @property (strong, nonatomic) NSString *userName;
-@property (strong, nonatomic) RelationTextView*linkTextview;
+@property (strong, nonatomic) RelationTextView*linkTextview2;
 @property BOOL enableHyperLink;
+
 -(void)deleteLinkWithNode: (NodeCell*)cellToDel;
 -(void)removeLinkWithNode: (NodeCell*) LinkedNode;
 
@@ -74,4 +78,7 @@
 -(void)deleteNode: (BOOL)delByUser;
 -(void)updateViewSize;
 -(void)updateLink;
+-(void)enterIntoUrlArray;
+-(void)setLinkingUrl;
+
 @end
