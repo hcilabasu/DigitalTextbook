@@ -20,11 +20,12 @@
 @property (strong, nonatomic) NSMutableArray*  relatedNodesArray;
 @property (strong, nonatomic) NSMutableArray*  linkLayerArray;
 @property (strong, nonatomic) NSMutableArray*  relationTextArray;
+@property (strong, nonatomic) NSURL* linkingUrl; // linking url for web browser
 //@property (nonatomic, retain) HighLightWrapper *bookHighLight;//the highlight wrapper pased from the bookviewcontroller to control the highlight info in the book
 //@property (nonatomic, retain) ThumbNailIconWrapper *bookthumbNailIcon;
 @property (strong, nonatomic) NSString *bookTitle;
 @property int tag;
 //- (id)initWithName:(NSString*)m_text ShowType: (CGPoint)m_position RelatedNodeArray: (NSMutableArray*)m_relatedNodesArray linkArray:(NSMutableArray*)m_linkArray
  //    linkTextArray: (NSMutableArray*)m_linkTextArray bookTitle:(NSString*)m_bookTitle;
-- (id)initWithName:(NSString*)m_text bookTitle: (NSString*)m_bookTitle positionX:(int)m_pointX positionY: (int)m_positionY Tag: (int)m_tag page: (int) m_pageNum;
+- (id)initWithName:(NSString*)m_text bookTitle: (NSString*)m_bookTitle positionX:(int)m_pointX positionY: (int)m_positionY Tag: (int)m_tag page: (int) m_pageNum url: (NSURL*)m_url;
 @end

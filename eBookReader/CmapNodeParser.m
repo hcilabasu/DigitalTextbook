@@ -41,6 +41,7 @@
     }
 }
 
+//Reading CMap-------------------------------------------------------------------------------------------
 + (CmapNodeWrapper *)loadCmapNode {
     CmapNodeWrapper *cmapNodeWrapper = [[CmapNodeWrapper alloc] init];
     NSString *filePath = [self dataFilePath:FALSE];
@@ -63,6 +64,7 @@
         int p_y;
         NSString *bookTitle=@"";
         int page;
+        NSString* linkingUrl;
         
         NSArray *titles = [partyMember elementsForName:@"ConceptName"];
         if (titles.count > 0) {
@@ -97,13 +99,23 @@
             page=point_y.stringValue.floatValue;
             
         } else continue;
-        CmapNode *player = [[CmapNode alloc] initWithName:conceptName bookTitle:bookTitle positionX:p_x positionY:p_y Tag:0 page:page];
+        
+        
+        NSArray *show_linkgUrl = [partyMember elementsForName:@"LinkingUrl"];
+        if (show_linkgUrl.count > 0) {
+            GDataXMLElement *url_element = (GDataXMLElement *) [show_linkgUrl objectAtIndex:0];
+            linkingUrl=url_element.stringValue;
+            
+        } else continue;
+        
+        NSURL* realUrl= [NSURL URLWithString:[linkingUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        CmapNode *player = [[CmapNode alloc] initWithName:conceptName bookTitle:bookTitle positionX:p_x positionY:p_y Tag:0 page:page url:realUrl];
         [cmapNodeWrapper.cmapNodes addObject:player];
     }
     return cmapNodeWrapper;
 }
 
-
+//Load expert cmap--------------------------------------------------------------------------------------
 + (CmapNodeWrapper *)loadExpertCmapNode {
     CmapNodeWrapper *cmapNodeWrapper = [[CmapNodeWrapper alloc] init];
     NSString *filePath = [self expertMapDataFilePath:FALSE];
@@ -126,7 +138,7 @@
         int p_y;
         NSString *bookTitle=@"";
         int page;
-        
+         NSString* linkingUrl;
         NSArray *titles = [partyMember elementsForName:@"ConceptName"];
         if (titles.count > 0) {
             GDataXMLElement *nameitem = (GDataXMLElement *) [titles objectAtIndex:0];
@@ -160,8 +172,18 @@
             page=point_y.stringValue.floatValue;
             
         } else continue;
-        CmapNode *player = [[CmapNode alloc] initWithName:conceptName bookTitle:bookTitle positionX:p_x positionY:p_y Tag:0 page:page];
+        
+       
+        NSArray *show_linkgUrl = [partyMember elementsForName:@"LinkingUrl"];
+        if (show_linkgUrl.count > 0) {
+            GDataXMLElement *url_element = (GDataXMLElement *) [show_linkgUrl objectAtIndex:0];
+            linkingUrl=url_element.stringValue;
+            
+        } else continue;
+        
+        CmapNode *player = [[CmapNode alloc] initWithName:conceptName bookTitle:bookTitle positionX:p_x positionY:p_y Tag:0 page:page url:linkingUrl];
         [cmapNodeWrapper.cmapNodes addObject:player];
+
     }
     return cmapNodeWrapper;
 }
@@ -169,7 +191,7 @@
 
 
 
-
+//saving CMap nodes---------------------------------------------------------------------------------
 + (void)saveCmapNode:(CmapNodeWrapper *)wrapper {
     
     GDataXMLElement * partyElement = [GDataXMLNode elementWithName:@"CmapNodeList"];
@@ -201,11 +223,24 @@
          [NSString stringWithFormat:@"%d", nodeItem.pageNum]];
         
         
+        GDataXMLElement * linkingUrl;
+        if(nodeItem.linkingUrl){
+        
+        linkingUrl =
+        [GDataXMLNode elementWithName:@"LinkingUrl" stringValue:
+         [NSString stringWithFormat:@"%@", nodeItem.linkingUrl]];
+        }else{
+            linkingUrl =
+            [GDataXMLNode elementWithName:@"LinkingUrl" stringValue:@""];
+        }
+        
+        
         [itemElement addChild:conceptNameElement];
         [itemElement addChild:bookTitleElement];
         [itemElement addChild:pointX];
         [itemElement addChild:pointY];
         [itemElement addChild:nodePageNum];
+        [itemElement addChild:linkingUrl];
         [partyElement addChild: itemElement];
         // NSLog(@"Add element");
     }
@@ -220,7 +255,7 @@
     
 }
 
-
+//save expert cmap--------------------------------------------------------------------------------
 + (void)saveExpertCmapNode:(CmapNodeWrapper *)wrapper {
     
     GDataXMLElement * partyElement = [GDataXMLNode elementWithName:@"CmapNodeList"];
@@ -251,12 +286,16 @@
         [GDataXMLNode elementWithName:@"PageNum" stringValue:
          [NSString stringWithFormat:@"%d", nodeItem.pageNum]];
         
+        GDataXMLElement * linkingUrl =
+        [GDataXMLNode elementWithName:@"LinkingUrl" stringValue:
+         [NSString stringWithFormat:@"%@", nodeItem.linkingUrl]];
         
         [itemElement addChild:conceptNameElement];
         [itemElement addChild:bookTitleElement];
         [itemElement addChild:pointX];
         [itemElement addChild:pointY];
         [itemElement addChild:nodePageNum];
+        [itemElement addChild:linkingUrl];
         [partyElement addChild: itemElement];
         // NSLog(@"Add element");
     }

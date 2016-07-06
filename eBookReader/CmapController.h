@@ -155,7 +155,7 @@
 -(void)startWait;
 -(void)endWait;
 -(void)showResources;
--(void)createNode:(CGPoint)position withName:(NSString*) name page: (int)m_pageNum;
+-(void)createNode:(CGPoint)position withName:(NSString*) name page: (int)m_pageNum  url:(NSURL*)m_linkingUrl;
 -(void)createNodeFromBook:(CGPoint)position withName:(NSString*) name BookPos: (CGPoint)bookPosition page:(int)m_pageNum;
 -(void)addConcpetLink: (ConceptLink*) m_link;
 -(void)autoSaveMap;

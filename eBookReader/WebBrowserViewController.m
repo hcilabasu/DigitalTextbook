@@ -57,12 +57,14 @@
     //This function also determines how big, where webview is showing
     //530 = x, 0 = y, 511 and 768 are dimensions
     CGRect rect=CGRectMake(530, 0, 511, 768);
+   // CGRect rect=CGRectMake(256, 384, 511, 768);
     [self.view setFrame:rect];
     self.view.layer.borderColor = [UIColor grayColor].CGColor;
     self.view.layer.borderWidth = 2;
     
     urlId=0;
     [webBrowserView setDelegate:self];
+    //[webBrowserView setDelegate:_parentBookPageViewCtr];
     //[webBrowserView becomeFirstResponder];
     webBrowserView.scalesPageToFit=YES;
     [refresh setTarget:self];
@@ -95,7 +97,6 @@
     [webBrowserView setUserInteractionEnabled:YES];
 
 }
-
 
 - (void)longpressAction:(UITapGestureRecognizer *)tap
 {
@@ -139,6 +140,11 @@
  
 }
 
+//Gives web browser permission to be first responder
+- (BOOL)canBecomeFirstResponder {
+    return YES;
+}
+
 //give permission to show the menu item we added ------------------------------------------------------------------------------------------
 - (BOOL) canPerformAction:(SEL)action withSender:(id)sender
 {
@@ -149,9 +155,8 @@
     {
         return NO;
     }
-    
-    if (action == @selector(copy:))
-    {
+    if (action == @selector(copy:) || action == @selector(cut:) || action == @selector(delete:) ||
+        action == @selector(paste:) || action == @selector(select:) || action == @selector(selectAll:)) {
         return NO;
     }
     if (action == @selector(define:))
@@ -254,13 +259,14 @@
 //Searches for selected string in Google or Wikipedia ---------------------------------------------------------------------------------------
 -(void)SearchKeyWord: (NSString*) keywrod{
     NSString* searchTerm = @"";
-    NSLog(@"Keyword = %@", keywrod);
+ //   NSLog(@"Keyword = %@", keywrod);
     if (keywrod != nil){ // Keyword contains a string
         NSURL *potentialUrl = [NSURL URLWithString: keywrod];
         NSString *schemeString= potentialUrl.scheme;
         NSString *hostString= potentialUrl.host;
         if (potentialUrl && schemeString && hostString){ //if url is valid
-            [webBrowserView loadRequest : [NSURLRequest requestWithURL:url]];
+         //   NSLog(@"Keyword is valid url %@", potentialUrl);
+            [webBrowserView loadRequest : [NSURLRequest requestWithURL:potentialUrl]];
             return;
         }
         else {

@@ -180,8 +180,8 @@
 //sets linkingUrl to current url of web browser
 -(void) setLinkingUrl{
     NSString *urlEnter = parentCmapController.parentBookPageViewController.myWebView.webAdrText.text;
-    NSLog(@"urlEnter = %@", urlEnter);
-    NSLog(@"concept name = %@", self.conceptName);
+   // NSLog(@"urlEnter = %@", urlEnter);
+   // NSLog(@"concept name = %@", self.conceptName);
     linkingUrl = [NSURL URLWithString: urlEnter];
 }
 
@@ -508,9 +508,9 @@
     }
     //Hyperlinking
     if(enableHyperLink){
-        if (linkingUrl != nil){//created from web Browser
-            
+        if (linkingUrl != nil && linkingUrl.absoluteString.length!=0 ){//created from web Browser
             [self.parentCmapController.parentBookPageViewController showWebView:linkingUrl.absoluteString atNode:self];
+           // [self.parentCmapController.parentBookPageViewController showWebView:@"" atNode:self];
             return;
         }
         [parentCmapController.neighbor_BookViewController showFirstPage:pageNum];
@@ -524,7 +524,7 @@
         }else{
             selectionString=@"Student Node";
         }
-        
+        [self.parentCmapController.parentBookPageViewController hideWebView];
         LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Use Hyperlinking" selection:selectionString input:LogString pageNum:pageNum];
         [bookLogData addLogs:newlog];
         [LogDataParser saveLogData:bookLogData];

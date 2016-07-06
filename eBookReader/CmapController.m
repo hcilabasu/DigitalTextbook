@@ -493,7 +493,7 @@
     
     for(CmapNode* cell in bookNodeWrapper.cmapNodes){
         
-        [self createNode:CGPointMake(cell.point_x, cell.point_y) withName:cell.text page:cell.pageNum];
+        [self createNode:CGPointMake(cell.point_x, cell.point_y) withName:cell.text page:cell.pageNum url:cell.linkingUrl];
         
         
     }
@@ -537,7 +537,7 @@
     [conceptLinkArray removeAllObjects];
     for(CmapNode* cell in bookNodeWrapper.cmapNodes){
         
-        [self createNode:CGPointMake(cell.point_x, cell.point_y) withName:cell.text page:cell.pageNum];
+        [self createNode:CGPointMake(cell.point_x, cell.point_y) withName:cell.text page:cell.pageNum url:cell.linkingUrl];
         
         
     }
@@ -620,7 +620,7 @@
     //  [ CmapLinkParser saveCmapLink:bookLinkWrapper];
     [ CmapLinkParser saveExpertCmapLink:bookLinkWrapper];
     for(NodeCell* m_node in conceptNodeArray){
-        CmapNode* node= [[CmapNode alloc] initWithName: m_node.text.text bookTitle:m_node.bookTitle positionX:m_node.view.frame.origin.x positionY:m_node.view.frame.origin.y Tag:m_node.text.tag page:m_node.pageNum];
+        CmapNode* node= [[CmapNode alloc] initWithName: m_node.text.text bookTitle:m_node.bookTitle positionX:m_node.view.frame.origin.x positionY:m_node.view.frame.origin.y Tag:m_node.text.tag page:m_node.pageNum url: m_node.linkingUrl.absoluteString];
         [bookNodeWrapper addthumbnail:node];
     }
     //[CmapNodeParser saveCmapNode:bookNodeWrapper];
@@ -648,7 +648,7 @@
     }
     [ CmapLinkParser saveCmapLink:bookLinkWrapper];
     for(NodeCell* m_node in conceptNodeArray){
-        CmapNode* node= [[CmapNode alloc] initWithName: m_node.text.text bookTitle:m_node.bookTitle positionX:m_node.view.frame.origin.x positionY:m_node.view.frame.origin.y Tag:m_node.text.tag page:m_node.pageNum];
+        CmapNode* node= [[CmapNode alloc] initWithName: m_node.text.text bookTitle:m_node.bookTitle positionX:m_node.view.frame.origin.x positionY:m_node.view.frame.origin.y Tag:m_node.text.tag page:m_node.pageNum url:m_node.linkingUrl.absoluteString];
         [bookNodeWrapper addthumbnail:node];
         
     }
@@ -727,7 +727,7 @@
     return YES;
 }
 
--(void)createNode:(CGPoint)position withName:(NSString*) name page: (int)m_pageNum{
+-(void)createNode:(CGPoint)position withName:(NSString*) name page: (int)m_pageNum  url:(NSURL*)m_linkingUrl {
     
     NodeCell *node=[[NodeCell alloc]initWithNibName:@"NodeCell" bundle:nil];
     node.createType=0;
@@ -749,6 +749,7 @@
     node.text.text=name;
     node.text.tag=nodeCount;//use nodeCount to identify the node.
     nodeCount++;
+    node.linkingUrl = m_linkingUrl;
     [node becomeFirstResponder];
 }
 
@@ -1448,7 +1449,7 @@
                         [conceptNamesArray addObject:cell.conceptName];
                         CGPoint position= [self calculateNodePosition:conceptId];
                         conceptId++;
-                        [self createNode:position withName:cell.conceptName page:0];
+                        //[self createNode:position withName:cell.conceptName page:0 url:cell.];
                     }
                 }
             }
@@ -1575,7 +1576,7 @@
     for(NodeCell* cell in conceptNodeArray){
         if(cell.pageNum==(page-1)){
             [cell highlightNode];
-            return;
+        
         }
     }
     
@@ -2282,7 +2283,7 @@
     [conceptLinkArray removeAllObjects];
     for(CmapNode* cell in bookNodeWrapper.cmapNodes){
         
-        [self createNode:CGPointMake(cell.point_x, cell.point_y) withName:cell.text page:cell.pageNum];
+        [self createNode:CGPointMake(cell.point_x, cell.point_y) withName:cell.text page:cell.pageNum url:cell.linkingUrl];
         
         
     }

@@ -19,6 +19,7 @@
 @synthesize point_y;
 @synthesize tag;
 @synthesize pageNum;
+@synthesize linkingUrl;
 
 /*
 - (id)initWithName:(NSString*)m_text ShowType: (CGPoint)m_position RelatedNodeArray: (NSMutableArray*)m_relatedNodesArray linkArray:(NSMutableArray*)m_linkArray
@@ -36,7 +37,7 @@
 }
 */
 
-- (id)initWithName:(NSString*)m_text bookTitle: (NSString*)m_bookTitle positionX:(int)m_pointX positionY: (int)m_positionY Tag: (int)m_tag page: (int) m_pageNum
+- (id)initWithName:(NSString*)m_text bookTitle: (NSString*)m_bookTitle positionX:(int)m_pointX positionY: (int)m_positionY Tag: (int)m_tag page: (int) m_pageNum url: (NSURL*)m_url
 {
     if ((self = [super init])) {
         text=m_text;
@@ -45,6 +46,7 @@
         point_y=m_positionY;
         tag=m_tag;
         pageNum=m_pageNum;
+        linkingUrl =m_url;
         
     }
     return self;

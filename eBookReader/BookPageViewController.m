@@ -128,23 +128,23 @@
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"See Tutorial"
                                                                    style:UIBarButtonItemStyleDone target:self action:@selector(showTutorial)];
     self.navigationItem.rightBarButtonItem = leftButton;
-
     
-
+    
+    
     if(isTraining){
         UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"Finish"
                                                                        style:UIBarButtonItemStyleDone target:self action:@selector(finishTraining)];
         self.navigationItem.rightBarButtonItem = leftButton;
     }
     //[self.navigationItem setHidesBackButton:YES animated:YES];
-   // [self.parentViewController.navigationController.navigationBar setHidden:YES];
-
+    // [self.parentViewController.navigationController.navigationBar setHidden:YES];
+    
     
     [[NSNotificationCenter defaultCenter] addObserver:self // put here the view controller which has to be notified
                                              selector:@selector(orientationChanged:)
                                                  name:@"UIDeviceOrientationDidChangeNotification"
                                                object:nil];
-
+    
     //[self.navigationController setNavigationBarHidden:YES];
     // self.navigationController.navigationBar.translucent = NO;
     //self.parentViewController.navigationController.navigationBar.translucent = YES;
@@ -156,7 +156,7 @@
     [self createMenuItems];
     [self createCmapView];
     [self createWebView];
-  
+    
     //[self createQA];
     //[self addSwitchView];
     bookView.parent_BookPageViewController=self;
@@ -166,7 +166,7 @@
         [self splitScreen];
     }
     upperBorder = [CALayer layer];
-   // [self.view bringSubviewToFront:cmapView.toolBar];
+    // [self.view bringSubviewToFront:cmapView.toolBar];
     //[self.view bringSubviewToFront:previewImg];
     [self.view sendSubviewToBack:bookView.view];
     [self.view bringSubviewToFront:previewImg];
@@ -178,34 +178,34 @@
     {
         [previewImg setHidden:NO];
         [PreviewRect setHidden:NO];
-
+        
     }else{
         [previewImg setHidden:YES];
         [PreviewRect setHidden:YES];
         
     }
-
-    if([isPreview isEqualToString:@"YES"]){
     
-     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
-     panGesture.delegate=self;
-     [previewImg addGestureRecognizer:panGesture];
-     [previewImg setUserInteractionEnabled:YES];
-     
-     PreviewRect= [[UIView alloc] initWithFrame:CGRectMake(2,2,previewImg.frame.size.width-4,previewImg.frame.size.height-4)];
-     PreviewRect.backgroundColor=[UIColor clearColor];
-     PreviewRect.layer.borderColor = [UIColor redColor].CGColor;
-     PreviewRect.tag=1;
-     PreviewRect.layer.borderWidth = 1.0f;
-     originalFrame=PreviewRect.frame;
-     [previewImg addSubview:PreviewRect];
+    if([isPreview isEqualToString:@"YES"]){
+        
+        UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
+        panGesture.delegate=self;
+        [previewImg addGestureRecognizer:panGesture];
+        [previewImg setUserInteractionEnabled:YES];
+        
+        PreviewRect= [[UIView alloc] initWithFrame:CGRectMake(2,2,previewImg.frame.size.width-4,previewImg.frame.size.height-4)];
+        PreviewRect.backgroundColor=[UIColor clearColor];
+        PreviewRect.layer.borderColor = [UIColor redColor].CGColor;
+        PreviewRect.tag=1;
+        PreviewRect.layer.borderWidth = 1.0f;
+        originalFrame=PreviewRect.frame;
+        [previewImg addSubview:PreviewRect];
     }
     // [self splitScreen];
     
     if(isTraining){
         self.navigationItem.title=@"Training";
     }
-
+    
 }
 
 
@@ -238,7 +238,7 @@
 
 
 -(void)viewDidAppear:(BOOL)animated{
-
+    
     
     NSString* istest=[[NSUserDefaults standardUserDefaults] stringForKey:@"testMode"];
     if(![istest isEqualToString:@"YES"]){
@@ -300,7 +300,7 @@
     LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Go to tutorial view" selection:@"Tutorial View" input:@"null" pageNum:bookView.currentContentView.pageNum];
     [logWrapper addLogs:newlog];
     [LogDataParser saveLogData:logWrapper];
-
+    
     
     
     [self.navigationController pushViewController:tutorial animated:NO];
@@ -411,12 +411,13 @@
 
 //Creates concept node from selections
 -(void)dragAndDropConcept:(id)sender{
-    NSLog(@"dadc");
+   // NSLog(@"dadc");
     NSString *selection = @"";
+    BOOL isHyperLink = [[NSUserDefaults standardUserDefaults] boolForKey:@"HyperLinking"];
     if(0==subViewType){ //selection comes from content view controller
-        NSLog(@"Content View");
+       // NSLog(@"Content View");
         selection = [self.bookView.currentContentView.webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"]; //selection is selected string in content view
-        NSLog(@"Selection = %@", selection);
+       // NSLog(@"Selection = %@", selection);
         if(selection.length>25){ //selection is too long
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"You can not add concepts that have more than 25 charaters!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
@@ -428,14 +429,19 @@
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:msg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
             return;
-         }
-            [self.cmapView createNodeFromBook:CGPointMake( arc4random() % 400+30, 690) withName:selection BookPos:CGPointMake(0, 0) page:self.bookView.currentContentView.pageNum];
+        }
+        [self.cmapView createNodeFromBook:CGPointMake( arc4random() % 400+30, 690) withName:selection BookPos:CGPointMake(0, 0) page:self.bookView.currentContentView.pageNum];
+        if(isHyperLink){//check if is group A
+            [self.bookView.currentContentView saveHighlightToXML:@"#F2B36B" ];
+            [self.bookView.currentContentView highlightStringWithColor:@"#F2B36B"];
+            [self.cmapView highlightNode:selection];
+        }
         
     }
     else if(1==subViewType){ //selection comes from web browser view controller
-        NSLog(@"Web browser");
+       // NSLog(@"Web browser");
         selection = [self.myWebView.webBrowserView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"]; //selection is selected string in web browser view
-        NSLog(@"Selection = %@", selection);
+       // NSLog(@"Selection = %@", selection);
         if(selection.length>25){ //selection is too long
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"You can not add concepts that have more than 25 charaters!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
@@ -448,7 +454,7 @@
             [alert show];
             return;
         }
-            [self.cmapView createNodeFromBook:CGPointMake( arc4random() % 400+30, 690) withName:selection BookPos:CGPointMake(0, 0) page:0];
+        [self.cmapView createNodeFromBook:CGPointMake( arc4random() % 400+30, 690) withName:selection BookPos:CGPointMake(0, 0) page:0];
     }
     else{
         NSLog(@"Something has gone wrong in drag and drop concept");
@@ -492,15 +498,15 @@
     [self addChildViewController:myWebView];
     [self.view addSubview:myWebView.view];
     [myWebView.view setUserInteractionEnabled:YES];
-   //CGPoint decides where webview is showing, lookup screen resolution to ipad 2
+    //CGPoint decides where webview is showing, lookup screen resolution to ipad 2
     //if that doesn't work go to view didload in web browser.m
-    myWebView.view.center=CGPointMake(768, 384);
-    //myWebView.view.center=CGPointMake(256, 384);
+    //myWebView.view.center=CGPointMake(768, 384);
+    myWebView.view.center=CGPointMake(256, 384);
     [myWebView.view setHidden:YES];
     myWebView.view.clipsToBounds = YES;
-   
+    
     //myWebView.view.layer.zPosition = 1;
-   // [self.view bringSubviewToFront:myWebView.view];
+    // [self.view bringSubviewToFront:myWebView.view];
 }
 
 
@@ -909,7 +915,7 @@
     
     // Set text field to secure text mode after show.
     [alertView.textField setSecureTextEntry:YES];
-
+    
 }
 
 ////////////////////functions for tutorial///////////////////////
@@ -1033,7 +1039,7 @@
     
     [alert setValue:imgView forKey:@"accessoryView"];
     [alert show];
-
+    
 }
 
 
@@ -1064,17 +1070,19 @@
 
 
 -(void)showWebView: (NSString*)conceptName atNode:(NodeCell *)relatedNode  {
-     [myWebView.view setHidden:NO];
+    [myWebView.view setHidden:NO];
     subViewType=1;
     [myWebView SearchKeyWord:conceptName];
     [myWebView setRelatedNode:relatedNode];
     [previewImg setHidden:YES];
+    [self.view bringSubviewToFront:myWebView.view];
 }
 
 -(void)hideWebView{
     subViewType=0;
-     [myWebView.view setHidden:YES];
+    [myWebView.view setHidden:YES];
     [previewImg setHidden:NO];
+    [self.view sendSubviewToBack:myWebView.view];
 }
 
 
