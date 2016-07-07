@@ -118,6 +118,7 @@ static NSString *cellId2 = @"cellId2";
     [webView becomeFirstResponder];
     
     parent_BookViewController.parent_BookPageViewController.cmapView.parent_ContentViewController=self;
+    parent_BookViewController.currentContentView=self;
    // [self.parentViewController.navigationController setNavigationBarHidden: YES animated:YES];
     //[self.navigationController setNavigationBarHidden: YES animated:YES];
 }

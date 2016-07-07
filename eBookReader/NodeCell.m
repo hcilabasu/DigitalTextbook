@@ -822,7 +822,7 @@
             imageName = @"edit";
             break;
         case 3:
-            imageName= @"internet";
+            imageName= @"webbrowser";
         default:
             break;
     }

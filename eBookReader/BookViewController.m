@@ -47,7 +47,7 @@
 @synthesize logWrapper;
 @synthesize userName;
 @synthesize currentContentView;
-
+@synthesize loadContentView;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -217,7 +217,8 @@
     dataViewController.bookHighLight=highLight;
     dataViewController.bookthumbNailIcon=thumbnailIcon;
     dataViewController.bookLogData=logWrapper;
-    currentContentView=dataViewController;
+    loadContentView=dataViewController;
+   // currentContentView=dataViewController;
     
     NSLog(@"Page: %d/%d", _pageNum+1,_totalPageNum);
     dataViewController.dataObject =

@@ -417,7 +417,7 @@
     if(0==subViewType){ //selection comes from content view controller
        // NSLog(@"Content View");
         selection = [self.bookView.currentContentView.webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"]; //selection is selected string in content view
-       // NSLog(@"Selection = %@", selection);
+        NSLog(@"Selection = %@", selection);
         if(selection.length>25){ //selection is too long
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"You can not add concepts that have more than 25 charaters!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
@@ -509,7 +509,9 @@
     // [self.view bringSubviewToFront:myWebView.view];
 }
 
-
+-(void)webViewDidFinishLoad:(UIWebView *)m_webView{
+    [bookView.loadContentView loadHghLight]; //This maintains and loads the highlights
+}
 
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {

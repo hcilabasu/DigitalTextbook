@@ -54,6 +54,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+ //   [self.view setUserInteractionEnabled:YES];
     //This function also determines how big, where webview is showing
     //530 = x, 0 = y, 511 and 768 are dimensions
     CGRect rect=CGRectMake(530, 0, 511, 768);
@@ -75,56 +76,39 @@
     [back setAction:@selector(backToBook:)];
     
 
-    /*
+    //Long press gesture
     UILongPressGestureRecognizer *longpress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longpressAction:)];
     longpress.delegate=self;
-    [webBrowserView addGestureRecognizer:longpress];*/
-  /*
-    //get the shared menubar.
-    UIMenuController *menuController = [UIMenuController sharedMenuController];
-    //create a menu item
-    CXAMenuItemSettings *markIconSettingSpeak = [CXAMenuItemSettings new];
-    markIconSettingSpeak.image = [UIImage imageNamed:@"bb"];
-    markIconSettingSpeak.shadowDisabled = NO;
-    markIconSettingSpeak.shrinkWidth = 4; //set menu item size and picture.
-    //set up the function called when user click the button
-    UIMenuItem *speakItem = [[UIMenuItem alloc] initWithTitle: @"speak" action: @selector(bookMark:)];
-    [speakItem cxa_setSettings:markIconSettingSpeak];
-    //add the menu item to the menubar.
-    [menuController setMenuItems: [NSArray arrayWithObjects: speakItem, nil]];
-
-*/     self.view.layer.zPosition = MAXFLOAT;
+    [webBrowserView addGestureRecognizer:longpress];
+    
+    //recognizes first tap
+    UITapGestureRecognizer *onetap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(updatePVPosition:)];
+    [onetap setNumberOfTapsRequired:1];
+    onetap.delegate=self;
+    [webBrowserView addGestureRecognizer:onetap];
+    
+    self.view.layer.zPosition = MAXFLOAT;
     [webBrowserView setUserInteractionEnabled:YES];
 
 }
 
-- (void)longpressAction:(UITapGestureRecognizer *)tap
+//Allows two gestures to be recognized simultaneously, in this case longpress and onetap------------------------------
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
-    NSString *selection = [webBrowserView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"];
-    pvPoint = [tap locationInView:self.view];
-    [self becomeFirstResponder];
-    // UIMenuController *menuController = [UIMenuController sharedMenuController];
-    // [menuController setMenuVisible:YES animated:YES];
+    return YES;
 }
 
+//actions taken when long press is recognized-----------------------------------------------------------------------
+- (void)longpressAction:(UITapGestureRecognizer *)tap
+{
+    //Become first responder
+    [self becomeFirstResponder];
+}
 
-//Deceptive name, see addWebMark. This is for adding a concept from a string in the web browser.-----------------------------------------------
-- (void)bookMark:(id)sender{
-
-    NSLog (@"Code reaches WebBrowser Bookmark");
-    NSString * strJS = @"window.getSelection().toString()";
-    NSString * strSelectedText = [self.webBrowserView stringByEvaluatingJavaScriptFromString:strJS];
-    NSLog(@"strSelectedText = %@", strSelectedText );
+//Needed to prevent crashing for gesture recognizer related actions------------------------------------------------
+- (void)updatePVPosition:(UITapGestureRecognizer *)tap
+{
     
-    if([_parentBookPageViewCtr.cmapView isNodeExist:strSelectedText]){
-        NSString *msg=[[NSString alloc]initWithFormat:@"Node with name \"%@\" already exist!",strSelectedText];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:msg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
-        return;
-    }
-    
-    [_parentBookPageViewCtr.cmapView createNodeFromBook:CGPointMake( arc4random() % 400+30, 690) withName:strSelectedText BookPos:pvPoint page:0];
-
 }
 
 
@@ -140,33 +124,22 @@
  
 }
 
-//Gives web browser permission to be first responder
+//Gives web browser permission to be first responder---------------------------------------------------------
 - (BOOL)canBecomeFirstResponder {
     return YES;
 }
 
-//give permission to show the menu item we added ------------------------------------------------------------------------------------------
+//give permission to show the menu item we added --------------------------------------------------------------
 - (BOOL) canPerformAction:(SEL)action withSender:(id)sender
 {
-    if (  action == @selector(bookMark:)
-        ||action == @selector(search_go:)
-        ||action==@selector(addWebMark:)
-        ||action==@selector(backToBook:))
-    {
-        return NO;
-    }
-    if (action == @selector(copy:) || action == @selector(cut:) || action == @selector(delete:) ||
-        action == @selector(paste:) || action == @selector(select:) || action == @selector(selectAll:)) {
-        return NO;
-    }
-    if (action == @selector(define:))
-    {
-        return NO;
+    //long press gesture
+    if (action == @selector(longpressAction:)){
+        return YES;
     }
     return NO;
 }
 
-//searches for contents in textfield, goes to url------------------------------------------------------------------------------------------
+//searches for contents in textfield, goes to url-----------------------------------------------------------
 - (IBAction)search_go:(id)sender {
    NSString *url_field_text = [webAdrText text];
    /* NSURL *url = [NSURL URLWithString: url_field_text];
@@ -183,7 +156,7 @@
 
 
 
-//refresh the web page ----> we no longer have a refresh button ----------------------------------------------------------------------------
+//refresh the web page ----> we no longer have a refresh button -----------------------------------------------------
 - (IBAction)refreshWebPage : (id)sender {
     NSString *link= @"https://www.google.com";
     NSURL *new_url = [NSURL URLWithString:link];
@@ -191,14 +164,14 @@
     [webBrowserView loadRequest:new_requestObj];
 }
 
-//go back to book view----------------------------------------------------------------------------------------------------------------------
+//go back to book view--------------------------------------------------------------------------------------
 - (IBAction)backToBook : (id)sender {
    // [self.navigationController popViewControllerAnimated:YES ];
         [_parentBookPageViewCtr hideWebView];
 }
 
 
-//Saves the current url as a bookmark, this function sts up the uiactionsheet----------------------------------------------------------------
+//Saves the current url as a bookmark, this function sts up the uiactionsheet---------------------------------------
 - (IBAction)addWebMark : (id)sender {
     
     UIActionSheet *bookmarkActionSheet = [[UIActionSheet alloc] initWithTitle:[[[[self webBrowserView]request] URL] absoluteString]
@@ -214,7 +187,7 @@
     
   }
 
-//Decides the actions taken for action sheets ----------------------------------------------------------------------------------------------
+//Decides the actions taken for action sheets --------------------------------------------------------------
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (actionSheet.tag == 100){ //bookmarkActionSheet
         if (buttonIndex == 0) { //top button 'Save to Favorites' has been pressed
@@ -239,7 +212,7 @@
 
 }
 
-//Sets relatedNode to parameter. This is so we know where to send url info ------------------------------------------------------------------
+//Sets relatedNode to parameter. This is so we know where to send url info ------------------------------------
 -(void)setRelatedNode:(NodeCell *)givenNode{
     if (givenNode != nil){
         relatedNode = givenNode;
@@ -256,7 +229,7 @@
 }
 
 
-//Searches for selected string in Google or Wikipedia ---------------------------------------------------------------------------------------
+//Searches for selected string in Google or Wikipedia --------------------------------------------------------
 -(void)SearchKeyWord: (NSString*) keywrod{
     NSString* searchTerm = @"";
  //   NSLog(@"Keyword = %@", keywrod);
