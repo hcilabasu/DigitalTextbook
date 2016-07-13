@@ -1070,7 +1070,7 @@
     webFocusQuestionLable.text=@"Long click on a concept and drag to the delete option.";
 }
 
-
+//Displays webview and sets related node
 -(void)showWebView: (NSString*)conceptName atNode:(NodeCell *)relatedNode  {
     [myWebView.view setHidden:NO];
     subViewType=1;
@@ -1079,7 +1079,7 @@
     [previewImg setHidden:YES];
     [self.view bringSubviewToFront:myWebView.view];
 }
-
+//hides webview
 -(void)hideWebView{
     subViewType=0;
     [myWebView.view setHidden:YES];

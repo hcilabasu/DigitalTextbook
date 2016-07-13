@@ -726,7 +726,7 @@
 -(BOOL)prefersStatusBarHidden{
     return YES;
 }
-
+//Used to create nodes when map is loading
 -(void)createNode:(CGPoint)position withName:(NSString*) name page: (int)m_pageNum  url:(NSURL*)m_linkingUrl {
     
     NodeCell *node=[[NodeCell alloc]initWithNibName:@"NodeCell" bundle:nil];
@@ -1016,7 +1016,7 @@
     }
 }
 
-
+//The  "+" button on the toolbar, create a node
 - (IBAction)clickOnBulb : (id)sender
 {
     
@@ -1040,6 +1040,7 @@
     
     [self addConceptOnClick: location];
     
+    
     NSString* numString=[[NSUserDefaults standardUserDefaults] stringForKey:@"NumOfConcepts"];
     int numInt=[numString intValue];
     numInt++;
@@ -1060,11 +1061,11 @@
      */
 }
 
-
+//For nodes created from book and web browser
 -(void)createNodeFromBook:(CGPoint)position withName:(NSString*) name BookPos: (CGPoint)bookPosition page:(int)m_pageNum{
     [self savePreviousStep];
     for(NodeCell* cell in conceptNodeArray){
-        if([cell.text.text isEqualToString:name]){
+        if([cell.text.text isEqualToString:name]){//Node already exists
             NSString* msg=[[NSString alloc]initWithFormat:@"Concept %@ already exist.", name];
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:msg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
             alert.tag=1;
@@ -1220,7 +1221,7 @@
 }
 
 
-
+//from click on bulb adds a node
 -(void)addConceptOnClick: (CGPoint)clickPoint
 {
     NodeCell *node=[[NodeCell alloc]initWithNibName:@"NodeCell" bundle:nil];
@@ -2412,8 +2413,24 @@
     [parentBookPageViewController hideLinkingWarning];
 }
 
--(void)displayWebView{
+//"Web" button  on toolbar action to display web view
+-(IBAction) displayWebView:(id)sender{
    /// WebBrowserViewController *myweb=[[WebBrowserViewController alloc]initWithNibName:@"WebBrowserViewController" bundle:nil];
+    if (self.parentBookPageViewController.myWebView.view.isHidden == YES){ // Web browser view is hidden
+        //Show view
+        [self.parentBookPageViewController.myWebView.view setHidden: NO];
+        if ([self.parentBookPageViewController.myWebView.webAdrText.text isEqualToString:@""]){ //Url textfield is empty
+            [self.parentBookPageViewController.myWebView SearchKeyWord: @""]; //go to google
+        }
+        self.parentBookPageViewController.subViewType=1;
+        [self.parentBookPageViewController.view bringSubviewToFront:parentBookPageViewController.myWebView.view];
+    }
+    else{ //Web browser view is showing
+        //Hide View
+        [self.parentBookPageViewController.myWebView.view setHidden: YES];
+         self.parentBookPageViewController.subViewType=0;
+        [self.parentBookPageViewController.view sendSubviewToBack:parentBookPageViewController.myWebView.view];
+    }
 
 }
 
