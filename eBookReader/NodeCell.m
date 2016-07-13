@@ -68,11 +68,41 @@
         overlay = [[GHContextMenuView alloc] init];
         overlay.dataSource = self;
         overlay.delegate = self;
+        hasHighlight=NO;
+        hasNote=NO;
+        hasWeblink=NO;
     }
     return self;
 }
 
+//To update the thumbnail icons below the node
+-(void) updateThumbIcons {
+    
+    for(UIView* subview in self.view.subviews){
+        if([subview isKindOfClass:[UIImageView class]])
+        {
+            // do somthing
+        
+        [subview removeFromSuperview];
+        }
+    }
+    
+    
+    if(hasNote){ // created from "+" (manually)
+        [self addNoteThumb];
+    }
+    if(hasWeblink){ // created from web browser
+        [self addWebThumb];
+    }
+    if(hasHighlight){ // created from book
+        [self addHighlightThumb];
+    }
 
+}
+-(void)viewDidAppear:(BOOL)animated{
+    [self updateThumbIcons];
+
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -89,8 +119,11 @@
     [text addTarget:self
              action:@selector(textFieldDidEndEditing:)
    forControlEvents:UIControlEventEditingDidEnd];
-    
-
+   /*
+    hasNote=YES; //Manual
+    hasWeblink=YES; //web browser
+    hasHighlight=YES; // Book
+    */
     //conceptName.text=text.text;
     /*
      int r = arc4random_uniform(3);
@@ -152,17 +185,20 @@
     if(NO==isInitialed){
         [text becomeFirstResponder];
     }
+    
+    
+    // checks if node is created from a certain source and displays an icon in the corner
     /*
-     if(hasNote){
+     if(hasNote){ // created from "+" (manually)
      [self addNoteThumb];
      }
-     if(hasWeblink){
+     if(hasWeblink){ // created from web browser
      [self addWebThumb];
      }
-     if(hasHighlight){
+     if(hasHighlight){ // created from book
      [self addHighlightThumb];
-     }
-     */
+     }*/
+    
     [self becomeFirstResponder];
     //self.view.layer.zPosition=2;
     enableHyperLink=NO;
@@ -203,6 +239,8 @@
     self.text.frame=textFrame;
     self.view.frame=viewFrame;
     
+    
+    [self updateThumbIcons];
     [self updateLink];
 }
 
@@ -871,6 +909,9 @@
             break;
         case 3:
         {
+            if(!self.conceptName){
+                self.conceptName=self.text.text;
+            }
             [parentCmapController.parentBookPageViewController showWebView: conceptName atNode: self];
         }
             break;
@@ -972,19 +1013,19 @@
 
 -(void)addNoteThumb{
     UIImageView *thumb = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"note_square.png"]];
-    [thumb setFrame:CGRectMake(30, 22, 14, 14)];
+    [thumb setFrame:CGRectMake(self.view.frame.size.width-7, 22, 14, 14)];
     [self.view addSubview:thumb];
 }
 
 -(void)addWebThumb{
     UIImageView *thumb = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"safari_square.png"]];
-    [thumb setFrame:CGRectMake(50, 22, 14, 14)];
+    [thumb setFrame:CGRectMake(self.view.frame.size.width-7, 22, 14, 14)];
     [self.view addSubview:thumb];
 }
 
 -(void)addHighlightThumb{
     UIImageView *thumb = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"colorPlate.png"]];
-    [thumb setFrame:CGRectMake(10, 22, 14, 14)];
+    [thumb setFrame:CGRectMake(self.view.frame.size.width-7, 22, 14, 14)];
     [self.view addSubview:thumb];
 }
 
@@ -1029,6 +1070,7 @@
     }
     
     [textView resignFirstResponder];
+    
 }
 
 
@@ -1075,7 +1117,6 @@
                                         repeats:NO];
 
     }*/
-    
     
 }
 

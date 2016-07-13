@@ -406,7 +406,7 @@
 }
 
 
-
+//The search button on toolbar
 - (IBAction)hideAndShow:(id)sender {
     [parentBookPageViewController hideAndShowPreView];
     
@@ -493,7 +493,7 @@
     
     for(CmapNode* cell in bookNodeWrapper.cmapNodes){
         
-        [self createNode:CGPointMake(cell.point_x, cell.point_y) withName:cell.text page:cell.pageNum url:cell.linkingUrl];
+        [self createNode:CGPointMake(cell.point_x, cell.point_y) withName:cell.text page:cell.pageNum url:cell.linkingUrl hasNote: cell.hasNote hasHighlight: cell.hasHighlight hasWebLink: cell.hasWebLink];
         
         
     }
@@ -620,7 +620,7 @@
     //  [ CmapLinkParser saveCmapLink:bookLinkWrapper];
     [ CmapLinkParser saveExpertCmapLink:bookLinkWrapper];
     for(NodeCell* m_node in conceptNodeArray){
-        CmapNode* node= [[CmapNode alloc] initWithName: m_node.text.text bookTitle:m_node.bookTitle positionX:m_node.view.frame.origin.x positionY:m_node.view.frame.origin.y Tag:m_node.text.tag page:m_node.pageNum url: m_node.linkingUrl.absoluteString];
+        CmapNode* node= [[CmapNode alloc] initWithName: m_node.text.text bookTitle:m_node.bookTitle positionX:m_node.view.frame.origin.x positionY:m_node.view.frame.origin.y Tag:m_node.text.tag page:m_node.pageNum url: m_node.linkingUrl.absoluteString hasNote:m_node.hasNote hasHighlight:m_node.hasHighlight hasWebLink: m_node.hasWeblink];
         [bookNodeWrapper addthumbnail:node];
     }
     //[CmapNodeParser saveCmapNode:bookNodeWrapper];
@@ -648,7 +648,7 @@
     }
     [ CmapLinkParser saveCmapLink:bookLinkWrapper];
     for(NodeCell* m_node in conceptNodeArray){
-        CmapNode* node= [[CmapNode alloc] initWithName: m_node.text.text bookTitle:m_node.bookTitle positionX:m_node.view.frame.origin.x positionY:m_node.view.frame.origin.y Tag:m_node.text.tag page:m_node.pageNum url:m_node.linkingUrl.absoluteString];
+        CmapNode* node= [[CmapNode alloc] initWithName: m_node.text.text bookTitle:m_node.bookTitle positionX:m_node.view.frame.origin.x positionY:m_node.view.frame.origin.y Tag:m_node.text.tag page:m_node.pageNum url:m_node.linkingUrl.absoluteString hasNote:m_node.hasNote hasHighlight:m_node.hasHighlight hasWebLink:m_node.hasWeblink];
         [bookNodeWrapper addthumbnail:node];
         
     }
@@ -727,7 +727,7 @@
     return YES;
 }
 //Used to create nodes when map is loading
--(void)createNode:(CGPoint)position withName:(NSString*) name page: (int)m_pageNum  url:(NSURL*)m_linkingUrl {
+-(void)createNode:(CGPoint)position withName:(NSString*) name page: (int)m_pageNum  url:(NSURL*)m_linkingUrl hasNote: (BOOL) m_hasNote hasHighlight: (BOOL) m_hasHighlight hasWebLink: (BOOL) m_hasWebLink {
     
     NodeCell *node=[[NodeCell alloc]initWithNibName:@"NodeCell" bundle:nil];
     node.createType=0;
@@ -744,12 +744,22 @@
     node.userName=userName;
     node.bookLogData=bookLogDataWrapper;
     [conceptNodeArray addObject:node];
+    if(m_hasNote){
+        node.hasNote = YES;
+    }
+    if(m_hasWebLink){
+        node.hasWeblink = YES;
+    }
+    if(m_hasHighlight) {
+        node.hasHighlight = YES;
+    }
     [self addChildViewController:node];
     [conceptMapView addSubview: node.view ];
     node.text.text=name;
     node.text.tag=nodeCount;//use nodeCount to identify the node.
     nodeCount++;
     node.linkingUrl = m_linkingUrl;
+ 
     [node becomeFirstResponder];
 }
 
@@ -1097,6 +1107,10 @@
     node.pageNum=m_pageNum-1;
     if (m_pageNum == 0){ //Made from Web Browser
         [node setLinkingUrl];
+        node.hasWeblink = YES;
+    }
+    else {
+        node.hasHighlight = YES; //made from book
     }
     [conceptNodeArray addObject:node];
     [self addChildViewController:node];
@@ -1225,6 +1239,7 @@
 -(void)addConceptOnClick: (CGPoint)clickPoint
 {
     NodeCell *node=[[NodeCell alloc]initWithNibName:@"NodeCell" bundle:nil];
+    node.hasNote = YES; // created manually
     node.createType=1;
     node.parentCmapController=self;
     node.showPoint=clickPoint;
@@ -1700,7 +1715,11 @@
     extraWidth=conceptMapView.frame.size.width*(conceptMapView.zoomScale-sacleBeforeZooming)/2;
     extraHeight=conceptMapView.frame.size.height*(conceptMapView.zoomScale-sacleBeforeZooming)/2;
     int i=0;
+    
     for (NodeCell* cell in conceptNodeArray  ){
+        if(positionBeforeZoom.count==0){
+            continue;
+        }
         NSValue *CGPointValue=[positionBeforeZoom objectAtIndex:i];
         CGPoint savedPoint=[CGPointValue CGPointValue];
         //[cell.view setFrame:CGRectMake(cell.view.frame.origin.x*scale, cell.view.frame.origin.y*scale, cell.view.frame.size.width,  cell.view.frame.size.height)];
@@ -2266,6 +2285,7 @@
     return textView.text.length + (text.length - range.length) <= 140;
 }
 
+//trashcan on toolbar
 - (IBAction)deleteAll:(id)sender {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"Do you want to delete the whole map?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles: @"Yes",nil];
     alert.tag=2;
@@ -2311,7 +2331,7 @@
     
     [parentBookPageViewController.bookView.currentContentView refresh];
 }
-
+//upload button on far right of toolbar, needs three clicks to load
 - (IBAction)AdminUpload:(id)sender {
     /*
      ZCTradeView* trade=[[ZCTradeView alloc]init];

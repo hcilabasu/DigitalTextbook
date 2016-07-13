@@ -37,7 +37,7 @@
 }
 */
 
-- (id)initWithName:(NSString*)m_text bookTitle: (NSString*)m_bookTitle positionX:(int)m_pointX positionY: (int)m_positionY Tag: (int)m_tag page: (int) m_pageNum url: (NSURL*)m_url
+- (id)initWithName:(NSString*)m_text bookTitle: (NSString*)m_bookTitle positionX:(int)m_pointX positionY: (int)m_positionY Tag: (int)m_tag page: (int) m_pageNum url: (NSURL*)m_url hasNote: (BOOL)m_hasNote hasHighlight: (BOOL)m_hasHighlight hasWebLink: (BOOL)m_hasWebLink
 {
     if ((self = [super init])) {
         text=m_text;
@@ -47,6 +47,9 @@
         tag=m_tag;
         pageNum=m_pageNum;
         linkingUrl =m_url;
+        _hasNote = m_hasNote;
+        _hasWebLink = m_hasWebLink;
+        _hasHighlight = m_hasHighlight;
         
     }
     return self;
