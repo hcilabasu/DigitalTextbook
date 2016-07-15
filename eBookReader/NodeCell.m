@@ -535,7 +535,7 @@
         }
         return;
     }
-    if(-1==pageNum && linkingUrl == nil){
+    if(-1==pageNum && (linkingUrl == nil || [linkingUrl.absoluteString isEqualToString:@""])){ // Node created manually, no linking url
         return;
     }
   //  if(enableHyperLink&&(createType!=0)){
@@ -843,9 +843,10 @@
 
 - (NSInteger) numberOfMenuItems
 {
-    return 4;
+    return 5;
 }
 
+//specify image names
 -(UIImage*) imageForItemAtIndex:(NSInteger)index
 {
     NSString* imageName = nil;
@@ -861,6 +862,10 @@
             break;
         case 3:
             imageName= @"webbrowser";
+            break;
+        case 4:
+            imageName = @"inform3";
+            break;
         default:
             break;
     }
@@ -875,6 +880,7 @@
     return img;
 }
 
+//call back functions, decides what menu does
 - (void) didSelectItemAtIndex:(NSInteger)selectedIndex forMenuAtPoint:(CGPoint)point
 {
     NSString* msg = nil;
@@ -915,13 +921,37 @@
             [parentCmapController.parentBookPageViewController showWebView: conceptName atNode: self];
         }
             break;
+        case 4:
+        {
+            NSString *sourceString;
+            if (pageNum== -1){ // Node created manually or from web browser
+                if (linkingUrl == nil || [linkingUrl.absoluteString isEqualToString:@""]){ //There is no linking url, created manually
+                    sourceString = @"Manually Created";
+                }
+                else { //There is a linking url, created from web browser
+                    sourceString = [NSString stringWithFormat:@"Web Browser\nURL: %@", linkingUrl];
+                }
+
+            }
+            else{//created from book
+                sourceString = [NSString stringWithFormat:@"Textbook\nPage Number: %d", pageNum + 1];
+            }
+            NSString *infoString = [NSString stringWithFormat:@"Current Name: %@\nOriginal Text: %@\n Source: %@", text.text, conceptName, sourceString];
+            UIAlertView *infoAlert = [[UIAlertView alloc] initWithTitle:@"Concept Information:"
+                                                            message:(infoString)
+                                                           delegate:self
+                                                  cancelButtonTitle:@"Ok"
+                                                  otherButtonTitles: nil];
+            [infoAlert show];
+        }
+            break;
         default:
             break;
     }
 }
 
 
-
+//deletes selected node
 -(void)deleteNode: (BOOL)delByUser{
     if(1==nodeType){
         [self.view removeFromSuperview];
@@ -1010,19 +1040,19 @@
          [parentCmapController.conceptLinkArray removeAllObjects];
      }*/
 }
-
+//for nodes from the "+" button
 -(void)addNoteThumb{
     UIImageView *thumb = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"note_square.png"]];
     [thumb setFrame:CGRectMake(self.view.frame.size.width-7, 22, 14, 14)];
     [self.view addSubview:thumb];
 }
-
+//for nodes from the web browser
 -(void)addWebThumb{
     UIImageView *thumb = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"safari_square.png"]];
     [thumb setFrame:CGRectMake(self.view.frame.size.width-7, 22, 14, 14)];
     [self.view addSubview:thumb];
 }
-
+//for nodes from the book
 -(void)addHighlightThumb{
     UIImageView *thumb = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"colorPlate.png"]];
     [thumb setFrame:CGRectMake(self.view.frame.size.width-7, 22, 14, 14)];
