@@ -239,7 +239,6 @@
     self.text.frame=textFrame;
     self.view.frame=viewFrame;
     
-    
     [self updateThumbIcons];
     [self updateLink];
 }
@@ -851,19 +850,19 @@
 {
     NSString* imageName = nil;
     switch (index) {
-        case 0:
+        case 0: // delete node
             imageName = @"deleteConcept";
             break;
-        case 1:
+        case 1: // link nodes
             imageName = @"link";
             break;
-        case 2:
+        case 2: // edit node name
             imageName = @"edit";
             break;
-        case 3:
+        case 3: // search on internet
             imageName= @"webbrowser";
             break;
-        case 4:
+        case 4: // information
             imageName = @"inform3";
             break;
         default:
@@ -885,7 +884,7 @@
 {
     NSString* msg = nil;
     switch (selectedIndex) {
-        case 0:
+        case 0: // delete node
         {
             {
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Deleting"
@@ -897,7 +896,7 @@
             }
         }
             break;
-        case 1:
+        case 1: // link nodes
             msg = @"link Selected";
             [parentCmapController showLinkHint];
             parentCmapController.isReadyToLink=YES;
@@ -906,22 +905,22 @@
             // [parentCmapController startWait];
             [self waitForLink];
             break;
-        case 2:
+        case 2: //edit node name
             
         {
             parentCmapController.addedNode=self;
             [self.text becomeFirstResponder];
         }
             break;
-        case 3:
+        case 3: // Search internet button
         {
-            if(!self.conceptName){
-                self.conceptName=self.text.text;
-            }
-            [parentCmapController.parentBookPageViewController showWebView: conceptName atNode: self];
+            //look up current text
+            [parentCmapController.parentBookPageViewController showWebView: text.text atNode: self];
+            //Look up concept name
+            //[parentCmapController.parentBookPageViewController showWebView: conceptName atNode: self];
         }
             break;
-        case 4:
+        case 4: // info button
         {
             NSString *sourceString;
             if (pageNum== -1){ // Node created manually or from web browser
@@ -1040,19 +1039,19 @@
          [parentCmapController.conceptLinkArray removeAllObjects];
      }*/
 }
-//for nodes from the "+" button
+//for nodes from the "+" button-------------------------------------------------------------------------
 -(void)addNoteThumb{
     UIImageView *thumb = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"note_square.png"]];
     [thumb setFrame:CGRectMake(self.view.frame.size.width-7, 22, 14, 14)];
     [self.view addSubview:thumb];
 }
-//for nodes from the web browser
+//for nodes from the web browser-------------------------------------------------------------------------
 -(void)addWebThumb{
     UIImageView *thumb = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"safari_square.png"]];
     [thumb setFrame:CGRectMake(self.view.frame.size.width-7, 22, 14, 14)];
     [self.view addSubview:thumb];
 }
-//for nodes from the book
+//for nodes from the book-------------------------------------------------------------------------------
 -(void)addHighlightThumb{
     UIImageView *thumb = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"colorPlate.png"]];
     [thumb setFrame:CGRectMake(self.view.frame.size.width-7, 22, 14, 14)];
@@ -1069,7 +1068,7 @@
 
 
 
-//after editting the text in the link, update the conceptLinkArray
+//after editing the text in the link(!), update the conceptLinkArray
 - (void)textViewDidEndEditing:(UITextView *)textView{
     // ConceptLink* linkToUpdate;
     
@@ -1104,8 +1103,7 @@
 }
 
 
-
-
+//after editing the text in the name textfield(!), update the conceptNodeArray and node information
 - (void)textFieldDidEndEditing:(UITextField *)textField{
 
     NSString* inputString=[[NSString alloc] initWithFormat:@"%@", textField.text];
@@ -1136,6 +1134,9 @@
                                        selector:@selector(showDupliAlert)
                                        userInfo:nil
                                         repeats:NO];
+    }
+    if(!self.conceptName){ //conceptname is nil
+        self.conceptName=self.text.text; //conceptname is current text
     }
     
     /*
