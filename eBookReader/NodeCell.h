@@ -19,6 +19,7 @@
 #import "ConceptLink.h"
 #import "CmapLink.h"
 #import "RelationTextView.h"
+#import "PopoverView.h"
 #import "LogDataWrapper.h"
 @class CmapController;
 @class ContentViewController;
@@ -26,6 +27,8 @@
 @interface NodeCell : UIViewController<PopoverViewDelegate,UIGestureRecognizerDelegate,UITextFieldDelegate,UITextViewDelegate , GHContextOverlayViewDataSource, GHContextOverlayViewDelegate>
 
 @property (assign)CGPoint showPoint;
+@property (strong, nonatomic) PopoverView *pv; //For taking notes
+@property (strong, nonatomic) NSString *appendedNoteString; //Saved text info for notes
 @property int pageNum;
 @property int createType;
 @property int nodeType; //1: shows in book scroll thumb view; 0: shows in Cmap view;

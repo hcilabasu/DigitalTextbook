@@ -53,7 +53,8 @@
 @synthesize enableHyperLink;
 @synthesize createType;
 @synthesize isAlertShowing;
-
+@synthesize pv; //pop up to take notes
+@synthesize appendedNoteString; //to save notes
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -341,7 +342,7 @@
 }
 
 -(void)textViewDidBeginEditing:(UITextView *)textView{
-    parentCmapController.linkTextBeforeEditing=textView.text;
+   parentCmapController.linkTextBeforeEditing=textView.text;
     CGSize screenSZ=[self screenSize];
    
     CGFloat offSet=(textView.frame.size.height+ textView.frame.origin.y-parentCmapController.conceptMapView.contentOffset.y)-(768-352)+88;
@@ -443,6 +444,9 @@
 
 - (IBAction)tap:(UIPanGestureRecognizer *)gesture
 {
+    
+    //[self takeNote:nil];
+    
     // NSLog(@"Tap gesture!");
     if(YES==parentCmapController.isReadyToLink){
         if([text.text isEqualToString:parentCmapController.nodesToLink.text.text]){
@@ -862,7 +866,7 @@
         case 3: // search on internet
             imageName= @"webbrowser";
             break;
-        case 4: // information
+        case 4: // taking notes
             imageName = @"inform3";
             break;
         default:
@@ -920,9 +924,32 @@
             //[parentCmapController.parentBookPageViewController showWebView: conceptName atNode: self];
         }
             break;
-        case 4: // info button
+        case 4: // note taking button
         {
-            NSString *sourceString;
+            
+            /*
+            int hh=pv.noteText.frame.size.height;
+            int hh2=pv.noteText.frame.origin.y;
+            */
+            CGFloat offSet = (self.view.frame.size.height+ self.view.frame.origin.y-parentCmapController.conceptMapView.contentOffset.y)-(768-352)+88;
+           // NSLog(@"Height: %f, Origin: %f",pv.noteText.frame.size.height,pv.noteText.frame.origin.y);
+            if(offSet>0){
+                // NSLog(@"Blocked by keyboard!!");
+                [parentCmapController scrollCmapView:(offSet)];
+            }
+            
+            [NSTimer scheduledTimerWithTimeInterval:0.3f
+                                             target:self
+                                           selector: @selector(takeNote:)
+                                           userInfo:nil
+                                            repeats:NO];
+            
+           
+            
+          // [self takeNote:nil];
+            
+          //  [parentCmapController showNoteTaking:CGPointMake(200, 200)];
+            /* NSString *sourceString;
             if (pageNum== -1){ // Node created manually or from web browser
                 if (linkingUrl == nil || [linkingUrl.absoluteString isEqualToString:@""]){ //There is no linking url, created manually
                     sourceString = @"Manually Created";
@@ -941,12 +968,31 @@
                                                            delegate:self
                                                   cancelButtonTitle:@"Ok"
                                                   otherButtonTitles: nil];
-            [infoAlert show];
+            [infoAlert show];*/
         }
             break;
         default:
             break;
     }
+}
+
+//Allows user to take notes on the concept selected
+- (IBAction)takeNote : (id)sender {
+    
+    NSArray *popUpContent=[NSArray arrayWithObjects:@"NoteTaking", nil];
+  PopoverView*pv=  [PopoverView showPopoverAtPoint: CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/2)
+                             inView:self.view
+                          withTitle:@"Take Note"
+                    withStringArray:popUpContent
+                           delegate:self];
+    
+    pv.noteText.delegate=parentCmapController; //We need this.
+    parentCmapController.noteTakingNode = self;
+    pv.noteText.text = appendedNoteString;
+    parentCmapController.showingPV=pv;
+    /*CGFloat offSet=(pv.noteText.frame.size.height+ pv.noteText.frame.origin.y-parentCmapController.conceptMapView.contentOffset.y)-(768-352)+88;*/
+
+
 }
 
 

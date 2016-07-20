@@ -48,6 +48,9 @@
 @property (strong, nonatomic) IBOutlet UIScrollView *conceptMapView;
 @property (strong, nonatomic) IBOutlet UIView *contentView;
 
+@property (strong, nonatomic) PopoverView* showingPV; //pv in node cell
+@property (strong, nonatomic) NodeCell* noteTakingNode; //for taking notes
+
 @property (strong, nonatomic) id dataObject;// sotres the HTML data
 @property (strong, nonatomic) id url; //the URL link to display HTML content
 @property (nonatomic) BOOL isMenuShow;
@@ -192,4 +195,5 @@
 -(void)highlightPageNode: (int)page;
 -(void)showLinkHint;
 -(void)dismissLinkHint;
+-(void)showNoteTaking: (CGPoint)showpoint;
 @end

@@ -26,6 +26,7 @@
 #import "ZCTradeView.h"
 #import "MyAlertView.h"
 #import "TrainingViewController.h"
+#import "PopoverView.h"
 /*
  @interface CmapController ()<GHContextOverlayViewDataSource, GHContextOverlayViewDelegate>
  @property (weak, nonatomic) IBOutlet UIImageView *imageView;
@@ -98,6 +99,8 @@
 @synthesize keyboardOffset;
 @synthesize linkJustCreated;
 @synthesize upLoadIcon;
+@synthesize showingPV;
+@synthesize noteTakingNode;
 
 - (id) init {
     if (self = [super init]) {
@@ -1266,7 +1269,6 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
     nodeTextBeforeEditing=textField.text;
-    
     // textField.text=@"";
     CGSize screenSZ=[self screenSize];
     CGFloat offSet=(textField.superview.frame.size.height+ textField.superview.frame.origin.y)-(768-352);
@@ -1517,6 +1519,10 @@
     LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Finish editting concept link name" selection:linkTextBeforeEditing input:textView.text pageNum:pageNum];
     [bookLogDataWrapper addLogs:newlog];
     [LogDataParser saveLogData:bookLogDataWrapper];
+    if (showingPV != nil){ // popoverview for taking notes exists
+        noteTakingNode.appendedNoteString = showingPV.noteText.text; //saves text from popover view
+        [showingPV dismiss]; //gets rid of popover view
+    }
     
     /*
      if(textView.text.length<5){
@@ -2454,6 +2460,21 @@
 
 }
 
+
+//commenting
+-(void)showNoteTaking: (CGPoint)showpoint  {
+    
+    NSArray *popUpContent=[NSArray arrayWithObjects:@"NoteTaking", nil];
+    [PopoverView showPopoverAtPoint:showpoint
+                                 inView:self.contentView
+                              withTitle:@"Take Note"
+                        withStringArray:popUpContent
+                               delegate:self];
+    //pv.showPoint=self.showPoint;
+    
+   // [pv becomeFirstResponder];
+
+}
 
 @end
 
