@@ -869,7 +869,7 @@
             imageName= @"webbrowser";
             break;
         case 4: // taking notes
-            imageName = @"inform3";
+            imageName = @"notebook";
             break;
         default:
             break;
@@ -984,7 +984,7 @@
     if (self.hasHighlight){ //node  created from book
         takeNoteTitleString = [NSString stringWithFormat:@"Notes on \"%@\"     Page: %i", self.text.text, self.pageNum + 1];
     }
-    else if (self.linkingUrl){ //node created from web browser
+    else if (self.linkingUrl.absoluteString.length > 0){ //node created from web browser
         NSString *siteTitle = self.linkingUrlTitle;
         takeNoteTitleString = [NSString stringWithFormat:@"Notes on \"%@\"     Site: %@", self.text.text, siteTitle];
     }
