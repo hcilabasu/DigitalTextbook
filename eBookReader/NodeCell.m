@@ -28,6 +28,7 @@
 @synthesize longPressRecognizer;
 @synthesize isInitialed;
 @synthesize linkingUrl;
+@synthesize linkingUrlTitle;
 @synthesize savedUrls;
 @synthesize relatedNodesArray;
 @synthesize linkLayerArray;
@@ -220,6 +221,7 @@
    // NSLog(@"urlEnter = %@", urlEnter);
    // NSLog(@"concept name = %@", self.conceptName);
     linkingUrl = [NSURL URLWithString: urlEnter];
+    linkingUrlTitle = [parentCmapController.parentBookPageViewController.myWebView.webBrowserView stringByEvaluatingJavaScriptFromString:@"document.title"];
 }
 
 -(void)textFieldDidChange :(UITextField *)theTextField{
@@ -978,11 +980,21 @@
 
 //Allows user to take notes on the concept selected
 - (IBAction)takeNote : (id)sender {
-    
+    NSString *takeNoteTitleString;
+    if (self.hasHighlight){ //node  created from book
+        takeNoteTitleString = [NSString stringWithFormat:@"Notes on \"%@\"     Page: %i", self.text.text, self.pageNum + 1];
+    }
+    else if (self.linkingUrl){ //node created from web browser
+        NSString *siteTitle = self.linkingUrlTitle;
+        takeNoteTitleString = [NSString stringWithFormat:@"Notes on \"%@\"     Site: %@", self.text.text, siteTitle];
+    }
+    else {
+        takeNoteTitleString = [NSString stringWithFormat:@"Notes on \"%@\"", self.text.text];
+    }
     NSArray *popUpContent=[NSArray arrayWithObjects:@"NoteTaking", nil];
   PopoverView*pv=  [PopoverView showPopoverAtPoint: CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/2)
                              inView:self.view
-                          withTitle:@"Take Note"
+                          withTitle:takeNoteTitleString
                     withStringArray:popUpContent
                            delegate:self];
     

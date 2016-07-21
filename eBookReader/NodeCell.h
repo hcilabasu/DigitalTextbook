@@ -53,6 +53,7 @@
 
 @property (strong, nonatomic) NSMutableArray*  savedUrls; //bookmarked urls from web browser
 @property (strong, nonatomic) NSURL* linkingUrl; //associated url when created from web browser
+@property (strong, nonatomic) NSString* linkingUrlTitle; //title of web page for linking url
 @property (strong, nonatomic) NSMutableArray*  relatedNodesArray;
 @property (strong, nonatomic) NSMutableArray*  linkLayerArray;
 @property (strong, nonatomic) NSMutableArray*  relationTextArray;

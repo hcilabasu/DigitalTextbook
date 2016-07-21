@@ -44,6 +44,7 @@
 -(IBAction)search_go:(id)sender;
 -(void)setParent_View:(ContentViewController *)view;
 -(void)SearchKeyWord: (NSString*) keywrod;
+-(NSString *)getSiteTitle_fromLinkingUrl: (NSString *) keyword;
 
 @end
 

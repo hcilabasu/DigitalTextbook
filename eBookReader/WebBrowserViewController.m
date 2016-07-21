@@ -171,46 +171,6 @@
 }
 
 
-//Saves the current url as a bookmark, this function sts up the uiactionsheet---------------------------------------
-- (IBAction)addWebMark : (id)sender {
-    
-    UIActionSheet *bookmarkActionSheet = [[UIActionSheet alloc] initWithTitle:[[[[self webBrowserView]request] URL] absoluteString]
-                                                             delegate:self
-                                                    cancelButtonTitle:@"Cancel"
-                                               destructiveButtonTitle:nil
-                                                    otherButtonTitles:@"Save to Favorites", @"View Favorites", nil];
-    
-    bookmarkActionSheet.tag = 100; //tag value distinguishes this from other potential action sheets
-    [bookmarkActionSheet showInView:self.view];
-
-   // [_parentBookPageViewCtr hideWebView];
-    
-  }
-
-//Decides the actions taken for action sheets --------------------------------------------------------------
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (actionSheet.tag == 100){ //bookmarkActionSheet
-        if (buttonIndex == 0) { //top button 'Save to Favorites' has been pressed
-            if (relatedNode != nil){ // relatedNode exists
-                relatedNode.enterIntoUrlArray;
-                UIAlertView *bookmarkAlert = [[UIAlertView alloc] initWithTitle:@"URL SAVED"
-                                                                        message:@"The current url has been saved!"
-                                                                       delegate:self
-                                                              cancelButtonTitle:@"OK"
-                                                              otherButtonTitles:nil];
-                [bookmarkAlert show];
-            }
-            else {
-                NSLog (@"Problem in Web Browser, addWebMark");
-            }
-            
-        }
-        else if (buttonIndex == 1){ //second from top button 'View Favorite' has been pressed
-            
-        }
-    }//if bookmarkActionSheet
-
-}
 
 //Sets relatedNode to parameter. This is so we know where to send url info ------------------------------------
 -(void)setRelatedNode:(NodeCell *)givenNode{

@@ -167,7 +167,7 @@
 
 - (void)showAtPoint:(CGPoint)point inView:(UIView *)view withText:(NSString *)text
 {
-    UIFont *font = kTextFont;
+    UIFont *font = kTitleFont;
     
     CGSize screenSize = [self screenSize];
     CGSize textSize = [text sizeWithFont:font constrainedToSize:CGSizeMake(screenSize.width - kHorizontalMargin*4.f, 1000.f) lineBreakMode:UILineBreakModeWordWrap];
@@ -186,7 +186,7 @@
 
 - (void)showAtPoint:(CGPoint)point inView:(UIView *)view withTitle:(NSString *)title withText:(NSString *)text
 {
-    UIFont *font = kTextFont;
+    UIFont *font = kTitleFont;
     CGSize screenSize = [self screenSize];
     CGSize textSize = [text sizeWithFont:font constrainedToSize:CGSizeMake(screenSize.width - kHorizontalMargin*4.f, 1000.f) lineBreakMode:UILineBreakModeWordWrap];
     UILabel *textView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, textSize.width, textSize.height)];
@@ -359,7 +359,7 @@
 {
     NSMutableArray *labelArray = [[NSMutableArray alloc] initWithCapacity:stringArray.count];
     
-    UIFont *font = kTextFont;
+    UIFont *font = kTitleFont;
     
     for (NSString *string in stringArray) {
         CGSize textSize = [string sizeWithFont:font];
@@ -384,7 +384,7 @@
 {
     NSMutableArray *labelArray = [[NSMutableArray alloc] initWithCapacity:stringArray.count];
     
-    UIFont *font = kTextFont;
+    UIFont *font = kTitleFont;
     //the ratial of the popup view to the screen width, detect if the size of the popup view exceed the ratial of the screen.
     double popViewRatial=0.6;
     //detect if we need to show the node taking view by checking if the first string item is marded as Notetaking.
@@ -456,7 +456,7 @@
 {
     NSMutableArray *tempViewArray = [[NSMutableArray alloc] initWithCapacity:stringArray.count];
     
-    UIFont *font = kTextFont;
+    UIFont *font = kTitleFont;
     
     for (int i = 0; i < stringArray.count; i++) {
         NSString *string = [stringArray objectAtIndex:i];

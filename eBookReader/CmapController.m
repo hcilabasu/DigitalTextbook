@@ -496,7 +496,7 @@
     
     for(CmapNode* cell in bookNodeWrapper.cmapNodes){
         
-        [self createNode:CGPointMake(cell.point_x, cell.point_y) withName:cell.text page:cell.pageNum url:cell.linkingUrl hasNote: cell.hasNote hasHighlight: cell.hasHighlight hasWebLink: cell.hasWebLink];
+        [self createNode:CGPointMake(cell.point_x, cell.point_y) withName:cell.text page:cell.pageNum url:cell.linkingUrl urlTitle: cell.linkingUrlTitle hasNote: cell.hasNote hasHighlight: cell.hasHighlight hasWebLink: cell.hasWebLink savedNotesString: cell.savedNotesString];
         
         
     }
@@ -623,7 +623,7 @@
     //  [ CmapLinkParser saveCmapLink:bookLinkWrapper];
     [ CmapLinkParser saveExpertCmapLink:bookLinkWrapper];
     for(NodeCell* m_node in conceptNodeArray){
-        CmapNode* node= [[CmapNode alloc] initWithName: m_node.text.text bookTitle:m_node.bookTitle positionX:m_node.view.frame.origin.x positionY:m_node.view.frame.origin.y Tag:m_node.text.tag page:m_node.pageNum url: m_node.linkingUrl.absoluteString hasNote:m_node.hasNote hasHighlight:m_node.hasHighlight hasWebLink: m_node.hasWeblink];
+        CmapNode* node= [[CmapNode alloc] initWithName: m_node.text.text bookTitle:m_node.bookTitle positionX:m_node.view.frame.origin.x positionY:m_node.view.frame.origin.y Tag:m_node.text.tag page:m_node.pageNum url:m_node.linkingUrl.absoluteString urlTitle: m_node.linkingUrlTitle hasNote:m_node.hasNote hasHighlight:m_node.hasHighlight hasWebLink:m_node.hasWeblink savedNotesString: m_node.appendedNoteString];
         [bookNodeWrapper addthumbnail:node];
     }
     //[CmapNodeParser saveCmapNode:bookNodeWrapper];
@@ -636,7 +636,7 @@
 }
 
 
--(void)autoSaveMap{
+-(void)autoSaveMap{ //This is to save the current concept map in the log files
     if(isTraining){
         return;
     }
@@ -651,7 +651,8 @@
     }
     [ CmapLinkParser saveCmapLink:bookLinkWrapper];
     for(NodeCell* m_node in conceptNodeArray){
-        CmapNode* node= [[CmapNode alloc] initWithName: m_node.text.text bookTitle:m_node.bookTitle positionX:m_node.view.frame.origin.x positionY:m_node.view.frame.origin.y Tag:m_node.text.tag page:m_node.pageNum url:m_node.linkingUrl.absoluteString hasNote:m_node.hasNote hasHighlight:m_node.hasHighlight hasWebLink:m_node.hasWeblink];
+     //   NSLog([NSString stringWithFormat: @"Note String at auto save: %@", m_node.appendedNoteString]);
+        CmapNode* node= [[CmapNode alloc] initWithName: m_node.text.text bookTitle:m_node.bookTitle positionX:m_node.view.frame.origin.x positionY:m_node.view.frame.origin.y Tag:m_node.text.tag page:m_node.pageNum url:m_node.linkingUrl.absoluteString urlTitle: m_node.linkingUrlTitle hasNote:m_node.hasNote hasHighlight:m_node.hasHighlight hasWebLink:m_node.hasWeblink savedNotesString: m_node.appendedNoteString];
         [bookNodeWrapper addthumbnail:node];
         
     }
@@ -730,7 +731,7 @@
     return YES;
 }
 //Used to create nodes when map is loading
--(void)createNode:(CGPoint)position withName:(NSString*) name page: (int)m_pageNum  url:(NSURL*)m_linkingUrl hasNote: (BOOL) m_hasNote hasHighlight: (BOOL) m_hasHighlight hasWebLink: (BOOL) m_hasWebLink {
+-(void)createNode:(CGPoint)position withName:(NSString*) name page: (int)m_pageNum  url:(NSURL*)m_linkingUrl urlTitle: (NSString *) m_linkingUrlTitle hasNote: (BOOL) m_hasNote hasHighlight: (BOOL) m_hasHighlight hasWebLink: (BOOL) m_hasWebLink savedNotesString: (NSString *) m_noteString{
     
     NodeCell *node=[[NodeCell alloc]initWithNibName:@"NodeCell" bundle:nil];
     node.createType=0;
@@ -746,6 +747,7 @@
     node.conceptName=name;
     node.userName=userName;
     node.bookLogData=bookLogDataWrapper;
+    node.appendedNoteString = m_noteString;
     [conceptNodeArray addObject:node];
     if(m_hasNote){
         node.hasNote = YES;
@@ -762,6 +764,7 @@
     node.text.tag=nodeCount;//use nodeCount to identify the node.
     nodeCount++;
     node.linkingUrl = m_linkingUrl;
+    node.linkingUrlTitle = m_linkingUrlTitle;
  
     [node becomeFirstResponder];
 }
@@ -1523,7 +1526,7 @@
         noteTakingNode.appendedNoteString = showingPV.noteText.text; //saves text from popover view
         [showingPV dismiss]; //gets rid of popover view
     }
-    
+    [self autoSaveMap];
     /*
      if(textView.text.length<5){
      textView.frame=CGRectMake(textView.frame.origin.x, textView.frame.origin.y, 40, textView.frame.size.height);

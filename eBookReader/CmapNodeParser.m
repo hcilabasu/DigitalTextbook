@@ -65,9 +65,11 @@
         NSString *bookTitle=@"";
         int page;
         NSString* linkingUrl;
+        NSString* linkingUrlTitle;
         BOOL hasNote;
         BOOL hasWebLink;
         BOOL hasHighlight;
+        NSString *savedNotesString=@"";
         
         NSArray *titles = [partyMember elementsForName:@"ConceptName"];
         if (titles.count > 0) {
@@ -111,6 +113,19 @@
             
         } else continue;
         
+        NSArray *show_UrlTitle = [partyMember elementsForName:@"UrlTitle"];
+        if (show_UrlTitle.count > 0) {
+            GDataXMLElement *urlTitleElement = (GDataXMLElement *) [show_UrlTitle objectAtIndex:0];
+            linkingUrlTitle=urlTitleElement.stringValue;
+            
+        } else continue;
+        
+        NSArray *savedNotesStr = [partyMember elementsForName:@"NoteString"];
+        if (savedNotesStr.count > 0) {
+            GDataXMLElement *noteStringItem = (GDataXMLElement *) [savedNotesStr objectAtIndex:0];
+            savedNotesString = noteStringItem.stringValue;
+        } else continue;
+        
         //BOOL* hasNoteString=@"YES";
         
         NSArray *show_hasNote= [partyMember elementsForName:@"nodeHasNote"];
@@ -147,7 +162,7 @@
         }else continue;
         
         NSURL* realUrl= [NSURL URLWithString:[linkingUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-        CmapNode *player = [[CmapNode alloc] initWithName:conceptName bookTitle:bookTitle positionX:p_x positionY:p_y Tag:0 page:page url:realUrl hasNote: hasNote  hasHighlight:hasHighlight hasWebLink:hasWebLink];
+        CmapNode *player = [[CmapNode alloc] initWithName:conceptName bookTitle:bookTitle positionX:p_x positionY:p_y Tag:0 page:page url:realUrl urlTitle: linkingUrlTitle hasNote: hasNote  hasHighlight:hasHighlight hasWebLink:hasWebLink savedNotesString: savedNotesString];
         [cmapNodeWrapper.cmapNodes addObject:player];
     }
     return cmapNodeWrapper;
@@ -176,10 +191,12 @@
         int p_y;
         NSString *bookTitle=@"";
         int page;
-         NSString* linkingUrl;
+        NSString* linkingUrl;
+        NSString* linkingUrlTitle;
         BOOL hasNote;
         BOOL hasWebLink;
         BOOL hasHighlight;
+        NSString *savedNotesString=@"";
         
         NSArray *titles = [partyMember elementsForName:@"ConceptName"];
         if (titles.count > 0) {
@@ -222,6 +239,19 @@
             linkingUrl=url_element.stringValue;
         } else continue;
         
+        NSArray *show_UrlTitle = [partyMember elementsForName:@"UrlTitle"];
+        if (show_UrlTitle.count > 0) {
+            GDataXMLElement *urlTitleElement = (GDataXMLElement *) [show_UrlTitle objectAtIndex:0];
+            linkingUrlTitle=urlTitleElement.stringValue;
+            
+        } else continue;
+        
+        NSArray *savedNotesStr = [partyMember elementsForName:@"NoteString"];
+        if (savedNotesStr.count > 0) {
+            GDataXMLElement *noteStringItem = (GDataXMLElement *) [savedNotesStr objectAtIndex:0];
+            savedNotesString = noteStringItem.stringValue;
+        } else continue;
+        
         NSArray *show_hasNote= [partyMember elementsForName:@"nodeHasNote"];
         if(show_hasNote.count>0){
             GDataXMLElement* hasNote_Element= (GDataXMLElement*)[show_hasNote objectAtIndex:0];
@@ -255,8 +285,8 @@
             }
         }else continue;
         
-        
-        CmapNode *player = [[CmapNode alloc] initWithName:conceptName bookTitle:bookTitle positionX:p_x positionY:p_y Tag:0 page:page url:linkingUrl hasNote: hasNote  hasHighlight:hasNote hasWebLink:hasNote];
+        NSURL* realUrl= [NSURL URLWithString:[linkingUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        CmapNode *player = [[CmapNode alloc] initWithName:conceptName bookTitle:bookTitle positionX:p_x positionY:p_y Tag:0 page:page url:realUrl urlTitle: linkingUrlTitle hasNote: hasNote  hasHighlight:hasHighlight hasWebLink:hasWebLink savedNotesString: savedNotesString];
         [cmapNodeWrapper.cmapNodes addObject:player];
 
     }
@@ -323,7 +353,6 @@
     
         GDataXMLElement * linkingUrl;
         if(nodeItem.linkingUrl){
-        
         linkingUrl =
         [GDataXMLNode elementWithName:@"LinkingUrl" stringValue:
          [NSString stringWithFormat:@"%@", nodeItem.linkingUrl]];
@@ -332,6 +361,11 @@
             [GDataXMLNode elementWithName:@"LinkingUrl" stringValue:@""];
         }
         
+        GDataXMLElement * urlTitleElement =
+        [GDataXMLNode elementWithName:@"UrlTitle" stringValue:nodeItem.linkingUrlTitle];
+        
+        GDataXMLElement * savedNotesStringElement =
+        [GDataXMLNode elementWithName:@"NoteString" stringValue:nodeItem.savedNotesString];
         
         [itemElement addChild:conceptNameElement];
         [itemElement addChild:bookTitleElement];
@@ -339,9 +373,11 @@
         [itemElement addChild:pointY];
         [itemElement addChild:nodePageNum];
         [itemElement addChild:linkingUrl];
+        [itemElement addChild:urlTitleElement];
         [itemElement addChild:nodeHasNote];
         [itemElement addChild:nodeHasWebLink];
         [itemElement addChild:nodeHasHighlight];
+        [itemElement addChild:savedNotesStringElement];
         [partyElement addChild: itemElement];
         // NSLog(@"Add element");
     }
@@ -387,9 +423,45 @@
         [GDataXMLNode elementWithName:@"PageNum" stringValue:
          [NSString stringWithFormat:@"%d", nodeItem.pageNum]];
         
-        GDataXMLElement * linkingUrl =
-        [GDataXMLNode elementWithName:@"LinkingUrl" stringValue:
-         [NSString stringWithFormat:@"%@", nodeItem.linkingUrl]];
+        NSString *hasNoteStr = @"NO";
+        if (nodeItem.hasNote){
+            hasNoteStr = @"YES";
+        }
+        GDataXMLElement * nodeHasNote =
+        [GDataXMLNode elementWithName:@"nodeHasNote" stringValue:
+         [NSString stringWithFormat:@"%@", hasNoteStr]];
+        
+        NSString *hasWebLinkStr = @"NO";
+        if (nodeItem.hasWebLink){
+            hasWebLinkStr = @"YES";
+        }
+        GDataXMLElement * nodeHasWebLink =
+        [GDataXMLNode elementWithName:@"nodeHasWebLink" stringValue:
+         [NSString stringWithFormat:@"%@", hasWebLinkStr]];
+        
+        NSString *hasHighlightStr = @"NO";
+        if (nodeItem.hasHighlight){
+            hasHighlightStr = @"YES";
+        }
+        GDataXMLElement * nodeHasHighlight =
+        [GDataXMLNode elementWithName:@"nodeHasHighlight" stringValue:
+         [NSString stringWithFormat:@"%@", hasHighlightStr]];
+        
+        GDataXMLElement * linkingUrl;
+        if(nodeItem.linkingUrl){
+            linkingUrl =
+            [GDataXMLNode elementWithName:@"LinkingUrl" stringValue:
+             [NSString stringWithFormat:@"%@", nodeItem.linkingUrl]];
+        }else{
+            linkingUrl =
+            [GDataXMLNode elementWithName:@"LinkingUrl" stringValue:@""];
+        }
+        
+        GDataXMLElement * urlTitleElement =
+        [GDataXMLNode elementWithName:@"UrlTitle" stringValue:nodeItem.linkingUrlTitle];
+        
+        GDataXMLElement * savedNotesStringElement =
+        [GDataXMLNode elementWithName:@"NoteString" stringValue:nodeItem.savedNotesString];
         
         [itemElement addChild:conceptNameElement];
         [itemElement addChild:bookTitleElement];
@@ -397,6 +469,11 @@
         [itemElement addChild:pointY];
         [itemElement addChild:nodePageNum];
         [itemElement addChild:linkingUrl];
+        [itemElement addChild:urlTitleElement];
+        [itemElement addChild:nodeHasNote];
+        [itemElement addChild:nodeHasWebLink];
+        [itemElement addChild:nodeHasHighlight];
+        [itemElement addChild:savedNotesStringElement];
         [partyElement addChild: itemElement];
         // NSLog(@"Add element");
     }
