@@ -166,8 +166,8 @@
         [self splitScreen];
     }
     upperBorder = [CALayer layer];
-    // [self.view bringSubviewToFront:cmapView.toolBar];
-    //[self.view bringSubviewToFront:previewImg];
+    [self.view bringSubviewToFront:cmapView.toolBar];
+    [self.view bringSubviewToFront:previewImg];
     [self.view sendSubviewToBack:bookView.view];
     [self.view bringSubviewToFront:previewImg];
     NSString* isPreview=[[NSUserDefaults standardUserDefaults] stringForKey:@"isPreview"];
@@ -1076,14 +1076,14 @@
     subViewType=1;
     [myWebView SearchKeyWord:conceptName];
     [myWebView setRelatedNode:relatedNode];
-    [previewImg setHidden:YES];
+   // [previewImg setHidden:YES];
     [self.view bringSubviewToFront:myWebView.view];
 }
 //hides webview
 -(void)hideWebView{
     subViewType=0;
     [myWebView.view setHidden:YES];
-    [previewImg setHidden:NO];
+    //[previewImg setHidden:NO];
     [self.view sendSubviewToBack:myWebView.view];
 }
 

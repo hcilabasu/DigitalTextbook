@@ -1000,6 +1000,7 @@
     
     pv.noteText.delegate=parentCmapController; //We need this.
     parentCmapController.noteTakingNode = self;
+    pv.noteText.font = [UIFont fontWithName:@"Helvetica" size:15];
     pv.noteText.text = appendedNoteString;
     parentCmapController.showingPV=pv;
     /*CGFloat offSet=(pv.noteText.frame.size.height+ pv.noteText.frame.origin.y-parentCmapController.conceptMapView.contentOffset.y)-(768-352)+88;*/

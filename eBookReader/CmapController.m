@@ -417,7 +417,7 @@
 
 
 -(void)showAndHidePreview:(id)sender {
-    [parentBookPageViewController hideAndShowPreView];
+    //[parentBookPageViewController hideAndShowPreView];
 }
 
 -(void)buttonAction{
@@ -1251,7 +1251,7 @@
     node.showPoint=clickPoint;
     node.bookLogData=bookLogDataWrapper;
     node.bookHighLight=bookHighlight;
-    node.pageNum=parent_ContentViewController.pageNum-1;
+    node.pageNum=-1;
     node.bookTitle=bookTitle;
     node.bookthumbNailIcon=bookThumbNial;
     [self addChildViewController:node];
@@ -1659,10 +1659,6 @@
     
 }
 
-
-- (IBAction)hidePreView:(id)sender {
-    [parentBookPageViewController hideAndShowPreView];
-}
 
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
