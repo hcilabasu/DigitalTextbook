@@ -354,7 +354,7 @@
                 if (3==thumbNailItem.type){
                     //if(parent_BookPageViewController.cmapView.isInitComplete){
                    // [parent_BookPageViewController.cmapView highlightNode:thumbNailItem.text];
-                    [parent_BookPageViewController.cmapView highlightPageNode:currentContentView.pageNum];
+                    [parent_BookPageViewController.cmapView highlightPageNode:loadContentView.pageNum];
                     // }
                 }
             }

@@ -57,9 +57,12 @@
  //   [self.view setUserInteractionEnabled:YES];
     //This function also determines how big, where webview is showing
     //530 = x, 0 = y, 511 and 768 are dimensions
-    CGRect rect=CGRectMake(530, 0, 511, 768);
+    //CGRect rect=CGRectMake(530, 0, 511, 768);
+    CGRect rect=CGRectMake(0, 0, 513, 768);
+     [self.view setFrame:rect];
+
    // CGRect rect=CGRectMake(256, 384, 511, 768);
-    [self.view setFrame:rect];
+   // [self.view setFrame:rect];
     self.view.layer.borderColor = [UIColor grayColor].CGColor;
     self.view.layer.borderWidth = 2;
     
@@ -90,6 +93,20 @@
     self.view.layer.zPosition = MAXFLOAT;
     [webBrowserView setUserInteractionEnabled:YES];
 
+}
+
+-(void) updateBrowserWindow{
+    CGRect rect;
+    if (_parentBookPageViewCtr.bookView.currentContentView.isSplit == YES){ // split screen
+        rect=CGRectMake(0, 0, 513, 768);
+        [self.webAdrText setFrame: CGRectMake(200, 7, 255, 30)]; //changes size of webAdrText textfield
+    }
+    else{ //not split screen
+        rect=CGRectMake(0, 0, 768, 1024);
+        [self.webAdrText setFrame: CGRectMake(402, 7, 505, 30)]; //changes size of webAdrText textfield
+    }
+    
+      [self.view setFrame:rect];
 }
 
 //Allows two gestures to be recognized simultaneously, in this case longpress and onetap------------------------------

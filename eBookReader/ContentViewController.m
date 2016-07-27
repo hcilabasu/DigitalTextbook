@@ -106,6 +106,7 @@ static NSString *cellId2 = @"cellId2";
         //[ThumbScrollViewRight setHidden:YES];
         [self hideAllSubview:ThumbScrollViewRight];
         isSplit=YES;
+        //when loading, at least
     }
     
     [parent_BookViewController clearAllHighlightNode];
@@ -1196,7 +1197,8 @@ static NSString *cellId2 = @"cellId2";
         //[self hideAllSubview:ThumbScrollViewRight];
         //[self hideAllSubview:ThumbScrollViewLeft];
         isSplit=YES;
-        
+            [self.parent_BookViewController.parent_BookPageViewController.myWebView updateBrowserWindow];
+        //When rotate
         
        // NSString *jsString2 = [[NSString alloc] initWithFormat:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '%d%%'",96];
         //[webView stringByEvaluatingJavaScriptFromString:jsString2];
@@ -1211,6 +1213,9 @@ static NSString *cellId2 = @"cellId2";
 
         [self loadThumbNailIcon:firstRespondConcpet];
         isSplit=NO;
+        [self.parent_BookViewController.parent_BookPageViewController.myWebView updateBrowserWindow];
+
+        //when rotate
         
     }
     
@@ -1278,9 +1283,6 @@ static NSString *cellId2 = @"cellId2";
                         // Do nothing - not a UIButton or subclass instance
                     }
                 }
-                
-                
-                
                 subnode.tag=0;//mark the node back to unexpanded
             }
             

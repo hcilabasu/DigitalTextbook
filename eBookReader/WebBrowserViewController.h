@@ -45,6 +45,7 @@
 -(void)setParent_View:(ContentViewController *)view;
 -(void)SearchKeyWord: (NSString*) keywrod;
 -(NSString *)getSiteTitle_fromLinkingUrl: (NSString *) keyword;
+-(void) updateBrowserWindow;
 
 @end
 
