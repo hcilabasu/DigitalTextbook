@@ -553,14 +553,19 @@
     if(enableHyperLink){
         if (linkingUrl != nil && linkingUrl.absoluteString.length!=0 ){//created from web Browser
             [self.parentCmapController.parentBookPageViewController showWebView:linkingUrl.absoluteString atNode:self];
+            
            // [self.parentCmapController.parentBookPageViewController showWebView:@"" atNode:self];
+            NSString* LogString=[[NSString alloc] initWithFormat:@"Using hyperlink from concept: %@", self.conceptName];
+            //save info in log files
+            LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:LogString selection:@"concept map view" input:@"concept map view" pageNum:pageNum];
+            [parentCmapController.bookLogDataWrapper addLogs:newlog];
+            [LogDataParser saveLogData:parentCmapController.bookLogDataWrapper];
             return;
         }
         [parentCmapController.neighbor_BookViewController showFirstPage:pageNum];
         parentContentViewController.pageNum=pageNum+1;
-        [parentCmapController logHyperNavigation:text.text];
+     //   [parentCmapController logHyperNavigation:text.text];
         //log the hyperlinking action
-        NSString* LogString=[[NSString alloc] initWithFormat:@"%d", (pageNum+1)];
         NSString* selectionString;
         if(createType==0){
             selectionString=@"Expert Node";
@@ -568,9 +573,13 @@
             selectionString=@"Student Node";
         }
         [self.parentCmapController.parentBookPageViewController hideWebView];
-        LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Use Hyperlinking" selection:selectionString input:LogString pageNum:pageNum];
-        [bookLogData addLogs:newlog];
-        [LogDataParser saveLogData:bookLogData];
+        
+        //save in log file
+       
+            NSString* LogString=[[NSString alloc] initWithFormat:@"Using hyperlink from concept: %@", self.conceptName];
+            LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:LogString selection:@"concept map view" input:@"concept map view" pageNum:pageNum];
+            [parentCmapController.bookLogDataWrapper addLogs:newlog];
+            [LogDataParser saveLogData:parentCmapController.bookLogDataWrapper];
     }
     
     

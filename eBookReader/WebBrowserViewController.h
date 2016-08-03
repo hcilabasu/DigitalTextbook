@@ -11,6 +11,9 @@
 #import "ContentViewController.h"
 #import "CmapController.h"
 #import "NodeCell.h"
+#import "LogData.h"
+#import "LogDataParser.h"
+#import "LogDataWrapper.h"
 @class BookPageViewController;
 
 @interface WebBrowserViewController : UIViewController <UIWebViewDelegate,UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate,UIGestureRecognizerDelegate,UIWebViewDelegate,UIScrollViewDelegate,UICollectionViewDataSource, UICollectionViewDelegate, UIActionSheetDelegate>{
@@ -21,6 +24,7 @@
 
 @property (nonatomic, strong) IBOutlet UIWebView *webBrowserView;
 @property (strong, nonatomic)  NSURL *url;//the URL link to display HTML content
+@property (strong, nonatomic) NSURL *prevUrl; // previous url to check against current
 @property (strong, nonatomic)  NSURLRequest *requestObj;
 
 

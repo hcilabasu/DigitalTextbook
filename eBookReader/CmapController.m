@@ -683,14 +683,14 @@
     [LogDataParser saveLogData:bookLogDataWrapper];
 }
 
-
+/*
 -(void)logHyperNavigation:(NSString*)ConceptName{
     NSString* LogString=[[NSString alloc] initWithFormat:@"Using hyperlink from concept: %@", ConceptName];
     LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:LogString selection:@"concept map view" input:@"null" pageNum:pageNum];
     [bookLogDataWrapper addLogs:newlog];
     [LogDataParser saveLogData:bookLogDataWrapper];
     
-}
+}*/
 
 -(void)disableAllNodesEditting{
     for (NodeCell *node in conceptNodeArray){
@@ -1093,11 +1093,19 @@
     CGPoint pointInView=position;
     pointInView.x+=conceptMapView.contentOffset.x;
     pointInView.y+=conceptMapView.contentOffset.y;
-    
-    LogData* log= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"creating concept node from book " selection:@"textbook" input:name pageNum:pageNum];
-    [bookLogDataWrapper addLogs:log];
-    [LogDataParser saveLogData:bookLogDataWrapper];
-    
+    //Saves info into log file
+    if (m_pageNum == 0){ //Made from Web Browser
+        LogData* log= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"creating concept node from web browser " selection:@"web browser" input:name pageNum:0];
+        [bookLogDataWrapper addLogs:log];
+        [LogDataParser saveLogData:bookLogDataWrapper];
+    }
+    else{//from book
+        LogData* log= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"creating concept node from book " selection:@"textbook" input:name pageNum:pageNum];
+        [bookLogDataWrapper addLogs:log];
+        [LogDataParser saveLogData:bookLogDataWrapper];
+    }
+
+    //creates node
     NodeCell *node=[[NodeCell alloc]initWithNibName:@"NodeCell" bundle:nil];
     node.createType=1;
     node.parentCmapController=self;
