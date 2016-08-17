@@ -346,7 +346,8 @@
 
 
 -(void)searchAndHighlightNode{
-    
+    [parent_BookPageViewController.cmapView highlightPageNode:loadContentView.pageNum];
+    /*
     if(thumbnailIcon!=nil){
         for(ThumbNailIcon *thumbNailItem in thumbnailIcon.thumbnails){
             // if([thumbNailItem.relatedConcpet isEqualToString: concpet]){
@@ -360,7 +361,7 @@
             }
             //}
         }
-    }
+    }*/
 }
 
 

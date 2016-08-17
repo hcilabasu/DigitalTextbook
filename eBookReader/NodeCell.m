@@ -473,7 +473,7 @@
          [bookLogData addLogs:newlog];
          [LogDataParser saveLogData:bookLogData];
          */
-      
+      /*
         MapFinderViewController* finder=[[MapFinderViewController alloc]initWithNibName:@"MapFinderViewController" bundle:nil];
         finder.userName=userName;
         finder.parentBookPageView=parentCmapController.parentBookPageViewController;
@@ -492,7 +492,7 @@
 
         [parentCmapController resignFirstResponder];
         [finder becomeFirstResponder];
-        
+        */
         [relatedNodesArray addObject:parentCmapController.nodesToLink];
         [parentCmapController.nodesToLink.relatedNodesArray addObject:self];
         [parentCmapController.nodesToLink removeShadowAnim];
@@ -510,7 +510,8 @@
         linkTextview.leftNodeName=text.text;
         linkTextview.rightNodeName=parentCmapController.nodesToLink.text.text;
         parentCmapController.linkJustCreated=linkTextview;
-        
+        //edit name 
+        [linkTextview becomeFirstResponder];
         [relationTextArray addObject:linkTextview];
         ConceptLink *link = [[ConceptLink alloc] initWithName:self conceptName:parentCmapController.nodesToLink relation:linkTextview page:parentCmapController.pageNum];
         [parentCmapController addConcpetLink:link];

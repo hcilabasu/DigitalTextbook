@@ -174,7 +174,7 @@
     
     
     UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
-    if( (orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight)&&[isPreview isEqualToString:@"YES"])
+    if( (orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight)&&[isPreview isEqualToString:@"YES"]) //horizontal, split screen
     {
         [previewImg setHidden:NO];
         [PreviewRect setHidden:NO];
@@ -861,8 +861,10 @@
         [pNode.view setFrame:CGRectMake(cell.showPoint.x*xRatio, cell.showPoint.y*yRatio,6, 6)];
         pNode.ParentPreView=previewImg;
         pNode.name=cell.text.text;
-        if(cell.pageNum==(bookView.currentContentView.pageNum-1)){
-            UIImage* orgImg =[UIImage imageNamed:@"orangeRec"];
+        //if the cell's page number = current page
+        if(cell.pageNum+1==(bookView.loadContentView.pageNum)){
+            NSLog (@"Activate");
+            UIImage* orgImg =[UIImage imageNamed:@"orangeRec"]; //highlight node in preview
             orgImg=[self imageWithImage:orgImg scaledToSize:CGSizeMake(20, 20)];
             UIImageView *dot =[[UIImageView alloc]initWithImage:orgImg];
             [pNode.img setImage:orgImg];
