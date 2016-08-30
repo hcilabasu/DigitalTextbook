@@ -1100,7 +1100,7 @@
         [LogDataParser saveLogData:bookLogDataWrapper];
     }
     else{//from book
-        LogData* log= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"creating concept node from book " selection:@"textbook" input:name pageNum:pageNum];
+        LogData* log= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"creating concept node from book " selection:@"textbook" input:name pageNum:m_pageNum];
         [bookLogDataWrapper addLogs:log];
         [LogDataParser saveLogData:bookLogDataWrapper];
     }
@@ -1527,7 +1527,7 @@
 
 //- (void)textViewDidEndEditing:(UITextView *)textView{
 - (void)textViewDidEndEditing:(UITextView *)textView{
-    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Finish editting concept link name" selection:linkTextBeforeEditing input:textView.text pageNum:pageNum];
+    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Taking notes" selection:linkTextBeforeEditing input:textView.text pageNum:pageNum];
     [bookLogDataWrapper addLogs:newlog];
     [LogDataParser saveLogData:bookLogDataWrapper];
     if (showingPV != nil){ // popoverview for taking notes exists
