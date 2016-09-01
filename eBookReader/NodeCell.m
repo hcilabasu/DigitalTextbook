@@ -109,7 +109,8 @@
 {
     [super viewDidLoad];
     //[parentCmapController updateNodesPosition:self.view.center Node:self];
-   
+    text.delegate = self;
+   /*
     [text addTarget:self
              action:@selector(textFieldDidBeginEditing:)
    forControlEvents:UIControlEventEditingDidBegin];
@@ -121,6 +122,7 @@
     [text addTarget:self
              action:@selector(textFieldDidEndEditing:)
    forControlEvents:UIControlEventEditingDidEnd];
+    */
    /*
     hasNote=YES; //Manual
     hasWeblink=YES; //web browser
@@ -169,11 +171,11 @@
     overlay.delegate = self;
     
     longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:overlay action:@selector(longPressDetected:)];
-    text.enableRecognizer=YES;
+    //text.enableRecognizer=YES;
     [self.view addGestureRecognizer:longPressRecognizer];
     
     
-    text.enableRecognizer=NO;
+    //text.enableRecognizer=NO;
     [text setUserInteractionEnabled:YES];
     /*
      tapRecognizer=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(singleTap:)];

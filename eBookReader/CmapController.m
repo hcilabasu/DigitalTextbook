@@ -694,12 +694,12 @@
 
 -(void)disableAllNodesEditting{
     for (NodeCell *node in conceptNodeArray){
-        node.text.enabled=NO;
+      //  node.text.enabled=NO;
     }
 }
 -(void)enableAllNodesEditting{
     for (NodeCell *node in conceptNodeArray){
-        node.text.enabled=YES;
+      //  node.text.enabled=YES;
     }
 }
 
