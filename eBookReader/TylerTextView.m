@@ -25,10 +25,6 @@
 }
 
 
-- (id)init{
-    return self;
-}
-
 /*
  - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
  if(disableEditting){
@@ -44,6 +40,11 @@
 - (void)textFieldDidEndEditing:(UITextView *)textView{
     NSLog(@"Finish editing..");
     
+}
+
+//function needed to distinguish it from default textview
+- (BOOL) isTylerTextView{
+    return YES;
 }
 
 //This is the important part, changes gesture recognition of default TextView

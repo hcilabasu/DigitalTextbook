@@ -926,8 +926,18 @@
         case 2: //edit node name
             
         {
-            parentCmapController.addedNode=self;
-            [self.text becomeFirstResponder];
+            CGFloat offSet = (self.view.frame.size.height+ self.view.frame.origin.y-parentCmapController.conceptMapView.contentOffset.y)-(768-352)+88;
+            // NSLog(@"Height: %f, Origin: %f",pv.noteText.frame.size.height,pv.noteText.frame.origin.y);
+            if(offSet>0){ // view is blocked by keyboard
+                // NSLog(@"Blocked by keyboard!!");
+                [parentCmapController scrollCmapView:(offSet)]; //scroll view so that view is not blocked
+            }
+            //This timer gives the view time to scroll before going to editNodename function
+            [NSTimer scheduledTimerWithTimeInterval:0.3f
+                                             target:self
+                                           selector: @selector(editNodeName:)
+                                           userInfo:nil
+                                            repeats:NO];
         }
             break;
         case 3: // Search internet button
@@ -947,11 +957,11 @@
             */
             CGFloat offSet = (self.view.frame.size.height+ self.view.frame.origin.y-parentCmapController.conceptMapView.contentOffset.y)-(768-352)+88;
            // NSLog(@"Height: %f, Origin: %f",pv.noteText.frame.size.height,pv.noteText.frame.origin.y);
-            if(offSet>0){
+            if(offSet>0){ // view is blocked by keyboard
                 // NSLog(@"Blocked by keyboard!!");
-                [parentCmapController scrollCmapView:(offSet)];
+                [parentCmapController scrollCmapView:(offSet)]; //scroll view so that view is not blocked
             }
-            
+            //This timer gives the view time to scroll before going to takeNote function
             [NSTimer scheduledTimerWithTimeInterval:0.3f
                                              target:self
                                            selector: @selector(takeNote:)
@@ -990,6 +1000,13 @@
     }
 }
 
+//Edits name of node
+- (IBAction)editNodeName : (id)sender {
+    parentCmapController.addedNode=self;
+    [self.text becomeFirstResponder];
+}
+
+
 //Allows user to take notes on the concept selected
 - (IBAction)takeNote : (id)sender {
     NSString *takeNoteTitleString;
@@ -1011,9 +1028,9 @@
                            delegate:self];
     
     pv.noteText.delegate=parentCmapController; //We need this.
-    parentCmapController.noteTakingNode = self;
+    parentCmapController.noteTakingNode = self; //sets noteTaking node to current node
     pv.noteText.font = [UIFont fontWithName:@"Helvetica" size:15];
-    pv.noteText.text = appendedNoteString;
+    pv.noteText.text = appendedNoteString; //saves note text to string
     parentCmapController.showingPV=pv;
     /*CGFloat offSet=(pv.noteText.frame.size.height+ pv.noteText.frame.origin.y-parentCmapController.conceptMapView.contentOffset.y)-(768-352)+88;*/
 
@@ -1139,7 +1156,7 @@
 
 
 
-//after editing the text in the link(!), update the conceptLinkArray
+//after editing the text in the textviews, update the conceptLinkArray
 - (void)textViewDidEndEditing:(UITextView *)textView{
     // ConceptLink* linkToUpdate;
     
@@ -1150,19 +1167,59 @@
         textView.frame=CGRectMake(textView.frame.origin.x, textView.frame.origin.y, 40, textView.frame.size.height);
     }
     
+    
     if(0<textView.tag){ // finish editting relationship text
-        for(ConceptLink* view in parentCmapController.conceptLinkArray){
-            if(view.relation.tag== textView.tag){
-                view.relation.text=textView.text;
-                NSLog(@"update link text...\n");
-                NSString* inputString=[[NSString alloc] initWithFormat:@"%@", textView.text];
-                LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Update Link Name" selection:parentCmapController.linkTextBeforeEditing input:inputString pageNum:pageNum];
-                [bookLogData addLogs:newlog];
-                [LogDataParser saveLogData:bookLogData];
+        if ([textView respondsToSelector:@selector(isTylerTextView)]){ //is TylerTextView, so editing node text
+            NSLog(@"Edit node text...\n");
+            NSString* inputString=[[NSString alloc] initWithFormat:@"%@", textView.text];
+            LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Update Link Name" selection:parentCmapController.linkTextBeforeEditing input:inputString pageNum:pageNum];
+            [bookLogData addLogs:newlog];
+            [LogDataParser saveLogData:bookLogData];
+            
+            if([inputString isEqualToString:@""]){ //empty string
+                [NSTimer scheduledTimerWithTimeInterval:1.0
+                                                 target:self
+                                               selector:@selector(showEMptyNodeAlert)
+                                               userInfo:nil
+                                                repeats:NO];
             }
+            
+            int sameNodeCount=0;
+            for(NodeCell* cell in parentCmapController.conceptNodeArray){
+                if([text.text isEqualToString:cell.text.text]){ //node has same name as some other node
+                    sameNodeCount++;
+                }
+            }//end for
+            
+            if(sameNodeCount>1){ //node has same name
+                [NSTimer scheduledTimerWithTimeInterval:1.0
+                                                 target:self
+                                               selector:@selector(showDupliAlert)
+                                               userInfo:nil
+                                                repeats:NO];
+            }
+            if(!self.conceptName){ //conceptname is nil
+                self.conceptName=self.text.text; //conceptname is current text
+            }
+            
+            
+            
         }
+        else{//is not TylerTextView, editinglink names
+        
+            for(ConceptLink* view in parentCmapController.conceptLinkArray){
+                if(view.relation.tag== textView.tag){
+                    view.relation.text=textView.text;
+                    NSLog(@"update link text...\n");
+                    NSString* inputString=[[NSString alloc] initWithFormat:@"%@", textView.text];
+                    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Update Link Name" selection:parentCmapController.linkTextBeforeEditing input:inputString pageNum:pageNum];
+                    [bookLogData addLogs:newlog];
+                    [LogDataParser saveLogData:bookLogData];
+                }//end if
+            }//endfor
+        }//end else
         // NSLog(@"finish editting");
-    }
+    }//endif
     
     if(parentCmapController.isTraining){
         [parentCmapController.parentTrainingCtr showAlertWithString:@"Good job! Now try to delete a concept node"];
@@ -1173,7 +1230,7 @@
     
 }
 
-
+//This function is NO LONGER CALLED!!!! Since node has been changed to TylerTextView
 //after editing the text in the name textfield(!), update the conceptNodeArray and node information
 - (void)textFieldDidEndEditing:(UITextField *)textField{
 
@@ -1221,7 +1278,7 @@
     }*/
     
 }
-
+//shows alert if a duplicate node exists
 -(void)showDupliAlert{
     [text becomeFirstResponder];
      NSString* msg=[[NSString alloc]initWithFormat:@"Node with name \"%@\" already exists!",text.text];
