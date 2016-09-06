@@ -308,22 +308,64 @@
 
 - (void)textViewDidChange:(UITextView *)textView
 {
+ /*   textView.scrollEnabled = NO;
     CGFloat fixedWidth = textView.frame.size.width;
     CGSize newSize = [textView sizeThatFits:CGSizeMake(fixedWidth, MAXFLOAT)];
     CGRect newFrame = textView.frame;
     newFrame.size = CGSizeMake(fmaxf(newSize.width, fixedWidth), newSize.height);
     textView.frame = newFrame;
     
+    
+    [textView sizeToFit];
+    
+    [self updateThumbIcons];
     //CGRect textFrame=textView.frame;
     // textFrame.size.width=7*textView.text.length+20;
     // textView.frame=textFrame;
     // textFrame.size.width=7*text.text.length+20;
+    */
+    CGRect textFrame=text.frame;
+    CGRect viewFrame=self.view.frame;
+    //To update width of textview to fit text
+    CGFloat length = [text.text sizeWithAttributes:@{NSFontAttributeName:text.font}].width;
+    //To update height of textview to fit text
+    CGFloat height = [text.text sizeWithAttributes:@{NSFontAttributeName:text.font}].height;
+    //Increase length
+    length+=25;
+    if(length>80){
+        length=80;
+        height+=25;
+        textFrame.size.height=height;
+         self.text.frame=textFrame;
+    }
+    //Increase height
+    height+=12;
+  /*  if(height>180){
+        height=180;
+    }*/
+    //resize to new width
+    textFrame.size.width=length;
+    viewFrame.size.width=length;
+    //resize to new height
+    textFrame.size.height=height;
+    viewFrame.size.height=height;
     
+    if(text.text.length<1){
+        textFrame.size.width=20;
+        viewFrame.size.width=20;
+    }
+    
+    
+    self.text.frame=textFrame;
+    self.view.frame=viewFrame;
+    
+    [self updateThumbIcons];
+    [self updateLink];
 }
 
 
 
-
+//Probably NO LONGER CALLED since there are no longer textfields
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
     if(text.disableEditting){
         return NO;
@@ -332,7 +374,7 @@
 }
 
 
-
+//Probably NO LONGER CALLED since textfields have been replaced with TextViews
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
     parentCmapController.nodeTextBeforeEditing=textField.text;
     //textField.text=@"";
@@ -344,6 +386,7 @@
         [parentCmapController scrollCmapView:(offSet)];
     }
 }
+
 
 -(void)textViewDidBeginEditing:(UITextView *)textView{
    parentCmapController.linkTextBeforeEditing=textView.text;
@@ -1160,19 +1203,19 @@
 - (void)textViewDidEndEditing:(UITextView *)textView{
     // ConceptLink* linkToUpdate;
     
-    if(textView.text.length<8){
+   /* if(textView.text.length<8){
         textView.frame=CGRectMake(textView.frame.origin.x, textView.frame.origin.y, 60, textView.frame.size.height);
     }
     if(textView.text.length<6){
         textView.frame=CGRectMake(textView.frame.origin.x, textView.frame.origin.y, 40, textView.frame.size.height);
-    }
+    }*/
     
     
     if(0<textView.tag){ // finish editting relationship text
         if ([textView respondsToSelector:@selector(isTylerTextView)]){ //is TylerTextView, so editing node text
             NSLog(@"Edit node text...\n");
             NSString* inputString=[[NSString alloc] initWithFormat:@"%@", textView.text];
-            LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Update Link Name" selection:parentCmapController.linkTextBeforeEditing input:inputString pageNum:pageNum];
+            LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Update Node Name" selection:parentCmapController.linkTextBeforeEditing input:inputString pageNum:pageNum];
             [bookLogData addLogs:newlog];
             [LogDataParser saveLogData:bookLogData];
             

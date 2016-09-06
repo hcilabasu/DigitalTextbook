@@ -18,6 +18,7 @@
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
+    self.scrollEnabled = NO;
     if (self) {
         // Initialization cod
     }
