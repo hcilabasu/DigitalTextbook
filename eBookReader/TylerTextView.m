@@ -18,6 +18,9 @@
     self.scrollEnabled = NO;
     if (self) {
         // Initialization cod
+    
+        
+        
     }
     return self;
 }
@@ -44,6 +47,9 @@
 - (BOOL) isTylerTextView{
     return YES;
 }
+
+
+
 
 //This is the important part, changes gesture recognition of default TextView
 -(void)addGestureRecognizer:(UIGestureRecognizer *)gestureRecognizer

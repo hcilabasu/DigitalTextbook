@@ -225,7 +225,7 @@
     linkingUrl = [NSURL URLWithString: urlEnter];
     linkingUrlTitle = [parentCmapController.parentBookPageViewController.myWebView.webBrowserView stringByEvaluatingJavaScriptFromString:@"document.title"];
 }
-
+//Probably NOT CALLED because we no longer use textfields in the project
 -(void)textFieldDidChange :(UITextField *)theTextField{
     CGRect textFrame=text.frame;
     CGRect viewFrame=self.view.frame;
@@ -258,20 +258,40 @@
    // NSLog(@"fontSize = %f\tbounds = (%f x %f)",fontSize,r.size.width,r.size.height);//output the wrap size of the text
     CGRect textFrame=text.frame;
     CGRect viewFrame=self.view.frame;
-    CGFloat length =  [text.text sizeWithAttributes:@{NSFontAttributeName:text.font}].width;
+    //To update width of textview to fit text
+    CGFloat length = [text.text sizeWithAttributes:@{NSFontAttributeName:text.font}].width;
+    //To update height of textview to fit text
+    CGFloat height = [text.text sizeWithAttributes:@{NSFontAttributeName:text.font}].height;
+    //Increase length
     length+=25;
-    if(length>180){
-        length=180;
+    if(length>80){
+        length=80;
+        height+=25;
+        textFrame.size.height=height;
+        self.text.frame=textFrame;
     }
+    //Increase height
+    height+=12;
+    /*  if(height>180){
+     height=180;
+     }*/
+    //resize to new width
     textFrame.size.width=length;
     viewFrame.size.width=length;
+    //resize to new height
+    textFrame.size.height=height;
+    viewFrame.size.height=height;
+    
     if(text.text.length<1){
         textFrame.size.width=20;
         viewFrame.size.width=20;
     }
+    
+    
     self.text.frame=textFrame;
     self.view.frame=viewFrame;
     
+    [self updateThumbIcons];
     [self becomeFirstResponder];
     [self updateLink];
 }
@@ -1173,19 +1193,19 @@
 //for nodes from the "+" button-------------------------------------------------------------------------
 -(void)addNoteThumb{
     UIImageView *thumb = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"note_square.png"]];
-    [thumb setFrame:CGRectMake(self.view.frame.size.width-7, 22, 14, 14)];
+    [thumb setFrame:CGRectMake(self.view.frame.size.width-7, self.view.frame.size.height, 14, 14)];
     [self.view addSubview:thumb];
 }
 //for nodes from the web browser-------------------------------------------------------------------------
 -(void)addWebThumb{
     UIImageView *thumb = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"safari_square.png"]];
-    [thumb setFrame:CGRectMake(self.view.frame.size.width-7, 22, 14, 14)];
+    [thumb setFrame:CGRectMake(self.view.frame.size.width-7, self.view.frame.size.height, 14, 14)];
     [self.view addSubview:thumb];
 }
 //for nodes from the book-------------------------------------------------------------------------------
 -(void)addHighlightThumb{
     UIImageView *thumb = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"colorPlate.png"]];
-    [thumb setFrame:CGRectMake(self.view.frame.size.width-7, 22, 14, 14)];
+    [thumb setFrame:CGRectMake(self.view.frame.size.width-7, self.view.frame.size.height, 14, 14)];
     [self.view addSubview:thumb];
 }
 
