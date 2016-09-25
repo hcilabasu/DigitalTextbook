@@ -163,6 +163,7 @@
     self.view.layer.shadowColor = [UIColor blackColor].CGColor;
     self.view.layer.shadowOffset = CGSizeMake(2, 2);
     text.delegate=self;
+    //keyboard for ... cell
     text.keyboardType=UIKeyboardTypeASCIICapable;
     [text setReturnKeyType:UIReturnKeyDone];
     
@@ -225,6 +226,7 @@
     linkingUrl = [NSURL URLWithString: urlEnter];
     linkingUrlTitle = [parentCmapController.parentBookPageViewController.myWebView.webBrowserView stringByEvaluatingJavaScriptFromString:@"document.title"];
 }
+
 //Probably NOT CALLED because we no longer use textfields in the project
 -(void)textFieldDidChange :(UITextField *)theTextField{
     CGRect textFrame=text.frame;
@@ -296,25 +298,67 @@
     [self updateLink];
 }
 
-
+//Updates View Size,
 -(void)updateViewSize{
     CGRect textFrame=text.frame;
     CGRect viewFrame=self.view.frame;
-    //int length=(int) (7*text.text.length+20);
-    
-    CGFloat length =  [text.text sizeWithAttributes:@{NSFontAttributeName:text.font}].width;
-    length+=20;
-    if(length>180){
-        length=180;
+    CGFloat length = [text.text sizeWithAttributes:@{NSFontAttributeName:text.font}].width;
+    length+=10;
+    if (length >= 100){
+        length = 100;
     }
+    CGFloat height = text.contentSize.height;
+    //resize to new width
     textFrame.size.width=length;
     viewFrame.size.width=length;
+    //resize to new height
+    textFrame.size.height=height;
+    viewFrame.size.height=height;
+    //Prevent textbox from just disappearing
     if(text.text.length<1){
         textFrame.size.width=20;
         viewFrame.size.width=20;
     }
+
     self.text.frame=textFrame;
     self.view.frame=viewFrame;
+    
+    /*
+    //To update width of textview to fit text
+    CGFloat length = [text.text sizeWithAttributes:@{NSFontAttributeName:text.font}].width;
+    //To update height of textview to fit text
+    CGFloat height = [text.text sizeWithAttributes:@{NSFontAttributeName:text.font}].height;
+    //Increase length
+    length+=12;
+    if(length>80){
+        length=80;
+        height+=25;
+        textFrame.size.height=height;
+        self.text.frame=textFrame;
+    }
+    //Increase height
+    height+=25;
+      if(height>180){
+     height=180;
+     }
+    //resize to new width
+    textFrame.size.width=length;
+    viewFrame.size.width=length;
+    //resize to new height
+    textFrame.size.height=height;
+    viewFrame.size.height=height;
+    
+    if(text.text.length<1){
+        textFrame.size.width=20;
+        viewFrame.size.width=20;
+    }
+    
+    
+    self.text.frame=textFrame;
+    self.view.frame=viewFrame;
+    */
+    [self updateThumbIcons];
+    [self updateLink];
 }
 
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
@@ -344,58 +388,22 @@
     // textView.frame=textFrame;
     // textFrame.size.width=7*text.text.length+20;
     */
-    CGRect textFrame=text.frame;
-    CGRect viewFrame=self.view.frame;
-    //To update width of textview to fit text
-    CGFloat length = [text.text sizeWithAttributes:@{NSFontAttributeName:text.font}].width;
-    //To update height of textview to fit text
-    CGFloat height = [text.text sizeWithAttributes:@{NSFontAttributeName:text.font}].height;
-    //Increase length
-    length+=25;
-    if(length>80){
-        length=80;
-        height+=25;
-        textFrame.size.height=height;
-         self.text.frame=textFrame;
-    }
-    //Increase height
-    height+=12;
-  /*  if(height>180){
-        height=180;
-    }*/
-    //resize to new width
-    textFrame.size.width=length;
-    viewFrame.size.width=length;
-    //resize to new height
-    textFrame.size.height=height;
-    viewFrame.size.height=height;
-    
-    if(text.text.length<1){
-        textFrame.size.width=20;
-        viewFrame.size.width=20;
-    }
-    
-    
-    self.text.frame=textFrame;
-    self.view.frame=viewFrame;
-    
-    [self updateThumbIcons];
-    [self updateLink];
+    [self updateViewSize];
 }
 
 
 
 //Probably NO LONGER CALLED since there are no longer textfields
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
+/*- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
     if(text.disableEditting){
         return NO;
     }
     return YES;
 }
-
+*/
 
 //Probably NO LONGER CALLED since textfields have been replaced with TextViews
-- (void)textFieldDidBeginEditing:(UITextField *)textField{
+/*- (void)textFieldDidBeginEditing:(UITextField *)textField{
     parentCmapController.nodeTextBeforeEditing=textField.text;
     //textField.text=@"";
     CGSize screenSZ=[self screenSize];
@@ -406,7 +414,7 @@
         [parentCmapController scrollCmapView:(offSet)];
     }
 }
-
+*/
 
 -(void)textViewDidBeginEditing:(UITextView *)textView{
    parentCmapController.linkTextBeforeEditing=textView.text;
@@ -1295,7 +1303,7 @@
 
 //This function is NO LONGER CALLED!!!! Since node has been changed to TylerTextView
 //after editing the text in the name textfield(!), update the conceptNodeArray and node information
-- (void)textFieldDidEndEditing:(UITextField *)textField{
+/*- (void)textFieldDidEndEditing:(UITextField *)textField{
 
     NSString* inputString=[[NSString alloc] initWithFormat:@"%@", textField.text];
     NSString* parTxt=parentCmapController.nodeTextBeforeEditing;
@@ -1330,7 +1338,7 @@
         self.conceptName=self.text.text; //conceptname is current text
     }
     
-    /*
+ 
     if([parentCmapController isNodeExist:textField.text]){
         [NSTimer scheduledTimerWithTimeInterval:2.0
                                          target:self
@@ -1338,9 +1346,9 @@
                                        userInfo:nil
                                         repeats:NO];
 
-    }*/
+    }
     
-}
+}*/
 //shows alert if a duplicate node exists
 -(void)showDupliAlert{
     [text becomeFirstResponder];

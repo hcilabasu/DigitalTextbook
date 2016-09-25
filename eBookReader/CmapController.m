@@ -1063,6 +1063,7 @@
     numString=[[NSString alloc]initWithFormat:@"%d",numInt];
     [[NSUserDefaults standardUserDefaults] setObject:numString forKey:@"NumOfConcepts"];
     
+    
     [self getPreView:nil];
     [self updatePreviewLocation];
     /*
@@ -1141,6 +1142,7 @@
     numString=[[NSString alloc]initWithFormat:@"%d",numInt];
     [[NSUserDefaults standardUserDefaults] setObject:numString forKey:@"NumOfConcepts"];
     
+    node.updateViewSize;
     [self getPreView:nil];
     [self updatePreviewLocation];
     [self autoSaveMap];
@@ -1266,6 +1268,8 @@
     [conceptNodeArray addObject:node];
     [conceptMapView addSubview: node.view ];
     addedNode=node;
+    
+    node.updateViewSize;
 }
 
 -(void)scrollCmapView :(CGFloat)length
