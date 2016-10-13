@@ -89,80 +89,13 @@ CGFloat const   GHAnimationDelay = GHAnimationDuration/5;
         
         
         UITapGestureRecognizer* tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickDetected:)];
-        //[self addGestureRecognizer:tapGesture];
+        [self addGestureRecognizer:tapGesture];
 
         
     }
     return self;
 }
 
-/*
-- (void) longPressDetected:(UIGestureRecognizer*) gestureRecognizer
-{
-    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
-        // NSLog(@"Longpress begin.\n");
-        self.prevIndex = -1;
-        [[UIApplication sharedApplication].keyWindow addSubview:self];
-        self.longPressLocation = [gestureRecognizer locationInView:self];
-        CGPoint pointInView = [gestureRecognizer locationInView:gestureRecognizer.view];
-        if (self.dataSource != nil && [self.dataSource respondsToSelector:@selector(shouldShowMenuAtPoint:)] && ![self.dataSource shouldShowMenuAtPoint:pointInView]){
-            return;
-        }
-        self.layer.backgroundColor = [UIColor colorWithWhite:0.1f alpha:.6f].CGColor;
-        self.isShowing = YES;
-        [self animateMenu:YES];
-        [self setNeedsDisplay];
-    }
-    
-    if (gestureRecognizer.state == UIGestureRecognizerStateChanged) {
-        if (self.isShowing) {
-            self.isPaning = YES;
-            self.curretnLocation =  [gestureRecognizer locationInView:self];
-        }
-    }
-    
-    if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
-        //NSLog(@"Longpress end.\n\n");
-        if(self.delegate && [self.delegate respondsToSelector:@selector(didSelectItemAtIndex: forMenuAtPoint:)] && self.prevIndex >= 0){
-            [self.delegate didSelectItemAtIndex:self.prevIndex forMenuAtPoint:[self convertPoint:self.longPressLocation toView:gestureRecognizer.view]];
-            self.prevIndex = -1;
-        }
-        [self hideMenu];
-    }
-}
-
-
-
-- (void) clickDetected:(UIGestureRecognizer*) gestureRecognizer{
-    
-    if(!self.isShowing){
-        self.prevIndex = -1;
-        [[UIApplication sharedApplication].keyWindow addSubview:self];
-        self.longPressLocation = [gestureRecognizer locationInView:self];
-        CGPoint pointInView = [gestureRecognizer locationInView:gestureRecognizer.view];
-        if (self.dataSource != nil && [self.dataSource respondsToSelector:@selector(shouldShowMenuAtPoint:)] && ![self.dataSource shouldShowMenuAtPoint:pointInView]){
-            return;
-        }
-        self.layer.backgroundColor = [UIColor colorWithWhite:0.1f alpha:.6f].CGColor;
-        self.isShowing = YES;
-        [self animateMenu:YES];
-        [self setNeedsDisplay];
-        self.isShowing=YES;
-    }else if(self.isShowing){
-        
-        if(self.delegate && [self.delegate respondsToSelector:@selector(didSelectItemAtIndex: forMenuAtPoint:)] && self.prevIndex >= 0){
-            [self.delegate didSelectItemAtIndex:self.prevIndex forMenuAtPoint:[self convertPoint:self.longPressLocation toView:gestureRecognizer.view]];
-            self.prevIndex = -1;
-        }
-        [self hideMenu];
-
-        
-    }
-
-    
-}
-
-*/
 
 
 
@@ -193,14 +126,15 @@ CGFloat const   GHAnimationDelay = GHAnimationDuration/5;
         }
     }
     
+    /*
     if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
         //NSLog(@"Longpress end.\n\n");
         if(self.delegate && [self.delegate respondsToSelector:@selector(didSelectItemAtIndex: forMenuAtPoint:)] && self.prevIndex >= 0){
             [self.delegate didSelectItemAtIndex:self.prevIndex forMenuAtPoint:[self convertPoint:self.longPressLocation toView:gestureRecognizer.view]];
             self.prevIndex = -1;
         }
-        [self hideMenu];
-    }
+        //[self hideMenu];
+    }*/
     
 }
 
@@ -208,12 +142,35 @@ CGFloat const   GHAnimationDelay = GHAnimationDuration/5;
 
 - (void) clickDetected:(UIGestureRecognizer*) gestureRecognizer{
      self.curretnLocation =  [gestureRecognizer locationInView:self];
- if(self.isShowing){
+    
+    
+    
+    
+    
+    
+    
+    
+    if(self.isShowing){
         
+        for (int i = 0; i < self.menuItems.count; i++) {
+            GHMenuItemLocation* itemLocation = [self.itemLocations objectAtIndex:i];
+            if (CGPointEqualToPoint(itemLocation.position , self.curretnLocation) ) {
+                _prevIndex = i;
+                break;
+            }
+        }
+        
+        //responds to selector and previndex is the index of a menu item
         if(self.delegate && [self.delegate respondsToSelector:@selector(didSelectItemAtIndex: forMenuAtPoint:)] && self.prevIndex >= 0){
+          
+            
+            [self.delegate didSelectItemAtIndex:self.prevIndex forMenuAtPoint:[self convertPoint:self.longPressLocation toView:gestureRecognizer.view]];
+            self.prevIndex = -1;
+
+        /*if(self.delegate && [self.delegate respondsToSelector:@selector(didSelectItemAtIndex: forMenuAtPoint:)] && self.prevIndex >= 0){
             
             [self.delegate didSelectItemAtIndex:self.prevIndex forMenuAtPoint:[self convertPoint:self.curretnLocation toView:gestureRecognizer.view]];
-            self.prevIndex = -1;
+            self.prevIndex = -1;*/
         }
         [self hideMenu];
      
@@ -384,7 +341,9 @@ CGFloat const   GHAnimationDelay = GHAnimationDuration/5;
     if (self.isShowing && self.isPaning) {
         
         CGFloat angle = [self angleBeweenStartinPoint:self.longPressLocation endingPoint:self.curretnLocation];
+        //Close to index tells you what index in the menu item buttons you are close to
         NSInteger closeToIndex = -1;
+        //This iterates through the menu items, if the angle is pointed towards a certain button, close to index = that button's index
         for (int i = 0; i < self.menuItems.count; i++) {
             GHMenuItemLocation* itemLocation = [self.itemLocations objectAtIndex:i];
             if (fabs(itemLocation.angle - angle) < self.angleBetweenItems/2) {
@@ -392,7 +351,7 @@ CGFloat const   GHAnimationDelay = GHAnimationDuration/5;
                 break;
             }
         }
-        
+        //basically close to index is the index of a menu item
         if (closeToIndex >= 0 && closeToIndex < self.menuItems.count) {
             
             GHMenuItemLocation* itemLocation = [self.itemLocations objectAtIndex:closeToIndex];
@@ -427,7 +386,7 @@ CGFloat const   GHAnimationDelay = GHAnimationDuration/5;
                 if ( ( self.prevIndex >= 0 && self.prevIndex != closeToIndex)) {
                     [self resetPreviousSelection];
                 }
-                
+                //changes previndex to close to index, this lets menu know which button is being selected later
                 self.prevIndex = closeToIndex;
                 
             } else if(self.prevIndex >= 0) {

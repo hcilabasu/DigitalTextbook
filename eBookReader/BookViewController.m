@@ -197,7 +197,7 @@
         return nil;
     }
     
-    NSString* logStr=[[NSString alloc] initWithFormat:@"Navigate to page: %d", index+1];
+    NSString* logStr=[[NSString alloc] initWithFormat:@"Loading page: %d", index+1];
     LogData* log= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:logStr selection:@"Textbook" input:@"null" pageNum:index];
     [logWrapper addLogs:log];
     [LogDataParser saveLogData:logWrapper];

@@ -1324,8 +1324,12 @@
         [addedNode.text becomeFirstResponder];
         //Code for OK button
     }
-    if (buttonIndex == 1&&alertView.tag==2)
+    if (buttonIndex == 1&&alertView.tag==2)//delete map was selected
     {
+        LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"deleting whole concept view" selection:@"Concept Map View" input:@"null" pageNum:pageNum];
+        [bookLogDataWrapper addLogs:newlog];
+        [LogDataParser saveLogData:bookLogDataWrapper];
+        
         for (NodeCell *cell in conceptNodeArray)
         {
             [cell removeLink];
@@ -1854,6 +1858,7 @@
 
 
 -(void)deleteLink: (NSString* )leftName SecondNode: (NSString*)rightName{
+    
     [self savePreviousStep];
     NSLog(@"%@",leftName);
     NSLog(@"%@",rightName);
@@ -1875,6 +1880,11 @@
             linkBk=link;
         }
     }
+    
+    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Deleting Link" selection:@"concept map view" input:linkBk.relation.text pageNum:pageNum];
+    [bookLogDataWrapper addLogs:newlog];
+    [LogDataParser saveLogData:bookLogDataWrapper];
+    //removes link that matches description
     [conceptLinkArray removeObject:linkBk];
     
     for(NodeCell* cell in conceptNodeArray){

@@ -180,6 +180,7 @@
         [PreviewRect setHidden:NO];
         
     }else{
+        
         [previewImg setHidden:YES];
         [PreviewRect setHidden:YES];
         
@@ -206,6 +207,10 @@
         self.navigationItem.title=@"Training";
     }
     
+    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Application Loaded Succesfully" selection:@"Book Page View" input:@"null" pageNum:bookView.currentContentView.pageNum];
+    [logWrapper addLogs:newlog];
+    [LogDataParser saveLogData:logWrapper];
+    
 }
 
 
@@ -214,11 +219,18 @@
     
     //when retating the device, clear the thumbnail icons and reload
     if(orientation==UIInterfaceOrientationPortrait||orientation==UIInterfaceOrientationPortraitUpsideDown){
-        
+        //Vertical
+        LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Changed to Vertical Orientation" selection:@"Book Page View" input:@"null" pageNum:bookView.currentContentView.pageNum];
+        [logWrapper addLogs:newlog];
+        [LogDataParser saveLogData:logWrapper];
         [self resumeNormalScreen ];
     }
     //otherwise, hide the concept map view.
     if(orientation==UIInterfaceOrientationLandscapeLeft||orientation==UIInterfaceOrientationLandscapeRight){
+        //Horizontal
+        LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Changed to Horizontal Orientation" selection:@"Book Page View" input:@"null" pageNum:bookView.currentContentView.pageNum];
+        [logWrapper addLogs:newlog];
+        [LogDataParser saveLogData:logWrapper];
         [self splitScreen];
     }
     //do stuff
@@ -418,8 +430,8 @@
        // NSLog(@"Content View");
         selection = [self.bookView.currentContentView.webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"]; //selection is selected string in content view
         NSLog(@"Selection = %@", selection);
-        if(selection.length>35){ //selection is too long
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"You can not add concepts that have more than 35 charaters!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        if(selection.length>50){ //selection is too long
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"You can not add concepts that have more than 50 charaters!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
             return;
         }
@@ -442,8 +454,8 @@
        // NSLog(@"Web browser");
         selection = [self.myWebView.webBrowserView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"]; //selection is selected string in web browser view
        // NSLog(@"Selection = %@", selection);
-        if(selection.length>25){ //selection is too long
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"You can not add concepts that have more than 25 charaters!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        if(selection.length>50){ //selection is too long
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"You can not add concepts that have more than 50 charaters!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
             return;
         }

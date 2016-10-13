@@ -102,7 +102,9 @@
 
 }
 -(void)viewDidAppear:(BOOL)animated{
+    [self updateViewSize];
     [self updateThumbIcons];
+    
 
 }
 - (void)viewDidLoad
@@ -303,17 +305,21 @@
     CGRect textFrame=text.frame;
     CGRect viewFrame=self.view.frame;
     CGFloat length = [text.text sizeWithAttributes:@{NSFontAttributeName:text.font}].width;
-    length+=10;
+    length+=20;
     if (length >= 100){
         length = 100;
     }
     CGFloat height = text.contentSize.height;
+    //CGSize height2 = [text sizeThatFits:CGSizeMake(text.frame.size.width, text.frame.size.height)];
     //resize to new width
     textFrame.size.width=length;
     viewFrame.size.width=length;
     //resize to new height
-    textFrame.size.height=height;
-    viewFrame.size.height=height;
+   textFrame.size.height=height;
+   viewFrame.size.height=height;
+    
+   // textFrame.size.height = height2.height;
+   // viewFrame.size.height = height2.height;
     //Prevent textbox from just disappearing
     if(text.text.length<1){
         textFrame.size.width=20;
@@ -740,7 +746,7 @@
         }
     }
 
-    return textView.text.length + (text.length - range.length) <= 20;
+    return textView.text.length + (text.length - range.length) <= 50;
 }
 
 
@@ -789,6 +795,10 @@
     }
     
     for(ConceptLink *link in delAry){
+        //deletes the links in delarray
+        LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Deleting Links because concept was deleted" selection:@"concept map" input:link.relation.text pageNum:pageNum];
+        [bookLogData addLogs:newlog];
+        [LogDataParser saveLogData:bookLogData];
         [parentCmapController.conceptLinkArray removeObject:link];
     }
     
@@ -949,10 +959,10 @@
             imageName = @"edit";
             break;
         case 3: // search on internet
-            imageName= @"webbrowser";
+            imageName= @"Safarai_White";
             break;
         case 4: // taking notes
-            imageName = @"notebook";
+            imageName = @"Node_Small";
             break;
         default:
             break;
