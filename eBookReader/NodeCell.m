@@ -73,6 +73,7 @@
         hasHighlight=NO;
         hasNote=NO;
         hasWeblink=NO;
+        
     }
     return self;
 }
@@ -112,6 +113,7 @@
     [super viewDidLoad];
     //[parentCmapController updateNodesPosition:self.view.center Node:self];
     text.delegate = self;
+ 
    /*
     [text addTarget:self
              action:@selector(textFieldDidBeginEditing:)
@@ -164,6 +166,11 @@
     self.view.layer.shadowRadius = 3;
     self.view.layer.shadowColor = [UIColor blackColor].CGColor;
     self.view.layer.shadowOffset = CGSizeMake(2, 2);
+    self.view.layer.cornerRadius=8;
+    //self.view.layer.masksToBounds=YES;
+    
+    
+    
     text.delegate=self;
     //keyboard for ... cell
     text.keyboardType=UIKeyboardTypeASCIICapable;
@@ -959,7 +966,7 @@
             imageName = @"edit";
             break;
         case 3: // search on internet
-            imageName= @"Safarai_White";
+            imageName= @"webbrowser";
             break;
         case 4: // taking notes
             imageName = @"Node_Small";

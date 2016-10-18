@@ -117,7 +117,7 @@ CGFloat const   GHAnimationDelay = GHAnimationDuration/5;
         [self animateMenu:YES];
         [self setNeedsDisplay];
     }
-    
+    /*
     
     if (gestureRecognizer.state == UIGestureRecognizerStateChanged) {
         if (self.isShowing) {
@@ -126,7 +126,7 @@ CGFloat const   GHAnimationDelay = GHAnimationDuration/5;
         }
     }
     
-    /*
+    
     if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
         //NSLog(@"Longpress end.\n\n");
         if(self.delegate && [self.delegate respondsToSelector:@selector(didSelectItemAtIndex: forMenuAtPoint:)] && self.prevIndex >= 0){
@@ -142,7 +142,7 @@ CGFloat const   GHAnimationDelay = GHAnimationDuration/5;
 
 - (void) clickDetected:(UIGestureRecognizer*) gestureRecognizer{
      self.curretnLocation =  [gestureRecognizer locationInView:self];
-    
+        NSLog(@"click location : %@", NSStringFromCGPoint(self.curretnLocation));
     
     
     
@@ -154,7 +154,14 @@ CGFloat const   GHAnimationDelay = GHAnimationDuration/5;
         
         for (int i = 0; i < self.menuItems.count; i++) {
             GHMenuItemLocation* itemLocation = [self.itemLocations objectAtIndex:i];
-            if (CGPointEqualToPoint(itemLocation.position , self.curretnLocation) ) {
+            NSLog(@"item location at button index %i: %@", i, NSStringFromCGPoint(itemLocation.position));
+            
+            CGFloat xDist = (itemLocation.position.x - _curretnLocation.x); //[2]
+            CGFloat yDist = (itemLocation.position.y - _curretnLocation.y); //[3]
+            CGFloat distance = sqrt((xDist * xDist) + (yDist * yDist)); //[4]
+            NSLog(@"distance from buton and click: %f", distance);
+         
+            if (distance < 22) {
                 _prevIndex = i;
                 break;
             }
