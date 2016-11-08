@@ -98,7 +98,13 @@ CGFloat const   GHAnimationDelay = GHAnimationDuration/5;
 
 
 
-
+- (void) highlightMenuItemClicked: (NSInteger) index2highlight
+{
+    CALayer *layer = [self.menuItems objectAtIndex:index2highlight];
+    layer.backgroundColor = self.itemBGHighlightedColor;
+//    [self performSelector:@selector(highlightMenuItemClicked:) withObject:self afterDelay:1.0f];
+    
+}
 
 
 - (void) longPressDetected:(UIGestureRecognizer*) gestureRecognizer
@@ -154,12 +160,12 @@ CGFloat const   GHAnimationDelay = GHAnimationDuration/5;
         
         for (int i = 0; i < self.menuItems.count; i++) {
             GHMenuItemLocation* itemLocation = [self.itemLocations objectAtIndex:i];
-            NSLog(@"item location at button index %i: %@", i, NSStringFromCGPoint(itemLocation.position));
+           // NSLog(@"item location at button index %i: %@", i, NSStringFromCGPoint(itemLocation.position));
             
             CGFloat xDist = (itemLocation.position.x - _curretnLocation.x); //[2]
             CGFloat yDist = (itemLocation.position.y - _curretnLocation.y); //[3]
             CGFloat distance = sqrt((xDist * xDist) + (yDist * yDist)); //[4]
-            NSLog(@"distance from buton and click: %f", distance);
+           // NSLog(@"distance from buton and click: %f", distance);
          
             if (distance < 22) {
                 _prevIndex = i;
@@ -172,6 +178,10 @@ CGFloat const   GHAnimationDelay = GHAnimationDuration/5;
           
             
             [self.delegate didSelectItemAtIndex:self.prevIndex forMenuAtPoint:[self convertPoint:self.longPressLocation toView:gestureRecognizer.view]];
+            
+            //highlight
+            [self highlightMenuItemClicked: _prevIndex];
+            
             self.prevIndex = -1;
 
         /*if(self.delegate && [self.delegate respondsToSelector:@selector(didSelectItemAtIndex: forMenuAtPoint:)] && self.prevIndex >= 0){
@@ -342,6 +352,8 @@ CGFloat const   GHAnimationDelay = GHAnimationDuration/5;
 }
 
 # pragma mark - animation and selection
+
+
 
 -  (void) highlightMenuItemForPoint
 {

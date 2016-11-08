@@ -1261,7 +1261,7 @@
     node.showPoint=clickPoint;
     node.bookLogData=bookLogDataWrapper;
     node.bookHighLight=bookHighlight;
-    node.pageNum=-1;
+    node.pageNum=self.parent_ContentViewController.pageNum - 1;
     node.bookTitle=bookTitle;
     node.bookthumbNailIcon=bookThumbNial;
     [self addChildViewController:node];

@@ -244,6 +244,9 @@
         }
         else {
             searchTerm = [keywrod stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+            searchTerm = [searchTerm stringByReplacingOccurrencesOfString:@"\"" withString: @"%22"];
+            searchTerm = [searchTerm stringByReplacingOccurrencesOfString:@"%" withString: @"%25"];
+            searchTerm = [searchTerm stringByReplacingOccurrencesOfString:@":" withString: @"%3A%20"];
         }
         
     }
@@ -251,6 +254,7 @@
     //For Google
     NSString* urlStr=@"https://www.google.com/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=";
     urlStr=[urlStr stringByAppendingString:searchTerm];
+   // NSString *encodedUrlStr = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     [webBrowserView  loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlStr]]];
     //save info in logs
     LogData* log= [[LogData alloc]initWithName:parent_View_Controller.userName SessionID:@"session_id" action:@"searching key word on web browser " selection:@"web browser" input:searchTerm pageNum:0];
