@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="KdN-Nn-VnM">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <scenes>
+        <!--Data Source-->
+        <scene sceneID="7">
+            <objects>
+                <viewController storyboardIdentifier="LibraryViewController" id="5" customClass="LibraryViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="XlM-GH-EFP"/>
+                        <viewControllerLayoutGuide type="bottom" id="ukW-RS-7VB"/>
+                    </layoutGuides>
+                    <view key="view" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="12">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="My Books" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="14">
+                                <rect key="frame" x="20" y="10" width="728" height="17"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
+                                <color key="textColor" red="0.30436905570652173" green="0.19771200569515293" blue="0.10432972123008735" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="13" customClass="UICollectionView">
+                                <rect key="frame" x="20" y="46" width="728" height="958"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="5" id="eJE-IM-EaI"/>
+                                    <outlet property="delegate" destination="5" id="3JW-NW-qyP"/>
+                                </connections>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.97826086960000003" green="0.91848131079999995" blue="0.73914263440000005" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Eh2-KU-xR3"/>
+                    <connections>
+                        <outlet property="libraryLabel" destination="14" id="eVw-lZ-len"/>
+                        <outlet property="libraryView" destination="13" id="chW-1c-Soz"/>
+                        <outlet property="titleLabel" destination="14" id="XIH-dw-PTY"/>
+                        <segue destination="NLI-lb-tHz" kind="push" identifier="OpenBookSegue" id="egF-RJ-XxJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2026" y="-1423"/>
+        </scene>
+        <!--Log In View Controller-->
+        <scene sceneID="0dU-Eg-HS3">
+            <objects>
+                <viewController id="0ol-Ns-sMu" customClass="LogInViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="U9R-1x-TtS"/>
+                        <viewControllerLayoutGuide type="bottom" id="6yq-3b-gxK"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="PRY-yJ-NHg">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pK4-My-r1v">
+                                <rect key="frame" x="0.0" y="45" width="768" height="1024"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Digital " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2pN-t0-Meg">
+                                        <rect key="frame" x="272" y="231" width="98" height="58"/>
+                                        <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="33"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Textbook" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AX2-Ha-oVo">
+                                        <rect key="frame" x="378" y="231" width="179" height="58"/>
+                                        <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="33"/>
+                                        <color key="textColor" red="0.46274509803921571" green="0.6470588235294118" blue="0.70196078431372544" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jRf-Lc-4Gc">
+                                        <rect key="frame" x="307" y="608" width="165" height="64"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="24"/>
+                                        <state key="normal" title="Sign In" backgroundImage="LoginButton.png">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="onClickLogin:" destination="0ol-Ns-sMu" eventType="touchUpInside" id="iqa-uf-Thp"/>
+                                        </connections>
+                                    </button>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="fill" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8EF-uP-Sii">
+                                        <rect key="frame" x="350" y="378" width="194" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tir-Az-764">
+                                        <rect key="frame" x="350" y="479" width="194" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" text="Plaese use the username and password we give you in the email to log in to the system" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jI4-NX-gFU">
+                                        <rect key="frame" x="267" y="282" width="244" height="80"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" red="0.078431375324726105" green="0.39607846736907959" blue="0.43137258291244507" alpha="1" colorSpace="deviceRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Username" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ooE-3t-5Fx">
+                                        <rect key="frame" x="247" y="382" width="79" height="21"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Password" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pIf-If-Bya">
+                                        <rect key="frame" x="247" y="482" width="76" height="21"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="LoginForm.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="Yaa-tP-2XF">
+                                        <rect key="frame" x="0.0" y="-45" width="768" height="1024"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="M3r-m0-KPT"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
+                    <connections>
+                        <outlet property="BG" destination="Yaa-tP-2XF" id="bB3-yC-sf8"/>
+                        <outlet property="LoginButton" destination="jRf-Lc-4Gc" id="Ayh-1A-g0D"/>
+                        <outlet property="PasswordTextView" destination="tir-Az-764" id="soZ-cJ-pjr"/>
+                        <outlet property="UserNameTextView" destination="8EF-uP-Sii" id="TfV-zl-cnT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="W1n-3a-HU2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="964" y="-582"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="1zI-VA-WYc">
+            <objects>
+                <navigationController storyboardIdentifier="UINavigationController" definesPresentationContext="YES" id="KdN-Nn-VnM" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="YF0-TG-zBJ">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="9V8-ht-jVV">
+                        <rect key="frame" x="0.0" y="960" width="768" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
+                    <connections>
+                        <segue destination="5" kind="relationship" relationship="rootViewController" id="39l-0O-OTu"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6aY-Dg-DGB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-8" y="-1423"/>
+        </scene>
+        <!--Book View Controller-->
+        <scene sceneID="OH6-RJ-2K5">
+            <objects>
+                <pageViewController storyboardIdentifier="BookViewController" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="none" id="NLI-lb-tHz" customClass="BookViewController" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="Nud-ft-akr"/>
+                    <connections>
+                        <outlet property="bookView" destination="1u8-HC-lY8" id="1pb-zc-vPH"/>
+                        <outlet property="view" destination="erm-JD-CyO" id="O9j-oO-dyD"/>
+                        <segue destination="wIa-Vd-YqX" kind="push" identifier="ExtraWebLink" id="fB0-QT-a8x"/>
+                    </connections>
+                </pageViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="d1n-FJ-bLf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="erm-JD-CyO">
+                    <rect key="frame" x="0.0" y="0.0" width="768" height="960"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <subviews>
+                        <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1u8-HC-lY8">
+                            <rect key="frame" x="0.0" y="0.0" width="768" height="960"/>
+                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <outlet property="delegate" destination="NLI-lb-tHz" id="pIc-4U-niu"/>
+                            </connections>
+                        </webView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                </view>
+                <navigationItem id="SG3-CI-6Xf">
+                    <barButtonItem key="backBarButtonItem" title="Library" id="Q9I-WY-xa7"/>
+                </navigationItem>
+            </objects>
+            <point key="canvasLocation" x="2981" y="-1423"/>
+        </scene>
+        <!--Content View Controller-->
+        <scene sceneID="7zY-Wy-1J9">
+            <objects>
+                <viewController id="wIa-Vd-YqX" customClass="ContentViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="9MR-s6-BJp"/>
+                        <viewControllerLayoutGuide type="bottom" id="ISj-D6-8sL"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="abZ-bf-H0a" customClass="UIWebView">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="tuh-9j-6A1"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jBI-1m-zni" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4019" y="-1423"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="LoginButton.png" width="139" height="59"/>
+        <image name="LoginForm.jpg" width="768" height="1024"/>
+    </resources>
+</document>

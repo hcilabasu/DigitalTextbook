@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "6464D1B802AA52B16B691A748C8D87A7ACE0711C",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "6464D1B802AA52B16B691A748C8D87A7ACE0711C" : 0,
+    "10265E242415D473A6A613214DB7AC3EE3D43F93" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "6882C9B8-7F79-4CC6-B03A-C2CA845F3DAB",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "6464D1B802AA52B16B691A748C8D87A7ACE0711C" : "New_TurkStudy\/",
+    "10265E242415D473A6A613214DB7AC3EE3D43F93" : "New_TurkStudy\/Framework\/Frameworks\/KIF\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "TurkStudy",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "TurkStudy.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/kif-framework\/KIF.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "10265E242415D473A6A613214DB7AC3EE3D43F93"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/nberk\/DigitalTextbook.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "6464D1B802AA52B16B691A748C8D87A7ACE0711C"
+    }
+  ]
+}
