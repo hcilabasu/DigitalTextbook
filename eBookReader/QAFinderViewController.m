@@ -47,7 +47,7 @@ NSArray *recipes;
     tableView.delegate=self;
     // Do any additional setup after loading the view from its nib.
     
-    recipes = [NSArray arrayWithObjects:@"What is an money plant?", @"What is the axil and what is its role in reproduction?", @"What are vegetative parts?", @"Are there any plants that can reproduce without seeds?", @"What is a vegetative part?", @"Can somebody give an example for reproduction by roots?", nil];
+    recipes = [NSArray arrayWithObjects:@"What is money plant?", @"What is the axil and what is its role in reproduction?", @"What are vegetative parts?", @"Are there any plants that can reproduce without seeds?", @"What is a vegetative part?", @"Can somebody give an example for reproduction by roots?", nil];
     if(1==viewType){
         recipes = [NSArray arrayWithObjects:@"Google seach result", @"Wiki result", @"Q&A", @"Article", @"Video", nil];
     }
