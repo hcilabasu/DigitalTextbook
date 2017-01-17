@@ -1940,26 +1940,6 @@
 
 -(void)uploadCMapImg
 {
-    
-    /*
-    UIGraphicsBeginImageContextWithOptions(conceptMapView.bounds.size, NO, 0.0);
-    [conceptMapView.layer renderInContext:UIGraphicsGetCurrentContext()];
-    
-    UIImage * img = UIGraphicsGetImageFromCurrentImageContext();
-    [[UIColor whiteColor] set];
-    
-    UIGraphicsEndImageContext();
-    
-    
-    
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *filePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"FinalScreenShot.png"];
-    
-    // Save image.
-    [UIImagePNGRepresentation(img) writeToFile:filePath atomically:YES];
-    
-    //return img;*/
-    
     UIImage* image = nil;
     
     UIGraphicsBeginImageContext(conceptMapView.contentSize);
