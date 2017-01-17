@@ -1,0 +1,122 @@
+[
+ {
+    "name": "Cell",
+    "picture": "dwayne_wade.png",
+    "team-color": "#98012E"
+ },
+ {
+    "name": "Environment",
+    "picture": "kyrie_irving.png",
+    "team-color": "#98012E"
+ },
+ {
+    "name": "Biology",
+    "picture": "paul_george.png",
+    "team-color": "#061642"
+ },
+ {
+    "name": "Ion",
+    "picture": "lebron_james.png",
+    "team-color": "#98012E"
+ },
+ {
+    "name": "Membrane",
+    "picture": "carmelo_anthony.png",
+    "team-color": "#225EA8"
+ },
+ {
+    "name": "Function",
+    "picture": "kevin_durant.png",
+    "team-color": "#C67C03"
+ },
+ {
+    "name": "Lipid",
+    "picture": "james_harden",
+    "team-color": "#D40026"
+ },
+ {
+ "name": "Fluid",
+ "picture": "dwayne_wade.png",
+ "team-color": "#98012E"
+ },
+ {
+ "name": "Tissue",
+ "picture": "kyrie_irving.png",
+ "team-color": "#98012E"
+ },
+ {
+ "name": "Matrix",
+ "picture": "paul_george.png",
+ "team-color": "#061642"
+ },
+ {
+ "name": "Plant",
+ "picture": "lebron_james.png",
+ "team-color": "#98012E"
+ },
+ {
+ "name": "Energy",
+ "picture": "carmelo_anthony.png",
+ "team-color": "#225EA8"
+ },
+ {
+ "name": "Molucule",
+ "picture": "kevin_durant.png",
+ "team-color": "#C67C03"
+ },
+ {
+ "name": "Protain",
+ "picture": "james_harden",
+ "team-color": "#D40026"
+ },
+ {
+ "name": "Water",
+ "picture": "dwayne_wade.png",
+ "team-color": "#98012E"
+ },
+ {
+ "name": "Sunlight",
+ "picture": "kyrie_irving.png",
+ "team-color": "#98012E"
+ },
+ {
+ "name": "Root",
+ "picture": "paul_george.png",
+ "team-color": "#061642"
+ },
+ {
+ "name": "Flower",
+ "picture": "lebron_james.png",
+ "team-color": "#98012E"
+ },
+ {
+ "name": "Membrane",
+ "picture": "carmelo_anthony.png",
+ "team-color": "#225EA8"
+ },
+ {
+ "name": "Function",
+ "picture": "kevin_durant.png",
+ "team-color": "#C67C03"
+ },
+ {
+ "name": "Lipid",
+ "picture": "james_harden",
+ "team-color": "#D40026"
+ },
+ {
+ "name": "Fluid",
+ "picture": "dwayne_wade.png",
+ "team-color": "#98012E"
+ },
+ {
+ "name": "Tissue",
+ "picture": "kyrie_irving.png",
+ "team-color": "#98012E"
+ },
+ {
+ "name": "Matrix",
+ "picture": "paul_george.png",
+ "team-color": "#061642"
+ }
+ ]
