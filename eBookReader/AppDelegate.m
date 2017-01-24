@@ -51,7 +51,7 @@
     
     
     if(testMode){
-        [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"testMode"];
+       // [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"testMode"];
     }
     if(requireLogin){
         [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"isLogin"];

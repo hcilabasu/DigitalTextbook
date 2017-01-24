@@ -48,7 +48,7 @@
             startingLineNumber = "95"
             endingLineNumber = "95"
             landmarkName = "-application:didFinishLaunchingWithOptions:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -670,7 +670,7 @@
             startingLineNumber = "94"
             endingLineNumber = "94"
             landmarkName = "-viewDidLoad"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -686,7 +686,7 @@
             startingLineNumber = "82"
             endingLineNumber = "82"
             landmarkName = "-viewDidLoad"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -702,7 +702,7 @@
             startingLineNumber = "91"
             endingLineNumber = "91"
             landmarkName = "-viewDidLoad"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -718,7 +718,7 @@
             startingLineNumber = "344"
             endingLineNumber = "344"
             landmarkName = "-getTotalScore:Q2:Q3:Q4:Q5:Q6:A1:A2:A3:A4:A5:A6:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -750,7 +750,7 @@
             startingLineNumber = "468"
             endingLineNumber = "468"
             landmarkName = "-getQuestionIndex"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -766,7 +766,7 @@
             startingLineNumber = "463"
             endingLineNumber = "463"
             landmarkName = "-decreaseIndex"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -782,7 +782,7 @@
             startingLineNumber = "422"
             endingLineNumber = "422"
             landmarkName = "-startQuiz:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -846,7 +846,7 @@
             startingLineNumber = "322"
             endingLineNumber = "322"
             landmarkName = "-getTotalScore:Q2:Q3:Q4:Q5:Q6:A1:A2:A3:A4:A5:A6:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1134,7 +1134,7 @@
             startingLineNumber = "175"
             endingLineNumber = "175"
             landmarkName = "-alertView:clickedButtonAtIndex:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1150,7 +1150,7 @@
             startingLineNumber = "108"
             endingLineNumber = "108"
             landmarkName = "-application:didFinishLaunchingWithOptions:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1166,7 +1166,7 @@
             startingLineNumber = "108"
             endingLineNumber = "108"
             landmarkName = "-application:didFinishLaunchingWithOptions:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1262,7 +1262,7 @@
             startingLineNumber = "41"
             endingLineNumber = "41"
             landmarkName = "-viewDidLoad"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1278,7 +1278,7 @@
             startingLineNumber = "40"
             endingLineNumber = "40"
             landmarkName = "-viewDidLoad"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1310,7 +1310,7 @@
             startingLineNumber = "196"
             endingLineNumber = "196"
             landmarkName = "-clickonB:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1436,7 +1436,7 @@
             startingLineNumber = "214"
             endingLineNumber = "214"
             landmarkName = "-checkCountdown:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1452,7 +1452,7 @@
             startingLineNumber = "208"
             endingLineNumber = "208"
             landmarkName = "-checkCountdown:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1468,7 +1468,7 @@
             startingLineNumber = "56"
             endingLineNumber = "56"
             landmarkName = "-init"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1484,7 +1484,7 @@
             startingLineNumber = "57"
             endingLineNumber = "57"
             landmarkName = "-init"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1500,7 +1500,7 @@
             startingLineNumber = "73"
             endingLineNumber = "73"
             landmarkName = "-initWithNibName:bundle:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1516,7 +1516,7 @@
             startingLineNumber = "144"
             endingLineNumber = "144"
             landmarkName = "-viewDidLoad"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1532,7 +1532,7 @@
             startingLineNumber = "453"
             endingLineNumber = "453"
             landmarkName = "-startQuiz:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1548,7 +1548,7 @@
             startingLineNumber = "452"
             endingLineNumber = "452"
             landmarkName = "-startQuiz:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1564,7 +1564,7 @@
             startingLineNumber = "50"
             endingLineNumber = "50"
             landmarkName = "-viewDidLoad"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1580,7 +1580,7 @@
             startingLineNumber = "320"
             endingLineNumber = "320"
             landmarkName = "-getTotalScore:Q2:Q3:Q4:Q5:Q6:A1:A2:A3:A4:A5:A6:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1708,7 +1708,7 @@
             startingLineNumber = "112"
             endingLineNumber = "112"
             landmarkName = "-createCmapView"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1804,7 +1804,7 @@
             startingLineNumber = "317"
             endingLineNumber = "317"
             landmarkName = "-checkCountdown:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1820,7 +1820,7 @@
             startingLineNumber = "42"
             endingLineNumber = "42"
             landmarkName = "-viewDidLoad"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3292,7 +3292,7 @@
             startingLineNumber = "370"
             endingLineNumber = "370"
             landmarkName = "-didReceiveMemoryWarning"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3308,7 +3308,7 @@
             startingLineNumber = "373"
             endingLineNumber = "373"
             landmarkName = "-didReceiveMemoryWarning"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3324,7 +3324,7 @@
             startingLineNumber = "102"
             endingLineNumber = "102"
             landmarkName = "-viewDidLoad"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3340,7 +3340,7 @@
             startingLineNumber = "103"
             endingLineNumber = "103"
             landmarkName = "-viewDidLoad"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3532,7 +3532,7 @@
             startingLineNumber = "239"
             endingLineNumber = "239"
             landmarkName = "-didRotate:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3548,7 +3548,7 @@
             startingLineNumber = "238"
             endingLineNumber = "238"
             landmarkName = "-didRotate:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3820,7 +3820,7 @@
             startingLineNumber = "231"
             endingLineNumber = "231"
             landmarkName = "-checkCountdown:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3932,7 +3932,7 @@
             startingLineNumber = "217"
             endingLineNumber = "217"
             landmarkName = "-checkCountdown:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -4044,7 +4044,7 @@
             startingLineNumber = "239"
             endingLineNumber = "239"
             landmarkName = "-didRotate:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -4060,7 +4060,7 @@
             startingLineNumber = "245"
             endingLineNumber = "245"
             landmarkName = "-didRotate:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -4156,7 +4156,7 @@
             startingLineNumber = "44"
             endingLineNumber = "44"
             landmarkName = "-viewDidLoad"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -4172,7 +4172,7 @@
             startingLineNumber = "369"
             endingLineNumber = "369"
             landmarkName = "-didReceiveMemoryWarning"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -4252,7 +4252,7 @@
             startingLineNumber = "243"
             endingLineNumber = "243"
             landmarkName = "-checkCountdown:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -4268,7 +4268,7 @@
             startingLineNumber = "242"
             endingLineNumber = "242"
             landmarkName = "-checkCountdown:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -4284,7 +4284,7 @@
             startingLineNumber = "221"
             endingLineNumber = "221"
             landmarkName = "-checkCountdown:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -4300,7 +4300,7 @@
             startingLineNumber = "325"
             endingLineNumber = "325"
             landmarkName = "-getTotalScore:Q2:Q3:Q4:Q5:Q6:A1:A2:A3:A4:A5:A6:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -4316,7 +4316,7 @@
             startingLineNumber = "247"
             endingLineNumber = "247"
             landmarkName = "-checkCountdown:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -4380,7 +4380,7 @@
             startingLineNumber = "225"
             endingLineNumber = "225"
             landmarkName = "-checkCountdown:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -4588,7 +4588,7 @@
             startingLineNumber = "433"
             endingLineNumber = "433"
             landmarkName = "-startQuiz:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -4604,7 +4604,7 @@
             startingLineNumber = "430"
             endingLineNumber = "430"
             landmarkName = "-startQuiz:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -4684,7 +4684,7 @@
             startingLineNumber = "265"
             endingLineNumber = "265"
             landmarkName = "-checkCount:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -4700,7 +4700,7 @@
             startingLineNumber = "267"
             endingLineNumber = "267"
             landmarkName = "-checkCount:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -4716,7 +4716,7 @@
             startingLineNumber = "283"
             endingLineNumber = "283"
             landmarkName = "-checkCount:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -4822,7 +4822,7 @@
             startingLineNumber = "277"
             endingLineNumber = "277"
             landmarkName = "-checkCount:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -4838,7 +4838,7 @@
             startingLineNumber = "277"
             endingLineNumber = "277"
             landmarkName = "-checkCount:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -4854,7 +4854,7 @@
             startingLineNumber = "440"
             endingLineNumber = "440"
             landmarkName = "-startQuiz:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -4870,7 +4870,7 @@
             startingLineNumber = "280"
             endingLineNumber = "280"
             landmarkName = "-checkCount:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -5030,7 +5030,7 @@
             startingLineNumber = "483"
             endingLineNumber = "483"
             landmarkName = "-nextQuestion"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -5046,7 +5046,7 @@
             startingLineNumber = "545"
             endingLineNumber = "545"
             landmarkName = "-nextQuestion"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -5062,7 +5062,7 @@
             startingLineNumber = "238"
             endingLineNumber = "238"
             landmarkName = "-autoChoose:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -5078,7 +5078,7 @@
             startingLineNumber = "224"
             endingLineNumber = "224"
             landmarkName = "-checkCountdown:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -5206,7 +5206,7 @@
             startingLineNumber = "166"
             endingLineNumber = "166"
             landmarkName = "-viewWillAppear:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -5270,7 +5270,7 @@
             startingLineNumber = "241"
             endingLineNumber = "241"
             landmarkName = "-checkCountdown:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -5286,7 +5286,7 @@
             startingLineNumber = "258"
             endingLineNumber = "258"
             landmarkName = "-checkCountdown:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -5302,7 +5302,7 @@
             startingLineNumber = "295"
             endingLineNumber = "295"
             landmarkName = "-checkCountdown:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -5318,7 +5318,7 @@
             startingLineNumber = "283"
             endingLineNumber = "283"
             landmarkName = "-checkCountdown:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -6438,7 +6438,7 @@
             startingLineNumber = "252"
             endingLineNumber = "252"
             landmarkName = "-checkCountdown:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -6454,7 +6454,7 @@
             startingLineNumber = "253"
             endingLineNumber = "253"
             landmarkName = "-checkCountdown:"
-            landmarkType = "5">
+            landmarkType = "7">
             <Locations>
                <Location
                   shouldBeEnabled = "No"
@@ -6518,7 +6518,7 @@
             startingLineNumber = "236"
             endingLineNumber = "236"
             landmarkName = "-checkCountdown:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -6870,7 +6870,7 @@
             startingLineNumber = "33"
             endingLineNumber = "33"
             landmarkName = "-application:didFinishLaunchingWithOptions:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
