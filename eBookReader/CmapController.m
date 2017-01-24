@@ -101,7 +101,7 @@
 @synthesize upLoadIcon;
 @synthesize showingPV;
 @synthesize noteTakingNode;
-
+@synthesize correctIndexAry;
 - (id) init {
     if (self = [super init]) {
         nodeCount=1;
@@ -473,6 +473,13 @@
 - (IBAction)loadConceptMap:(id)sender {
     
     
+    for(NSString* idneString in correctIndexAry){
+        
+    }
+    
+    
+    
+    
     NSString* istest=[[NSUserDefaults standardUserDefaults] stringForKey:@"loadExpertMap"];
     
     if([istest isEqualToString:@"YES"]){
@@ -494,13 +501,22 @@
     [conceptNodeArray removeAllObjects];
     [conceptLinkArray removeAllObjects];
     
+    
+    //////start creating map//////
     for(CmapNode* cell in bookNodeWrapper.cmapNodes){
+        //check if this node should be created////
+        
+       
+        
         
         [self createNode:CGPointMake(cell.point_x, cell.point_y) withName:cell.text page:cell.pageNum url:cell.linkingUrl urlTitle: cell.linkingUrlTitle hasNote: cell.hasNote hasHighlight: cell.hasHighlight hasWebLink: cell.hasWebLink savedNotesString: cell.savedNotesString];
         
         
     }
     for(CmapLink* link in bookLinkWrapper.cmapLinks){
+        //check if the link should exist///
+        
+        
         
         NodeCell* c1, *c2;
         
@@ -519,7 +535,7 @@
     //  [self modifyMap];
     
     if([istest isEqualToString:@"YES"]){
-        [self modifyExpertMap];
+       // [self modifyExpertMap];
     }
 }
 

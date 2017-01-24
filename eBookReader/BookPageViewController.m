@@ -277,8 +277,8 @@
 
 
 -(void)startTimer{
-    totalCountdownInterval=140;
-    //totalCountdownInterval=8;
+    //totalCountdownInterval=140;
+    totalCountdownInterval=82;
     startDate = [NSDate date];
     
     dispatch_async(dispatch_get_main_queue(), ^{

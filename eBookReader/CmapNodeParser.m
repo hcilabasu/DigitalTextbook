@@ -234,23 +234,26 @@
         
        
         NSArray *show_linkgUrl = [partyMember elementsForName:@"LinkingUrl"];
-        if (show_linkgUrl.count > 0) {
+         if (   show_linkgUrl.count > 0) {
             GDataXMLElement *url_element = (GDataXMLElement *) [show_linkgUrl objectAtIndex:0];
             linkingUrl=url_element.stringValue;
-        } else continue;
+        }
+         //else continue;
         
         NSArray *show_UrlTitle = [partyMember elementsForName:@"UrlTitle"];
         if (show_UrlTitle.count > 0) {
             GDataXMLElement *urlTitleElement = (GDataXMLElement *) [show_UrlTitle objectAtIndex:0];
             linkingUrlTitle=urlTitleElement.stringValue;
             
-        } else continue;
+        }
+        //else continue;
         
         NSArray *savedNotesStr = [partyMember elementsForName:@"NoteString"];
         if (savedNotesStr.count > 0) {
             GDataXMLElement *noteStringItem = (GDataXMLElement *) [savedNotesStr objectAtIndex:0];
             savedNotesString = noteStringItem.stringValue;
-        } else continue;
+        }
+        //else continue;
         
         NSArray *show_hasNote= [partyMember elementsForName:@"nodeHasNote"];
         if(show_hasNote.count>0){
@@ -261,10 +264,11 @@
             }else{
                 hasNote=NO;
             }
-        }else continue;
+        }
+        //else continue;
         
         NSArray *show_hasWebLink= [partyMember elementsForName:@"nodeHasWebLink"];
-        if(show_hasNote.count>0){
+        if(show_hasWebLink.count>0){
             GDataXMLElement* hasWebLink_Element= (GDataXMLElement*)[show_hasWebLink objectAtIndex:0];
             NSString* hasWebLinkString=hasWebLink_Element.stringValue;
             if([hasWebLinkString isEqualToString:@"YES"]){
@@ -272,10 +276,11 @@
             }else{
                 hasWebLink=NO;
             }
-        }else continue;
+        }
+        //else continue;
         
         NSArray *show_hasHighlight= [partyMember elementsForName:@"nodeHasHighlight"];
-        if(show_hasNote.count>0){
+        if(show_hasHighlight.count>0){
             GDataXMLElement* hasHighlight_Element= (GDataXMLElement*)[show_hasHighlight objectAtIndex:0];
             NSString* hasHighlightString=hasHighlight_Element.stringValue;
             if([hasHighlightString isEqualToString:@"YES"]){
@@ -283,7 +288,8 @@
             }else{
                 hasHighlight=NO;
             }
-        }else continue;
+        }
+        //else continue;
         
         NSURL* realUrl= [NSURL URLWithString:[linkingUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         CmapNode *player = [[CmapNode alloc] initWithName:conceptName bookTitle:bookTitle positionX:p_x positionY:p_y Tag:0 page:page url:realUrl urlTitle: linkingUrlTitle hasNote: hasNote  hasHighlight:hasHighlight hasWebLink:hasWebLink savedNotesString: savedNotesString];

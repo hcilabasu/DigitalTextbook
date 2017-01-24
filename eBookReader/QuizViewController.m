@@ -106,8 +106,8 @@
     }else{
       [quizButton setTitle:@"Start" forState:UIControlStateNormal];
     }
-    totalCountdownInterval=90;//identifies the total time of the quiz.
-    //totalCountdownInterval=2;//identifies the total time of the quiz.
+    //totalCountdownInterval=90;//identifies the total time of the quiz.
+    totalCountdownInterval=5;//identifies the total time of the quiz.
 
    // NSString *speedLabel = [[NSString alloc] initWithFormat:@"Time remaining %02d : %02d ", (int)totalCountdownInterval/60, (int)totalCountdownInterval%60];
    // self.navigationController.navigationBar.topItem.title=speedLabel;
@@ -255,6 +255,10 @@
                 wrongtestSmary=[wrongtestSmary stringByAppendingString:@", "];
             }
             
+            parentBookPageViewController.cmapView.correctIndexAry=correctIndexAry;
+            [parentBookPageViewController.cmapView loadConceptMap:nil];
+            
+            
             LogData* wrongsmryLog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Wrong Questions in PreTest" selection:@"quiz view" input:wrongtestSmary pageNum:0];
             [bookLogDataWrapper addLogs:wrongsmryLog];
             [LogDataParser saveLogData:bookLogDataWrapper];
@@ -290,6 +294,8 @@
                 wrongtestSmary=[wrongtestSmary stringByAppendingString:[num stringValue]];
                 wrongtestSmary=[wrongtestSmary stringByAppendingString:@", "];
             }
+            
+            
             
             LogData* wrongsmryLog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Wrong Questions in PostTest" selection:@"quiz view" input:wrongtestSmary pageNum:0];
             [bookLogDataWrapper addLogs:wrongsmryLog];
@@ -438,7 +444,8 @@
          */
         
          [self.navigationController popViewControllerAnimated:NO];
-        [parentBookPageViewController addTutorial];
+        [parentBookPageViewController startCmapTimer];
+       // [parentBookPageViewController addTutorial];
        
 
         

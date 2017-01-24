@@ -146,6 +146,8 @@
 @property (strong, nonatomic) UIImage* savedExpertImg;
 @property (nonatomic, strong) NSMutableArray* conceptsShowAry;
 @property (nonatomic, strong)TrainingViewController* parentTrainingCtr;
+@property NSMutableArray* correctIndexAry;
+
 
 -(void)disableAllNodesEditting;
 -(void)enableAllNodesEditting;

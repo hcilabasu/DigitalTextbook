@@ -34,7 +34,7 @@
     BOOL showPreview=YES;
     BOOL allowmanuAdd=NO;
     BOOL testMode=YES;
-    BOOL loadExpertMap=NO;
+    BOOL loadExpertMap=YES;
     BOOL isHyperLink=YES;
     [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"testMode"];
     [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"isLogin"];
