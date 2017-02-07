@@ -72,12 +72,13 @@
     bulbImageView.userInteractionEnabled = YES;
     UITapGestureRecognizer *bulbTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickOnBulb:)];
     [self.bulbImageView addGestureRecognizer:bulbTap];
-    //[self.view addSubview:bulbImageView];
+    [self.view addSubview:bulbImageView];
     [bulbImageView setHidden:YES];
     bulbImageView.layer.shadowOpacity = 0.4;
     bulbImageView.layer.shadowRadius = 4;
     bulbImageView.layer.shadowColor = [UIColor blackColor].CGColor;
     bulbImageView.layer.shadowOffset = CGSizeMake(2, 2);
+    bulbImageView.layer.zPosition = 999;
     [self.view bringSubviewToFront:cmapView.view];
     [cmapView loadConceptMap:nil];
 
