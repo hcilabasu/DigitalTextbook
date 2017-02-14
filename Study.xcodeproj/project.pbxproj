@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		079CBAEA1E53AE3E00F7CA4D /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 079CBAE91E53AE3E00F7CA4D /* index.html */; };
+		079CBAEC1E53AE6100F7CA4D /* styleIndex.css in Resources */ = {isa = PBXBuildFile; fileRef = 079CBAEB1E53AE6100F7CA4D /* styleIndex.css */; };
 		314B7E6316C2D9BF0061F0BF /* EBookImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 314B7E6216C2D9BF0061F0BF /* EBookImporter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		315F0AE416CC186C00300B19 /* bookshelf_vertical.png in Resources */ = {isa = PBXBuildFile; fileRef = 315F0AE116CC186C00300B19 /* bookshelf_vertical.png */; };
 		315F0AE516CC186C00300B19 /* bookshelf_horizontal.png in Resources */ = {isa = PBXBuildFile; fileRef = 315F0AE216CC186C00300B19 /* bookshelf_horizontal.png */; };
@@ -321,6 +323,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		079CBAE91E53AE3E00F7CA4D /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
+		079CBAEB1E53AE6100F7CA4D /* styleIndex.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = styleIndex.css; sourceTree = "<group>"; };
 		0C38CE2BF8B5F65AF31BB6AC /* libPods-TouchTest.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TouchTest.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		314B7E6116C2D9BF0061F0BF /* EBookImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBookImporter.h; sourceTree = "<group>"; };
 		314B7E6216C2D9BF0061F0BF /* EBookImporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBookImporter.m; sourceTree = "<group>"; };
@@ -1570,6 +1574,8 @@
 		56D563921ADC71CD0060574D /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				079CBAEB1E53AE6100F7CA4D /* styleIndex.css */,
+				079CBAE91E53AE3E00F7CA4D /* index.html */,
 				56BF7F251ADEE94900B015C6 /* ExpertCmapLinkList.xml */,
 				56BF7F261ADEE94900B015C6 /* ExpertCmapNodeList.xml */,
 				560D0BE519CA02E4006B11E4 /* aa.epub */,
@@ -1943,7 +1949,9 @@
 				568322FA1B12EFED00D3C3D5 /* error_small.png in Resources */,
 				569407F61939A2E400D5294F /* note_square.png in Resources */,
 				56465CDA17B8AF8300EE38FC /* TabNormal_red.png in Resources */,
+				079CBAEC1E53AE6100F7CA4D /* styleIndex.css in Resources */,
 				560B2F6C18EBE051009B8CB7 /* lebron_james.png in Resources */,
+				079CBAEA1E53AE3E00F7CA4D /* index.html in Resources */,
 				564061531CA37EC000C87504 /* Train_HyperNavi.png in Resources */,
 				562DD69B1C04DD0900D65FDE /* addIcon.png in Resources */,
 			);

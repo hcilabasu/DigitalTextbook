@@ -20,13 +20,14 @@
     CGRect rect=CGRectMake(530, 0, 511, 768);
     [self.view setFrame:rect];
 
-    
-    
-    NSString* url =  [NSString stringWithFormat:@"http://stackoverflow.com"];
+    NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"]];
     webView.backgroundColor=[UIColor whiteColor];
-    NSURL* nsUrl = [NSURL URLWithString:url];
-    NSURLRequest* request = [NSURLRequest requestWithURL:nsUrl cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:30];
-    [webView loadRequest:request];
+    [webView loadRequest:[NSURLRequest requestWithURL:url]];
+    
+    
+//    NSURL* nsUrl = [NSURL URLWithString:url];
+//    NSURLRequest* request = [NSURLRequest requestWithURL:nsUrl cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:30];
+//    [webView loadRequest:request];
     self.view.layer.borderColor = [UIColor grayColor].CGColor;
     self.view.layer.borderWidth = 2;
 }
