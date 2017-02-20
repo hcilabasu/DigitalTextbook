@@ -1,0 +1,77 @@
+body {
+	margin: 0;
+	font-size: 16px;
+	font-family: sans-serif;
+}
+
+header {
+	padding: 0px 10px;
+	background: #EEE;
+	overflow: auto;
+}
+
+header .name {
+	line-height: 30px;
+}
+
+header .userStats {
+	line-height: 30px;
+	position: absolute;
+	right: 10px;
+	top: 0;
+	color: blue;
+}
+
+.iconButton {}
+
+h2 {
+	margin: 10px 10px 10px 10px;
+	font-size: 1.2em;
+	line-height: 2em;
+}
+
+h2 > a {
+	float: right;
+}
+
+.linkList {
+	list-style-type: none;
+	padding: 0 10px;
+	margin-bottom: 40px;
+}
+
+.linkList > li {
+	display: inline-block;
+}
+
+.button {
+	display: inline-block;
+	padding: 10px;
+	background: #EEE;
+	text-decoration: none;
+	box-shadow: inset 0px -2px 0px rgba(0,0,0,0.3);
+	border-radius: 3px;
+	color: #333;
+	font-size: 16px;
+	line-height: 16px;
+	font-weight: normal;
+}
+
+.button:hover {
+	box-shadow: inset 0px -2px 0px rgba(0,0,0,0.3), inset 0px 0px 50px rgba(0,0,0,0.4);
+}
+
+.button.specialButton {
+	background-color: #104E8B;
+	color: white;
+}
+
+.questionsPanel {
+	text-align: center;
+	padding: 40px 0;
+}
+
+.divisor {
+	border-top: solid 1px #CCC;
+	padding-top: 20px;
+}
