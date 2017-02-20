@@ -47,7 +47,7 @@
 @synthesize logWrapper;
 @synthesize userName;
 @synthesize currentContentView;
-
+@synthesize loadContentView;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -197,7 +197,7 @@
         return nil;
     }
     
-    NSString* logStr=[[NSString alloc] initWithFormat:@"Navigate to page: %d", index+1];
+    NSString* logStr=[[NSString alloc] initWithFormat:@"Loading page: %d", index+1];
     LogData* log= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:logStr selection:@"Textbook" input:@"null" pageNum:index];
     [logWrapper addLogs:log];
     [LogDataParser saveLogData:logWrapper];
@@ -217,7 +217,8 @@
     dataViewController.bookHighLight=highLight;
     dataViewController.bookthumbNailIcon=thumbnailIcon;
     dataViewController.bookLogData=logWrapper;
-    currentContentView=dataViewController;
+    loadContentView=dataViewController;
+   // currentContentView=dataViewController;
     
     NSLog(@"Page: %d/%d", _pageNum+1,_totalPageNum);
     dataViewController.dataObject =
@@ -345,7 +346,8 @@
 
 
 -(void)searchAndHighlightNode{
-    
+    [parent_BookPageViewController.cmapView highlightPageNode:loadContentView.pageNum];
+    /*
     if(thumbnailIcon!=nil){
         for(ThumbNailIcon *thumbNailItem in thumbnailIcon.thumbnails){
             // if([thumbNailItem.relatedConcpet isEqualToString: concpet]){
@@ -353,13 +355,13 @@
                 if (3==thumbNailItem.type){
                     //if(parent_BookPageViewController.cmapView.isInitComplete){
                    // [parent_BookPageViewController.cmapView highlightNode:thumbNailItem.text];
-                    [parent_BookPageViewController.cmapView highlightPageNode:currentContentView.pageNum];
+                    [parent_BookPageViewController.cmapView highlightPageNode:loadContentView.pageNum];
                     // }
                 }
             }
             //}
         }
-    }
+    }*/
 }
 
 

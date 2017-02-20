@@ -26,6 +26,7 @@
 #import "ZCTradeView.h"
 #import "MyAlertView.h"
 #import "TrainingViewController.h"
+#import "PopoverView.h"
 /*
  @interface CmapController ()<GHContextOverlayViewDataSource, GHContextOverlayViewDelegate>
  @property (weak, nonatomic) IBOutlet UIImageView *imageView;
@@ -98,6 +99,9 @@
 @synthesize keyboardOffset;
 @synthesize linkJustCreated;
 @synthesize upLoadIcon;
+@synthesize showingPV;
+@synthesize noteTakingNode;
+
 - (id) init {
     if (self = [super init]) {
         nodeCount=1;
@@ -143,6 +147,8 @@
     lastStepConceptNodeArray=[[NSMutableArray alloc] init];
     lastStepConceptLinkArray=[[NSMutableArray alloc] init];
     
+  //  myWebView=[[WebBrowserViewController alloc]initWithNibName:@"WebBrowserViewController" bundle:nil];
+    
     [self.navigationController setDelegate:self];
     // [self.navigationController setNavigationBarHidden: YES animated:NO];
     /*
@@ -182,11 +188,6 @@
     // [self loadConceptMap:nil];
     isInitComplete=YES;
     
-    //double tap to pop up help menu
-    //UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapped:)];
-    //[doubleTap setNumberOfTapsRequired:2];
-    //doubleTap.delegate=self;
-    //[self.view addGestureRecognizer:doubleTap];
     
     bulbImageView = [[UIImageView alloc]initWithFrame:CGRectMake(450, 700, 40, 40)];
     [bulbImageView setImage:[UIImage imageNamed:@"addIcon"]];
@@ -408,7 +409,7 @@
 }
 
 
-
+//The search button on toolbar
 - (IBAction)hideAndShow:(id)sender {
     [parentBookPageViewController hideAndShowPreView];
     
@@ -416,7 +417,7 @@
 
 
 -(void)showAndHidePreview:(id)sender {
-    [parentBookPageViewController hideAndShowPreView];
+    //[parentBookPageViewController hideAndShowPreView];
 }
 
 -(void)buttonAction{
@@ -463,14 +464,12 @@
     if(contentView.frame.size.width>2500){
         // return NULL;
     }
-    
-    
     return contentView;
 }
 
 
 
-
+//Loads concept map
 - (IBAction)loadConceptMap:(id)sender {
     
     
@@ -494,9 +493,10 @@
     
     [conceptNodeArray removeAllObjects];
     [conceptLinkArray removeAllObjects];
+    
     for(CmapNode* cell in bookNodeWrapper.cmapNodes){
         
-        [self createNode:CGPointMake(cell.point_x, cell.point_y) withName:cell.text page:cell.pageNum];
+        [self createNode:CGPointMake(cell.point_x, cell.point_y) withName:cell.text page:cell.pageNum url:cell.linkingUrl urlTitle: cell.linkingUrlTitle hasNote: cell.hasNote hasHighlight: cell.hasHighlight hasWebLink: cell.hasWebLink savedNotesString: cell.savedNotesString];
         
         
     }
@@ -540,7 +540,7 @@
     [conceptLinkArray removeAllObjects];
     for(CmapNode* cell in bookNodeWrapper.cmapNodes){
         
-        [self createNode:CGPointMake(cell.point_x, cell.point_y) withName:cell.text page:cell.pageNum];
+        [self createNode:CGPointMake(cell.point_x, cell.point_y) withName:cell.text page:cell.pageNum url:cell.linkingUrl];
         
         
     }
@@ -579,11 +579,6 @@
            selector:@selector(textViewDidEndEditing:)
                name:UITextViewTextDidEndEditingNotification
              object:nil];
-    
-    //relation.frame = CGRectMake(relation.frame.origin.x, relation.frame.origin.y, relation.contentSize.width, relation.contentSize.height);
-    // [relationTextArray addObject:relation];
-    //ConceptLink *link = [[ConceptLink alloc] initWithName:self conceptName:relationName relation:relation];
-    //[parentCmapController addConcpetLink:link];
     
     CGPoint p1=[self getViewCenterPoint:leftCell.view];
     CGPoint p2=[self getViewCenterPoint:rightCell.view];
@@ -628,7 +623,7 @@
     //  [ CmapLinkParser saveCmapLink:bookLinkWrapper];
     [ CmapLinkParser saveExpertCmapLink:bookLinkWrapper];
     for(NodeCell* m_node in conceptNodeArray){
-        CmapNode* node= [[CmapNode alloc] initWithName: m_node.text.text bookTitle:m_node.bookTitle positionX:m_node.view.frame.origin.x positionY:m_node.view.frame.origin.y Tag:m_node.text.tag page:m_node.pageNum];
+        CmapNode* node= [[CmapNode alloc] initWithName: m_node.text.text bookTitle:m_node.bookTitle positionX:m_node.view.frame.origin.x positionY:m_node.view.frame.origin.y Tag:m_node.text.tag page:m_node.pageNum url:m_node.linkingUrl.absoluteString urlTitle: m_node.linkingUrlTitle hasNote:m_node.hasNote hasHighlight:m_node.hasHighlight hasWebLink:m_node.hasWeblink savedNotesString: m_node.appendedNoteString];
         [bookNodeWrapper addthumbnail:node];
     }
     //[CmapNodeParser saveCmapNode:bookNodeWrapper];
@@ -641,7 +636,7 @@
 }
 
 
--(void)autoSaveMap{
+-(void)autoSaveMap{ //This is to save the current concept map in the log files
     if(isTraining){
         return;
     }
@@ -656,7 +651,8 @@
     }
     [ CmapLinkParser saveCmapLink:bookLinkWrapper];
     for(NodeCell* m_node in conceptNodeArray){
-        CmapNode* node= [[CmapNode alloc] initWithName: m_node.text.text bookTitle:m_node.bookTitle positionX:m_node.view.frame.origin.x positionY:m_node.view.frame.origin.y Tag:m_node.text.tag page:m_node.pageNum];
+     //   NSLog([NSString stringWithFormat: @"Note String at auto save: %@", m_node.appendedNoteString]);
+        CmapNode* node= [[CmapNode alloc] initWithName: m_node.text.text bookTitle:m_node.bookTitle positionX:m_node.view.frame.origin.x positionY:m_node.view.frame.origin.y Tag:m_node.text.tag page:m_node.pageNum url:m_node.linkingUrl.absoluteString urlTitle: m_node.linkingUrlTitle hasNote:m_node.hasNote hasHighlight:m_node.hasHighlight hasWebLink:m_node.hasWeblink savedNotesString: m_node.appendedNoteString];
         [bookNodeWrapper addthumbnail:node];
         
     }
@@ -680,30 +676,30 @@
 
 
 -(void)logLinkingConceptNodes: (NSString*)Concept1 ConnectedConcept: (NSString*)Concept2 {
-    NSString* LogString=[[NSString alloc] initWithFormat:@"Linking concept: %@ with: %@. ", Concept1, Concept2];
+    NSString* LogString=[[NSString alloc] initWithFormat:@"Linking concept: %@ with: %@.", Concept1, Concept2];
     NSString* selectionString=[[NSString alloc] initWithFormat:@" %@ and %@. ", Concept1, Concept2];
     LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:LogString selection:selectionString input:@"null" pageNum:pageNum];
     [bookLogDataWrapper addLogs:newlog];
     [LogDataParser saveLogData:bookLogDataWrapper];
 }
 
-
+/*
 -(void)logHyperNavigation:(NSString*)ConceptName{
     NSString* LogString=[[NSString alloc] initWithFormat:@"Using hyperlink from concept: %@", ConceptName];
     LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:LogString selection:@"concept map view" input:@"null" pageNum:pageNum];
     [bookLogDataWrapper addLogs:newlog];
     [LogDataParser saveLogData:bookLogDataWrapper];
     
-}
+}*/
 
 -(void)disableAllNodesEditting{
     for (NodeCell *node in conceptNodeArray){
-        node.text.enabled=NO;
+      //  node.text.enabled=NO;
     }
 }
 -(void)enableAllNodesEditting{
     for (NodeCell *node in conceptNodeArray){
-        node.text.enabled=YES;
+      //  node.text.enabled=YES;
     }
 }
 
@@ -734,26 +730,8 @@
 -(BOOL)prefersStatusBarHidden{
     return YES;
 }
-
--(void)createNode:(CGPoint)position withName:(NSString*) name page: (int)m_pageNum{
-    //[self savePreviousStep];
-    /*
-     NodeCell *node=[[NodeCell alloc]initWithNibName:@"NodeCell" bundle:nil];
-     node.parentCmapController=self;
-     node.showPoint=CGPointMake(position.x+39, position.y+15);;
-     node.bookHighLight=bookHighlight;
-     node.isInitialed=YES;
-     node.bookTitle=bookTitle;
-     node.bookthumbNailIcon=bookThumbNial;
-     node.text.text=name;
-     node.conceptName=name;
-     [self addChildViewController:node];
-     [conceptNodeArray addObject:node];
-     [conceptMapView addSubview: node.view ];
-     node.text.text=name;
-     node.conceptName=name;
-     */
-    
+//Used to create nodes when map is loading
+-(void)createNode:(CGPoint)position withName:(NSString*) name page: (int)m_pageNum  url:(NSURL*)m_linkingUrl urlTitle: (NSString *) m_linkingUrlTitle hasNote: (BOOL) m_hasNote hasHighlight: (BOOL) m_hasHighlight hasWebLink: (BOOL) m_hasWebLink savedNotesString: (NSString *) m_noteString{
     
     NodeCell *node=[[NodeCell alloc]initWithNibName:@"NodeCell" bundle:nil];
     node.createType=0;
@@ -769,20 +747,26 @@
     node.conceptName=name;
     node.userName=userName;
     node.bookLogData=bookLogDataWrapper;
+    node.appendedNoteString = m_noteString;
     [conceptNodeArray addObject:node];
+    if(m_hasNote){
+        node.hasNote = YES;
+    }
+    if(m_hasWebLink){
+        node.hasWeblink = YES;
+    }
+    if(m_hasHighlight) {
+        node.hasHighlight = YES;
+    }
     [self addChildViewController:node];
     [conceptMapView addSubview: node.view ];
     node.text.text=name;
     node.text.tag=nodeCount;//use nodeCount to identify the node.
     nodeCount++;
+    node.linkingUrl = m_linkingUrl;
+    node.linkingUrlTitle = m_linkingUrlTitle;
+ 
     [node becomeFirstResponder];
-    
-    //  [self autoSaveMap];
-    //if([name isEqualToString:@"seeds"]||[name isEqualToString:@"bud"]||[name isEqualToString:@"fusion"]||[name isEqualToString:@"plant"]||[name isEqualToString:@"spores"]){
-    //  node.text.text=@"???";
-    // node.pageNum=-1;
-    //}
-    //[self autoSaveMap];
 }
 
 
@@ -1048,7 +1032,7 @@
     }
 }
 
-
+//The  "+" button on the toolbar, create a node
 - (IBAction)clickOnBulb : (id)sender
 {
     
@@ -1072,11 +1056,13 @@
     
     [self addConceptOnClick: location];
     
+    
     NSString* numString=[[NSUserDefaults standardUserDefaults] stringForKey:@"NumOfConcepts"];
     int numInt=[numString intValue];
     numInt++;
     numString=[[NSString alloc]initWithFormat:@"%d",numInt];
     [[NSUserDefaults standardUserDefaults] setObject:numString forKey:@"NumOfConcepts"];
+    
     
     [self getPreView:nil];
     [self updatePreviewLocation];
@@ -1092,17 +1078,11 @@
      */
 }
 
-
-- (IBAction)uppCmap : (id)sender
-{
-    [self uploadConceptMapImg];
-}
-
-
+//For nodes created from book and web browser
 -(void)createNodeFromBook:(CGPoint)position withName:(NSString*) name BookPos: (CGPoint)bookPosition page:(int)m_pageNum{
     [self savePreviousStep];
     for(NodeCell* cell in conceptNodeArray){
-        if([cell.text.text isEqualToString:name]){
+        if([cell.text.text isEqualToString:name]){//Node already exists
             NSString* msg=[[NSString alloc]initWithFormat:@"Concept %@ already exist.", name];
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:msg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
             alert.tag=1;
@@ -1114,11 +1094,19 @@
     CGPoint pointInView=position;
     pointInView.x+=conceptMapView.contentOffset.x;
     pointInView.y+=conceptMapView.contentOffset.y;
-    
-    LogData* log= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"creating concept node from book " selection:@"textbook" input:name pageNum:pageNum];
-    [bookLogDataWrapper addLogs:log];
-    [LogDataParser saveLogData:bookLogDataWrapper];
-    
+    //Saves info into log file
+    if (m_pageNum == 0){ //Made from Web Browser
+        LogData* log= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"creating concept node from web browser " selection:@"web browser" input:name pageNum:0];
+        [bookLogDataWrapper addLogs:log];
+        [LogDataParser saveLogData:bookLogDataWrapper];
+    }
+    else{//from book
+        LogData* log= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"creating concept node from book " selection:@"textbook" input:name pageNum:m_pageNum];
+        [bookLogDataWrapper addLogs:log];
+        [LogDataParser saveLogData:bookLogDataWrapper];
+    }
+
+    //creates node
     NodeCell *node=[[NodeCell alloc]initWithNibName:@"NodeCell" bundle:nil];
     node.createType=1;
     node.parentCmapController=self;
@@ -1132,11 +1120,20 @@
     node.showType=showType;
     node.enableHyperLink=YES;
     node.pageNum=m_pageNum-1;
+    if (m_pageNum == 0){ //Made from Web Browser
+        [node setLinkingUrl];
+        node.hasWeblink = YES;
+    }
+    else {
+        node.hasHighlight = YES; //made from book
+    }
     [conceptNodeArray addObject:node];
     [self addChildViewController:node];
     [conceptMapView addSubview: node.view ];
     node.text.tag=nodeCount;//use nodeCount to identify the node.
     node.text.text=name;
+
+    node.conceptName=name;
     [node updateViewSize];
     nodeCount++;
     NSString* numString=[[NSUserDefaults standardUserDefaults] stringForKey:@"NumOfConcepts"];
@@ -1145,6 +1142,7 @@
     numString=[[NSString alloc]initWithFormat:@"%d",numInt];
     [[NSUserDefaults standardUserDefaults] setObject:numString forKey:@"NumOfConcepts"];
     
+    node.updateViewSize;
     [self getPreView:nil];
     [self updatePreviewLocation];
     [self autoSaveMap];
@@ -1253,22 +1251,25 @@
 }
 
 
-
+//from click on bulb adds a node
 -(void)addConceptOnClick: (CGPoint)clickPoint
 {
     NodeCell *node=[[NodeCell alloc]initWithNibName:@"NodeCell" bundle:nil];
+    node.hasNote = YES; // created manually
     node.createType=1;
     node.parentCmapController=self;
     node.showPoint=clickPoint;
     node.bookLogData=bookLogDataWrapper;
     node.bookHighLight=bookHighlight;
-    node.pageNum=parent_ContentViewController.pageNum-1;
+    node.pageNum=self.parent_ContentViewController.pageNum - 1;
     node.bookTitle=bookTitle;
     node.bookthumbNailIcon=bookThumbNial;
     [self addChildViewController:node];
     [conceptNodeArray addObject:node];
     [conceptMapView addSubview: node.view ];
     addedNode=node;
+    
+    node.updateViewSize;
 }
 
 -(void)scrollCmapView :(CGFloat)length
@@ -1283,7 +1284,6 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
     nodeTextBeforeEditing=textField.text;
-    
     // textField.text=@"";
     CGSize screenSZ=[self screenSize];
     CGFloat offSet=(textField.superview.frame.size.height+ textField.superview.frame.origin.y)-(768-352);
@@ -1324,8 +1324,12 @@
         [addedNode.text becomeFirstResponder];
         //Code for OK button
     }
-    if (buttonIndex == 1&&alertView.tag==2)
+    if (buttonIndex == 1&&alertView.tag==2)//delete map was selected
     {
+        LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"deleting whole concept view" selection:@"Concept Map View" input:@"null" pageNum:pageNum];
+        [bookLogDataWrapper addLogs:newlog];
+        [LogDataParser saveLogData:bookLogDataWrapper];
+        
         for (NodeCell *cell in conceptNodeArray)
         {
             [cell removeLink];
@@ -1397,6 +1401,7 @@
 
 
 - (void)keyboardWillHide:(NSNotification*)notification {
+
     /*
      if ([addedNode.text.text isEqualToString:@""] ){
      UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"Node is empty!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -1425,6 +1430,7 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"Node is empty!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         // [alert show];
     }
+
    // if(isKeyboardOffset){
      //   [self scrollCmapView: -keyboardOffset];
       //  isKeyboardOffset=NO;
@@ -1452,6 +1458,7 @@
      }//end if
      
      }//end else*/
+
 }
 
 -(void)showDepliAlert{
@@ -1479,7 +1486,7 @@
                         [conceptNamesArray addObject:cell.conceptName];
                         CGPoint position= [self calculateNodePosition:conceptId];
                         conceptId++;
-                        [self createNode:position withName:cell.conceptName page:0];
+                        //[self createNode:position withName:cell.conceptName page:0 url:cell.];
                     }
                 }
             }
@@ -1528,10 +1535,14 @@
 
 //- (void)textViewDidEndEditing:(UITextView *)textView{
 - (void)textViewDidEndEditing:(UITextView *)textView{
-    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Finish editting concept link name" selection:linkTextBeforeEditing input:textView.text pageNum:pageNum];
+    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Taking notes" selection:linkTextBeforeEditing input:textView.text pageNum:pageNum];
     [bookLogDataWrapper addLogs:newlog];
     [LogDataParser saveLogData:bookLogDataWrapper];
-    
+    if (showingPV != nil){ // popoverview for taking notes exists
+        noteTakingNode.appendedNoteString = showingPV.noteText.text; //saves text from popover view
+        [showingPV dismiss]; //gets rid of popover view
+    }
+    [self autoSaveMap];
     /*
      if(textView.text.length<5){
      textView.frame=CGRectMake(textView.frame.origin.x, textView.frame.origin.y, 40, textView.frame.size.height);
@@ -1606,7 +1617,7 @@
     for(NodeCell* cell in conceptNodeArray){
         if(cell.pageNum==(page-1)){
             [cell highlightNode];
-            return;
+        
         }
     }
     
@@ -1664,10 +1675,6 @@
     
 }
 
-
-- (IBAction)hidePreView:(id)sender {
-    [parentBookPageViewController hideAndShowPreView];
-}
 
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
@@ -1729,7 +1736,11 @@
     extraWidth=conceptMapView.frame.size.width*(conceptMapView.zoomScale-sacleBeforeZooming)/2;
     extraHeight=conceptMapView.frame.size.height*(conceptMapView.zoomScale-sacleBeforeZooming)/2;
     int i=0;
+    
     for (NodeCell* cell in conceptNodeArray  ){
+        if(positionBeforeZoom.count==0){
+            continue;
+        }
         NSValue *CGPointValue=[positionBeforeZoom objectAtIndex:i];
         CGPoint savedPoint=[CGPointValue CGPointValue];
         //[cell.view setFrame:CGRectMake(cell.view.frame.origin.x*scale, cell.view.frame.origin.y*scale, cell.view.frame.size.width,  cell.view.frame.size.height)];
@@ -1846,67 +1857,8 @@
 
 
 
-- (void) uploadConceptMapImg{
-    /*
-     UIGraphicsBeginImageContextWithOptions(conceptMapView.bounds.size, NO, 0.0);
-     [conceptMapView.layer renderInContext:UIGraphicsGetCurrentContext()];
-     
-     UIImage * img = UIGraphicsGetImageFromCurrentImageContext();
-     [[UIColor whiteColor] set];
-     
-     UIGraphicsEndImageContext();
-     
-     
-     
-     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-     NSString *filePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"ExpertScreenShot.png"];
-     
-     // Save image.
-     // [UIImagePNGRepresentation(img) writeToFile:filePath atomically:YES];
-     
-     //return img;
-     
-     NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
-     sessionConfiguration.HTTPAdditionalHeaders = @{
-     @"Authorization" : [NSString stringWithFormat:@"Bearer %@", @"BFPZY5kp2NAAAAAAAAAAJHzSODkGgGqThiZaKH2pCafGwX1kKVs2UVSVnwMiRj9c"],
-     @"Content-Type"  : @"application/zip"
-     };
-     
-     
-     //make a file name to write the data to using the documents directory:
-     NSString *documentsDirectory = [paths objectAtIndex:0];
-     
-     NSString *content = [[NSString alloc] initWithContentsOfFile:filePath
-     usedEncoding:nil
-     error:nil];
-     // NSString *filename = @"Maps/ScreenShot.png";
-     // NSString *localDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-     //NSString *localPath = [localDir stringByAppendingPathComponent:filename];
-     /// [content writeToFile:localPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
-     
-     
-     NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration: sessionConfiguration delegate: self delegateQueue: [NSOperationQueue mainQueue]];
-     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://api-content.dropbox.com/1/files_put/auto/%@?overwrite=false",filename]]];
-     [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
-     NSData *data = [[NSFileManager defaultManager] contentsAtPath:filePath];
-     [request setHTTPMethod:@"PUT"];
-     [request setHTTPBody:data];
-     [request setTimeoutInterval:1000];
-     
-     NSURLSessionDataTask *doDataTask = [defaultSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-     if (!error){
-     NSLog(@"WORKED!!!!");
-     } else {
-     NSLog(@"ERROR: %@", error);
-     }
-     }];
-     
-     [doDataTask resume];
-     */
-}
-
-
 -(void)deleteLink: (NSString* )leftName SecondNode: (NSString*)rightName{
+    
     [self savePreviousStep];
     NSLog(@"%@",leftName);
     NSLog(@"%@",rightName);
@@ -1928,6 +1880,11 @@
             linkBk=link;
         }
     }
+    
+    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Deleting Link" selection:@"concept map view" input:linkBk.relation.text pageNum:pageNum];
+    [bookLogDataWrapper addLogs:newlog];
+    [LogDataParser saveLogData:bookLogDataWrapper];
+    //removes link that matches description
     [conceptLinkArray removeObject:linkBk];
     
     for(NodeCell* cell in conceptNodeArray){
@@ -1983,26 +1940,6 @@
 
 -(void)uploadCMapImg
 {
-    
-    /*
-    UIGraphicsBeginImageContextWithOptions(conceptMapView.bounds.size, NO, 0.0);
-    [conceptMapView.layer renderInContext:UIGraphicsGetCurrentContext()];
-    
-    UIImage * img = UIGraphicsGetImageFromCurrentImageContext();
-    [[UIColor whiteColor] set];
-    
-    UIGraphicsEndImageContext();
-    
-    
-    
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *filePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"FinalScreenShot.png"];
-    
-    // Save image.
-    [UIImagePNGRepresentation(img) writeToFile:filePath atomically:YES];
-    
-    //return img;*/
-    
     UIImage* image = nil;
     
     UIGraphicsBeginImageContext(conceptMapView.contentSize);
@@ -2027,18 +1964,13 @@
     
     // Save image.
     [UIImagePNGRepresentation(image) writeToFile:filePath atomically:YES];
+
     
     /*
     if (image != nil) {
         [UIImagePNGRepresentation(image) writeToFile: @"/tmp/test.png" atomically: YES];
         system("open /tmp/test.png");
     }*/
-    
-    
-    
-    
-    
-    
     
     
     NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
@@ -2353,11 +2285,14 @@
 }
 
 
+
+
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
     return textView.text.length + (text.length - range.length) <= 140;
 }
 
+//trashcan on toolbar
 - (IBAction)deleteAll:(id)sender {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"Do you want to delete the whole map?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles: @"Yes",nil];
     alert.tag=2;
@@ -2376,7 +2311,7 @@
     [conceptLinkArray removeAllObjects];
     for(CmapNode* cell in bookNodeWrapper.cmapNodes){
         
-        [self createNode:CGPointMake(cell.point_x, cell.point_y) withName:cell.text page:cell.pageNum];
+        [self createNode:CGPointMake(cell.point_x, cell.point_y) withName:cell.text page:cell.pageNum url:cell.linkingUrl];
         
         
     }
@@ -2403,7 +2338,7 @@
     
     [parentBookPageViewController.bookView.currentContentView refresh];
 }
-
+//upload button on far right of toolbar, needs three clicks to load
 - (IBAction)AdminUpload:(id)sender {
     /*
      ZCTradeView* trade=[[ZCTradeView alloc]init];
@@ -2444,6 +2379,7 @@
     NSString *content = [[NSString alloc] initWithContentsOfFile:fileName
                                                     usedEncoding:nil
                                                            error:nil];
+
     NSString *filename = @"HighSchoolLogfile/";
     NSString* usrName=[[NSUserDefaults standardUserDefaults] stringForKey:@"UserName"];
    // filename=[filename stringByAppendingString:usrName];
@@ -2502,6 +2438,43 @@
 -(void)dismissLinkHint{
     //[focusQuestionLable setHidden:YES];
     [parentBookPageViewController hideLinkingWarning];
+}
+
+//"Web" button  on toolbar action to display web view
+-(IBAction) displayWebView:(id)sender{
+   /// WebBrowserViewController *myweb=[[WebBrowserViewController alloc]initWithNibName:@"WebBrowserViewController" bundle:nil];
+    if (self.parentBookPageViewController.myWebView.view.isHidden == YES){ // Web browser view is hidden
+        //Show view
+        [self.parentBookPageViewController.myWebView.view setHidden: NO];
+        if ([self.parentBookPageViewController.myWebView.webAdrText.text isEqualToString:@""]){ //Url textfield is empty
+            [self.parentBookPageViewController.myWebView SearchKeyWord: @""]; //go to google
+        }
+        self.parentBookPageViewController.subViewType=1;
+        [self.parentBookPageViewController.view bringSubviewToFront:parentBookPageViewController.myWebView.view];
+    }
+    else{ //Web browser view is showing
+        //Hide View
+        [self.parentBookPageViewController.myWebView.view setHidden: YES];
+         self.parentBookPageViewController.subViewType=0;
+        [self.parentBookPageViewController.view sendSubviewToBack:parentBookPageViewController.myWebView.view];
+    }
+
+}
+
+
+//commenting
+-(void)showNoteTaking: (CGPoint)showpoint  {
+    
+    NSArray *popUpContent=[NSArray arrayWithObjects:@"NoteTaking", nil];
+    [PopoverView showPopoverAtPoint:showpoint
+                                 inView:self.contentView
+                              withTitle:@"Take Note"
+                        withStringArray:popUpContent
+                               delegate:self];
+    //pv.showPoint=self.showPoint;
+    
+   // [pv becomeFirstResponder];
+
 }
 
 @end

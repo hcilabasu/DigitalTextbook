@@ -30,6 +30,7 @@
 #import "NodeViewController.h"
 #import "SubNodeViewController.h"
 #import "CmapBookNoteViewController.h"
+#import "BookPageViewController.h"
 //#import <KIF/KIF.h>
 //#import "TouchSynthesis.h"
 // for the "quick help" feature, we haven't decided what interaction we want to add after user clicks the button so we define this array to display some default word.
@@ -92,6 +93,7 @@ static NSString *cellId2 = @"cellId2";
 @synthesize timerLable;
 
 
+
 -(void)viewDidAppear:(BOOL)animated{
     //[self refresh];
     [self.currentPageLabel setText:[NSString stringWithFormat:@"%d/%d",pageNum, totalpageNum]];
@@ -104,6 +106,7 @@ static NSString *cellId2 = @"cellId2";
         //[ThumbScrollViewRight setHidden:YES];
         [self hideAllSubview:ThumbScrollViewRight];
         isSplit=YES;
+        //when loading, at least
     }
     
     [parent_BookViewController clearAllHighlightNode];
@@ -116,34 +119,25 @@ static NSString *cellId2 = @"cellId2";
     [webView becomeFirstResponder];
     
     parent_BookViewController.parent_BookPageViewController.cmapView.parent_ContentViewController=self;
+    parent_BookViewController.currentContentView=self;
+    
+    NSString* logStr=[[NSString alloc] initWithFormat:@"Turned tos page: %d", index+1];
+    LogData* log= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:logStr selection:@"Textbook" input:@"null" pageNum:index];
+    [bookLogData addLogs:log];
+    [LogDataParser saveLogData:bookLogData];
    // [self.parentViewController.navigationController setNavigationBarHidden: YES animated:YES];
     //[self.navigationController setNavigationBarHidden: YES animated:YES];
 }
 
 
-/*
-- (void)performTouchInView:(UIView *)view
-{
-    //UITouch *touch = [UITouch alloc];
-    //[touch ssssssssssss];
-    UITouch *touch = [[UITouch alloc] initInView:view];
-    UIEvent *eventDown = [[UIEvent alloc] initWithTouch:touch];
-    
-    [touch.view touchesBegan:[eventDown allTouches] withEvent:eventDown];
-    
-    [touch setPhase:UITouchPhaseEnded];
-    UIEvent *eventUp = [[UIEvent alloc] initWithTouch:touch];
-    
-    [touch.view touchesEnded:[eventUp allTouches] withEvent:eventUp];
-}
-*/
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [ThumbScrollViewRight setHidden:YES];
      startDate = [NSDate date];
-    [webView setDelegate:self];
+    //[webView setDelegate:self];
+    [webView setDelegate:parent_BookViewController.parent_BookPageViewController];
     [linkCollectionView setDataSource:self];
     [linkCollectionView setDelegate:self];
     linkCollectionView.backgroundColor = [UIColor colorWithWhite:255 alpha:0.1];
@@ -191,8 +185,8 @@ static NSString *cellId2 = @"cellId2";
     [webView addGestureRecognizer:doubleTap];
      */
     //set up menu items, icons and methods
-    [self setingUpMenuItem];
-    
+   // [self setingUpMenuItem];
+   
     //specify the javascript file path
     NSString *filePath  = [[NSBundle mainBundle] pathForResource:@"JavaScriptFunctions" ofType:@"js" inDirectory:@""];
     if(filePath==nil){
@@ -336,7 +330,12 @@ static NSString *cellId2 = @"cellId2";
   //  NSString *jsString2 = [[NSString alloc] initWithFormat:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '%d%%'",96];
     //[webView stringByEvaluatingJavaScriptFromString:jsString2];
     }
+    
+   // [self settingUpParentMenu];
+
 }
+
+
 
 
 - (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
@@ -357,6 +356,9 @@ static NSString *cellId2 = @"cellId2";
     [self.currentPageLabel setText:[NSString stringWithFormat:@"%d/%d",pageNum, totalpageNum]];
 }
 
+
+
+//Sets up the menu items that pop up
 -(void) setingUpMenuItem{ //set the menu items in the content view
     // use notification to check if the menu is showing
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willShowEditMenu:) name:UIMenuControllerWillShowMenuNotification object:nil];
@@ -373,7 +375,7 @@ static NSString *cellId2 = @"cellId2";
     markIconSettingSpeak.shrinkWidth = 4; //set menu item size and picture.
     
     CXAMenuItemSettings *markIconSettingsPopUp = [CXAMenuItemSettings new];
-    markIconSettingsPopUp.image = [UIImage imageNamed:@"question"];
+    markIconSettingsPopUp.image = [UIImage imageNamed:@"bb"];
     markIconSettingsPopUp.shadowDisabled = NO;
     markIconSettingsPopUp.shrinkWidth = 4; //set menu item size and picture.
     
@@ -392,40 +394,40 @@ static NSString *cellId2 = @"cellId2";
     markIconSettingsYelow.image = [UIImage imageNamed:@"highlight_yellow"];
     markIconSettingsYelow.shadowDisabled = NO;
     markIconSettingsYelow.shrinkWidth = 4; //set menu item size and picture.
-
+    
     /*
-    CXAMenuItemSettings *markIconSettingsGreeen = [CXAMenuItemSettings new];
-    markIconSettingsGreeen.image = [UIImage imageNamed:@"highlight_green"];
-    markIconSettingsGreeen.shadowDisabled = NO;
-    markIconSettingsGreeen.shrinkWidth = 4; //set menu item size and picture.
-    
-    CXAMenuItemSettings *markIconSettingsBlue = [CXAMenuItemSettings new];
-    markIconSettingsBlue.image = [UIImage imageNamed:@"highlight_blue"];
-    markIconSettingsBlue.shadowDisabled = NO;
-    markIconSettingsBlue.shrinkWidth = 4; //set menu item size and picture.
-    
-    CXAMenuItemSettings *markIconSettingsPurple = [CXAMenuItemSettings new];
-    markIconSettingsPurple.image = [UIImage imageNamed:@"highlight_purple"];
-    markIconSettingsPurple.shadowDisabled = NO;
-    markIconSettingsPurple.shrinkWidth = 4; //set menu item size and picture.
-    
-    CXAMenuItemSettings *markIconSettingsRed = [CXAMenuItemSettings new];
-    markIconSettingsRed.image = [UIImage imageNamed:@"highlight_red"];
-    markIconSettingsRed.shadowDisabled = NO;
-    markIconSettingsRed.shrinkWidth = 4; //set menu item size and picture.
+     CXAMenuItemSettings *markIconSettingsGreeen = [CXAMenuItemSettings new];
+     markIconSettingsGreeen.image = [UIImage imageNamed:@"highlight_green"];
+     markIconSettingsGreeen.shadowDisabled = NO;
+     markIconSettingsGreeen.shrinkWidth = 4; //set menu item size and picture.
      
-    
-    CXAMenuItemSettings *underLineSet = [CXAMenuItemSettings new];
-    underLineSet.image = [UIImage imageNamed:@"underline2"];
-    underLineSet.shadowDisabled = NO;
-    underLineSet.shrinkWidth = 4; //set menu item size and picture.
-    
-    CXAMenuItemSettings *undoSet = [CXAMenuItemSettings new];
-    undoSet.image = [UIImage imageNamed:@"undo"];
-    undoSet.shadowDisabled = NO;
-    undoSet.shrinkWidth = 4; //set menu item size and picture.
-    */
-    
+     CXAMenuItemSettings *markIconSettingsBlue = [CXAMenuItemSettings new];
+     markIconSettingsBlue.image = [UIImage imageNamed:@"highlight_blue"];
+     markIconSettingsBlue.shadowDisabled = NO;
+     markIconSettingsBlue.shrinkWidth = 4; //set menu item size and picture.
+     
+     CXAMenuItemSettings *markIconSettingsPurple = [CXAMenuItemSettings new];
+     markIconSettingsPurple.image = [UIImage imageNamed:@"highlight_purple"];
+     markIconSettingsPurple.shadowDisabled = NO;
+     markIconSettingsPurple.shrinkWidth = 4; //set menu item size and picture.
+     
+     CXAMenuItemSettings *markIconSettingsRed = [CXAMenuItemSettings new];
+     markIconSettingsRed.image = [UIImage imageNamed:@"highlight_red"];
+     markIconSettingsRed.shadowDisabled = NO;
+     markIconSettingsRed.shrinkWidth = 4; //set menu item size and picture.
+     
+     
+     CXAMenuItemSettings *underLineSet = [CXAMenuItemSettings new];
+     underLineSet.image = [UIImage imageNamed:@"underline2"];
+     underLineSet.shadowDisabled = NO;
+     underLineSet.shrinkWidth = 4; //set menu item size and picture.
+     
+     CXAMenuItemSettings *undoSet = [CXAMenuItemSettings new];
+     undoSet.image = [UIImage imageNamed:@"undo"];
+     undoSet.shadowDisabled = NO;
+     undoSet.shrinkWidth = 4; //set menu item size and picture.
+     */
+
     CXAMenuItemSettings *takeNoteSetting = [CXAMenuItemSettings new];
     takeNoteSetting.image = [UIImage imageNamed:@"take_note"];
     takeNoteSetting.shadowDisabled = NO;
@@ -440,25 +442,25 @@ static NSString *cellId2 = @"cellId2";
     
     UIMenuItem *markHighlightedStringYellow = [[UIMenuItem alloc] initWithTitle: @"mark yellow" action: @selector(markHighlightedStringInYellow:)];
     [markHighlightedStringYellow cxa_setSettings:markIconSettingsYelow];
-   /*
-    UIMenuItem *markHighlightedStringGreen = [[UIMenuItem alloc] initWithTitle: @"mark green" action: @selector(markHighlightedStringInGreen:)];
-    [markHighlightedStringGreen cxa_setSettings:markIconSettingsGreeen];
-    
-    UIMenuItem *markHighlightedStringBlue = [[UIMenuItem alloc] initWithTitle: @"mark blue" action: @selector(markHighlightedStringInBlue:)];
-    [markHighlightedStringBlue cxa_setSettings:markIconSettingsBlue];
-    
-    UIMenuItem *markHighlightedStringPurple = [[UIMenuItem alloc] initWithTitle: @"mark purple" action: @selector(markHighlightedStringInPurple:)];
-    [markHighlightedStringPurple cxa_setSettings:markIconSettingsPurple];
-    
-    UIMenuItem *markHighlightedStringRed = [[UIMenuItem alloc] initWithTitle: @"mark red" action: @selector(markHighlightedStringInRed:)];
-    [markHighlightedStringRed cxa_setSettings:markIconSettingsRed];
-    
-    UIMenuItem *underLineItem = [[UIMenuItem alloc] initWithTitle: @"underline" action: @selector(underLine:)];
-    [underLineItem cxa_setSettings:underLineSet];
-    
-    UIMenuItem *undoItem = [[UIMenuItem alloc] initWithTitle: @"undo" action: @selector(removeFormat:)];
-    [undoItem cxa_setSettings:undoSet];
-    */
+    /*
+     UIMenuItem *markHighlightedStringGreen = [[UIMenuItem alloc] initWithTitle: @"mark green" action: @selector(markHighlightedStringInGreen:)];
+     [markHighlightedStringGreen cxa_setSettings:markIconSettingsGreeen];
+     
+     UIMenuItem *markHighlightedStringBlue = [[UIMenuItem alloc] initWithTitle: @"mark blue" action: @selector(markHighlightedStringInBlue:)];
+     [markHighlightedStringBlue cxa_setSettings:markIconSettingsBlue];
+     
+     UIMenuItem *markHighlightedStringPurple = [[UIMenuItem alloc] initWithTitle: @"mark purple" action: @selector(markHighlightedStringInPurple:)];
+     [markHighlightedStringPurple cxa_setSettings:markIconSettingsPurple];
+     
+     UIMenuItem *markHighlightedStringRed = [[UIMenuItem alloc] initWithTitle: @"mark red" action: @selector(markHighlightedStringInRed:)];
+     [markHighlightedStringRed cxa_setSettings:markIconSettingsRed];
+     
+     UIMenuItem *underLineItem = [[UIMenuItem alloc] initWithTitle: @"underline" action: @selector(underLine:)];
+     [underLineItem cxa_setSettings:underLineSet];
+     
+     UIMenuItem *undoItem = [[UIMenuItem alloc] initWithTitle: @"undo" action: @selector(removeFormat:)];
+     [undoItem cxa_setSettings:undoSet];
+     */
     UIMenuItem *takeNoteItem = [[UIMenuItem alloc] initWithTitle: @"take note" action: @selector(takeNote:)];
     [takeNoteItem cxa_setSettings:takeNoteSetting];
     
@@ -467,7 +469,6 @@ static NSString *cellId2 = @"cellId2";
     
     
     [menuController setMenuItems: [NSArray arrayWithObjects: concept, nil]];
-    
 }
 
 
@@ -660,17 +661,17 @@ static NSString *cellId2 = @"cellId2";
     return NO;
 }
 
-
+//function that adds a node with name, not in use, but keep it in case we need its contents
 - (void)dragAndDrop:(id)sender{
-    
     if(parent_BookViewController.parent_BookPageViewController.cmapView.isReadyToLink){
         [parent_BookViewController.parent_BookPageViewController showAlertWithText:@"There is a concept waiting to be linked!"];
         return;
     }
-    
-    
+
     BOOL isHyperLink = [[NSUserDefaults standardUserDefaults] boolForKey:@"HyperLinking"];
-     NSString* h_text=[webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"];
+    //Gets string
+    //web view not our web browser
+    NSString* h_text=[webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"];
     if(YES==isSplit){
         if(h_text.length>25){
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"You can not add concepts that have more than 25 charaters!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -1201,7 +1202,8 @@ static NSString *cellId2 = @"cellId2";
         //[self hideAllSubview:ThumbScrollViewRight];
         //[self hideAllSubview:ThumbScrollViewLeft];
         isSplit=YES;
-        
+            [self.parent_BookViewController.parent_BookPageViewController.myWebView updateBrowserWindow];
+        //When rotate
         
        // NSString *jsString2 = [[NSString alloc] initWithFormat:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '%d%%'",96];
         //[webView stringByEvaluatingJavaScriptFromString:jsString2];
@@ -1216,6 +1218,9 @@ static NSString *cellId2 = @"cellId2";
 
         [self loadThumbNailIcon:firstRespondConcpet];
         isSplit=NO;
+        [self.parent_BookViewController.parent_BookPageViewController.myWebView updateBrowserWindow];
+
+        //when rotate
         
     }
     
@@ -1283,9 +1288,6 @@ static NSString *cellId2 = @"cellId2";
                         // Do nothing - not a UIButton or subclass instance
                     }
                 }
-                
-                
-                
                 subnode.tag=0;//mark the node back to unexpanded
             }
             

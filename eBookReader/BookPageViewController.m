@@ -13,6 +13,9 @@
 #import "ConceptLink.h"
 #import "PreViewNode.h"
 #import "VideoViewController.h"
+#import "UIMenuItem+CXAImageSupport.h"
+
+
 @interface BookPageViewController ()
 
 @end
@@ -43,6 +46,9 @@
 @synthesize webFocusQuestionLable;
 @synthesize cmapFocusQuestionLable;
 @synthesize hintImg;
+@synthesize myWebView;
+@synthesize subViewType;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -53,34 +59,25 @@
         logWrapper= [LogDataParser loadLogData];
         ShowingQA=true;
         conceptNodeArray=[[NSMutableArray alloc] init];
-        
+        subViewType=0;
     }
     return self;
 }
 
--(void)test{
-    NSLog(@"Test");
-}
-
 
 -(void)addSwitchView{
-    
     bulbImageView = [[UIImageView alloc]initWithFrame:CGRectMake(498, 350, 30, 30)];
     [bulbImageView setImage:[UIImage imageNamed:@"switch.png"]];
     //bulbImageView.alpha=0.8;
     bulbImageView.userInteractionEnabled = YES;
-    
     UITapGestureRecognizer *bulbTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickOnBulb:)];
-    
     [self.bulbImageView addGestureRecognizer:bulbTap];
-    
     [self.view addSubview:bulbImageView];
     [bulbImageView setHidden:YES];
     bulbImageView.layer.shadowOpacity = 0.4;
     bulbImageView.layer.shadowRadius = 4;
     bulbImageView.layer.shadowColor = [UIColor blackColor].CGColor;
     bulbImageView.layer.shadowOffset = CGSizeMake(2, 2);
-    
 }
 
 - (IBAction)clickOnBulb : (id)sender
@@ -95,7 +92,6 @@
         ShowingQA=true;
     }
     [self.view bringSubviewToFront:bulbImageView];
-    
 }
 
 
@@ -104,14 +100,12 @@
     if(ShowingQA){
         [self.view bringSubviewToFront:cmapView.view];
         [cmapView loadConceptMap:nil];
-        
         ShowingQA=false;
     }else{
         [self.view bringSubviewToFront:QA.view];
         ShowingQA=true;
     }
     [self.view bringSubviewToFront:bulbImageView];
-    
 }
 
 -(void)finishTraining{
@@ -125,6 +119,8 @@
 
 
 
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -134,15 +130,14 @@
     self.navigationItem.rightBarButtonItem = leftButton;
     
     
+    
     if(isTraining){
         UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"Finish"
                                                                        style:UIBarButtonItemStyleDone target:self action:@selector(finishTraining)];
         self.navigationItem.rightBarButtonItem = leftButton;
     }
-
     //[self.navigationItem setHidesBackButton:YES animated:YES];
-    
-   // [self.parentViewController.navigationController.navigationBar setHidden:YES];
+    // [self.parentViewController.navigationController.navigationBar setHidden:YES];
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self // put here the view controller which has to be notified
@@ -150,9 +145,6 @@
                                                  name:@"UIDeviceOrientationDidChangeNotification"
                                                object:nil];
     
-    
-    
-
     //[self.navigationController setNavigationBarHidden:YES];
     // self.navigationController.navigationBar.translucent = NO;
     //self.parentViewController.navigationController.navigationBar.translucent = YES;
@@ -161,7 +153,10 @@
     
     //[self.navigationController setNavigationBarHidden:YES animated:YES];
     // Do any additional setup after loading the view from its nib.
+    [self createMenuItems];
     [self createCmapView];
+    [self createWebView];
+    
     //[self createQA];
     //[self addSwitchView];
     bookView.parent_BookPageViewController=self;
@@ -171,76 +166,51 @@
         [self splitScreen];
     }
     upperBorder = [CALayer layer];
-   // [self.view bringSubviewToFront:cmapView.toolBar];
-    //[self.view bringSubviewToFront:previewImg];
+    [self.view bringSubviewToFront:cmapView.toolBar];
+    [self.view bringSubviewToFront:previewImg];
     [self.view sendSubviewToBack:bookView.view];
     [self.view bringSubviewToFront:previewImg];
     NSString* isPreview=[[NSUserDefaults standardUserDefaults] stringForKey:@"isPreview"];
     
     
     UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
-    if( (orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight)&&[isPreview isEqualToString:@"YES"])
+    if( (orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight)&&[isPreview isEqualToString:@"YES"]) //horizontal, split screen
     {
         [previewImg setHidden:NO];
         [PreviewRect setHidden:NO];
-
+        
     }else{
+        
         [previewImg setHidden:YES];
         [PreviewRect setHidden:YES];
         
     }
-    /*
-    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
-    if(orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight)
-    {
-        if([isPreview isEqualToString:@"NO"]){
-            [previewImg setHidden:YES];
-            [PreviewRect setHidden:YES];
-        }
-        else{
-            [previewImg setHidden:NO];
-            [PreviewRect setHidden:NO];
-            
-        }
-    }else{
-        [previewImg setHidden:NO];
-        [PreviewRect setHidden:NO];
-        
-    }*/
-
     
-    
-    /* [cmapView loadConceptMap:nil];
-       NSTimer* timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(checkCountdown:) userInfo:nil repeats:YES];
-     QuizViewController *quiz=[[QuizViewController alloc] initWithNibName:@"ViewController" bundle:nil];
-     quiz.isFinished=false;
-     quiz.userName=userName;
-     quiz.bookLogDataWrapper=logWrapper;
-     quiz.testType=0;//pre test
-     quiz.parentBookPageViewController=self;
-     [self.navigationController pushViewController:quiz animated:YES];
-     */
-  
     if([isPreview isEqualToString:@"YES"]){
-    
-     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
-     panGesture.delegate=self;
-     [previewImg addGestureRecognizer:panGesture];
-     [previewImg setUserInteractionEnabled:YES];
-     
-     PreviewRect= [[UIView alloc] initWithFrame:CGRectMake(2,2,previewImg.frame.size.width-4,previewImg.frame.size.height-4)];
-     PreviewRect.backgroundColor=[UIColor clearColor];
-     PreviewRect.layer.borderColor = [UIColor redColor].CGColor;
-     PreviewRect.tag=1;
-     PreviewRect.layer.borderWidth = 1.0f;
-     originalFrame=PreviewRect.frame;
-     [previewImg addSubview:PreviewRect];
+        
+        UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
+        panGesture.delegate=self;
+        [previewImg addGestureRecognizer:panGesture];
+        [previewImg setUserInteractionEnabled:YES];
+        
+        PreviewRect= [[UIView alloc] initWithFrame:CGRectMake(2,2,previewImg.frame.size.width-4,previewImg.frame.size.height-4)];
+        PreviewRect.backgroundColor=[UIColor clearColor];
+        PreviewRect.layer.borderColor = [UIColor redColor].CGColor;
+        PreviewRect.tag=1;
+        PreviewRect.layer.borderWidth = 1.0f;
+        originalFrame=PreviewRect.frame;
+        [previewImg addSubview:PreviewRect];
     }
     // [self splitScreen];
     
     if(isTraining){
         self.navigationItem.title=@"Training";
     }
+    
+    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Application Loaded Succesfully" selection:@"Book Page View" input:@"null" pageNum:bookView.currentContentView.pageNum];
+    [logWrapper addLogs:newlog];
+    [LogDataParser saveLogData:logWrapper];
+    
 }
 
 
@@ -249,11 +219,18 @@
     
     //when retating the device, clear the thumbnail icons and reload
     if(orientation==UIInterfaceOrientationPortrait||orientation==UIInterfaceOrientationPortraitUpsideDown){
-        
+        //Vertical
+        LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Changed to Vertical Orientation" selection:@"Book Page View" input:@"null" pageNum:bookView.currentContentView.pageNum];
+        [logWrapper addLogs:newlog];
+        [LogDataParser saveLogData:logWrapper];
         [self resumeNormalScreen ];
     }
     //otherwise, hide the concept map view.
     if(orientation==UIInterfaceOrientationLandscapeLeft||orientation==UIInterfaceOrientationLandscapeRight){
+        //Horizontal
+        LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Changed to Horizontal Orientation" selection:@"Book Page View" input:@"null" pageNum:bookView.currentContentView.pageNum];
+        [logWrapper addLogs:newlog];
+        [LogDataParser saveLogData:logWrapper];
         [self splitScreen];
     }
     //do stuff
@@ -273,7 +250,7 @@
 
 
 -(void)viewDidAppear:(BOOL)animated{
-
+    
     
     NSString* istest=[[NSUserDefaults standardUserDefaults] stringForKey:@"testMode"];
     if(![istest isEqualToString:@"YES"]){
@@ -290,18 +267,6 @@
         }
         
     }
-    /*
-     self.parentViewController.navigationController.navigationBar.translucent = YES;
-     self.navigationController.navigationBar.translucent = YES;
-     [ self.parentViewController.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
-     [ self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
-     [self.navigationController.navigationBar setBackgroundImage:[UIImage new]
-     forBarMetrics:UIBarMetricsDefault];
-     self.navigationController.navigationBar.shadowImage = [UIImage new];
-     self.navigationController.navigationBar.translucent = YES;
-     
-     [self.navigationController.navigationBar setFrame:CGRectMake(0, 0, self.navigationController.navigationBar.frame.size.width, 30)];*/
-    // [self.navigationController.navigationBar setFrame:CGRectMake(0, 0, self.navigationController.navigationBar.frame.size.width, 40)];
     
 }
 
@@ -347,7 +312,7 @@
     LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Go to tutorial view" selection:@"Tutorial View" input:@"null" pageNum:bookView.currentContentView.pageNum];
     [logWrapper addLogs:newlog];
     [LogDataParser saveLogData:logWrapper];
-
+    
     
     
     [self.navigationController pushViewController:tutorial animated:NO];
@@ -431,6 +396,85 @@
     return YES;
 }
 
+
+//Sets up the menu items that pop up
+-(void) createMenuItems{
+    //get the shared menubar.
+    UIMenuController *menuController = [UIMenuController sharedMenuController];
+    //create a menu item
+    CXAMenuItemSettings *markIconSettingSpeak = [CXAMenuItemSettings new];
+    markIconSettingSpeak.image = [UIImage imageNamed:@"bb"];
+    markIconSettingSpeak.shadowDisabled = NO;
+    markIconSettingSpeak.shrinkWidth = 4; //set menu item size and picture.
+    //set up the function called when user click the button
+    UIMenuItem *speakItem = [[UIMenuItem alloc] initWithTitle: @"speak" action: @selector(dragAndDropConcept:)];
+    [speakItem cxa_setSettings:markIconSettingSpeak];
+    //add the menu item to the menubar.
+    [menuController setMenuItems: [NSArray arrayWithObjects: speakItem, nil]];
+}
+
+//enables menu item buttons to perform action
+-(BOOL) canPerformAction:(SEL)action withSender:(id)sender{
+    if (action == @selector(dragAndDropConcept:)){
+        return YES;
+    }
+    return NO;
+}
+
+//Creates concept node from selections
+-(void)dragAndDropConcept:(id)sender{
+   // NSLog(@"dadc");
+    NSString *selection = @"";
+    BOOL isHyperLink = [[NSUserDefaults standardUserDefaults] boolForKey:@"HyperLinking"];
+    if(0==subViewType){ //selection comes from content view controller
+       // NSLog(@"Content View");
+        selection = [self.bookView.currentContentView.webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"]; //selection is selected string in content view
+        NSLog(@"Selection = %@", selection);
+        if(selection.length>50){ //selection is too long
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"You can not add concepts that have more than 50 charaters!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+            return;
+        }
+        
+        if([self.cmapView isNodeExist:selection]){ //selected string already exists
+            NSString *msg=[[NSString alloc]initWithFormat:@"Node with name \"%@\" already exist!",selection];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:msg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+            return;
+        }
+        [self.cmapView createNodeFromBook:CGPointMake( arc4random() % 400+30, 690) withName:selection BookPos:CGPointMake(0, 0) page:self.bookView.currentContentView.pageNum];
+        if(isHyperLink){//check if is group A
+            [self.bookView.currentContentView saveHighlightToXML:@"#F2B36B" ];
+            [self.bookView.currentContentView highlightStringWithColor:@"#F2B36B"];
+            [self.cmapView highlightNode:selection];
+        }
+        
+    }
+    else if(1==subViewType){ //selection comes from web browser view controller
+       // NSLog(@"Web browser");
+        selection = [self.myWebView.webBrowserView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"]; //selection is selected string in web browser view
+       // NSLog(@"Selection = %@", selection);
+        if(selection.length>50){ //selection is too long
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"You can not add concepts that have more than 50 charaters!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+            return;
+        }
+        
+        if([self.cmapView isNodeExist:selection]){ //selected string already exists
+            NSString *msg=[[NSString alloc]initWithFormat:@"Node with name \"%@\" already exist!",selection];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:msg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+            return;
+        }
+        [self.cmapView createNodeFromBook:CGPointMake( arc4random() % 400+30, 690) withName:selection BookPos:CGPointMake(0, 0) page:0];
+    }
+    else{
+        NSLog(@"Something has gone wrong in drag and drop concept");
+    }
+    
+}
+
+
 -(void)createCmapView{
     cmapView=[[CmapController alloc] initWithNibName:@"CmapView" bundle:nil];
     
@@ -459,6 +503,27 @@
     [QA.view setHidden:YES];
 }
 
+//creates our web browser view
+-(void)createWebView{
+    myWebView=[[WebBrowserViewController alloc] initWithNibName:@"WebBrowserViewController" bundle:nil];
+    myWebView.parentBookPageViewCtr=self;
+    [self addChildViewController:myWebView];
+    [self.view addSubview:myWebView.view];
+    [myWebView.view setUserInteractionEnabled:YES];
+    //CGPoint decides where webview is showing, lookup screen resolution to ipad 2
+    //if that doesn't work go to view didload in web browser.m
+    //myWebView.view.center=CGPointMake(768, 384);
+    myWebView.view.center=CGPointMake(256, 384);
+    [myWebView.view setHidden:YES];
+    myWebView.view.clipsToBounds = YES;
+    
+    //myWebView.view.layer.zPosition = 1;
+    // [self.view bringSubviewToFront:myWebView.view];
+}
+
+-(void)webViewDidFinishLoad:(UIWebView *)m_webView{
+    [bookView.loadContentView loadHghLight]; //This maintains and loads the highlights
+}
 
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
@@ -474,11 +539,12 @@
 }
 
 
-
+//Screen splits when screen is rotated sideways. This is what happens when screen is split
 -(void)splitScreen{
     CGRect rec=CGRectMake(0, 0, 512, 768);
     [bookView.view setFrame:rec];
     [cmapView.view setHidden:NO];
+    //[myWebView.view setHidden:NO];
     [QA.view setHidden:NO];
     [bulbImageView setHidden:NO];
     LogFileController *logFile=[[LogFileController alloc]init];
@@ -807,8 +873,10 @@
         [pNode.view setFrame:CGRectMake(cell.showPoint.x*xRatio, cell.showPoint.y*yRatio,6, 6)];
         pNode.ParentPreView=previewImg;
         pNode.name=cell.text.text;
-        if(cell.pageNum==(bookView.currentContentView.pageNum-1)){
-            UIImage* orgImg =[UIImage imageNamed:@"orangeRec"];
+        //if the cell's page number = current page
+        if(cell.pageNum+1==(bookView.loadContentView.pageNum)){
+            NSLog (@"Activate");
+            UIImage* orgImg =[UIImage imageNamed:@"orangeRec"]; //highlight node in preview
             orgImg=[self imageWithImage:orgImg scaledToSize:CGSizeMake(20, 20)];
             UIImageView *dot =[[UIImageView alloc]initWithImage:orgImg];
             [pNode.img setImage:orgImg];
@@ -863,7 +931,7 @@
     
     // Set text field to secure text mode after show.
     [alertView.textField setSecureTextEntry:YES];
-
+    
 }
 
 ////////////////////functions for tutorial///////////////////////
@@ -987,7 +1055,7 @@
     
     [alert setValue:imgView forKey:@"accessoryView"];
     [alert show];
-
+    
 }
 
 
@@ -1011,13 +1079,27 @@
     
     [cmapView.conceptNodeArray removeAllObjects];
     [cmapView.conceptLinkArray removeAllObjects];
-    
     NodeCell* cell= [cmapView createNodeFromBookForLink:CGPointMake( 250, 300) withName:@"delete me" BookPos:CGPointMake(0, 0) page:1];
     cell.text.backgroundColor=[UIColor colorWithRed:247.0/255.0 green:176.0/255.0 blue:143.0/255.0 alpha:1];
     webFocusQuestionLable.text=@"Long click on a concept and drag to the delete option.";
 }
 
-
+//Displays webview and sets related node
+-(void)showWebView: (NSString*)conceptName atNode:(NodeCell *)relatedNode  {
+    [myWebView.view setHidden:NO];
+    subViewType=1;
+    [myWebView SearchKeyWord:conceptName];
+    [myWebView setRelatedNode:relatedNode];
+   // [previewImg setHidden:YES];
+    [self.view bringSubviewToFront:myWebView.view];
+}
+//hides webview
+-(void)hideWebView{
+    subViewType=0;
+    [myWebView.view setHidden:YES];
+    //[previewImg setHidden:NO];
+    [self.view sendSubviewToBack:myWebView.view];
+}
 
 
 @end

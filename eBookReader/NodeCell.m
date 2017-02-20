@@ -27,6 +27,9 @@
 @synthesize pressing;
 @synthesize longPressRecognizer;
 @synthesize isInitialed;
+@synthesize linkingUrl;
+@synthesize linkingUrlTitle;
+@synthesize savedUrls;
 @synthesize relatedNodesArray;
 @synthesize linkLayerArray;
 @synthesize relationTextArray;
@@ -51,6 +54,8 @@
 @synthesize enableHyperLink;
 @synthesize createType;
 @synthesize isAlertShowing;
+@synthesize pv; //pop up to take notes
+@synthesize appendedNoteString; //to save notes
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -60,19 +65,56 @@
         relatedNodesArray=[[NSMutableArray alloc] init];
         linkLayerArray=[[NSMutableArray alloc] init];
         relationTextArray=[[NSMutableArray alloc] init];
+        savedUrls = [[NSMutableArray alloc] init];
         pageNum=0;
         overlay = [[GHContextMenuView alloc] init];
         overlay.dataSource = self;
         overlay.delegate = self;
+        hasHighlight=NO;
+        hasNote=NO;
+        hasWeblink=NO;
+        
     }
     return self;
 }
 
+//To update the thumbnail icons below the node
+-(void) updateThumbIcons {
+    
+    for(UIView* subview in self.view.subviews){
+        if([subview isKindOfClass:[UIImageView class]])
+        {
+            // do somthing
+        
+        [subview removeFromSuperview];
+        }
+    }
+    
+    
+    if(hasNote){ // created from "+" (manually)
+        [self addNoteThumb];
+    }
+    if(hasWeblink){ // created from web browser
+        [self addWebThumb];
+    }
+    if(hasHighlight){ // created from book
+        [self addHighlightThumb];
+    }
+
+}
+-(void)viewDidAppear:(BOOL)animated{
+    [self updateViewSize];
+    [self updateThumbIcons];
+    
+
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     //[parentCmapController updateNodesPosition:self.view.center Node:self];
-   
+    text.delegate = self;
+ 
+   /*
     [text addTarget:self
              action:@selector(textFieldDidBeginEditing:)
    forControlEvents:UIControlEventEditingDidBegin];
@@ -84,8 +126,12 @@
     [text addTarget:self
              action:@selector(textFieldDidEndEditing:)
    forControlEvents:UIControlEventEditingDidEnd];
-    
-
+    */
+   /*
+    hasNote=YES; //Manual
+    hasWeblink=YES; //web browser
+    hasHighlight=YES; // Book
+    */
     //conceptName.text=text.text;
     /*
      int r = arc4random_uniform(3);
@@ -120,7 +166,13 @@
     self.view.layer.shadowRadius = 3;
     self.view.layer.shadowColor = [UIColor blackColor].CGColor;
     self.view.layer.shadowOffset = CGSizeMake(2, 2);
+    self.view.layer.cornerRadius=8;
+    //self.view.layer.masksToBounds=YES;
+    
+    
+    
     text.delegate=self;
+    //keyboard for ... cell
     text.keyboardType=UIKeyboardTypeASCIICapable;
     [text setReturnKeyType:UIReturnKeyDone];
     
@@ -129,11 +181,11 @@
     overlay.delegate = self;
     
     longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:overlay action:@selector(longPressDetected:)];
-    text.enableRecognizer=YES;
+    //text.enableRecognizer=YES;
     [self.view addGestureRecognizer:longPressRecognizer];
     
     
-    text.enableRecognizer=NO;
+    //text.enableRecognizer=NO;
     [text setUserInteractionEnabled:YES];
     /*
      tapRecognizer=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(singleTap:)];
@@ -147,24 +199,44 @@
     if(NO==isInitialed){
         [text becomeFirstResponder];
     }
+    
+    
+    // checks if node is created from a certain source and displays an icon in the corner
     /*
-     if(hasNote){
+     if(hasNote){ // created from "+" (manually)
      [self addNoteThumb];
      }
-     if(hasWeblink){
+     if(hasWeblink){ // created from web browser
      [self addWebThumb];
      }
-     if(hasHighlight){
+     if(hasHighlight){ // created from book
      [self addHighlightThumb];
-     }
-     */
+     }*/
+    
     [self becomeFirstResponder];
     //self.view.layer.zPosition=2;
     enableHyperLink=NO;
+
 }
 
+//enters a url string into the "savedUrls" array
+-(void) enterIntoUrlArray {
+    NSString *urlEnter = parentCmapController.parentBookPageViewController.myWebView.webAdrText.text;
+    [savedUrls addObject: urlEnter];
+    NSLog(@"element %@ has been added to the array of node '%@'", urlEnter, self.conceptName );
+    
+}
 
+//sets linkingUrl to current url of web browser
+-(void) setLinkingUrl{
+    NSString *urlEnter = parentCmapController.parentBookPageViewController.myWebView.webAdrText.text;
+   // NSLog(@"urlEnter = %@", urlEnter);
+   // NSLog(@"concept name = %@", self.conceptName);
+    linkingUrl = [NSURL URLWithString: urlEnter];
+    linkingUrlTitle = [parentCmapController.parentBookPageViewController.myWebView.webBrowserView stringByEvaluatingJavaScriptFromString:@"document.title"];
+}
 
+//Probably NOT CALLED because we no longer use textfields in the project
 -(void)textFieldDidChange :(UITextField *)theTextField{
     CGRect textFrame=text.frame;
     CGRect viewFrame=self.view.frame;
@@ -183,6 +255,7 @@
     self.text.frame=textFrame;
     self.view.frame=viewFrame;
     
+    [self updateThumbIcons];
     [self updateLink];
 }
 
@@ -196,43 +269,109 @@
    // NSLog(@"fontSize = %f\tbounds = (%f x %f)",fontSize,r.size.width,r.size.height);//output the wrap size of the text
     CGRect textFrame=text.frame;
     CGRect viewFrame=self.view.frame;
-    CGFloat length =  [text.text sizeWithAttributes:@{NSFontAttributeName:text.font}].width;
+    //To update width of textview to fit text
+    CGFloat length = [text.text sizeWithAttributes:@{NSFontAttributeName:text.font}].width;
+    //To update height of textview to fit text
+    CGFloat height = [text.text sizeWithAttributes:@{NSFontAttributeName:text.font}].height;
+    //Increase length
     length+=25;
-    if(length>180){
-        length=180;
+    if(length>80){
+        length=80;
+        height+=25;
+        textFrame.size.height=height;
+        self.text.frame=textFrame;
     }
+    //Increase height
+    height+=12;
+    /*  if(height>180){
+     height=180;
+     }*/
+    //resize to new width
     textFrame.size.width=length;
     viewFrame.size.width=length;
+    //resize to new height
+    textFrame.size.height=height;
+    viewFrame.size.height=height;
+    
     if(text.text.length<1){
         textFrame.size.width=20;
         viewFrame.size.width=20;
     }
+    
+    
     self.text.frame=textFrame;
     self.view.frame=viewFrame;
     
+    [self updateThumbIcons];
     [self becomeFirstResponder];
     [self updateLink];
 }
 
-
+//Updates View Size,
 -(void)updateViewSize{
     CGRect textFrame=text.frame;
     CGRect viewFrame=self.view.frame;
-    //int length=(int) (7*text.text.length+20);
-    
-    CGFloat length =  [text.text sizeWithAttributes:@{NSFontAttributeName:text.font}].width;
+    CGFloat length = [text.text sizeWithAttributes:@{NSFontAttributeName:text.font}].width;
     length+=20;
-    if(length>180){
-        length=180;
+    if (length >= 100){
+        length = 100;
     }
+    CGFloat height = text.contentSize.height;
+    //CGSize height2 = [text sizeThatFits:CGSizeMake(text.frame.size.width, text.frame.size.height)];
+    //resize to new width
     textFrame.size.width=length;
     viewFrame.size.width=length;
+    //resize to new height
+   textFrame.size.height=height;
+   viewFrame.size.height=height;
+    
+   // textFrame.size.height = height2.height;
+   // viewFrame.size.height = height2.height;
+    //Prevent textbox from just disappearing
     if(text.text.length<1){
         textFrame.size.width=20;
         viewFrame.size.width=20;
     }
+
     self.text.frame=textFrame;
     self.view.frame=viewFrame;
+    
+    /*
+    //To update width of textview to fit text
+    CGFloat length = [text.text sizeWithAttributes:@{NSFontAttributeName:text.font}].width;
+    //To update height of textview to fit text
+    CGFloat height = [text.text sizeWithAttributes:@{NSFontAttributeName:text.font}].height;
+    //Increase length
+    length+=12;
+    if(length>80){
+        length=80;
+        height+=25;
+        textFrame.size.height=height;
+        self.text.frame=textFrame;
+    }
+    //Increase height
+    height+=25;
+      if(height>180){
+     height=180;
+     }
+    //resize to new width
+    textFrame.size.width=length;
+    viewFrame.size.width=length;
+    //resize to new height
+    textFrame.size.height=height;
+    viewFrame.size.height=height;
+    
+    if(text.text.length<1){
+        textFrame.size.width=20;
+        viewFrame.size.width=20;
+    }
+    
+    
+    self.text.frame=textFrame;
+    self.view.frame=viewFrame;
+    */
+    [self updateThumbIcons];
+    [self updateLink];
 }
 
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
@@ -246,32 +385,38 @@
 
 - (void)textViewDidChange:(UITextView *)textView
 {
+ /*   textView.scrollEnabled = NO;
     CGFloat fixedWidth = textView.frame.size.width;
     CGSize newSize = [textView sizeThatFits:CGSizeMake(fixedWidth, MAXFLOAT)];
     CGRect newFrame = textView.frame;
     newFrame.size = CGSizeMake(fmaxf(newSize.width, fixedWidth), newSize.height);
     textView.frame = newFrame;
     
+    
+    [textView sizeToFit];
+    
+    [self updateThumbIcons];
     //CGRect textFrame=textView.frame;
     // textFrame.size.width=7*textView.text.length+20;
     // textView.frame=textFrame;
     // textFrame.size.width=7*text.text.length+20;
-    
+    */
+    [self updateViewSize];
 }
 
 
 
-
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
+//Probably NO LONGER CALLED since there are no longer textfields
+/*- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
     if(text.disableEditting){
         return NO;
     }
     return YES;
 }
+*/
 
-
-
-- (void)textFieldDidBeginEditing:(UITextField *)textField{
+//Probably NO LONGER CALLED since textfields have been replaced with TextViews
+/*- (void)textFieldDidBeginEditing:(UITextField *)textField{
     parentCmapController.nodeTextBeforeEditing=textField.text;
     //textField.text=@"";
     CGSize screenSZ=[self screenSize];
@@ -282,9 +427,10 @@
         [parentCmapController scrollCmapView:(offSet)];
     }
 }
+*/
 
 -(void)textViewDidBeginEditing:(UITextView *)textView{
-    parentCmapController.linkTextBeforeEditing=textView.text;
+   parentCmapController.linkTextBeforeEditing=textView.text;
     CGSize screenSZ=[self screenSize];
    
     CGFloat offSet=(textView.frame.size.height+ textView.frame.origin.y-parentCmapController.conceptMapView.contentOffset.y)-(768-352)+88;
@@ -386,6 +532,9 @@
 
 - (IBAction)tap:(UIPanGestureRecognizer *)gesture
 {
+    
+    //[self takeNote:nil];
+    
     // NSLog(@"Tap gesture!");
     if(YES==parentCmapController.isReadyToLink){
         if([text.text isEqualToString:parentCmapController.nodesToLink.text.text]){
@@ -410,7 +559,7 @@
          [bookLogData addLogs:newlog];
          [LogDataParser saveLogData:bookLogData];
          */
-      
+      /*
         MapFinderViewController* finder=[[MapFinderViewController alloc]initWithNibName:@"MapFinderViewController" bundle:nil];
         finder.userName=userName;
         finder.parentBookPageView=parentCmapController.parentBookPageViewController;
@@ -429,7 +578,7 @@
 
         [parentCmapController resignFirstResponder];
         [finder becomeFirstResponder];
-        
+        */
         [relatedNodesArray addObject:parentCmapController.nodesToLink];
         [parentCmapController.nodesToLink.relatedNodesArray addObject:self];
         [parentCmapController.nodesToLink removeShadowAnim];
@@ -447,7 +596,8 @@
         linkTextview.leftNodeName=text.text;
         linkTextview.rightNodeName=parentCmapController.nodesToLink.text.text;
         parentCmapController.linkJustCreated=linkTextview;
-        
+        //edit name 
+        [linkTextview becomeFirstResponder];
         [relationTextArray addObject:linkTextview];
         ConceptLink *link = [[ConceptLink alloc] initWithName:self conceptName:parentCmapController.nodesToLink relation:linkTextview page:parentCmapController.pageNum];
         [parentCmapController addConcpetLink:link];
@@ -477,7 +627,7 @@
         }
         return;
     }
-    if(-1==pageNum){
+    if(-1==pageNum && (linkingUrl == nil || [linkingUrl.absoluteString isEqualToString:@""])){ // Node created manually, no linking url
         return;
     }
   //  if(enableHyperLink&&(createType!=0)){
@@ -486,22 +636,37 @@
     if([istest isEqualToString:@"YES"]){
         enableHyperLink=YES;
     }
+    //Hyperlinking
     if(enableHyperLink){
+        if (linkingUrl != nil && linkingUrl.absoluteString.length!=0 ){//created from web Browser
+            [self.parentCmapController.parentBookPageViewController showWebView:linkingUrl.absoluteString atNode:self];
+            
+           // [self.parentCmapController.parentBookPageViewController showWebView:@"" atNode:self];
+            NSString* LogString=[[NSString alloc] initWithFormat:@"Using hyperlink from concept: %@", self.conceptName];
+            //save info in log files
+            LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:LogString selection:@"concept map view" input:@"concept map view" pageNum:pageNum];
+            [parentCmapController.bookLogDataWrapper addLogs:newlog];
+            [LogDataParser saveLogData:parentCmapController.bookLogDataWrapper];
+            return;
+        }
         [parentCmapController.neighbor_BookViewController showFirstPage:pageNum];
         parentContentViewController.pageNum=pageNum+1;
-        [parentCmapController logHyperNavigation:text.text];
+     //   [parentCmapController logHyperNavigation:text.text];
         //log the hyperlinking action
-        NSString* LogString=[[NSString alloc] initWithFormat:@"%d", (pageNum+1)];
         NSString* selectionString;
         if(createType==0){
             selectionString=@"Expert Node";
         }else{
             selectionString=@"Student Node";
         }
+        [self.parentCmapController.parentBookPageViewController hideWebView];
         
-        LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Use Hyperlinking" selection:selectionString input:LogString pageNum:pageNum];
-        [bookLogData addLogs:newlog];
-        [LogDataParser saveLogData:bookLogData];
+        //save in log file
+       
+            NSString* LogString=[[NSString alloc] initWithFormat:@"Using hyperlink from concept: %@", self.conceptName];
+            LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:LogString selection:@"concept map view" input:@"concept map view" pageNum:pageNum];
+            [parentCmapController.bookLogDataWrapper addLogs:newlog];
+            [LogDataParser saveLogData:parentCmapController.bookLogDataWrapper];
     }
     
     
@@ -588,7 +753,7 @@
         }
     }
 
-    return textView.text.length + (text.length - range.length) <= 20;
+    return textView.text.length + (text.length - range.length) <= 50;
 }
 
 
@@ -637,6 +802,10 @@
     }
     
     for(ConceptLink *link in delAry){
+        //deletes the links in delarray
+        LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Deleting Links because concept was deleted" selection:@"concept map" input:link.relation.text pageNum:pageNum];
+        [bookLogData addLogs:newlog];
+        [LogDataParser saveLogData:bookLogData];
         [parentCmapController.conceptLinkArray removeObject:link];
     }
     
@@ -779,21 +948,28 @@
 
 - (NSInteger) numberOfMenuItems
 {
-    return 3;
+    return 5;
 }
 
+//specify image names
 -(UIImage*) imageForItemAtIndex:(NSInteger)index
 {
     NSString* imageName = nil;
     switch (index) {
-        case 0:
+        case 0: // delete node
             imageName = @"deleteConcept";
             break;
-        case 1:
+        case 1: // link nodes
             imageName = @"link";
             break;
-        case 2:
+        case 2: // edit node name
             imageName = @"edit";
+            break;
+        case 3: // search on internet
+            imageName= @"webbrowser";
+            break;
+        case 4: // taking notes
+            imageName = @"Node_Small";
             break;
         default:
             break;
@@ -809,11 +985,12 @@
     return img;
 }
 
+//call back functions, decides what menu does
 - (void) didSelectItemAtIndex:(NSInteger)selectedIndex forMenuAtPoint:(CGPoint)point
 {
     NSString* msg = nil;
     switch (selectedIndex) {
-        case 0:
+        case 0: // delete node
         {
             {
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Deleting"
@@ -825,7 +1002,7 @@
             }
         }
             break;
-        case 1:
+        case 1: // link nodes
             msg = @"link Selected";
             [parentCmapController showLinkHint];
             parentCmapController.isReadyToLink=YES;
@@ -834,24 +1011,76 @@
             // [parentCmapController startWait];
             [self waitForLink];
             break;
-        case 2:
+        case 2: //edit node name
             
         {
-            parentCmapController.addedNode=self;
-            [self.text becomeFirstResponder];
+            CGFloat offSet = (self.view.frame.size.height+ self.view.frame.origin.y-parentCmapController.conceptMapView.contentOffset.y)-(768-352)+88;
+            // NSLog(@"Height: %f, Origin: %f",pv.noteText.frame.size.height,pv.noteText.frame.origin.y);
+            if(offSet>0){ // view is blocked by keyboard
+                // NSLog(@"Blocked by keyboard!!");
+                [parentCmapController scrollCmapView:(offSet)]; //scroll view so that view is not blocked
+            }
+            //This timer gives the view time to scroll before going to editNodename function
+            [NSTimer scheduledTimerWithTimeInterval:0.3f
+                                             target:self
+                                           selector: @selector(editNodeName:)
+                                           userInfo:nil
+                                            repeats:NO];
         }
             break;
-        case 3:
+        case 3: // Search internet button
         {
-            QAFinderViewController* finder=[[QAFinderViewController alloc]initWithNibName:@"QAFinderViewController" bundle:nil];
-            finder.conceptName=text.text;
-            finder.viewType=1;//change the view type into web resource.
-            finder.parentQA=parentCmapController.parentBookPageViewController.QA;
-            finder.parentCmap=parentCmapController;
-            [finder.view setUserInteractionEnabled:YES];
-            [parentCmapController addChildViewController:finder];
-            [parentCmapController.view addSubview:finder.view];
-            //[finder becomeFirstResponder];
+            //look up current text
+            [parentCmapController.parentBookPageViewController showWebView: text.text atNode: self];
+            //Look up concept name
+            //[parentCmapController.parentBookPageViewController showWebView: conceptName atNode: self];
+        }
+            break;
+        case 4: // note taking button
+        {
+            
+            /*
+            int hh=pv.noteText.frame.size.height;
+            int hh2=pv.noteText.frame.origin.y;
+            */
+            CGFloat offSet = (self.view.frame.size.height+ self.view.frame.origin.y-parentCmapController.conceptMapView.contentOffset.y)-(768-352)+88;
+           // NSLog(@"Height: %f, Origin: %f",pv.noteText.frame.size.height,pv.noteText.frame.origin.y);
+            if(offSet>0){ // view is blocked by keyboard
+                // NSLog(@"Blocked by keyboard!!");
+                [parentCmapController scrollCmapView:(offSet)]; //scroll view so that view is not blocked
+            }
+            //This timer gives the view time to scroll before going to takeNote function
+            [NSTimer scheduledTimerWithTimeInterval:0.3f
+                                             target:self
+                                           selector: @selector(takeNote:)
+                                           userInfo:nil
+                                            repeats:NO];
+            
+           
+            
+          // [self takeNote:nil];
+            
+          //  [parentCmapController showNoteTaking:CGPointMake(200, 200)];
+            /* NSString *sourceString;
+            if (pageNum== -1){ // Node created manually or from web browser
+                if (linkingUrl == nil || [linkingUrl.absoluteString isEqualToString:@""]){ //There is no linking url, created manually
+                    sourceString = @"Manually Created";
+                }
+                else { //There is a linking url, created from web browser
+                    sourceString = [NSString stringWithFormat:@"Web Browser\nURL: %@", linkingUrl];
+                }
+
+            }
+            else{//created from book
+                sourceString = [NSString stringWithFormat:@"Textbook\nPage Number: %d", pageNum + 1];
+            }
+            NSString *infoString = [NSString stringWithFormat:@"Current Name: %@\nOriginal Text: %@\n Source: %@", text.text, conceptName, sourceString];
+            UIAlertView *infoAlert = [[UIAlertView alloc] initWithTitle:@"Concept Information:"
+                                                            message:(infoString)
+                                                           delegate:self
+                                                  cancelButtonTitle:@"Ok"
+                                                  otherButtonTitles: nil];
+            [infoAlert show];*/
         }
             break;
         default:
@@ -859,8 +1088,45 @@
     }
 }
 
+//Edits name of node
+- (IBAction)editNodeName : (id)sender {
+    parentCmapController.addedNode=self;
+    [self.text becomeFirstResponder];
+}
 
 
+//Allows user to take notes on the concept selected
+- (IBAction)takeNote : (id)sender {
+    NSString *takeNoteTitleString;
+    if (self.hasHighlight){ //node  created from book
+        takeNoteTitleString = [NSString stringWithFormat:@"Notes on \"%@\"     Page: %i", self.text.text, self.pageNum + 1];
+    }
+    else if (self.linkingUrl.absoluteString.length > 0){ //node created from web browser
+        NSString *siteTitle = self.linkingUrlTitle;
+        takeNoteTitleString = [NSString stringWithFormat:@"Notes on \"%@\"     Site: %@", self.text.text, siteTitle];
+    }
+    else {
+        takeNoteTitleString = [NSString stringWithFormat:@"Notes on \"%@\"", self.text.text];
+    }
+    NSArray *popUpContent=[NSArray arrayWithObjects:@"NoteTaking", nil];
+  PopoverView*pv=  [PopoverView showPopoverAtPoint: CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/2)
+                             inView:self.view
+                          withTitle:takeNoteTitleString
+                    withStringArray:popUpContent
+                           delegate:self];
+    
+    pv.noteText.delegate=parentCmapController; //We need this.
+    parentCmapController.noteTakingNode = self; //sets noteTaking node to current node
+    pv.noteText.font = [UIFont fontWithName:@"Helvetica" size:15];
+    pv.noteText.text = appendedNoteString; //saves note text to string
+    parentCmapController.showingPV=pv;
+    /*CGFloat offSet=(pv.noteText.frame.size.height+ pv.noteText.frame.origin.y-parentCmapController.conceptMapView.contentOffset.y)-(768-352)+88;*/
+
+
+}
+
+
+//deletes selected node
 -(void)deleteNode: (BOOL)delByUser{
     if(1==nodeType){
         [self.view removeFromSuperview];
@@ -943,27 +1209,28 @@
         [cell removeLink];
         [cell.view removeFromSuperview];
     }
+
      if(parentCmapController.parentBookPageViewController.isTraining&&[text.text isEqualToString:@"delete me"]){
          [parentCmapController.conceptNodeArray removeAllObjects];
          [parentCmapController.conceptLinkArray removeAllObjects];
      }*/
 }
-
+//for nodes from the "+" button-------------------------------------------------------------------------
 -(void)addNoteThumb{
     UIImageView *thumb = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"note_square.png"]];
-    [thumb setFrame:CGRectMake(30, 22, 14, 14)];
+    [thumb setFrame:CGRectMake(self.view.frame.size.width-7, self.view.frame.size.height, 14, 14)];
     [self.view addSubview:thumb];
 }
-
+//for nodes from the web browser-------------------------------------------------------------------------
 -(void)addWebThumb{
     UIImageView *thumb = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"safari_square.png"]];
-    [thumb setFrame:CGRectMake(50, 22, 14, 14)];
+    [thumb setFrame:CGRectMake(self.view.frame.size.width-7, self.view.frame.size.height, 14, 14)];
     [self.view addSubview:thumb];
 }
-
+//for nodes from the book-------------------------------------------------------------------------------
 -(void)addHighlightThumb{
     UIImageView *thumb = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"colorPlate.png"]];
-    [thumb setFrame:CGRectMake(10, 22, 14, 14)];
+    [thumb setFrame:CGRectMake(self.view.frame.size.width-7, self.view.frame.size.height, 14, 14)];
     [self.view addSubview:thumb];
 }
 
@@ -977,30 +1244,70 @@
 
 
 
-//after editting the text in the link, update the conceptLinkArray
+//after editing the text in the textviews, update the conceptLinkArray
 - (void)textViewDidEndEditing:(UITextView *)textView{
     // ConceptLink* linkToUpdate;
     
-    if(textView.text.length<8){
+   /* if(textView.text.length<8){
         textView.frame=CGRectMake(textView.frame.origin.x, textView.frame.origin.y, 60, textView.frame.size.height);
     }
     if(textView.text.length<6){
         textView.frame=CGRectMake(textView.frame.origin.x, textView.frame.origin.y, 40, textView.frame.size.height);
-    }
+    }*/
+    
     
     if(0<textView.tag){ // finish editting relationship text
-        for(ConceptLink* view in parentCmapController.conceptLinkArray){
-            if(view.relation.tag== textView.tag){
-                view.relation.text=textView.text;
-                NSLog(@"update link text...\n");
-                NSString* inputString=[[NSString alloc] initWithFormat:@"%@", textView.text];
-                LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Update Link Name" selection:parentCmapController.linkTextBeforeEditing input:inputString pageNum:pageNum];
-                [bookLogData addLogs:newlog];
-                [LogDataParser saveLogData:bookLogData];
+        if ([textView respondsToSelector:@selector(isTylerTextView)]){ //is TylerTextView, so editing node text
+            NSLog(@"Edit node text...\n");
+            NSString* inputString=[[NSString alloc] initWithFormat:@"%@", textView.text];
+            LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Update Node Name" selection:parentCmapController.linkTextBeforeEditing input:inputString pageNum:pageNum];
+            [bookLogData addLogs:newlog];
+            [LogDataParser saveLogData:bookLogData];
+            
+            if([inputString isEqualToString:@""]){ //empty string
+                [NSTimer scheduledTimerWithTimeInterval:1.0
+                                                 target:self
+                                               selector:@selector(showEMptyNodeAlert)
+                                               userInfo:nil
+                                                repeats:NO];
             }
+            
+            int sameNodeCount=0;
+            for(NodeCell* cell in parentCmapController.conceptNodeArray){
+                if([text.text isEqualToString:cell.text.text]){ //node has same name as some other node
+                    sameNodeCount++;
+                }
+            }//end for
+            
+            if(sameNodeCount>1){ //node has same name
+                [NSTimer scheduledTimerWithTimeInterval:1.0
+                                                 target:self
+                                               selector:@selector(showDupliAlert)
+                                               userInfo:nil
+                                                repeats:NO];
+            }
+            if(!self.conceptName){ //conceptname is nil
+                self.conceptName=self.text.text; //conceptname is current text
+            }
+            
+            
+            
         }
+        else{//is not TylerTextView, editinglink names
+        
+            for(ConceptLink* view in parentCmapController.conceptLinkArray){
+                if(view.relation.tag== textView.tag){
+                    view.relation.text=textView.text;
+                    NSLog(@"update link text...\n");
+                    NSString* inputString=[[NSString alloc] initWithFormat:@"%@", textView.text];
+                    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Update Link Name" selection:parentCmapController.linkTextBeforeEditing input:inputString pageNum:pageNum];
+                    [bookLogData addLogs:newlog];
+                    [LogDataParser saveLogData:bookLogData];
+                }//end if
+            }//endfor
+        }//end else
         // NSLog(@"finish editting");
-    }
+    }//endif
     
     if(parentCmapController.isTraining){
         [parentCmapController.parentTrainingCtr showAlertWithString:@"Good job! Now try to delete a concept node"];
@@ -1008,12 +1315,12 @@
     }
     
     [textView resignFirstResponder];
+    
 }
 
-
-
-
-- (void)textFieldDidEndEditing:(UITextField *)textField{
+//This function is NO LONGER CALLED!!!! Since node has been changed to TylerTextView
+//after editing the text in the name textfield(!), update the conceptNodeArray and node information
+/*- (void)textFieldDidEndEditing:(UITextField *)textField{
 
     NSString* inputString=[[NSString alloc] initWithFormat:@"%@", textField.text];
     NSString* parTxt=parentCmapController.nodeTextBeforeEditing;
@@ -1044,8 +1351,11 @@
                                        userInfo:nil
                                         repeats:NO];
     }
+    if(!self.conceptName){ //conceptname is nil
+        self.conceptName=self.text.text; //conceptname is current text
+    }
     
-    /*
+ 
     if([parentCmapController isNodeExist:textField.text]){
         [NSTimer scheduledTimerWithTimeInterval:2.0
                                          target:self
@@ -1053,11 +1363,10 @@
                                        userInfo:nil
                                         repeats:NO];
 
-    }*/
+    }
     
-    
-}
-
+}*/
+//shows alert if a duplicate node exists
 -(void)showDupliAlert{
     [text becomeFirstResponder];
      NSString* msg=[[NSString alloc]initWithFormat:@"Node with name \"%@\" already exists!",text.text];

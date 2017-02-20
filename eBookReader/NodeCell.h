@@ -19,6 +19,8 @@
 #import "ConceptLink.h"
 #import "CmapLink.h"
 #import "RelationTextView.h"
+#import "PopoverView.h"
+#import "TylerTextView.h"
 #import "LogDataWrapper.h"
 @class CmapController;
 @class ContentViewController;
@@ -26,12 +28,17 @@
 @interface NodeCell : UIViewController<PopoverViewDelegate,UIGestureRecognizerDelegate,UITextFieldDelegate,UITextViewDelegate , GHContextOverlayViewDataSource, GHContextOverlayViewDelegate>
 
 @property (assign)CGPoint showPoint;
+@property (strong, nonatomic) PopoverView *pv; //For taking notes
+@property (strong, nonatomic) NSString *appendedNoteString; //Saved text info for notes
 @property int pageNum;
 @property int createType;
 @property int nodeType; //1: shows in book scroll thumb view; 0: shows in Cmap view;
-@property (strong, nonatomic) IBOutlet ShangTextField *text;
+//@property (strong, nonatomic) IBOutlet ShangTextField *text;
 
 @property (strong, nonatomic) NSString *conceptName;
+
+
+@property (weak, nonatomic) IBOutlet TylerTextView *text;
 
 @property (strong, nonatomic)   GHContextMenuView* overlay;
 @property int showType; //0:full screen, 1: half screen;
@@ -48,7 +55,9 @@
 
 @property(strong,nonatomic) IBOutlet UITapGestureRecognizer* tapRecognizer;
 
-
+@property (strong, nonatomic) NSMutableArray*  savedUrls; //bookmarked urls from web browser
+@property (strong, nonatomic) NSURL* linkingUrl; //associated url when created from web browser
+@property (strong, nonatomic) NSString* linkingUrlTitle; //title of web page for linking url
 @property (strong, nonatomic) NSMutableArray*  relatedNodesArray;
 @property (strong, nonatomic) NSMutableArray*  linkLayerArray;
 @property (strong, nonatomic) NSMutableArray*  relationTextArray;
@@ -62,6 +71,7 @@
 @property (strong, nonatomic) NSString *userName;
 @property (strong, nonatomic) RelationTextView*linkTextview2;
 @property BOOL enableHyperLink;
+
 -(void)deleteLinkWithNode: (NodeCell*)cellToDel;
 -(void)removeLinkWithNode: (NodeCell*) LinkedNode;
 
@@ -76,4 +86,7 @@
 -(void)deleteNode: (BOOL)delByUser;
 -(void)updateViewSize;
 -(void)updateLink;
+-(void)enterIntoUrlArray;
+-(void)setLinkingUrl;
+
 @end

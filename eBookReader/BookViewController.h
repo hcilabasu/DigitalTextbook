@@ -42,6 +42,7 @@
 @property (strong, nonatomic) BookPageViewController* parent_BookPageViewController;
 @property (strong, nonatomic) NSString* userName;
 @property (strong, nonatomic) ContentViewController *currentContentView;
+@property (strong, nonatomic) ContentViewController *loadContentView;
 
 - (void) loadFirstPage;
 -(void) createContentPages;

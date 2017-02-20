@@ -132,14 +132,14 @@
     // UIMenuController *menuController = [UIMenuController sharedMenuController];
     // [menuController setMenuVisible:YES animated:YES];
     
-    
-    
+
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 -(void)createCmapView{
     cmapView=[[CmapController alloc] initWithNibName:@"CmapView" bundle:nil];

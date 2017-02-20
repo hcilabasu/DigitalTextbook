@@ -30,6 +30,7 @@
 #import "ZCTradeView.h"
 #import "RelationTextView.h"
 #import "DTAlertView.h"
+#import "WebBrowserViewController.h"
 @class NodeCell;
 @class BookViewController;
 @class HighLightWrapper;
@@ -46,6 +47,9 @@
 //@property (strong, nonatomic) IBOutlet UIWebView *webView;
 @property (strong, nonatomic) IBOutlet UIScrollView *conceptMapView;
 @property (strong, nonatomic) IBOutlet UIView *contentView;
+
+@property (strong, nonatomic) PopoverView* showingPV; //pv in node cell
+@property (strong, nonatomic) NodeCell* noteTakingNode; //for taking notes
 
 @property (strong, nonatomic) id dataObject;// sotres the HTML data
 @property (strong, nonatomic) id url; //the URL link to display HTML content
@@ -74,6 +78,7 @@
 @property (nonatomic, assign) BOOL isBlockedByKeyboard;
 @property(strong,nonatomic) UIImageView *bulbImageView;
 @property(strong,nonatomic) UIImageView *previewImageView;
+
 
 @property (weak, nonatomic) IBOutlet UILabel *focusQuestionLable;
 @property BOOL isQuestionShow;
@@ -153,7 +158,7 @@
 -(void)startWait;
 -(void)endWait;
 -(void)showResources;
--(void)createNode:(CGPoint)position withName:(NSString*) name page: (int)m_pageNum;
+-(void)createNode:(CGPoint)position withName:(NSString*) name page: (int)m_pageNum  url:(NSURL*)m_linkingUrl;
 -(void)createNodeFromBook:(CGPoint)position withName:(NSString*) name BookPos: (CGPoint)bookPosition page:(int)m_pageNum;
 -(void)addConcpetLink: (ConceptLink*) m_link;
 -(void)autoSaveMap;
@@ -190,4 +195,5 @@
 -(void)highlightPageNode: (int)page;
 -(void)showLinkHint;
 -(void)dismissLinkHint;
+-(void)showNoteTaking: (CGPoint)showpoint;
 @end

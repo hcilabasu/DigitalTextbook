@@ -13,12 +13,17 @@
 #import "VideoViewController.h"
 #import "QAViewController.h"
 #import "DTAlertView.h"
+#import "UIMenuItem+CXAImageSupport.h"
+#import "WebBrowserViewController.h"
+
 @class LogDataWrapper;
-@interface BookPageViewController : UIViewController <DBRestClientDelegate,UIGestureRecognizerDelegate,UIAlertViewDelegate,UINavigationControllerDelegate>
+@interface BookPageViewController : UIViewController <DBRestClientDelegate,UIGestureRecognizerDelegate,UIAlertViewDelegate,UINavigationControllerDelegate,UIWebViewDelegate>
 @property (strong, nonatomic) CmapController *cmapView;
 @property (strong, nonatomic) VideoViewController *videoView;
 @property (strong, nonatomic) BookViewController *bookView;
 @property (strong, nonatomic)  QAViewController *QA;
+
+@property (strong, nonatomic)  WebBrowserViewController *myWebView;
 @property (nonatomic, strong) DBRestClient *restClient;
 @property (nonatomic, retain)LogDataWrapper * logWrapper;
 @property (strong,nonatomic) UIImageView *bulbImageView;
@@ -26,7 +31,7 @@
 @property BOOL ShowingQA;
 @property BOOL isTraining;
 @property BOOL enableHyperLink;
-@property NSTimeInterval totalCountdownInterval; 
+@property NSTimeInterval totalCountdownInterval;
 @property NSTimeInterval remainTime;
 @property NSDate* startDate;
 @property (weak, nonatomic) IBOutlet UILabel *timerLable;
@@ -38,8 +43,7 @@
 @property (strong, nonatomic) NSMutableArray*  conceptNodeArray;
 @property BOOL isSecondShow;
 @property NSTimer* CmapTimer;
-
-
+@property int subViewType; //0:contentview 1:web brower view
 @property (strong, nonatomic)  UILabel *webFocusQuestionLable;
 @property (strong, nonatomic)  UILabel *cmapFocusQuestionLable;
 @property (strong, nonatomic)  UIImageView *hintImg;
@@ -62,6 +66,8 @@
 -(void)showAlertWithText: (NSString*) str;
 -(void)showLinkingWarning;
 -(void)hideLinkingWarning;
-@end
+-(void)showWebView: (NSString*)conceptName atNode: (NodeCell*) relatedNode;
+-(void)hideWebView;
 
+@end
 

@@ -17,6 +17,7 @@
 @property (nonatomic, assign) id<GHContextOverlayViewDelegate> delegate;
 
 - (void) longPressDetected:(UIGestureRecognizer*) gestureRecognizer;
+- (void) highlightMenuItemClicked: (NSInteger) index2highlight;
 
 @end
 

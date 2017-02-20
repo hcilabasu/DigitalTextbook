@@ -21,4 +21,5 @@
 -(void)showAlertWithString: (NSString*) str;
 -(void)createDeleteTraining;
 
+
 @end
