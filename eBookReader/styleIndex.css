@@ -5,7 +5,7 @@ body {
 }
 
 header {
-	padding: 0px 10px;
+	padding: 0px 15px;
 	background: #EEE;
 	overflow: auto;
 }
@@ -17,7 +17,7 @@ header .name {
 header .userStats {
 	line-height: 30px;
 	position: absolute;
-	right: 10px;
+	right: 15px;
 	top: 0;
 	color: blue;
 }
@@ -25,7 +25,7 @@ header .userStats {
 .iconButton {}
 
 h2 {
-	margin: 10px 10px 10px 10px;
+	margin: 10px 15px 10px 15px;
 	font-size: 1.2em;
 	line-height: 2em;
 }
@@ -36,7 +36,7 @@ h2 > a {
 
 .linkList {
 	list-style-type: none;
-	padding: 0 10px;
+	padding: 0 15px;
 	margin-bottom: 40px;
 }
 
@@ -46,7 +46,7 @@ h2 > a {
 
 .button {
 	display: inline-block;
-	padding: 10px;
+	padding: 15px;
 	background: #EEE;
 	text-decoration: none;
 	box-shadow: inset 0px -2px 0px rgba(0,0,0,0.3);
@@ -66,7 +66,39 @@ h2 > a {
 	color: white;
 }
 
+.questionsList {
+	padding: 15px;
+	list-style-type: none;
+}
+
+.questionLink {
+	margin-left: 0px;
+	margin-right: 10px;
+	border-bottom: solid 1px #CCC;
+}
+
+.question {
+	margin-top: 15px;
+	margin-bottom: 10px;
+	width: 320px;
+}
+
+.arrow {
+	background-color: #E6E6FA;
+	position: absolute;
+	right: 15px;
+	padding: 10px;
+}
+
+.timeStamp {
+	margin-top: 0px;
+	margin-bottom: 3px;
+	font-size: 12px;
+	color: #AAA;
+}
+
 .questionsPanel {
+	display: none;
 	text-align: center;
 	padding: 40px 0;
 }
