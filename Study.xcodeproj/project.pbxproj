@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		077D21001E6AE78300865332 /* chat.html in Resources */ = {isa = PBXBuildFile; fileRef = 077D20FF1E6AE78300865332 /* chat.html */; };
+		077D21021E6AE8C700865332 /* blue reply check mark.png in Resources */ = {isa = PBXBuildFile; fileRef = 077D21011E6AE8C700865332 /* blue reply check mark.png */; };
+		077D21041E6AE8CC00865332 /* orange triangle.png in Resources */ = {isa = PBXBuildFile; fileRef = 077D21031E6AE8CC00865332 /* orange triangle.png */; };
+		077D21061E6AE8D200865332 /* green check mark.png in Resources */ = {isa = PBXBuildFile; fileRef = 077D21051E6AE8D200865332 /* green check mark.png */; };
+		077D21081E6AE8D800865332 /* three orange dots.png in Resources */ = {isa = PBXBuildFile; fileRef = 077D21071E6AE8D800865332 /* three orange dots.png */; };
 		079CBAEE1E5C0F1E00F7CA4D /* Arrows-Back-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 079CBAED1E5C0F1E00F7CA4D /* Arrows-Back-icon.png */; };
 		079CBAF01E5C0F5F00F7CA4D /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 079CBAEF1E5C0F5F00F7CA4D /* index.html */; };
 		079CBAF21E5C0F7400F7CA4D /* styleIndex.css in Resources */ = {isa = PBXBuildFile; fileRef = 079CBAF11E5C0F7400F7CA4D /* styleIndex.css */; };
@@ -324,6 +329,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		077D20FF1E6AE78300865332 /* chat.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = chat.html; sourceTree = "<group>"; };
+		077D21011E6AE8C700865332 /* blue reply check mark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blue reply check mark.png"; sourceTree = "<group>"; };
+		077D21031E6AE8CC00865332 /* orange triangle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "orange triangle.png"; sourceTree = "<group>"; };
+		077D21051E6AE8D200865332 /* green check mark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "green check mark.png"; sourceTree = "<group>"; };
+		077D21071E6AE8D800865332 /* three orange dots.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "three orange dots.png"; sourceTree = "<group>"; };
 		079CBAED1E5C0F1E00F7CA4D /* Arrows-Back-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Arrows-Back-icon.png"; sourceTree = "<group>"; };
 		079CBAEF1E5C0F5F00F7CA4D /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		079CBAF11E5C0F7400F7CA4D /* styleIndex.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = styleIndex.css; sourceTree = "<group>"; };
@@ -800,6 +810,10 @@
 			isa = PBXGroup;
 			children = (
 				079CBAED1E5C0F1E00F7CA4D /* Arrows-Back-icon.png */,
+				077D21031E6AE8CC00865332 /* orange triangle.png */,
+				077D21071E6AE8D800865332 /* three orange dots.png */,
+				077D21051E6AE8D200865332 /* green check mark.png */,
+				077D21011E6AE8C700865332 /* blue reply check mark.png */,
 				561D1AFB1C86894100D3AF47 /* CmapIcon.png */,
 				562484371CA5E2EA000C9115 /* orangeRec.png */,
 				56B8C1361C55A4D1002187A9 /* iconLeft.png */,
@@ -1578,6 +1592,7 @@
 			isa = PBXGroup;
 			children = (
 				079CBAF11E5C0F7400F7CA4D /* styleIndex.css */,
+				077D20FF1E6AE78300865332 /* chat.html */,
 				079CBAEF1E5C0F5F00F7CA4D /* index.html */,
 				56BF7F251ADEE94900B015C6 /* ExpertCmapLinkList.xml */,
 				56BF7F261ADEE94900B015C6 /* ExpertCmapNodeList.xml */,
@@ -1825,6 +1840,7 @@
 				56BD58A01C7E20B600283AC3 /* FontAwesome.ttf in Resources */,
 				566D60181AC5D23500492921 /* TrueFalseViewController.xib in Resources */,
 				561D1AFC1C86894100D3AF47 /* CmapIcon.png in Resources */,
+				077D21021E6AE8C700865332 /* blue reply check mark.png in Resources */,
 				561BCBFB1B09CD8900F553D4 /* QAViewController.xib in Resources */,
 				3166DB5E16B0A5300089C0F2 /* InfoPlist.strings in Resources */,
 				567924C51B12E7BB007B5038 /* finder_stop.png in Resources */,
@@ -1861,6 +1877,7 @@
 				564C425717064D7800B320EF /* highlight_yellow.png in Resources */,
 				56FFE97419DC70D100364476 /* SubNodeViewController.xib in Resources */,
 				564C425917064D7B00B320EF /* highlight_blue.png in Resources */,
+				077D21041E6AE8CC00865332 /* orange triangle.png in Resources */,
 				56F04ABB1B6464A50092A523 /* LoginButton.png in Resources */,
 				56473546181AF0BD00EE1640 /* AcousticModelEnglish.bundle in Resources */,
 				56BF7F271ADEE94900B015C6 /* ExpertCmapLinkList.xml in Resources */,
@@ -1873,10 +1890,12 @@
 				56B8C1381C55A4D1002187A9 /* iconLeft.png in Resources */,
 				56473548181AF0CE00EE1640 /* AcousticModelSpanish.bundle in Resources */,
 				56AFB38B1B0B04190048E036 /* QAIcon.png in Resources */,
+				077D21061E6AE8D200865332 /* green check mark.png in Resources */,
 				560B2F6518EBE051009B8CB7 /* awcollectionviewdiallayout_1.jpg in Resources */,
 				566D601D1AC5D27700492921 /* programming.plist in Resources */,
 				56887F091C9872F000467A76 /* hintbulb.png in Resources */,
 				5645250A170A5D09005E2D17 /* cover_default.png in Resources */,
+				077D21081E6AE8D800865332 /* three orange dots.png in Resources */,
 				56AB71FB1C6EA66800FEB7BE /* preview.png in Resources */,
 				560B2F6918EBE051009B8CB7 /* james_harden.png in Resources */,
 				5643887F1B204286003330F6 /* CmapBookNoteViewController.xib in Resources */,
@@ -1921,6 +1940,7 @@
 				560B2F7418ECC542009B8CB7 /* ConceptIconViewController.xib in Resources */,
 				56C69D4A1725D2AD009419B3 /* WebMarkController.xib in Resources */,
 				079CBAEE1E5C0F1E00F7CA4D /* Arrows-Back-icon.png in Resources */,
+				077D21001E6AE78300865332 /* chat.html in Resources */,
 				566FF04518AC079A0094FB6A /* CmapView.xib in Resources */,
 				5606C8B41BA797B0002F33D5 /* LogData.xml in Resources */,
 				561C0D5618C52ABD00B223D3 /* deleteConcept.png in Resources */,

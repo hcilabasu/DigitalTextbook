@@ -1,108 +1,221 @@
 body {
-	margin: 0;
-	font-size: 16px;
-	font-family: sans-serif;
+    margin: 0;
+    font-size: 16px;
+    font-family: sans-serif;
 }
 
 header {
-	padding: 0px 15px;
-	background: #EEE;
-	overflow: auto;
+    padding: 0px 15px;
+    background: #EEE;
+    overflow: auto;
 }
 
 header .name {
-	line-height: 30px;
+    line-height: 30px;
 }
 
 header .userStats {
-	line-height: 30px;
-	position: absolute;
-	right: 15px;
-	top: 0;
-	color: blue;
+    line-height: 30px;
+    position: absolute;
+    right: 15px;
+    top: 0;
+    color: blue;
 }
 
-.iconButton {}
-
 h2 {
-	margin: 10px 15px 10px 15px;
-	font-size: 1.2em;
-	line-height: 2em;
+    margin: 10px 15px 10px 15px;
+    font-size: 1.2em;
+    line-height: 2em;
 }
 
 h2 > a {
-	float: right;
+    float: right;
 }
 
 .linkList {
-	list-style-type: none;
-	padding: 0 15px;
-	margin-bottom: 40px;
+    list-style-type: none;
+    padding: 0 15px;
+    margin-bottom: 40px;
 }
 
 .linkList > li {
-	display: inline-block;
+    display: inline-block;
 }
 
 .button {
-	display: inline-block;
-	padding: 15px;
-	background: #EEE;
-	text-decoration: none;
-	box-shadow: inset 0px -2px 0px rgba(0,0,0,0.3);
-	border-radius: 3px;
-	color: #333;
-	font-size: 16px;
-	line-height: 16px;
-	font-weight: normal;
+    display: inline-block;
+    padding: 15px;
+    background: #EEE;
+    text-decoration: none;
+    box-shadow: inset 0px -2px 0px rgba(0,0,0,0.3);
+    border-radius: 3px;
+    color: #333;
+    font-size: 16px;
+    line-height: 16px;
+    font-weight: normal;
 }
 
 .button:hover {
-	box-shadow: inset 0px -2px 0px rgba(0,0,0,0.3), inset 0px 0px 50px rgba(0,0,0,0.4);
+    box-shadow: inset 0px -2px 0px rgba(0,0,0,0.3), inset 0px 0px 50px rgba(0,0,0,0.4);
 }
 
 .button.specialButton {
-	background-color: #104E8B;
-	color: white;
+    background-color: #104E8B;
+    color: white;
+}
+
+.button.contributeButton {
+    position: absolute;
+    right: 20px;
+    background-color: #56A5EC;
+    color: black;
 }
 
 .questionsList {
-	padding: 15px;
-	list-style-type: none;
+    padding: 15px;
+    list-style-type: none;
 }
 
 .questionLink {
-	margin-left: 0px;
-	margin-right: 10px;
-	border-bottom: solid 1px #CCC;
+    margin-left: 0px;
+    margin-right: 10px;
+    border-bottom: solid 1px #CCC;
 }
 
 .question {
-	margin-top: 15px;
-	margin-bottom: 10px;
-	width: 320px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    width: 320px;
 }
 
 .arrow {
-	position: absolute;
-	right: 15px;
-	padding: 10px;
+    position: absolute;
+    right: 15px;
+    padding: 10px;
 }
 
 .timeStamp {
-	margin-top: 0px;
-	margin-bottom: 3px;
-	font-size: 12px;
-	color: #AAA;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 12px;
+    color: #AAA;
+}
+
+.timeStamp.chat {
+    margin-left: 15px;
+}
+
+.timeStamp.user {
+    float:right;
+    margin-right: 15px;
 }
 
 .questionsPanel {
-	display: none;
-	text-align: center;
-	padding: 40px 0;
+    display: none;
+    text-align: center;
+    padding: 40px 0;
 }
 
 .divisor {
-	border-top: solid 1px #CCC;
-	padding-top: 20px;
+    border-top: solid 1px #CCC;
+    padding-top: 20px;
+}
+
+.chatMessage {
+    margin-top: 10px;
+    position: relative;
+    width: 60%;
+    background: #CCC;
+    padding: 25px 18px 25px 18px;
+    color:black;
+    border-radius:10px;
+    border-color: black;
+}
+
+.chatMessage:after {
+    content: "";
+    position: absolute;
+    bottom: -15px;
+    left: 30px;
+    border-width: 15px 15px 0;
+    border-style: solid;
+    border-color: #CCC transparent;
+    display: block;
+    width: 0;
+}
+.userMessage {
+    margin-top: 10px;
+    margin-left: 40px;
+    position: relative;
+    width: 60%;
+    background: #CCC;
+    padding: 25px 18px 25px 18px;
+    color:black;
+    border-radius:10px;
+    border-color: black;
+}
+
+.userMessage:after {
+    content: "";
+    position: absolute;
+    bottom: -15px;
+    right: 30px;
+    border-width: 15px 15px 0;
+    border-style: solid;
+    border-color: #CCC transparent;
+    display: block;
+    width: 0;
+}
+
+.chatPanel {
+    margin-top: 10px;
+    margin-left: 15px;
+}
+
+.chatPanel > div {
+    display: inline-block;
+}
+
+.contributePanel {
+    padding-right: 20px;
+    float:right;
+}
+
+.answerBadge {
+    text-align: center;
+    position: relative;
+}
+
+.centerBadge {
+    padding-right: 30px;
+}
+
+.noBadge {
+    margin-top: 30px;
+}
+
+.noContribute {
+    margin-top: 25px;
+    padding-left: 20px;
+    float:left;
+}
+
+.replyPanel {
+    display: inline-block;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    height: 40px;
+    background: #EEE;
+}
+
+.replyBox {
+    padding: 10px;
+    float:left;
+}
+
+.replyButton {
+    padding-right: 5px;
+    padding-top: 5px;
+    float:right;
 }
