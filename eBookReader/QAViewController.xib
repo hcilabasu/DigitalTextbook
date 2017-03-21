@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="ipad9_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="QAViewController">
+            <connections>
+                <outlet property="view" destination="UYP-Vi-DEB" id="eK7-GR-RY2"/>
+                <outlet property="webView" destination="me8-xb-i47" id="Mp5-e6-kBX"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="UYP-Vi-DEB">
+            <rect key="frame" x="0.0" y="0.0" width="511" height="768"/>
+            <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
+            <subviews>
+                <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="me8-xb-i47">
+                    <rect key="frame" x="0.0" y="0.0" width="511" height="724"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </webView>
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vPD-zF-PJe">
+                    <rect key="frame" x="0.0" y="724" width="511" height="44"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <items>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="NEt-hz-tPa"/>
+                        <barButtonItem title="Back" id="0mP-LT-gZA"/>
+                        <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="yig-f2-9rN"/>
+                        <barButtonItem title="Load" id="D5D-3G-kDv"/>
+                        <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="G5E-Mh-dJe"/>
+                        <barButtonItem title="Next" id="g7T-uP-g8A"/>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="Fy2-Xv-nfS"/>
+                    </items>
+                </toolbar>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="579.5" y="372"/>
+        </view>
+    </objects>
+</document>
