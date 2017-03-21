@@ -202,7 +202,7 @@
     
     UITapGestureRecognizer *cmapTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mapViewTap:)];
     cmapTap.delegate=self;
-   // [self.view addGestureRecognizer:cmapTap];
+    [self.view addGestureRecognizer:cmapTap];
     
     
     previewImageView = [[UIImageView alloc]initWithFrame:CGRectMake(30, 700, 40, 40)];
@@ -1042,7 +1042,11 @@
         [nodesToLink becomeFirstResponder];
         nodesToLink=nil;
         isReadyToLink=NO;
+    }else{
+        [self.view endEditing:YES];
     }
+    
+    
 }
 
 //The  "+" button on the toolbar, create a node

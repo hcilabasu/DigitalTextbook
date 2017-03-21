@@ -873,7 +873,6 @@
         CGPoint p1=[self getViewCenterPoint:self.view];
         CGPoint p2=[self getViewCenterPoint:object.view];
         [self addLine:[self getViewCenterPoint:self.view] Point2:[self getViewCenterPoint:object.view] Layer:layer ];
-
         RelationTextView* relationText= [relationTextArray objectAtIndex:i];
         relationText.center=CGPointMake((p1.x/2+p2.x/2), (p1.y/2+p2.y/2));
         CGRect frame = relationText.frame;
@@ -881,8 +880,6 @@
         frame.size.width=relationText.contentSize.width;
         [relationText setFrame:frame];
         [self.parentCmapController.conceptMapView addSubview:relationText];
-        
-        
         relationText.layer.zPosition = 1;
         //[self.parentCmapController.conceptMapView sendSubviewToBack:relationText];
         i++;
