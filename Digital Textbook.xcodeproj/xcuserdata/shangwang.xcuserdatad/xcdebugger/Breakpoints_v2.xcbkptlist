@@ -1830,11 +1830,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
+            timestampString = "511824557.638971"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1003"
-            endingLineNumber = "1003"
+            startingLineNumber = "1000"
+            endingLineNumber = "1000"
             landmarkName = "-didSelectItemAtIndex:forMenuAtPoint:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1846,7 +1846,39 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
+            timestampString = "511824557.638971"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "998"
+            endingLineNumber = "998"
+            landmarkName = "-didSelectItemAtIndex:forMenuAtPoint:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "eBookReader/NodeCell.m"
+            timestampString = "511824557.638971"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1017"
+            endingLineNumber = "1017"
+            landmarkName = "-didSelectItemAtIndex:forMenuAtPoint:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "eBookReader/NodeCell.m"
+            timestampString = "511824557.638971"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1001"
@@ -1862,11 +1894,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
+            timestampString = "511824557.638971"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1020"
-            endingLineNumber = "1020"
+            startingLineNumber = "1003"
+            endingLineNumber = "1003"
             landmarkName = "-didSelectItemAtIndex:forMenuAtPoint:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1878,43 +1910,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
+            timestampString = "511824557.638971"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1004"
-            endingLineNumber = "1004"
-            landmarkName = "-didSelectItemAtIndex:forMenuAtPoint:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1006"
-            endingLineNumber = "1006"
-            landmarkName = "-didSelectItemAtIndex:forMenuAtPoint:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1005"
-            endingLineNumber = "1005"
+            startingLineNumber = "1002"
+            endingLineNumber = "1002"
             landmarkName = "-didSelectItemAtIndex:forMenuAtPoint:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1958,23 +1958,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1658"
-            endingLineNumber = "1658"
-            landmarkName = "-highlightLink:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1661"
@@ -1990,11 +1974,27 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1683"
-            endingLineNumber = "1683"
+            startingLineNumber = "1664"
+            endingLineNumber = "1664"
+            landmarkName = "-highlightLink:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "eBookReader/CmapController.m"
+            timestampString = "511823892.360286"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1686"
+            endingLineNumber = "1686"
             landmarkName = "@implementation CmapController"
             landmarkType = "3">
          </BreakpointContent>
@@ -2006,11 +2006,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1686"
-            endingLineNumber = "1686"
+            startingLineNumber = "1689"
+            endingLineNumber = "1689"
             landmarkName = "-removePreviewNode:"
             landmarkType = "7">
          </BreakpointContent>
@@ -2038,11 +2038,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1233"
-            endingLineNumber = "1233"
+            startingLineNumber = "1236"
+            endingLineNumber = "1236"
             landmarkName = "-canPerformAction:withSender:"
             landmarkType = "7">
          </BreakpointContent>
@@ -2054,11 +2054,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
+            timestampString = "511824500.762642"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "349"
-            endingLineNumber = "349"
+            startingLineNumber = "346"
+            endingLineNumber = "346"
             landmarkName = "-updateViewSize"
             landmarkType = "7">
          </BreakpointContent>
@@ -2070,11 +2070,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1646"
-            endingLineNumber = "1646"
+            startingLineNumber = "1649"
+            endingLineNumber = "1649"
             landmarkName = "@implementation CmapController"
             landmarkType = "3">
          </BreakpointContent>
@@ -2086,11 +2086,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1650"
-            endingLineNumber = "1650"
+            startingLineNumber = "1653"
+            endingLineNumber = "1653"
             landmarkName = "-clearAllHighlight"
             landmarkType = "7">
          </BreakpointContent>
@@ -2102,11 +2102,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1666"
-            endingLineNumber = "1666"
+            startingLineNumber = "1669"
+            endingLineNumber = "1669"
             landmarkName = "-highlightLink:"
             landmarkType = "7">
          </BreakpointContent>
@@ -2118,11 +2118,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
+            timestampString = "511824500.762642"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "469"
-            endingLineNumber = "469"
+            startingLineNumber = "466"
+            endingLineNumber = "466"
             landmarkName = "-removeShadowAnim"
             landmarkType = "7">
          </BreakpointContent>
@@ -2214,11 +2214,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
+            timestampString = "511824500.762642"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "387"
-            endingLineNumber = "387"
+            startingLineNumber = "384"
+            endingLineNumber = "384"
             landmarkName = "-gestureRecognizer:shouldRecognizeSimultaneouslyWithGestureRecognizer:"
             landmarkType = "7">
          </BreakpointContent>
@@ -2230,11 +2230,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1260"
-            endingLineNumber = "1260"
+            startingLineNumber = "1263"
+            endingLineNumber = "1263"
             landmarkName = "-shouldAutorotateToInterfaceOrientation:"
             landmarkType = "7">
          </BreakpointContent>
@@ -2246,11 +2246,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1264"
-            endingLineNumber = "1264"
+            startingLineNumber = "1267"
+            endingLineNumber = "1267"
             landmarkName = "-addConceptOnClick:"
             landmarkType = "7">
          </BreakpointContent>
@@ -2310,71 +2310,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1910"
-            endingLineNumber = "1910"
-            landmarkName = "-deleteLink:SecondNode:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1924"
-            endingLineNumber = "1924"
-            landmarkName = "-screenSize"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1927"
-            endingLineNumber = "1927"
-            landmarkName = "-screenSize"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1930"
-            endingLineNumber = "1930"
-            landmarkName = "-screenSize"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1913"
@@ -2390,11 +2326,75 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1917"
-            endingLineNumber = "1917"
+            startingLineNumber = "1927"
+            endingLineNumber = "1927"
+            landmarkName = "-screenSize"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "eBookReader/CmapController.m"
+            timestampString = "511823892.360286"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1930"
+            endingLineNumber = "1930"
+            landmarkName = "-screenSize"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "eBookReader/CmapController.m"
+            timestampString = "511823892.360286"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1933"
+            endingLineNumber = "1933"
+            landmarkName = "-screenSize"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "eBookReader/CmapController.m"
+            timestampString = "511823892.360286"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1916"
+            endingLineNumber = "1916"
+            landmarkName = "-deleteLink:SecondNode:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "eBookReader/CmapController.m"
+            timestampString = "511823892.360286"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1920"
+            endingLineNumber = "1920"
             landmarkName = "@implementation CmapController"
             landmarkType = "3">
          </BreakpointContent>
@@ -2406,11 +2406,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1912"
-            endingLineNumber = "1912"
+            startingLineNumber = "1915"
+            endingLineNumber = "1915"
             landmarkName = "-deleteLink:SecondNode:"
             landmarkType = "7">
          </BreakpointContent>
@@ -2422,11 +2422,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1901"
-            endingLineNumber = "1901"
+            startingLineNumber = "1904"
+            endingLineNumber = "1904"
             landmarkName = "-deleteLink:SecondNode:"
             landmarkType = "7">
          </BreakpointContent>
@@ -2438,11 +2438,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1920"
-            endingLineNumber = "1920"
+            startingLineNumber = "1923"
+            endingLineNumber = "1923"
             landmarkName = "-screenSize"
             landmarkType = "7">
          </BreakpointContent>
@@ -2454,11 +2454,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
+            timestampString = "511824500.762642"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "700"
-            endingLineNumber = "700"
+            startingLineNumber = "697"
+            endingLineNumber = "697"
             landmarkName = "-createLink:name:"
             landmarkType = "7">
             <Locations>
@@ -2502,11 +2502,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1919"
-            endingLineNumber = "1919"
+            startingLineNumber = "1922"
+            endingLineNumber = "1922"
             landmarkName = "-screenSize"
             landmarkType = "7">
          </BreakpointContent>
@@ -2518,11 +2518,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1918"
-            endingLineNumber = "1918"
+            startingLineNumber = "1921"
+            endingLineNumber = "1921"
             landmarkName = "-screenSize"
             landmarkType = "7">
          </BreakpointContent>
@@ -2534,11 +2534,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511677596.344794"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "535"
-            endingLineNumber = "535"
+            startingLineNumber = "538"
+            endingLineNumber = "538"
             landmarkName = "-reCreateAllLinks"
             landmarkType = "7">
          </BreakpointContent>
@@ -2550,11 +2550,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1936"
-            endingLineNumber = "1936"
+            startingLineNumber = "1939"
+            endingLineNumber = "1939"
             landmarkName = "-uploadCmapCocneptAddedList"
             landmarkType = "7">
          </BreakpointContent>
@@ -2566,11 +2566,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511677596.344794"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "534"
-            endingLineNumber = "534"
+            startingLineNumber = "537"
+            endingLineNumber = "537"
             landmarkName = "-reCreateAllLinks"
             landmarkType = "7">
          </BreakpointContent>
@@ -2582,11 +2582,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
+            timestampString = "511824500.762642"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "551"
-            endingLineNumber = "551"
+            startingLineNumber = "548"
+            endingLineNumber = "548"
             landmarkName = "-tap:"
             landmarkType = "7">
          </BreakpointContent>
@@ -2598,11 +2598,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
+            timestampString = "511824500.762642"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "556"
-            endingLineNumber = "556"
+            startingLineNumber = "553"
+            endingLineNumber = "553"
             landmarkName = "-tap:"
             landmarkType = "7">
          </BreakpointContent>
@@ -2614,11 +2614,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
+            timestampString = "511824500.762642"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "531"
-            endingLineNumber = "531"
+            startingLineNumber = "528"
+            endingLineNumber = "528"
             landmarkName = "-pan:"
             landmarkType = "7">
          </BreakpointContent>
@@ -2630,11 +2630,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
+            timestampString = "511824500.762642"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "568"
-            endingLineNumber = "568"
+            startingLineNumber = "565"
+            endingLineNumber = "565"
             landmarkName = "-tap:"
             landmarkType = "7">
          </BreakpointContent>
@@ -2646,11 +2646,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
+            timestampString = "511824500.762642"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "569"
-            endingLineNumber = "569"
+            startingLineNumber = "566"
+            endingLineNumber = "566"
             landmarkName = "-tap:"
             landmarkType = "7">
          </BreakpointContent>
@@ -2662,11 +2662,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
+            timestampString = "511824500.762642"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "700"
-            endingLineNumber = "700"
+            startingLineNumber = "697"
+            endingLineNumber = "697"
             landmarkName = "-createLink:name:"
             landmarkType = "7">
          </BreakpointContent>
@@ -2678,11 +2678,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511467440.011397"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "507"
-            endingLineNumber = "507"
+            startingLineNumber = "505"
+            endingLineNumber = "505"
             landmarkName = "-loadConceptMap:"
             landmarkType = "7">
          </BreakpointContent>
@@ -2694,11 +2694,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511467440.011397"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "522"
-            endingLineNumber = "522"
+            startingLineNumber = "520"
+            endingLineNumber = "520"
             landmarkName = "-loadConceptMap:"
             landmarkType = "7">
          </BreakpointContent>
@@ -2710,11 +2710,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511467440.011397"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "479"
-            endingLineNumber = "479"
+            startingLineNumber = "477"
+            endingLineNumber = "477"
             landmarkName = "-loadConceptMap:"
             landmarkType = "7">
          </BreakpointContent>
@@ -2726,11 +2726,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511467440.011397"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "495"
-            endingLineNumber = "495"
+            startingLineNumber = "493"
+            endingLineNumber = "493"
             landmarkName = "-loadConceptMap:"
             landmarkType = "7">
             <Locations>
@@ -2790,11 +2790,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1936"
-            endingLineNumber = "1936"
+            startingLineNumber = "1939"
+            endingLineNumber = "1939"
             landmarkName = "-uploadCmapCocneptAddedList"
             landmarkType = "7">
          </BreakpointContent>
@@ -2806,11 +2806,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511677596.344794"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "657"
-            endingLineNumber = "657"
+            startingLineNumber = "660"
+            endingLineNumber = "660"
             landmarkName = "-autoSaveMap"
             landmarkType = "7">
             <Locations>
@@ -2854,11 +2854,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511677596.344794"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "663"
-            endingLineNumber = "663"
+            startingLineNumber = "666"
+            endingLineNumber = "666"
             landmarkName = "-autoSaveMap"
             landmarkType = "7">
             <Locations>
@@ -2902,11 +2902,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511677596.344794"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "662"
-            endingLineNumber = "662"
+            startingLineNumber = "665"
+            endingLineNumber = "665"
             landmarkName = "-autoSaveMap"
             landmarkType = "7">
          </BreakpointContent>
@@ -2918,11 +2918,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511467440.011397"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "481"
-            endingLineNumber = "481"
+            startingLineNumber = "479"
+            endingLineNumber = "479"
             landmarkName = "-loadConceptMap:"
             landmarkType = "7">
          </BreakpointContent>
@@ -2934,11 +2934,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511467440.011397"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "487"
-            endingLineNumber = "487"
+            startingLineNumber = "485"
+            endingLineNumber = "485"
             landmarkName = "-loadConceptMap:"
             landmarkType = "7">
             <Locations>
@@ -2982,11 +2982,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1900"
-            endingLineNumber = "1900"
+            startingLineNumber = "1903"
+            endingLineNumber = "1903"
             landmarkName = "-deleteLink:SecondNode:"
             landmarkType = "7">
          </BreakpointContent>
@@ -2998,11 +2998,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1899"
-            endingLineNumber = "1899"
+            startingLineNumber = "1902"
+            endingLineNumber = "1902"
             landmarkName = "-deleteLink:SecondNode:"
             landmarkType = "7">
          </BreakpointContent>
@@ -3014,11 +3014,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511467440.011397"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "506"
-            endingLineNumber = "506"
+            startingLineNumber = "504"
+            endingLineNumber = "504"
             landmarkName = "-loadConceptMap:"
             landmarkType = "7">
          </BreakpointContent>
@@ -3030,11 +3030,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
+            timestampString = "511824500.762642"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "654"
-            endingLineNumber = "654"
+            startingLineNumber = "651"
+            endingLineNumber = "651"
             landmarkName = "-tap:"
             landmarkType = "7">
          </BreakpointContent>
@@ -3046,11 +3046,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
+            timestampString = "511824500.762642"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "648"
-            endingLineNumber = "648"
+            startingLineNumber = "645"
+            endingLineNumber = "645"
             landmarkName = "-tap:"
             landmarkType = "7">
          </BreakpointContent>
@@ -3062,11 +3062,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1931"
-            endingLineNumber = "1931"
+            startingLineNumber = "1934"
+            endingLineNumber = "1934"
             landmarkName = "-screenSize"
             landmarkType = "7">
          </BreakpointContent>
@@ -3094,11 +3094,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
+            timestampString = "511824500.762642"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "645"
-            endingLineNumber = "645"
+            startingLineNumber = "642"
+            endingLineNumber = "642"
             landmarkName = "-tap:"
             landmarkType = "7">
             <Locations>
@@ -3142,11 +3142,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511677596.344794"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "573"
-            endingLineNumber = "573"
+            startingLineNumber = "576"
+            endingLineNumber = "576"
             landmarkName = "-createLink:rightCell:name:"
             landmarkType = "7">
          </BreakpointContent>
@@ -3158,11 +3158,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
+            timestampString = "511824500.762642"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "536"
-            endingLineNumber = "536"
+            startingLineNumber = "533"
+            endingLineNumber = "533"
             landmarkName = "-tap:"
             landmarkType = "7">
          </BreakpointContent>
@@ -3174,11 +3174,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1329"
-            endingLineNumber = "1329"
+            startingLineNumber = "1332"
+            endingLineNumber = "1332"
             landmarkName = "-alertView:clickedButtonAtIndex:"
             landmarkType = "7">
          </BreakpointContent>
@@ -3190,11 +3190,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1330"
-            endingLineNumber = "1330"
+            startingLineNumber = "1333"
+            endingLineNumber = "1333"
             landmarkName = "-alertView:clickedButtonAtIndex:"
             landmarkType = "7">
          </BreakpointContent>
@@ -3206,11 +3206,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1409"
-            endingLineNumber = "1409"
+            startingLineNumber = "1412"
+            endingLineNumber = "1412"
             landmarkName = "-targetMethod:"
             landmarkType = "7">
          </BreakpointContent>
@@ -3222,11 +3222,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1319"
-            endingLineNumber = "1319"
+            startingLineNumber = "1322"
+            endingLineNumber = "1322"
             landmarkName = "-textViewDidBeginEditing:"
             landmarkType = "7">
          </BreakpointContent>
@@ -3238,11 +3238,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1317"
-            endingLineNumber = "1317"
+            startingLineNumber = "1320"
+            endingLineNumber = "1320"
             landmarkName = "-textViewDidBeginEditing:"
             landmarkType = "7">
          </BreakpointContent>
@@ -3254,11 +3254,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1411"
-            endingLineNumber = "1411"
+            startingLineNumber = "1414"
+            endingLineNumber = "1414"
             landmarkName = "@implementation CmapController"
             landmarkType = "3">
          </BreakpointContent>
@@ -3270,11 +3270,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1318"
-            endingLineNumber = "1318"
+            startingLineNumber = "1321"
+            endingLineNumber = "1321"
             landmarkName = "-textViewDidBeginEditing:"
             landmarkType = "7">
          </BreakpointContent>
@@ -3398,11 +3398,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
+            timestampString = "511824500.762642"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "393"
-            endingLineNumber = "393"
+            startingLineNumber = "390"
+            endingLineNumber = "390"
             landmarkName = "-textViewDidChange:"
             landmarkType = "7">
          </BreakpointContent>
@@ -3414,11 +3414,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
+            timestampString = "511824500.762642"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "687"
-            endingLineNumber = "687"
+            startingLineNumber = "684"
+            endingLineNumber = "684"
             landmarkName = "-singleTap:"
             landmarkType = "7">
          </BreakpointContent>
@@ -3430,11 +3430,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
+            timestampString = "511824500.762642"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "633"
-            endingLineNumber = "633"
+            startingLineNumber = "630"
+            endingLineNumber = "630"
             landmarkName = "-tap:"
             landmarkType = "7">
          </BreakpointContent>
@@ -3446,11 +3446,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
+            timestampString = "511824500.762642"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "554"
-            endingLineNumber = "554"
+            startingLineNumber = "551"
+            endingLineNumber = "551"
             landmarkName = "-tap:"
             landmarkType = "7">
          </BreakpointContent>
@@ -3462,11 +3462,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
+            timestampString = "511824500.762642"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "447"
-            endingLineNumber = "447"
+            startingLineNumber = "444"
+            endingLineNumber = "444"
             landmarkName = "-textField:shouldChangeCharactersInRange:replacementString:"
             landmarkType = "7">
          </BreakpointContent>
@@ -3590,11 +3590,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1527"
-            endingLineNumber = "1527"
+            startingLineNumber = "1530"
+            endingLineNumber = "1530"
             landmarkName = "-calculateNodePosition:"
             landmarkType = "7">
          </BreakpointContent>
@@ -3606,11 +3606,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1308"
-            endingLineNumber = "1308"
+            startingLineNumber = "1311"
+            endingLineNumber = "1311"
             landmarkName = "-textViewDidBeginEditing:"
             landmarkType = "7">
          </BreakpointContent>
@@ -3628,7 +3628,7 @@
             startingLineNumber = "38"
             endingLineNumber = "38"
             landmarkName = "-textFieldDidEndEditing:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3638,11 +3638,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "480411231.421379"
+            timestampString = "511824500.762642"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "169"
-            endingLineNumber = "169"
+            startingLineNumber = "166"
+            endingLineNumber = "166"
             landmarkName = "-viewDidLoad"
             landmarkType = "7">
          </BreakpointContent>
@@ -3670,11 +3670,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
+            timestampString = "511824557.638971"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "985"
-            endingLineNumber = "985"
+            startingLineNumber = "982"
+            endingLineNumber = "982"
             landmarkName = "-imageForItemAtIndex:"
             landmarkType = "7">
          </BreakpointContent>
@@ -3686,11 +3686,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1294"
-            endingLineNumber = "1294"
+            startingLineNumber = "1297"
+            endingLineNumber = "1297"
             landmarkName = "-textFieldDidBeginEditing:"
             landmarkType = "7">
          </BreakpointContent>
@@ -3702,11 +3702,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
+            timestampString = "511824557.638971"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "991"
-            endingLineNumber = "991"
+            startingLineNumber = "988"
+            endingLineNumber = "988"
             landmarkName = "@implementation NodeCell"
             landmarkType = "3">
          </BreakpointContent>
@@ -3718,11 +3718,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1276"
-            endingLineNumber = "1276"
+            startingLineNumber = "1279"
+            endingLineNumber = "1279"
             landmarkName = "-addConceptOnClick:"
             landmarkType = "7">
          </BreakpointContent>
@@ -3798,11 +3798,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1961"
-            endingLineNumber = "1961"
+            startingLineNumber = "1964"
+            endingLineNumber = "1964"
             landmarkName = "-uploadCMapImg"
             landmarkType = "7">
          </BreakpointContent>
@@ -3830,11 +3830,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "824"
-            endingLineNumber = "824"
+            startingLineNumber = "827"
+            endingLineNumber = "827"
             landmarkName = "-modifyMap"
             landmarkType = "7">
          </BreakpointContent>
@@ -3846,11 +3846,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "810"
-            endingLineNumber = "810"
+            startingLineNumber = "813"
+            endingLineNumber = "813"
             landmarkName = "-modifyMap"
             landmarkType = "7">
          </BreakpointContent>
@@ -3862,11 +3862,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "818"
-            endingLineNumber = "818"
+            startingLineNumber = "821"
+            endingLineNumber = "821"
             landmarkName = "-modifyMap"
             landmarkType = "7">
          </BreakpointContent>
@@ -3878,11 +3878,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "822"
-            endingLineNumber = "822"
+            startingLineNumber = "825"
+            endingLineNumber = "825"
             landmarkName = "-modifyMap"
             landmarkType = "7">
          </BreakpointContent>
@@ -3894,11 +3894,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1012"
-            endingLineNumber = "1012"
+            startingLineNumber = "1015"
+            endingLineNumber = "1015"
             landmarkName = "-deleteConceptByIndex:"
             landmarkType = "7">
          </BreakpointContent>
@@ -3990,11 +3990,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "797"
-            endingLineNumber = "797"
+            startingLineNumber = "800"
+            endingLineNumber = "800"
             landmarkName = "-modifyMap"
             landmarkType = "7">
          </BreakpointContent>
@@ -4006,11 +4006,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "993"
-            endingLineNumber = "993"
+            startingLineNumber = "996"
+            endingLineNumber = "996"
             landmarkName = "-deleteConceptByIndex:"
             landmarkType = "7">
          </BreakpointContent>
@@ -4022,11 +4022,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "820"
-            endingLineNumber = "820"
+            startingLineNumber = "823"
+            endingLineNumber = "823"
             landmarkName = "-modifyMap"
             landmarkType = "7">
          </BreakpointContent>
@@ -4182,11 +4182,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1082"
-            endingLineNumber = "1082"
+            startingLineNumber = "1085"
+            endingLineNumber = "1085"
             landmarkName = "-clickOnBulb:"
             landmarkType = "7">
          </BreakpointContent>
@@ -4198,11 +4198,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
+            timestampString = "511824557.638971"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1024"
-            endingLineNumber = "1024"
+            startingLineNumber = "1021"
+            endingLineNumber = "1021"
             landmarkName = "-didSelectItemAtIndex:forMenuAtPoint:"
             landmarkType = "7">
          </BreakpointContent>
@@ -4214,11 +4214,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1064"
-            endingLineNumber = "1064"
+            startingLineNumber = "1067"
+            endingLineNumber = "1067"
             landmarkName = "-clickOnBulb:"
             landmarkType = "7">
          </BreakpointContent>
@@ -4230,11 +4230,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "480631770.098887"
+            timestampString = "511824500.762642"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "276"
-            endingLineNumber = "276"
+            startingLineNumber = "273"
+            endingLineNumber = "273"
             landmarkName = "-viewWillAppear:"
             landmarkType = "7">
          </BreakpointContent>
@@ -4342,11 +4342,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1972"
-            endingLineNumber = "1972"
+            startingLineNumber = "1975"
+            endingLineNumber = "1975"
             landmarkName = "-uploadCMapImg"
             landmarkType = "7">
          </BreakpointContent>
@@ -4390,55 +4390,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "890"
-            endingLineNumber = "890"
-            landmarkName = "-modifyExpertMap"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "885"
-            endingLineNumber = "885"
-            landmarkName = "-modifyExpertMap"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "884"
-            endingLineNumber = "884"
-            landmarkName = "-modifyExpertMap"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "893"
@@ -4454,11 +4406,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "894"
-            endingLineNumber = "894"
+            startingLineNumber = "888"
+            endingLineNumber = "888"
             landmarkName = "-modifyExpertMap"
             landmarkType = "7">
          </BreakpointContent>
@@ -4470,43 +4422,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1042"
-            endingLineNumber = "1042"
-            landmarkName = "-mapViewTap:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1043"
-            endingLineNumber = "1043"
-            landmarkName = "-mapViewTap:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "895"
-            endingLineNumber = "895"
+            startingLineNumber = "887"
+            endingLineNumber = "887"
             landmarkName = "-modifyExpertMap"
             landmarkType = "7">
          </BreakpointContent>
@@ -4518,11 +4438,91 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "900"
-            endingLineNumber = "900"
+            startingLineNumber = "896"
+            endingLineNumber = "896"
+            landmarkName = "-modifyExpertMap"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "eBookReader/CmapController.m"
+            timestampString = "511823892.360286"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "897"
+            endingLineNumber = "897"
+            landmarkName = "-modifyExpertMap"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "eBookReader/CmapController.m"
+            timestampString = "511823892.360286"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1045"
+            endingLineNumber = "1045"
+            landmarkName = "-mapViewTap:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "eBookReader/CmapController.m"
+            timestampString = "511823892.360286"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1046"
+            endingLineNumber = "1046"
+            landmarkName = "-mapViewTap:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "eBookReader/CmapController.m"
+            timestampString = "511823892.360286"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "898"
+            endingLineNumber = "898"
+            landmarkName = "-modifyExpertMap"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "eBookReader/CmapController.m"
+            timestampString = "511823892.360286"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "903"
+            endingLineNumber = "903"
             landmarkName = "-modifyExpertMap"
             landmarkType = "7">
          </BreakpointContent>
@@ -4896,11 +4896,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2135"
-            endingLineNumber = "2135"
+            startingLineNumber = "2138"
+            endingLineNumber = "2138"
             landmarkName = "-upLoadExpertLinktoDropbox"
             landmarkType = "7">
          </BreakpointContent>
@@ -5088,11 +5088,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
+            timestampString = "511824500.762642"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "595"
-            endingLineNumber = "595"
+            startingLineNumber = "592"
+            endingLineNumber = "592"
             landmarkName = "-tap:"
             landmarkType = "7">
          </BreakpointContent>
@@ -5120,11 +5120,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
+            timestampString = "511824500.762642"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "336"
-            endingLineNumber = "336"
+            startingLineNumber = "333"
+            endingLineNumber = "333"
             landmarkName = "-updateViewSize"
             landmarkType = "7">
          </BreakpointContent>
@@ -5136,11 +5136,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
+            timestampString = "511824500.762642"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "333"
-            endingLineNumber = "333"
+            startingLineNumber = "330"
+            endingLineNumber = "330"
             landmarkName = "-updateViewSize"
             landmarkType = "7">
          </BreakpointContent>
@@ -5216,11 +5216,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
+            timestampString = "511824557.638971"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1014"
-            endingLineNumber = "1014"
+            startingLineNumber = "1011"
+            endingLineNumber = "1011"
             landmarkName = "-didSelectItemAtIndex:forMenuAtPoint:"
             landmarkType = "7">
          </BreakpointContent>
@@ -5232,11 +5232,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
+            timestampString = "511824557.638971"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1028"
-            endingLineNumber = "1028"
+            startingLineNumber = "1025"
+            endingLineNumber = "1025"
             landmarkName = "-didSelectItemAtIndex:forMenuAtPoint:"
             landmarkType = "7">
          </BreakpointContent>
@@ -5248,11 +5248,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
+            timestampString = "511824500.762642"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "651"
-            endingLineNumber = "651"
+            startingLineNumber = "648"
+            endingLineNumber = "648"
             landmarkName = "-tap:"
             landmarkType = "7">
          </BreakpointContent>
@@ -5328,11 +5328,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2285"
-            endingLineNumber = "2285"
+            startingLineNumber = "2288"
+            endingLineNumber = "2288"
             landmarkName = "-saveOrigin"
             landmarkType = "7">
          </BreakpointContent>
@@ -5344,11 +5344,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2306"
-            endingLineNumber = "2306"
+            startingLineNumber = "2309"
+            endingLineNumber = "2309"
             landmarkName = "@implementation CmapController"
             landmarkType = "3">
          </BreakpointContent>
@@ -5360,11 +5360,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
+            timestampString = "511824500.762642"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "366"
-            endingLineNumber = "366"
+            startingLineNumber = "363"
+            endingLineNumber = "363"
             landmarkName = "-updateViewSize"
             landmarkType = "7">
          </BreakpointContent>
@@ -5376,11 +5376,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
+            timestampString = "511824500.762642"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "371"
-            endingLineNumber = "371"
+            startingLineNumber = "368"
+            endingLineNumber = "368"
             landmarkName = "-updateViewSize"
             landmarkType = "7">
          </BreakpointContent>
@@ -5392,7 +5392,39 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
+            timestampString = "511824500.762642"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "369"
+            endingLineNumber = "369"
+            landmarkName = "-updateViewSize"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "eBookReader/NodeCell.m"
+            timestampString = "511824500.762642"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "373"
+            endingLineNumber = "373"
+            landmarkName = "-updateViewSize"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "eBookReader/NodeCell.m"
+            timestampString = "511824500.762642"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "372"
@@ -5407,44 +5439,12 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "376"
-            endingLineNumber = "376"
-            landmarkName = "-updateViewSize"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "375"
-            endingLineNumber = "375"
-            landmarkName = "-updateViewSize"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511467440.011397"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "482"
-            endingLineNumber = "482"
+            startingLineNumber = "480"
+            endingLineNumber = "480"
             landmarkName = "-loadConceptMap:"
             landmarkType = "7">
          </BreakpointContent>
@@ -5456,11 +5456,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511677596.344794"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "650"
-            endingLineNumber = "650"
+            startingLineNumber = "653"
+            endingLineNumber = "653"
             landmarkName = "-autoSaveMap"
             landmarkType = "7">
          </BreakpointContent>
@@ -5472,11 +5472,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511677596.344794"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "668"
-            endingLineNumber = "668"
+            startingLineNumber = "671"
+            endingLineNumber = "671"
             landmarkName = "-LongPress:"
             landmarkType = "7">
          </BreakpointContent>
@@ -5488,11 +5488,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2303"
-            endingLineNumber = "2303"
+            startingLineNumber = "2306"
+            endingLineNumber = "2306"
             landmarkName = "-textView:shouldChangeTextInRange:replacementText:"
             landmarkType = "7">
          </BreakpointContent>
@@ -5568,11 +5568,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2304"
-            endingLineNumber = "2304"
+            startingLineNumber = "2307"
+            endingLineNumber = "2307"
             landmarkName = "-textView:shouldChangeTextInRange:replacementText:"
             landmarkType = "7">
          </BreakpointContent>
@@ -5952,11 +5952,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511677596.344794"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "763"
-            endingLineNumber = "763"
+            startingLineNumber = "766"
+            endingLineNumber = "766"
             landmarkName = "-createNode:withName:page:url:urlTitle:hasNote:hasHighlight:hasWebLink:savedNotesString:"
             landmarkType = "7">
          </BreakpointContent>
@@ -5968,11 +5968,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511677596.344794"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "744"
-            endingLineNumber = "744"
+            startingLineNumber = "747"
+            endingLineNumber = "747"
             landmarkName = "-createNode:withName:page:url:urlTitle:hasNote:hasHighlight:hasWebLink:savedNotesString:"
             landmarkType = "7">
          </BreakpointContent>
@@ -5984,11 +5984,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511677596.344794"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "743"
-            endingLineNumber = "743"
+            startingLineNumber = "746"
+            endingLineNumber = "746"
             landmarkName = "-createNode:withName:page:url:urlTitle:hasNote:hasHighlight:hasWebLink:savedNotesString:"
             landmarkType = "7">
          </BreakpointContent>
@@ -6000,11 +6000,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2383"
-            endingLineNumber = "2383"
+            startingLineNumber = "2386"
+            endingLineNumber = "2386"
             landmarkName = "-upLoadLogFiletoDropBox"
             landmarkType = "7">
             <Locations>
@@ -6048,11 +6048,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2381"
-            endingLineNumber = "2381"
+            startingLineNumber = "2384"
+            endingLineNumber = "2384"
             landmarkName = "-upLoadLogFiletoDropBox"
             landmarkType = "7">
          </BreakpointContent>
@@ -6160,11 +6160,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "480631770.098887"
+            timestampString = "511824500.762642"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "211"
-            endingLineNumber = "211"
+            startingLineNumber = "208"
+            endingLineNumber = "208"
             landmarkName = "-viewDidLoad"
             landmarkType = "7">
          </BreakpointContent>
@@ -6224,11 +6224,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1363"
-            endingLineNumber = "1363"
+            startingLineNumber = "1366"
+            endingLineNumber = "1366"
             landmarkName = "-alertView:clickedButtonAtIndex:"
             landmarkType = "7">
          </BreakpointContent>
@@ -6256,11 +6256,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1365"
-            endingLineNumber = "1365"
+            startingLineNumber = "1368"
+            endingLineNumber = "1368"
             landmarkName = "-alertView:clickedButtonAtIndex:"
             landmarkType = "7">
          </BreakpointContent>
@@ -6272,11 +6272,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1040"
-            endingLineNumber = "1040"
+            startingLineNumber = "1043"
+            endingLineNumber = "1043"
             landmarkName = "-mapViewTap:"
             landmarkType = "7">
          </BreakpointContent>
@@ -6288,11 +6288,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
+            timestampString = "511824557.638971"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "869"
-            endingLineNumber = "869"
+            startingLineNumber = "862"
+            endingLineNumber = "862"
             landmarkName = "-removeLinkWithNode:"
             landmarkType = "7">
          </BreakpointContent>
@@ -6384,11 +6384,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511677596.344794"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "527"
-            endingLineNumber = "527"
+            startingLineNumber = "530"
+            endingLineNumber = "530"
             landmarkName = "-loadConceptMap:"
             landmarkType = "7">
          </BreakpointContent>
@@ -6400,11 +6400,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "871"
-            endingLineNumber = "871"
+            startingLineNumber = "874"
+            endingLineNumber = "874"
             landmarkName = "-modifyExpertMap"
             landmarkType = "7">
          </BreakpointContent>
@@ -6416,11 +6416,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "872"
-            endingLineNumber = "872"
+            startingLineNumber = "875"
+            endingLineNumber = "875"
             landmarkName = "-modifyExpertMap"
             landmarkType = "7">
          </BreakpointContent>
@@ -6496,11 +6496,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1354"
-            endingLineNumber = "1354"
+            startingLineNumber = "1357"
+            endingLineNumber = "1357"
             landmarkName = "-alertView:clickedButtonAtIndex:"
             landmarkType = "7">
          </BreakpointContent>
@@ -6528,11 +6528,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
+            timestampString = "511824500.762642"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "488"
-            endingLineNumber = "488"
+            startingLineNumber = "485"
+            endingLineNumber = "485"
             landmarkName = "-pan:"
             landmarkType = "7">
          </BreakpointContent>
@@ -6576,11 +6576,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1370"
-            endingLineNumber = "1370"
+            startingLineNumber = "1373"
+            endingLineNumber = "1373"
             landmarkName = "-alertView:clickedButtonAtIndex:"
             landmarkType = "7">
          </BreakpointContent>
@@ -6592,11 +6592,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1374"
-            endingLineNumber = "1374"
+            startingLineNumber = "1377"
+            endingLineNumber = "1377"
             landmarkName = "-alertView:clickedButtonAtIndex:"
             landmarkType = "7">
          </BreakpointContent>
@@ -6694,7 +6694,7 @@
             startingLineNumber = "46"
             endingLineNumber = "46"
             landmarkName = "-addGestureRecognizer:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -6710,7 +6710,7 @@
             startingLineNumber = "45"
             endingLineNumber = "45"
             landmarkName = "-addGestureRecognizer:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -6720,11 +6720,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1405"
-            endingLineNumber = "1405"
+            startingLineNumber = "1408"
+            endingLineNumber = "1408"
             landmarkName = "-targetMethod:"
             landmarkType = "7">
          </BreakpointContent>
@@ -6816,11 +6816,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2405"
-            endingLineNumber = "2405"
+            startingLineNumber = "2408"
+            endingLineNumber = "2408"
             landmarkName = "-upLoadLogFiletoDropBox"
             landmarkType = "7">
          </BreakpointContent>
@@ -7152,11 +7152,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1746"
-            endingLineNumber = "1746"
+            startingLineNumber = "1749"
+            endingLineNumber = "1749"
             landmarkName = "-scrollViewDidZoom:"
             landmarkType = "7">
          </BreakpointContent>
@@ -7168,11 +7168,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1768"
-            endingLineNumber = "1768"
+            startingLineNumber = "1771"
+            endingLineNumber = "1771"
             landmarkName = "-scrollViewDidZoom:"
             landmarkType = "7">
          </BreakpointContent>
@@ -7184,11 +7184,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1762"
-            endingLineNumber = "1762"
+            startingLineNumber = "1765"
+            endingLineNumber = "1765"
             landmarkName = "-scrollViewDidZoom:"
             landmarkType = "7">
          </BreakpointContent>
@@ -7200,11 +7200,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1766"
-            endingLineNumber = "1766"
+            startingLineNumber = "1769"
+            endingLineNumber = "1769"
             landmarkName = "-scrollViewDidZoom:"
             landmarkType = "7">
          </BreakpointContent>
@@ -7216,11 +7216,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1701"
-            endingLineNumber = "1701"
+            startingLineNumber = "1704"
+            endingLineNumber = "1704"
             landmarkName = "-scrollViewDidEndZooming:withView:atScale:"
             landmarkType = "7">
             <Locations>
@@ -7264,11 +7264,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1770"
-            endingLineNumber = "1770"
+            startingLineNumber = "1773"
+            endingLineNumber = "1773"
             landmarkName = "-scrollViewDidZoom:"
             landmarkType = "7">
          </BreakpointContent>
@@ -7280,11 +7280,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1775"
-            endingLineNumber = "1775"
+            startingLineNumber = "1778"
+            endingLineNumber = "1778"
             landmarkName = "-scrollViewDidZoom:"
             landmarkType = "7">
          </BreakpointContent>
@@ -7408,11 +7408,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
+            timestampString = "511824500.762642"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "476"
-            endingLineNumber = "476"
+            startingLineNumber = "473"
+            endingLineNumber = "473"
             landmarkName = "-removeShadowAnim"
             landmarkType = "7">
          </BreakpointContent>
@@ -7424,11 +7424,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1184"
-            endingLineNumber = "1184"
+            startingLineNumber = "1187"
+            endingLineNumber = "1187"
             landmarkName = "-createNodeFromBookForLink:withName:BookPos:page:"
             landmarkType = "7">
          </BreakpointContent>
@@ -7440,11 +7440,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1560"
-            endingLineNumber = "1560"
+            startingLineNumber = "1563"
+            endingLineNumber = "1563"
             landmarkName = "-textViewDidEndEditing:"
             landmarkType = "7">
          </BreakpointContent>
@@ -7456,11 +7456,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1541"
-            endingLineNumber = "1541"
+            startingLineNumber = "1544"
+            endingLineNumber = "1544"
             landmarkName = "-showResources"
             landmarkType = "7">
          </BreakpointContent>
@@ -7664,11 +7664,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
+            timestampString = "511824557.638971"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "927"
-            endingLineNumber = "927"
+            startingLineNumber = "924"
+            endingLineNumber = "924"
             landmarkName = "-addLineAtTop:Point2:Layer:"
             landmarkType = "7">
          </BreakpointContent>
@@ -7680,11 +7680,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2297"
-            endingLineNumber = "2297"
+            startingLineNumber = "2300"
+            endingLineNumber = "2300"
             landmarkName = "-readSavedOrigin"
             landmarkType = "7">
          </BreakpointContent>
@@ -7696,11 +7696,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2351"
-            endingLineNumber = "2351"
+            startingLineNumber = "2354"
+            endingLineNumber = "2354"
             landmarkName = "-deleteHighlightwithWord:"
             landmarkType = "7">
          </BreakpointContent>
@@ -7712,11 +7712,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2361"
-            endingLineNumber = "2361"
+            startingLineNumber = "2364"
+            endingLineNumber = "2364"
             landmarkName = "-AdminUpload:"
             landmarkType = "7">
          </BreakpointContent>
@@ -7728,11 +7728,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2359"
-            endingLineNumber = "2359"
+            startingLineNumber = "2362"
+            endingLineNumber = "2362"
             landmarkName = "-AdminUpload:"
             landmarkType = "7">
          </BreakpointContent>
@@ -7744,11 +7744,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
+            timestampString = "511824557.638971"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1082"
-            endingLineNumber = "1082"
+            startingLineNumber = "1079"
+            endingLineNumber = "1079"
             landmarkName = "-didSelectItemAtIndex:forMenuAtPoint:"
             landmarkType = "7">
          </BreakpointContent>
@@ -7760,11 +7760,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
+            timestampString = "511824557.638971"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1030"
-            endingLineNumber = "1030"
+            startingLineNumber = "1027"
+            endingLineNumber = "1027"
             landmarkName = "-didSelectItemAtIndex:forMenuAtPoint:"
             landmarkType = "7">
          </BreakpointContent>
@@ -7776,11 +7776,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1469"
-            endingLineNumber = "1469"
+            startingLineNumber = "1472"
+            endingLineNumber = "1472"
             landmarkName = "-keyboardDidHide:"
             landmarkType = "7">
          </BreakpointContent>
@@ -7792,11 +7792,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "480631770.098887"
+            timestampString = "511824500.762642"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "280"
-            endingLineNumber = "280"
+            startingLineNumber = "277"
+            endingLineNumber = "277"
             landmarkName = "-viewWillAppear:"
             landmarkType = "7">
          </BreakpointContent>
@@ -7824,11 +7824,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2494"
-            endingLineNumber = "2494">
+            startingLineNumber = "2497"
+            endingLineNumber = "2497">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -7838,11 +7838,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2493"
-            endingLineNumber = "2493">
+            startingLineNumber = "2496"
+            endingLineNumber = "2496">
             <Locations>
                <Location
                   shouldBeEnabled = "No"
@@ -7884,11 +7884,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
+            timestampString = "511824557.638971"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1054"
-            endingLineNumber = "1054"
+            startingLineNumber = "1051"
+            endingLineNumber = "1051"
             landmarkName = "-didSelectItemAtIndex:forMenuAtPoint:"
             landmarkType = "7">
          </BreakpointContent>
@@ -7900,11 +7900,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
+            timestampString = "511824557.638971"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1068"
-            endingLineNumber = "1068"
+            startingLineNumber = "1065"
+            endingLineNumber = "1065"
             landmarkName = "-didSelectItemAtIndex:forMenuAtPoint:"
             landmarkType = "7">
          </BreakpointContent>
@@ -7916,11 +7916,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
+            timestampString = "511824557.638971"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1045"
-            endingLineNumber = "1045"
+            startingLineNumber = "1042"
+            endingLineNumber = "1042"
             landmarkName = "-didSelectItemAtIndex:forMenuAtPoint:"
             landmarkType = "7">
          </BreakpointContent>
@@ -7932,11 +7932,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1288"
-            endingLineNumber = "1288"
+            startingLineNumber = "1291"
+            endingLineNumber = "1291"
             landmarkName = "-scrollCmapView:"
             landmarkType = "7">
          </BreakpointContent>
@@ -7980,11 +7980,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1668"
-            endingLineNumber = "1668"
+            startingLineNumber = "1671"
+            endingLineNumber = "1671"
             landmarkName = "-highlightLink:"
             landmarkType = "7">
          </BreakpointContent>
@@ -8028,11 +8028,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1053"
-            endingLineNumber = "1053"
+            startingLineNumber = "1056"
+            endingLineNumber = "1056"
             landmarkName = "-clickOnBulb:"
             landmarkType = "7">
          </BreakpointContent>
@@ -8044,11 +8044,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
+            timestampString = "511824557.638971"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "834"
-            endingLineNumber = "834"
+            startingLineNumber = "827"
+            endingLineNumber = "827"
             landmarkName = "-removeLinkWithNode:"
             landmarkType = "7">
          </BreakpointContent>
@@ -8060,11 +8060,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2508"
-            endingLineNumber = "2508">
+            startingLineNumber = "2511"
+            endingLineNumber = "2511">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -8074,39 +8074,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2457"
-            endingLineNumber = "2457"
-            landmarkName = "-displayWebView:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2464"
-            endingLineNumber = "2464"
-            landmarkName = "-displayWebView:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2460"
@@ -8122,11 +8090,43 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2075"
-            endingLineNumber = "2075"
+            startingLineNumber = "2467"
+            endingLineNumber = "2467"
+            landmarkName = "-displayWebView:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "eBookReader/CmapController.m"
+            timestampString = "511823892.360286"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2463"
+            endingLineNumber = "2463"
+            landmarkName = "-displayWebView:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "eBookReader/CmapController.m"
+            timestampString = "511823892.360286"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2078"
+            endingLineNumber = "2078"
             landmarkName = "-uploadExpertCMapImg"
             landmarkType = "7">
          </BreakpointContent>
@@ -8138,11 +8138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1999"
-            endingLineNumber = "1999"
+            startingLineNumber = "2002"
+            endingLineNumber = "2002"
             landmarkName = "-uploadCMapImg"
             landmarkType = "7">
          </BreakpointContent>
@@ -8186,11 +8186,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1425"
-            endingLineNumber = "1425"
+            startingLineNumber = "1428"
+            endingLineNumber = "1428"
             landmarkName = "-keyboardWillHide:"
             landmarkType = "7">
          </BreakpointContent>
@@ -8202,11 +8202,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1434"
-            endingLineNumber = "1434"
+            startingLineNumber = "1437"
+            endingLineNumber = "1437"
             landmarkName = "-keyboardWillHide:"
             landmarkType = "7">
          </BreakpointContent>
@@ -8218,11 +8218,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1438"
-            endingLineNumber = "1438"
+            startingLineNumber = "1441"
+            endingLineNumber = "1441"
             landmarkName = "-keyboardDidHide:"
             landmarkType = "7">
          </BreakpointContent>
@@ -8234,11 +8234,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
+            timestampString = "511824500.762642"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "493"
-            endingLineNumber = "493"
+            startingLineNumber = "490"
+            endingLineNumber = "490"
             landmarkName = "-pan:"
             landmarkType = "7">
          </BreakpointContent>
@@ -8250,11 +8250,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1145"
-            endingLineNumber = "1145"
+            startingLineNumber = "1148"
+            endingLineNumber = "1148"
             landmarkName = "-createNodeFromBook:withName:BookPos:page:"
             landmarkType = "7">
          </BreakpointContent>
@@ -8634,11 +8634,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1129"
-            endingLineNumber = "1129"
+            startingLineNumber = "1132"
+            endingLineNumber = "1132"
             landmarkName = "-createNodeFromBook:withName:BookPos:page:"
             landmarkType = "7">
          </BreakpointContent>
@@ -8842,11 +8842,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "511816276.004134"
+            timestampString = "511824557.638971"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "904"
-            endingLineNumber = "904"
+            startingLineNumber = "901"
+            endingLineNumber = "901"
             landmarkName = "@implementation NodeCell"
             landmarkType = "3">
          </BreakpointContent>
@@ -8890,11 +8890,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511467440.011397"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "480"
-            endingLineNumber = "480"
+            startingLineNumber = "478"
+            endingLineNumber = "478"
             landmarkName = "-loadConceptMap:"
             landmarkType = "7">
          </BreakpointContent>
@@ -8922,11 +8922,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511467440.011397"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "499"
-            endingLineNumber = "499"
+            startingLineNumber = "497"
+            endingLineNumber = "497"
             landmarkName = "-loadConceptMap:"
             landmarkType = "7">
             <Locations>
@@ -8970,11 +8970,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511467440.011397"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "476"
-            endingLineNumber = "476"
+            startingLineNumber = "474"
+            endingLineNumber = "474"
             landmarkName = "-loadConceptMap:"
             landmarkType = "7">
          </BreakpointContent>
@@ -9194,11 +9194,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511467440.011397"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "502"
-            endingLineNumber = "502"
+            startingLineNumber = "500"
+            endingLineNumber = "500"
             landmarkName = "-loadConceptMap:"
             landmarkType = "7">
             <Locations>
@@ -9242,11 +9242,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511467440.011397"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "498"
-            endingLineNumber = "498"
+            startingLineNumber = "496"
+            endingLineNumber = "496"
             landmarkName = "-loadConceptMap:"
             landmarkType = "7">
          </BreakpointContent>
@@ -9258,11 +9258,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511677596.344794"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "528"
-            endingLineNumber = "528"
+            startingLineNumber = "531"
+            endingLineNumber = "531"
             landmarkName = "-loadConceptMap:"
             landmarkType = "7">
          </BreakpointContent>
@@ -9274,11 +9274,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "858"
-            endingLineNumber = "858"
+            startingLineNumber = "861"
+            endingLineNumber = "861"
             landmarkName = "-modifyExpertMap"
             landmarkType = "7">
          </BreakpointContent>
@@ -9290,11 +9290,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "886"
-            endingLineNumber = "886"
+            startingLineNumber = "889"
+            endingLineNumber = "889"
             landmarkName = "-modifyExpertMap"
             landmarkType = "7">
          </BreakpointContent>
@@ -9322,11 +9322,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511815288.181359"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "869"
-            endingLineNumber = "869"
+            startingLineNumber = "872"
+            endingLineNumber = "872"
             landmarkName = "-modifyExpertMap"
             landmarkType = "7">
          </BreakpointContent>
@@ -9338,11 +9338,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511467462.168691"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "478"
-            endingLineNumber = "478"
+            startingLineNumber = "476"
+            endingLineNumber = "476"
             landmarkName = "-loadConceptMap:"
             landmarkType = "7">
          </BreakpointContent>
@@ -9402,11 +9402,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511467856.97608"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "505"
-            endingLineNumber = "505"
+            startingLineNumber = "503"
+            endingLineNumber = "503"
             landmarkName = "-loadConceptMap:"
             landmarkType = "7">
          </BreakpointContent>
@@ -9418,11 +9418,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/CmapController.m"
-            timestampString = "511821841.276594"
+            timestampString = "511823892.360286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1651"
-            endingLineNumber = "1651"
+            startingLineNumber = "1654"
+            endingLineNumber = "1654"
             landmarkName = "-clearAllHighlight"
             landmarkType = "7">
          </BreakpointContent>
@@ -9434,11 +9434,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eBookReader/NodeCell.m"
-            timestampString = "511815786.077056"
+            timestampString = "511824500.762642"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "310"
-            endingLineNumber = "310"
+            startingLineNumber = "307"
+            endingLineNumber = "307"
             landmarkName = "-viewWillAppear:"
             landmarkType = "7">
          </BreakpointContent>

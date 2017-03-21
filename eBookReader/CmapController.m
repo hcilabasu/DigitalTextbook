@@ -470,9 +470,7 @@
         
     }
     
-    
-    
-    
+
     NSString* istest=[[NSUserDefaults standardUserDefaults] stringForKey:@"loadExpertMap"];
     
     if([istest isEqualToString:@"YES"]){
@@ -523,6 +521,11 @@
         }
         [c1 createLink:c2 name:link.relationName];
     }
+    
+    for(NodeCell* node in conceptNodeArray){
+        //node.view.layer.zPosition=2;
+    }
+    
     isFinishLoadMap=YES;
      // [self modifyMap];
     if([istest isEqualToString:@"YES"]){
