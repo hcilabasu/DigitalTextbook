@@ -102,7 +102,6 @@
 -(void)viewDidAppear:(BOOL)animated{
     [self updateViewSize];
     [self updateThumbIcons];
-    
 
 }
 - (void)viewDidLoad
