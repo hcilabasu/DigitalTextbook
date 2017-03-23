@@ -20,7 +20,8 @@
     CGRect rect=CGRectMake(530, 0, 511, 768);
     [self.view setFrame:rect];
 
-    NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"answerRating" ofType:@"html"]];
+//    NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"answerRating" ofType:@"html"]];
+    NSURL *url = [NSURL URLWithString:@"http://127.0.0.1:8000/dtqaserver/default/page?page_num=1"];
     webView.backgroundColor=[UIColor whiteColor];
     [webView loadRequest:[NSURLRequest requestWithURL:url]];
     
