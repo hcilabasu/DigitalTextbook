@@ -20,7 +20,7 @@
     CGRect rect=CGRectMake(530, 0, 511, 768);
     [self.view setFrame:rect];
 
-    NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"]];
+    NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"answerRating" ofType:@"html"]];
     webView.backgroundColor=[UIColor whiteColor];
     [webView loadRequest:[NSURLRequest requestWithURL:url]];
     
