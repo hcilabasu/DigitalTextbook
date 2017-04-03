@@ -122,6 +122,7 @@
 		565B23AD18FE54430074E344 /* ConceptIconTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 565B23AC18FE54430074E344 /* ConceptIconTextField.m */; };
 		565DA3F417B32F9C000DB171 /* ThumbNailIconWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 565DA3F317B32F9C000DB171 /* ThumbNailIconWrapper.m */; };
 		565DA3F717B33705000DB171 /* ThumbNailIconParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 565DA3F617B33705000DB171 /* ThumbNailIconParser.m */; };
+		566208541E848F0D00A94AB8 /* HLText.xml in Resources */ = {isa = PBXBuildFile; fileRef = 566208531E848F0D00A94AB8 /* HLText.xml */; };
 		566D5FFF1AC5D1FE00492921 /* ISMultipleChoiceQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = 566D5FF11AC5D1FE00492921 /* ISMultipleChoiceQuestion.m */; };
 		566D60001AC5D1FE00492921 /* ISOpenQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = 566D5FF31AC5D1FE00492921 /* ISOpenQuestion.m */; };
 		566D60011AC5D1FE00492921 /* ISQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = 566D5FF51AC5D1FE00492921 /* ISQuestion.m */; };
@@ -481,6 +482,7 @@
 		565DA3F317B32F9C000DB171 /* ThumbNailIconWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThumbNailIconWrapper.m; sourceTree = "<group>"; };
 		565DA3F517B33705000DB171 /* ThumbNailIconParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThumbNailIconParser.h; sourceTree = "<group>"; };
 		565DA3F617B33705000DB171 /* ThumbNailIconParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThumbNailIconParser.m; sourceTree = "<group>"; };
+		566208531E848F0D00A94AB8 /* HLText.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = HLText.xml; sourceTree = "<group>"; };
 		566D5FF01AC5D1FE00492921 /* ISMultipleChoiceQuestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISMultipleChoiceQuestion.h; sourceTree = "<group>"; };
 		566D5FF11AC5D1FE00492921 /* ISMultipleChoiceQuestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISMultipleChoiceQuestion.m; sourceTree = "<group>"; };
 		566D5FF21AC5D1FE00492921 /* ISOpenQuestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISOpenQuestion.h; sourceTree = "<group>"; };
@@ -1590,6 +1592,7 @@
 				564123111E7C5E79006D0075 /* Highschool_Expert__CmapNodeList.xml */,
 				564123121E7C5E79006D0075 /* Highschool_Expert_CmapLinkList.xml */,
 				56BF7F251ADEE94900B015C6 /* ExpertCmapLinkList.xml */,
+				566208531E848F0D00A94AB8 /* HLText.xml */,
 				56BF7F261ADEE94900B015C6 /* ExpertCmapNodeList.xml */,
 				68D1BF0A1DBFFE3E00BD09D1 /* aa.epub */,
 				5606C8B31BA797B0002F33D5 /* LogData.xml */,
@@ -1946,6 +1949,7 @@
 				56FB67121BCE241D00006AF0 /* PreViewNode.xib in Resources */,
 				56C69D4C1725D40B009419B3 /* safari.png in Resources */,
 				560B2F4B18EBD6C3009B8CB7 /* players.json in Resources */,
+				566208541E848F0D00A94AB8 /* HLText.xml in Resources */,
 				56711E0C17B77075001B4585 /* controlpanel_view_background@2x~ipad.png in Resources */,
 				565B23AA18FE3A030074E344 /* ConceptViewController.xib in Resources */,
 				56711E0D17B77075001B4585 /* scrolltabs_horizontal_border.png in Resources */,

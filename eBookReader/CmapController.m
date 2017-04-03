@@ -1052,7 +1052,7 @@
 //The  "+" button on the toolbar, create a node
 - (IBAction)clickOnBulb : (id)sender
 {
-    
+
     if(isReadyToLink){
         [parentBookPageViewController showAlertWithText:@"There is a concept waiting to be linked!"];
         return;
@@ -1385,6 +1385,7 @@
             [self upLoadLogFiletoDropBox];
             [self uploadCMapImg];
             [self uploadCmapXML];
+            [self upLoadHighlighttoDropBox];
             
         }else{
             [NSTimer scheduledTimerWithTimeInterval:2.0
@@ -2407,6 +2408,63 @@
     filename=[filename stringByAppendingString:iPadId];
     
     filename=[filename stringByAppendingString:@"_LogData.xml"];
+    NSString *localDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+    NSString *localPath = [localDir stringByAppendingPathComponent:filename];
+    [content writeToFile:localPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
+    
+    
+    NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration: sessionConfiguration delegate: self delegateQueue: [NSOperationQueue mainQueue]];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://api-content.dropbox.com/1/files_put/auto/%@?overwrite=false",filename]]];
+    [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
+    NSData *data = [[NSFileManager defaultManager] contentsAtPath:fileName];
+    [request setHTTPMethod:@"PUT"];
+    [request setHTTPBody:data];
+    [request setTimeoutInterval:1000];
+    
+    NSURLSessionDataTask *doDataTask = [defaultSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (!error){
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Finish Upload Logfile" message:@"Success!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [alertView show];
+        } else {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Finish Upload Logfile" message:@"Error!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [alertView show];
+        }
+    }];
+    [doDataTask resume];
+    
+}
+
+
+
+-(void)upLoadHighlighttoDropBox{
+    
+    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    sessionConfiguration.HTTPAdditionalHeaders = @{
+                                                   @"Authorization" : [NSString stringWithFormat:@"Bearer %@", @"BFPZY5kp2NAAAAAAAAAAJHzSODkGgGqThiZaKH2pCafGwX1kKVs2UVSVnwMiRj9c"],
+                                                   @"Content-Type"  : @"application/zip"
+                                                   };
+    
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains
+    (NSDocumentDirectory, NSUserDomainMask, YES);
+    
+    //make a file name to write the data to using the documents directory:
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *fileName = [documentsDirectory
+                          stringByAppendingPathComponent:@"HLText.xml"];
+    
+    NSString *content = [[NSString alloc] initWithContentsOfFile:fileName
+                                                    usedEncoding:nil
+                                                           error:nil];
+    
+    NSString *filename = @"BookHighlight/";
+    NSString* usrName=[[NSUserDefaults standardUserDefaults] stringForKey:@"UserName"];
+    // filename=[filename stringByAppendingString:usrName];
+    
+    NSString* iPadId=[[NSUserDefaults standardUserDefaults] stringForKey:@"iPadId"];
+    filename=[filename stringByAppendingString:iPadId];
+    
+    filename=[filename stringByAppendingString:@"_HLText.xml"];
     NSString *localDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
     NSString *localPath = [localDir stringByAppendingPathComponent:filename];
     [content writeToFile:localPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
