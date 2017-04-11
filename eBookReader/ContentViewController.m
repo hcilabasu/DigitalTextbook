@@ -273,7 +273,11 @@ static NSString *cellId2 = @"cellId2";
     NSLog(str);
     //[self performTouchInView:webView];
     
-
+    // Update webview
+    NSString *urlString = [[NSString alloc]initWithFormat:@"http://127.0.0.1:8000/dtqaserver/default/page?page_num=%d",pageNum];
+    NSURL *url = [NSURL URLWithString:urlString];
+    [parent_BookViewController.parent_BookPageViewController.QA.webView
+        loadRequest:[NSURLRequest requestWithURL:url]];
 }
 
 
