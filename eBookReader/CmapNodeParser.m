@@ -70,6 +70,7 @@
         BOOL hasWebLink;
         BOOL hasHighlight;
         NSString *savedNotesString=@"";
+        int createType;
         
         NSArray *titles = [partyMember elementsForName:@"ConceptName"];
         if (titles.count > 0) {
@@ -104,6 +105,14 @@
             page=point_y.stringValue.floatValue;
             
         } else continue;
+        
+        NSArray *createTypeAry = [partyMember elementsForName:@"CreateType"];
+        if (createTypeAry.count > 0) {
+            GDataXMLElement *createTypeElement = (GDataXMLElement *) [createTypeAry objectAtIndex:0];
+            createType=createTypeElement.stringValue.floatValue;
+            
+        } else continue;
+        
         
         
         NSArray *show_linkgUrl = [partyMember elementsForName:@"LinkingUrl"];
@@ -162,7 +171,7 @@
         }else continue;
         
         NSURL* realUrl= [NSURL URLWithString:[linkingUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-        CmapNode *player = [[CmapNode alloc] initWithName:conceptName bookTitle:bookTitle positionX:p_x positionY:p_y Tag:0 page:page url:realUrl urlTitle: linkingUrlTitle hasNote: hasNote  hasHighlight:hasHighlight hasWebLink:hasWebLink savedNotesString: savedNotesString];
+        CmapNode *player = [[CmapNode alloc] initWithName:conceptName bookTitle:bookTitle positionX:p_x positionY:p_y Tag:0 page:page url:realUrl urlTitle: linkingUrlTitle hasNote: hasNote  hasHighlight:hasHighlight hasWebLink:hasWebLink savedNotesString: savedNotesString nodeType: createType];
         [cmapNodeWrapper.cmapNodes addObject:player];
     }
     return cmapNodeWrapper;
@@ -197,6 +206,7 @@
         BOOL hasWebLink;
         BOOL hasHighlight;
         NSString *savedNotesString=@"";
+        int createType;
         
         NSArray *titles = [partyMember elementsForName:@"ConceptName"];
         if (titles.count > 0) {
@@ -204,6 +214,12 @@
             conceptName = nameitem.stringValue;
         } else continue;
         
+        NSArray *createTypeAry = [partyMember elementsForName:@"CreateType"];
+        if (createTypeAry.count > 0) {
+            GDataXMLElement *createTypeElement = (GDataXMLElement *) [createTypeAry objectAtIndex:0];
+            createType=createTypeElement.stringValue.floatValue;
+            
+        } else continue;
         
         NSArray *booktitles = [partyMember elementsForName:@"BookTitle"];
         if (booktitles.count > 0) {
@@ -292,7 +308,7 @@
         //else continue;
         
         NSURL* realUrl= [NSURL URLWithString:[linkingUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-        CmapNode *player = [[CmapNode alloc] initWithName:conceptName bookTitle:bookTitle positionX:p_x positionY:p_y Tag:0 page:page url:realUrl urlTitle: linkingUrlTitle hasNote: hasNote  hasHighlight:hasHighlight hasWebLink:hasWebLink savedNotesString: savedNotesString];
+        CmapNode *player = [[CmapNode alloc] initWithName:conceptName bookTitle:bookTitle positionX:p_x positionY:p_y Tag:0 page:page url:realUrl urlTitle: linkingUrlTitle hasNote: hasNote  hasHighlight:hasHighlight hasWebLink:hasWebLink savedNotesString: savedNotesString nodeType:createType];
         [cmapNodeWrapper.cmapNodes addObject:player];
 
     }
@@ -317,6 +333,9 @@
         
         GDataXMLElement * conceptNameElement =
         [GDataXMLNode elementWithName:@"ConceptName" stringValue:nodeItem.text];
+        
+        GDataXMLElement * conceptNodeTypeElement =
+        [GDataXMLNode elementWithName:@"CreateType" stringValue:   [NSString stringWithFormat:@"%d", nodeItem.nodeType] ];
         
         GDataXMLElement * bookTitleElement =
         [GDataXMLNode elementWithName:@"BookTitle" stringValue:nodeItem.bookTitle];
@@ -374,6 +393,7 @@
         [GDataXMLNode elementWithName:@"NoteString" stringValue:nodeItem.savedNotesString];
         
         [itemElement addChild:conceptNameElement];
+        [itemElement addChild:conceptNodeTypeElement];
         [itemElement addChild:bookTitleElement];
         [itemElement addChild:pointX];
         [itemElement addChild:pointY];
@@ -410,6 +430,9 @@
         
         GDataXMLElement * itemElement =
         [GDataXMLNode elementWithName:@"CmapNode"];
+        
+        GDataXMLElement * conceptNodeTypeElement =
+        [GDataXMLNode elementWithName:@"CreateType" stringValue:   [NSString stringWithFormat:@"%d", 0] ];
         
         GDataXMLElement * conceptNameElement =
         [GDataXMLNode elementWithName:@"ConceptName" stringValue:nodeItem.text];
@@ -470,6 +493,8 @@
         [GDataXMLNode elementWithName:@"NoteString" stringValue:nodeItem.savedNotesString];
         
         [itemElement addChild:conceptNameElement];
+        [itemElement addChild:conceptNodeTypeElement];
+        
         [itemElement addChild:bookTitleElement];
         [itemElement addChild:pointX];
         [itemElement addChild:pointY];

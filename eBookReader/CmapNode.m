@@ -22,7 +22,7 @@
 @synthesize linkingUrl;
 @synthesize linkingUrlTitle;
 @synthesize savedNotesString;
-
+@synthesize nodeType;
 /*
 - (id)initWithName:(NSString*)m_text ShowType: (CGPoint)m_position RelatedNodeArray: (NSMutableArray*)m_relatedNodesArray linkArray:(NSMutableArray*)m_linkArray
      linkTextArray: (NSMutableArray*)m_linkTextArray bookTitle:(NSString*)m_bookTitle
@@ -39,7 +39,7 @@
 }
 */
 
-- (id)initWithName:(NSString*)m_text bookTitle: (NSString*)m_bookTitle positionX:(int)m_pointX positionY: (int)m_positionY Tag: (int)m_tag page: (int) m_pageNum url: (NSURL*)m_url urlTitle: (NSString *) m_urlTitle hasNote: (BOOL)m_hasNote hasHighlight: (BOOL)m_hasHighlight hasWebLink: (BOOL)m_hasWebLink savedNotesString: (NSString *) m_noteString
+- (id)initWithName:(NSString*)m_text bookTitle: (NSString*)m_bookTitle positionX:(int)m_pointX positionY: (int)m_positionY Tag: (int)m_tag page: (int) m_pageNum url: (NSURL*)m_url urlTitle: (NSString *) m_urlTitle hasNote: (BOOL)m_hasNote hasHighlight: (BOOL)m_hasHighlight hasWebLink: (BOOL)m_hasWebLink savedNotesString: (NSString *) m_noteString nodeType: (int)m_nodeType
 {
     if ((self = [super init])) {
         text=m_text;
@@ -54,6 +54,7 @@
         _hasWebLink = m_hasWebLink;
         _hasHighlight = m_hasHighlight;
         savedNotesString = m_noteString;
+        nodeType=m_nodeType;
         
     }
     return self;

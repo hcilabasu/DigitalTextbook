@@ -554,32 +554,6 @@
         
         NSLog(@"Linking concepts!");
         [parentCmapController savePreviousStep];
-        /*
-         NSString* inputString=[[NSString alloc] initWithFormat:@"Concept: %@ with concept:%@", text.text,parentCmapController.nodesToLink.text];
-         LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Linking Concepts" selection:@"null" input:inputString pageNum:pageNum];
-         [bookLogData addLogs:newlog];
-         [LogDataParser saveLogData:bookLogData];
-         */
-      /*
-        MapFinderViewController* finder=[[MapFinderViewController alloc]initWithNibName:@"MapFinderViewController" bundle:nil];
-        finder.userName=userName;
-        finder.parentBookPageView=parentCmapController.parentBookPageViewController;
-        finder.parentTrainingCtr=parentCmapController.parentTrainingCtr;
-        finder.bookLogData=bookLogData;
-        [parentCmapController addChildViewController:finder];
-        finder.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-        //finder.fileList=finalFileList;
-        finder.parentCmapController=parentCmapController;
-        [finder.view setUserInteractionEnabled:YES];
-        [parentCmapController addChildViewController:finder];
-        [parentCmapController.view addSubview:finder.view];
-        //[finder becomeFirstResponder];
-        [text resignFirstResponder];
-        //[self becomeFirstResponder];
-
-        [parentCmapController resignFirstResponder];
-        [finder becomeFirstResponder];
-        */
         [relatedNodesArray addObject:parentCmapController.nodesToLink];
         [parentCmapController.nodesToLink.relatedNodesArray addObject:self];
         [parentCmapController.nodesToLink removeShadowAnim];
@@ -694,6 +668,7 @@
 
 
 -(void)createLink: (NodeCell*)cellToLink name: (NSString*)relationName{
+    [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"ExpertMapChanged"];
      [parentCmapController savePreviousStep];
     if(!cellToLink){
         return;

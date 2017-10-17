@@ -121,8 +121,8 @@ static NSString *cellId2 = @"cellId2";
     parent_BookViewController.parent_BookPageViewController.cmapView.parent_ContentViewController=self;
     parent_BookViewController.currentContentView=self;
     
-    NSString* logStr=[[NSString alloc] initWithFormat:@"Turned tos page: %d", index+1];
-    LogData* log= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:logStr selection:@"Textbook" input:@"null" pageNum:index];
+    NSString* logStr=[[NSString alloc] initWithFormat:@"Turned to page: %d", pageNum];
+    LogData* log= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:logStr selection:@"Textbook" input:@"null" pageNum:pageNum];
     [bookLogData addLogs:log];
     [LogDataParser saveLogData:bookLogData];
    // [self.parentViewController.navigationController setNavigationBarHidden: YES animated:YES];

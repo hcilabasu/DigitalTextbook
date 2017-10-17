@@ -16,6 +16,7 @@
 @property int pageNum;
 @property int point_x;
 @property int point_y;
+@property int nodeType;
 @property CGPoint bookPagePosition;
 @property (strong, nonatomic) NSMutableArray*  relatedNodesArray;
 @property (strong, nonatomic) NSMutableArray*  linkLayerArray;
@@ -32,5 +33,5 @@
 @property int tag;
 //- (id)initWithName:(NSString*)m_text ShowType: (CGPoint)m_position RelatedNodeArray: (NSMutableArray*)m_relatedNodesArray linkArray:(NSMutableArray*)m_linkArray
  //    linkTextArray: (NSMutableArray*)m_linkTextArray bookTitle:(NSString*)m_bookTitle;
-- (id)initWithName:(NSString*)m_text bookTitle: (NSString*)m_bookTitle positionX:(int)m_pointX positionY: (int)m_positionY Tag: (int)m_tag page: (int) m_pageNum url: (NSURL*)m_url urlTitle: (NSString *) m_urlTitle hasNote: (BOOL)m_hasNote hasHighlight: (BOOL)m_hasHighlight hasWebLink: (BOOL)m_hasWebLink savedNotesString: (NSString *) m_noteString ;
+- (id)initWithName:(NSString*)m_text bookTitle: (NSString*)m_bookTitle positionX:(int)m_pointX positionY: (int)m_positionY Tag: (int)m_tag page: (int) m_pageNum url: (NSURL*)m_url urlTitle: (NSString *) m_urlTitle hasNote: (BOOL)m_hasNote hasHighlight: (BOOL)m_hasHighlight hasWebLink: (BOOL)m_hasWebLink savedNotesString: (NSString *) m_noteString nodeType: (int)m_nodeType;
 @end

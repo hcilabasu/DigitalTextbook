@@ -29,7 +29,6 @@
         NSInteger ayear=[[adate objectAtIndex:0] integerValue];
         NSInteger amon=[[adate objectAtIndex:1] integerValue];
         NSInteger aday=[[adate objectAtIndex:2] integerValue];
-        aday=aday-1;
         // time
         NSString* timeString = [nsDateArray objectAtIndex:1];
         NSArray*  timeArray = [timeString componentsSeparatedByString:@":"];
@@ -49,7 +48,7 @@
         action=m_action;
         selection=m_selection;
         input=m_input;
-        page=m_page+1;
+        page=m_page;
     
     }
     return self;
@@ -71,7 +70,7 @@
         NSInteger ayear=[[adate objectAtIndex:0] integerValue];
         NSInteger amon=[[adate objectAtIndex:1] integerValue];
         NSInteger aday=[[adate objectAtIndex:2] integerValue];
-        aday=aday-1;
+        aday=aday;
         // time
         NSString* timeString = [nsDateArray objectAtIndex:1];
         NSArray*  timeArray = [timeString componentsSeparatedByString:@":"];

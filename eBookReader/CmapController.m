@@ -118,16 +118,12 @@
     [super viewDidLoad];
     addedNode=nil;
     
-    
     [upLoadIcon  setEnabled:NO];
     [upLoadIcon setTintColor: [UIColor clearColor]];
     
-    // if(2==showScenarioId){//the view is initialized in the book page.
     CGRect rect=CGRectMake(530, 0, 511, 768);
     [self.view setFrame:rect];
-    //[self.conceptMapView setFrame:CGRectMake(0, 0, 494, 768)];
-    //}
-    CGRect rect2=CGRectMake(0, 0, 511, 768);
+
     contentView= [[UIView alloc]init];
     [contentView setFrame:conceptMapView.frame];
     [conceptMapView addSubview:contentView];
@@ -146,24 +142,13 @@
     conceptsShowAry=[[NSMutableArray alloc] init];
     lastStepConceptNodeArray=[[NSMutableArray alloc] init];
     lastStepConceptLinkArray=[[NSMutableArray alloc] init];
-    
-  //  myWebView=[[WebBrowserViewController alloc]initWithNibName:@"WebBrowserViewController" bundle:nil];
-    
+
     [self.navigationController setDelegate:self];
-    // [self.navigationController setNavigationBarHidden: YES animated:NO];
-    /*
-     GHContextMenuView* overlay = [[GHContextMenuView alloc] init];
-     overlay.dataSource = self;
-     overlay.delegate = self;
-     */
-    
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toolBarTap:)];
     tapGesture.numberOfTapsRequired=3;
     tapGesture.delegate=self;
     [toolBar addGestureRecognizer:tapGesture];
 
-    UILongPressGestureRecognizer* longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(LongPress:)];
-    //[conceptMapView addGestureRecognizer:longPressRecognizer];
     [[NSNotificationCenter defaultCenter]
      addObserver:self
      selector:@selector(keyboardWillHide:)
@@ -178,7 +163,7 @@
     
     self.view.layer.borderColor = [UIColor grayColor].CGColor;
     self.view.layer.borderWidth = 2;
-    //[self autoGerenateNode]; generate nodes from highlights and notes.
+
     
     UIPinchGestureRecognizer *pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinch:)];
     pinchGesture.delegate=self;
@@ -215,21 +200,6 @@
     previewImageView.layer.shadowColor = [UIColor blackColor].CGColor;
     previewImageView.layer.shadowOffset = CGSizeMake(2, 2);
     
-    /*
-     UITapGestureRecognizer *previewTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showAndHidePreview:)];
-     [previewImageView addGestureRecognizer:previewTap];
-     
-     NSString* previewBtn=[[NSUserDefaults standardUserDefaults] stringForKey:@"isPreview"];
-     if([previewBtn isEqualToString:@"YES"]){
-     [self.view addSubview:previewImageView];
-     }
-     
-     NSString* allowManu=[[NSUserDefaults standardUserDefaults] stringForKey:@"isManu"];
-     if([allowManu isEqualToString:@"YES"]){
-     [self.view addSubview:bulbImageView];
-     }
-     */
-    
     
     UIImageView*  uploadImg = [[UIImageView alloc]initWithFrame:CGRectMake(20, 730, 40, 40)];
     [uploadImg setImage:[UIImage imageNamed:@"idea"]];
@@ -258,13 +228,6 @@
     // [toolBar setHidden:YES];
     [self resignFirstResponder];
     
-    /*
-     UIButton *but=[UIButton buttonWithType:UIButtonTypeRoundedRect];
-     but.frame= CGRectMake(20, 700, 25, 15);
-     [but setTitle:@"Go" forState:UIControlStateNormal];
-     [but addTarget:self action:@selector(buttonAction) forControlEvents:UIControlEventTouchUpInside];
-     [self.view addSubview:but];*/
-    //  [self loadConceptMap: nil];
     conceptMapView.maximumZoomScale=5.0;
     conceptMapView.zoomScale=2.5;
     //[self readSavedCmapSize];
@@ -282,18 +245,26 @@
     }
     [self getPreView:nil];
     [self updatePreviewLocation];
-}
+}//end of view did load
+
+
+
+
+
 
 -(void)uploadCmapXML{
-    [self uploadMapLinkXML];
-    [self uploadMapNodeXML];
+[self uploadMapLinkXML];
+   [self uploadMapNodeXML];
+    
+   // [self upLoadExpertLinktoDropbox];
+  //  [self upLoadExpertNodetoDropbox];
     
 }
 
 -(void)uploadMapNodeXML{
     NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
     sessionConfiguration.HTTPAdditionalHeaders = @{
-                                                   @"Authorization" : [NSString stringWithFormat:@"Bearer %@", @"BFPZY5kp2NAAAAAAAAAAJHzSODkGgGqThiZaKH2pCafGwX1kKVs2UVSVnwMiRj9c"],
+                                                   @"Authorization" : [NSString stringWithFormat:@"Bearer %@", @"BFPZY5kp2NAAAAAAAAADlK5EoqtMKtZ2FAj54gx1bTHP6tSNJ8ZLiBuv34J6-25X"],
                                                    @"Content-Type"  : @"application/zip"
                                                    };
     
@@ -309,7 +280,7 @@
     NSString *content = [[NSString alloc] initWithContentsOfFile:fileName
                                                     usedEncoding:nil
                                                            error:nil];
-    NSString *filename = @"HighSchoolMapNode/";
+    NSString *filename = @"NewMapNode/";
     NSString* usrName=[[NSUserDefaults standardUserDefaults] stringForKey:@"UserName"];
     // filename=[filename stringByAppendingString:usrName];
     
@@ -323,7 +294,7 @@
     
     
     NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration: sessionConfiguration delegate: self delegateQueue: [NSOperationQueue mainQueue]];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://api-content.dropbox.com/1/files_put/auto/%@?overwrite=false",filename]]];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://content.dropboxapi.com/1/files_put/auto/%@?overwrite=false",filename]]];
     [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
     NSData *data = [[NSFileManager defaultManager] contentsAtPath:fileName];
     [request setHTTPMethod:@"PUT"];
@@ -346,8 +317,9 @@
 -(void)uploadMapLinkXML{
     NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
     sessionConfiguration.HTTPAdditionalHeaders = @{
-                                                   @"Authorization" : [NSString stringWithFormat:@"Bearer %@", @"BFPZY5kp2NAAAAAAAAAAJHzSODkGgGqThiZaKH2pCafGwX1kKVs2UVSVnwMiRj9c"],
-                                                   @"Content-Type"  : @"application/zip"
+                                                   @"Authorization" : [NSString stringWithFormat:@"Bearer %@", @"BFPZY5kp2NAAAAAAAAADlK5EoqtMKtZ2FAj54gx1bTHP6tSNJ8ZLiBuv34J6-25X"],
+                                                   @"Content-Type"  : @"application/octet-stream",
+                                                   @"Dropbox-API-Arg": @"{\"path\": \"/CmapLinkList.xml\", \"mode\": \"overwrite\"}"
                                                    };
     
     
@@ -362,7 +334,7 @@
     NSString *content = [[NSString alloc] initWithContentsOfFile:fileName
                                                     usedEncoding:nil
                                                            error:nil];
-    NSString *filename = @"HighSchoolMapLink/";
+    NSString *filename = @"NewMapNode/";
     NSString* usrName=[[NSUserDefaults standardUserDefaults] stringForKey:@"UserName"];
     // filename=[filename stringByAppendingString:usrName];
     
@@ -376,14 +348,23 @@
     
     
     NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration: sessionConfiguration delegate: self delegateQueue: [NSOperationQueue mainQueue]];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://api-content.dropbox.com/1/files_put/auto/%@?overwrite=false",filename]]];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://content.dropboxapi.com/2/files/upload"]]];
     [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
     NSData *data = [[NSFileManager defaultManager] contentsAtPath:fileName];
     [request setHTTPMethod:@"PUT"];
+    
     [request setHTTPBody:data];
     [request setTimeoutInterval:1000];
     
     NSURLSessionDataTask *doDataTask = [defaultSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+   
+        
+        
+        NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data
+                                                             options:NSJSONReadingAllowFragments
+                                                            error:&error];
+    
         if (!error){
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Finish Upload Logfile" message:@"Success!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
             //[alertView show];
@@ -465,15 +446,13 @@
 //Loads concept map
 - (IBAction)loadConceptMap:(id)sender {
     
+    NSString* isExpertMapChanged=[[NSUserDefaults standardUserDefaults] stringForKey:@"ExpertMapChanged"];
     
-    for(NSString* idneString in correctIndexAry){
-        
-    }
+    NSString* shouldLoadExpertMap=[[NSUserDefaults standardUserDefaults] stringForKey:@"loadExpertMap"];
     
-
-    NSString* istest=[[NSUserDefaults standardUserDefaults] stringForKey:@"loadExpertMap"];
     
-    if([istest isEqualToString:@"YES"]){
+    
+    if([shouldLoadExpertMap isEqualToString:@"YES"]  && (![isExpertMapChanged isEqualToString:@"YES"])  ){
         
         bookNodeWrapper=[CmapNodeParser loadExpertCmapNode];
         bookLinkWrapper=[CmapLinkParser loadExpertCmapLink];
@@ -496,19 +475,10 @@
     //////start creating map//////
     for(CmapNode* cell in bookNodeWrapper.cmapNodes){
         //check if this node should be created////
-        
-       
-        
-        
         [self createNode:CGPointMake(cell.point_x, cell.point_y) withName:cell.text page:cell.pageNum url:cell.linkingUrl urlTitle: cell.linkingUrlTitle hasNote: cell.hasNote hasHighlight: cell.hasHighlight hasWebLink: cell.hasWebLink savedNotesString: cell.savedNotesString];
-        
-        
     }
     for(CmapLink* link in bookLinkWrapper.cmapLinks){
         //check if the link should exist///
-        
-        
-        
         NodeCell* c1, *c2;
         
         for(NodeCell* node in conceptNodeArray){
@@ -527,10 +497,6 @@
     }
     
     isFinishLoadMap=YES;
-     // [self modifyMap];
-    if([istest isEqualToString:@"YES"]){
-       [self modifyExpertMap];
-    }
 }
 
 
@@ -633,7 +599,7 @@
     //  [ CmapLinkParser saveCmapLink:bookLinkWrapper];
     [ CmapLinkParser saveExpertCmapLink:bookLinkWrapper];
     for(NodeCell* m_node in conceptNodeArray){
-        CmapNode* node= [[CmapNode alloc] initWithName: m_node.text.text bookTitle:m_node.bookTitle positionX:m_node.view.frame.origin.x positionY:m_node.view.frame.origin.y Tag:m_node.text.tag page:m_node.pageNum url:m_node.linkingUrl.absoluteString urlTitle: m_node.linkingUrlTitle hasNote:m_node.hasNote hasHighlight:m_node.hasHighlight hasWebLink:m_node.hasWeblink savedNotesString: m_node.appendedNoteString];
+        CmapNode* node= [[CmapNode alloc] initWithName: m_node.text.text bookTitle:m_node.bookTitle positionX:m_node.view.frame.origin.x positionY:m_node.view.frame.origin.y Tag:m_node.text.tag page:m_node.pageNum url:m_node.linkingUrl.absoluteString urlTitle: m_node.linkingUrlTitle hasNote:m_node.hasNote hasHighlight:m_node.hasHighlight hasWebLink:m_node.hasWeblink savedNotesString: m_node.appendedNoteString nodeType: m_node.createType];
         [bookNodeWrapper addthumbnail:node];
     }
     //[CmapNodeParser saveCmapNode:bookNodeWrapper];
@@ -647,10 +613,12 @@
 
 
 -(void)autoSaveMap{ //This is to save the current concept map in the log files
+    
+    [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"ExpertMapChanged"];
+    
     if(isTraining){
         return;
     }
-    
     
     [bookLinkWrapper clearAllData];
     [bookNodeWrapper clearAllData];
@@ -662,7 +630,7 @@
     [ CmapLinkParser saveCmapLink:bookLinkWrapper];
     for(NodeCell* m_node in conceptNodeArray){
      //   NSLog([NSString stringWithFormat: @"Note String at auto save: %@", m_node.appendedNoteString]);
-        CmapNode* node= [[CmapNode alloc] initWithName: m_node.text.text bookTitle:m_node.bookTitle positionX:m_node.view.frame.origin.x positionY:m_node.view.frame.origin.y Tag:m_node.text.tag page:m_node.pageNum url:m_node.linkingUrl.absoluteString urlTitle: m_node.linkingUrlTitle hasNote:m_node.hasNote hasHighlight:m_node.hasHighlight hasWebLink:m_node.hasWeblink savedNotesString: m_node.appendedNoteString];
+        CmapNode* node= [[CmapNode alloc] initWithName: m_node.text.text bookTitle:m_node.bookTitle positionX:m_node.view.frame.origin.x positionY:m_node.view.frame.origin.y Tag:m_node.text.tag page:m_node.pageNum url:m_node.linkingUrl.absoluteString urlTitle: m_node.linkingUrlTitle hasNote:m_node.hasNote hasHighlight:m_node.hasHighlight hasWebLink:m_node.hasWeblink savedNotesString: m_node.appendedNoteString nodeType: m_node.createType];
         [bookNodeWrapper addthumbnail:node];
         
     }
@@ -742,7 +710,7 @@
 }
 //Used to create nodes when map is loading
 -(void)createNode:(CGPoint)position withName:(NSString*) name page: (int)m_pageNum  url:(NSURL*)m_linkingUrl urlTitle: (NSString *) m_linkingUrlTitle hasNote: (BOOL) m_hasNote hasHighlight: (BOOL) m_hasHighlight hasWebLink: (BOOL) m_hasWebLink savedNotesString: (NSString *) m_noteString{
-    
+    [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"ExpertMapChanged"];
     NodeCell *node=[[NodeCell alloc]initWithNibName:@"NodeCell" bundle:nil];
     node.createType=0;
     node.bookPagePosition=CGPointMake(0, 0);
@@ -1098,6 +1066,7 @@
 //For nodes created from book and web browser
 -(void)createNodeFromBook:(CGPoint)position withName:(NSString*) name BookPos: (CGPoint)bookPosition page:(int)m_pageNum{
     [self savePreviousStep];
+    [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"ExpertMapChanged"];
     for(NodeCell* cell in conceptNodeArray){
         if([cell.text.text isEqualToString:name]){//Node already exists
             NSString* msg=[[NSString alloc]initWithFormat:@"Concept %@ already exist.", name];
@@ -1278,14 +1247,13 @@
     node.showPoint=clickPoint;
     node.bookLogData=bookLogDataWrapper;
     node.bookHighLight=bookHighlight;
-    node.pageNum=self.parent_ContentViewController.pageNum - 1;
+    node.pageNum=pageNum;
     node.bookTitle=bookTitle;
     node.bookthumbNailIcon=bookThumbNial;
     [self addChildViewController:node];
     [conceptNodeArray addObject:node];
     [conceptMapView addSubview: node.view ];
     addedNode=node;
-    
     node.updateViewSize;
 }
 
@@ -1995,7 +1963,7 @@
     
     NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
     sessionConfiguration.HTTPAdditionalHeaders = @{
-                                                   @"Authorization" : [NSString stringWithFormat:@"Bearer %@", @"BFPZY5kp2NAAAAAAAAAAJHzSODkGgGqThiZaKH2pCafGwX1kKVs2UVSVnwMiRj9c"],
+                                                   @"Authorization" : [NSString stringWithFormat:@"Bearer %@", @"BFPZY5kp2NAAAAAAAAADju9SYR3plMcGcM8JNyQz5Eo2C9P8erJv4fjX43Swl3Ij"],
                                                    @"Content-Type"  : @"application/zip"
                                                    };
     
@@ -2020,13 +1988,13 @@
     
     
     NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration: sessionConfiguration delegate: self delegateQueue: [NSOperationQueue mainQueue]];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://api-content.dropbox.com/1/files_put/auto/%@?overwrite=false",filename]]];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://api-content.dropbox.com/2/files/upload/auto/%@",filename]]];
     [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
     NSData *data = [[NSFileManager defaultManager] contentsAtPath:filePath];
     [request setHTTPMethod:@"PUT"];
     [request setHTTPBody:data];
     [request setTimeoutInterval:1000];
-    
+
     NSURLSessionDataTask *doDataTask = [defaultSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (!error){
             NSLog(@"WORKED!!!!");
@@ -2066,7 +2034,7 @@
     
     NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
     sessionConfiguration.HTTPAdditionalHeaders = @{
-                                                   @"Authorization" : [NSString stringWithFormat:@"Bearer %@", @"BFPZY5kp2NAAAAAAAAAAJHzSODkGgGqThiZaKH2pCafGwX1kKVs2UVSVnwMiRj9c"],
+                                                   @"Authorization" : [NSString stringWithFormat:@"Bearer %@", @"BFPZY5kp2NAAAAAAAAADju9SYR3plMcGcM8JNyQz5Eo2C9P8erJv4fjX43Swl3Ij"],
                                                    @"Content-Type"  : @"application/zip"
                                                    };
     
@@ -2089,7 +2057,7 @@
     // [content writeToFile:localPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
     
     NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration: sessionConfiguration delegate: self delegateQueue: [NSOperationQueue mainQueue]];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://api-content.dropbox.com/1/files_put/auto/%@?overwrite=false",filename]]];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://api-content.dropbox.com/2/files/upload/auto/%@?overwrite=false",filename]]];
     [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
     NSData *data = [[NSFileManager defaultManager] contentsAtPath:filePath];
     [request setHTTPMethod:@"PUT"];
@@ -2117,7 +2085,7 @@
     
     NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
     sessionConfiguration.HTTPAdditionalHeaders = @{
-                                                   @"Authorization" : [NSString stringWithFormat:@"Bearer %@", @"BFPZY5kp2NAAAAAAAAAAJHzSODkGgGqThiZaKH2pCafGwX1kKVs2UVSVnwMiRj9c"],
+                                                   @"Authorization" : [NSString stringWithFormat:@"Bearer %@", @"BFPZY5kp2NAAAAAAAAADju9SYR3plMcGcM8JNyQz5Eo2C9P8erJv4fjX43Swl3Ij"],
                                                    @"Content-Type"  : @"application/zip"
                                                    };
     
@@ -2135,7 +2103,7 @@
     
     
     
-    NSString *filename = @"ExpertMap/ExpertLink";
+    NSString *filename = @"NewExpertMap/ExpertLink";
     NSString* usrName=[[NSUserDefaults standardUserDefaults] stringForKey:@"UserName"];
     //filename=[filename stringByAppendingString:userName];
     filename=[filename stringByAppendingString:@".xml"];
@@ -2145,7 +2113,7 @@
     
     
     NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration: sessionConfiguration delegate: self delegateQueue: [NSOperationQueue mainQueue]];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://api-content.dropbox.com/1/files_put/auto/%@?overwrite=false",filename]]];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://api-content.dropbox.com/2/files/upload/auto/%@?overwrite=false",filename]]];
     [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
     NSData *data = [[NSFileManager defaultManager] contentsAtPath:fileName];
     [request setHTTPMethod:@"PUT"];
@@ -2170,7 +2138,7 @@
     
     NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
     sessionConfiguration.HTTPAdditionalHeaders = @{
-                                                   @"Authorization" : [NSString stringWithFormat:@"Bearer %@", @"BFPZY5kp2NAAAAAAAAAAJHzSODkGgGqThiZaKH2pCafGwX1kKVs2UVSVnwMiRj9c"],
+                                                   @"Authorization" : [NSString stringWithFormat:@"Bearer %@", @"BFPZY5kp2NAAAAAAAAADju9SYR3plMcGcM8JNyQz5Eo2C9P8erJv4fjX43Swl3Ij"],
                                                    @"Content-Type"  : @"application/zip"
                                                    };
     
@@ -2188,7 +2156,7 @@
     
     
     
-    NSString *filename = @"ExpertMap/ExpertNode";
+    NSString *filename = @"NewExpertMap/ExpertNode";
     NSString* usrName=[[NSUserDefaults standardUserDefaults] stringForKey:@"UserName"];
     //filename=[filename stringByAppendingString:userName];
     filename=[filename stringByAppendingString:@".xml"];
@@ -2198,7 +2166,7 @@
     
     
     NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration: sessionConfiguration delegate: self delegateQueue: [NSOperationQueue mainQueue]];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://api-content.dropbox.com/1/files_put/auto/%@?overwrite=false",filename]]];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://api-content.dropbox.com/2/files/upload/auto/%@?overwrite=false",filename]]];
     [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
     NSData *data = [[NSFileManager defaultManager] contentsAtPath:fileName];
     [request setHTTPMethod:@"PUT"];
@@ -2383,7 +2351,7 @@
     
     NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
     sessionConfiguration.HTTPAdditionalHeaders = @{
-                                                   @"Authorization" : [NSString stringWithFormat:@"Bearer %@", @"BFPZY5kp2NAAAAAAAAAAJHzSODkGgGqThiZaKH2pCafGwX1kKVs2UVSVnwMiRj9c"],
+                                                   @"Authorization" : [NSString stringWithFormat:@"Bearer %@", @"BFPZY5kp2NAAAAAAAAADju9SYR3plMcGcM8JNyQz5Eo2C9P8erJv4fjX43Swl3Ij"],
                                                    @"Content-Type"  : @"application/zip"
                                                    };
     
@@ -2414,7 +2382,7 @@
     
     
     NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration: sessionConfiguration delegate: self delegateQueue: [NSOperationQueue mainQueue]];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://api-content.dropbox.com/1/files_put/auto/%@?overwrite=false",filename]]];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://api-content.dropbox.com/2/files/upload/auto/%@?overwrite=false",filename]]];
     [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
     NSData *data = [[NSFileManager defaultManager] contentsAtPath:fileName];
     [request setHTTPMethod:@"PUT"];
@@ -2440,7 +2408,7 @@
     
     NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
     sessionConfiguration.HTTPAdditionalHeaders = @{
-                                                   @"Authorization" : [NSString stringWithFormat:@"Bearer %@", @"BFPZY5kp2NAAAAAAAAAAJHzSODkGgGqThiZaKH2pCafGwX1kKVs2UVSVnwMiRj9c"],
+                                                   @"Authorization" : [NSString stringWithFormat:@"Bearer %@", @"BFPZY5kp2NAAAAAAAAADju9SYR3plMcGcM8JNyQz5Eo2C9P8erJv4fjX43Swl3Ij"],
                                                    @"Content-Type"  : @"application/zip"
                                                    };
     
@@ -2471,7 +2439,7 @@
     
     
     NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration: sessionConfiguration delegate: self delegateQueue: [NSOperationQueue mainQueue]];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://api-content.dropbox.com/1/files_put/auto/%@?overwrite=false",filename]]];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://api-content.dropbox.com/2/files/upload/auto/%@?overwrite=false",filename]]];
     [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
     NSData *data = [[NSFileManager defaultManager] contentsAtPath:fileName];
     [request setHTTPMethod:@"PUT"];

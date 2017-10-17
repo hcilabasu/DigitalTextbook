@@ -197,12 +197,6 @@
         return nil;
     }
     
-    NSString* logStr=[[NSString alloc] initWithFormat:@"Loading page: %d", index+1];
-    LogData* log= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:logStr selection:@"Textbook" input:@"null" pageNum:index];
-    [logWrapper addLogs:log];
-    [LogDataParser saveLogData:logWrapper];
-    
-    
     // Create a new view controller and pass suitable data.
     ContentViewController *dataViewController =
     [[ContentViewController alloc]

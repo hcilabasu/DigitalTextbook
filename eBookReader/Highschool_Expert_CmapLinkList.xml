@@ -1,2 +1,45 @@
 <?xml version="1.0"?>
-<CmapLinkList><CmapLink><leftConceptName>extinction</leftConceptName><rightConceptName>passenger pigeons</rightConceptName><relationName>Are</relationName><PageNum>0</PageNum></CmapLink><CmapLink><leftConceptName>uncontrolled commercial hunting</leftConceptName><rightConceptName>extinction</rightConceptName><relationName>Due to</relationName><PageNum>0</PageNum></CmapLink><CmapLink><leftConceptName>habitat loss</leftConceptName><rightConceptName>extinction</rightConceptName><relationName>Due to</relationName><PageNum>0</PageNum></CmapLink><CmapLink><leftConceptName>extinction</leftConceptName><rightConceptName>Great Auk</rightConceptName><relationName>Are</relationName><PageNum>0</PageNum></CmapLink><CmapLink><leftConceptName>Local extinction</leftConceptName><rightConceptName>extinction</rightConceptName><relationName>Include</relationName><PageNum>0</PageNum></CmapLink><CmapLink><leftConceptName>Ecological extinction</leftConceptName><rightConceptName>extinction</rightConceptName><relationName>Include</relationName><PageNum>0</PageNum></CmapLink><CmapLink><leftConceptName>biological extinction</leftConceptName><rightConceptName>extinction</rightConceptName><relationName>Include</relationName><PageNum>0</PageNum></CmapLink><CmapLink><leftConceptName>extinction</leftConceptName><rightConceptName>species</rightConceptName><relationName>May</relationName><PageNum>0</PageNum></CmapLink><CmapLink><leftConceptName>endangered species</leftConceptName><rightConceptName>species</rightConceptName><relationName>Include</relationName><PageNum>0</PageNum></CmapLink><CmapLink><leftConceptName>threatened species</leftConceptName><rightConceptName>species</rightConceptName><relationName>Include</relationName><PageNum>0</PageNum></CmapLink><CmapLink><leftConceptName>Red Lists</leftConceptName><rightConceptName>IUCN</rightConceptName><relationName>Publish</relationName><PageNum>0</PageNum></CmapLink><CmapLink><leftConceptName>Red Lists</leftConceptName><rightConceptName>threatened species</rightConceptName><relationName>List</relationName><PageNum>0</PageNum></CmapLink><CmapLink><leftConceptName>Red Lists</leftConceptName><rightConceptName>endangered species</rightConceptName><relationName>List</relationName><PageNum>0</PageNum></CmapLink></CmapLinkList>
+<CmapLinkList>
+    <CmapLink>
+        <leftConceptName>extinction</leftConceptName>
+        <rightConceptName>species</rightConceptName>
+        <relationName>May</relationName>
+        <PageNum>0</PageNum>
+    </CmapLink>
+    <CmapLink>
+        <leftConceptName>endangered species</leftConceptName>
+        <rightConceptName>species</rightConceptName>
+        <relationName>Include</relationName>
+        <PageNum>0</PageNum>
+    </CmapLink>
+    <CmapLink>
+        <leftConceptName>threatened species</leftConceptName>
+        <rightConceptName>species</rightConceptName>
+        <relationName>Include</relationName>
+        <PageNum>0</PageNum>
+    </CmapLink>
+    <CmapLink>
+        <leftConceptName>biological extinction</leftConceptName>
+        <rightConceptName>extinction</rightConceptName>
+        <relationName>Include</relationName>
+        <PageNum>0</PageNum>
+    </CmapLink>
+    <CmapLink>
+        <leftConceptName>ecological services</leftConceptName>
+        <rightConceptName>species</rightConceptName>
+        <relationName>Provide</relationName>
+        <PageNum>0</PageNum>
+    </CmapLink>
+    <CmapLink>
+        <leftConceptName>HIPPO</leftConceptName>
+        <rightConceptName>extinction</rightConceptName>
+        <relationName>Major causes</relationName>
+        <PageNum>0</PageNum>
+    </CmapLink>
+    <CmapLink>
+        <leftConceptName>instrumental value</leftConceptName>
+        <rightConceptName>species</rightConceptName>
+        <relationName>Have</relationName>
+        <PageNum>0</PageNum>
+    </CmapLink>
+</CmapLinkList>

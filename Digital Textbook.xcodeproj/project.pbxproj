@@ -1592,8 +1592,8 @@
 				564123111E7C5E79006D0075 /* Highschool_Expert__CmapNodeList.xml */,
 				564123121E7C5E79006D0075 /* Highschool_Expert_CmapLinkList.xml */,
 				56BF7F251ADEE94900B015C6 /* ExpertCmapLinkList.xml */,
-				566208531E848F0D00A94AB8 /* HLText.xml */,
 				56BF7F261ADEE94900B015C6 /* ExpertCmapNodeList.xml */,
+				566208531E848F0D00A94AB8 /* HLText.xml */,
 				68D1BF0A1DBFFE3E00BD09D1 /* aa.epub */,
 				5606C8B31BA797B0002F33D5 /* LogData.xml */,
 			);

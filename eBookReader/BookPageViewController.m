@@ -210,7 +210,7 @@
         self.navigationItem.title=@"Training";
     }
     
-    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Application Loaded Succesfully" selection:@"Book Page View" input:@"null" pageNum:bookView.currentContentView.pageNum];
+    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Application Loaded Succesfully" selection:@"Book Page View" input:@"null" pageNum:1];
     [logWrapper addLogs:newlog];
     [LogDataParser saveLogData:logWrapper];
     
