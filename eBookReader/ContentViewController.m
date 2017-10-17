@@ -31,6 +31,7 @@
 #import "SubNodeViewController.h"
 #import "CmapBookNoteViewController.h"
 #import "BookPageViewController.h"
+#import "ConditionSetup.h"
 //#import <KIF/KIF.h>
 //#import "TouchSynthesis.h"
 // for the "quick help" feature, we haven't decided what interaction we want to add after user clicks the button so we define this array to display some default word.
@@ -122,7 +123,7 @@ static NSString *cellId2 = @"cellId2";
     parent_BookViewController.currentContentView=self;
     
     NSString* logStr=[[NSString alloc] initWithFormat:@"Turned to page: %d", pageNum];
-    LogData* log= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:logStr selection:@"Textbook" input:@"null" pageNum:pageNum];
+    LogData* log= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:logStr selection:@"Textbook" input:@"null" pageNum:pageNum];
     [bookLogData addLogs:log];
     [LogDataParser saveLogData:bookLogData];
    // [self.parentViewController.navigationController setNavigationBarHidden: YES animated:YES];
@@ -1113,7 +1114,7 @@ static NSString *cellId2 = @"cellId2";
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     if(0==scrollView.tag){
-        LogData* log= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"scroll page" selection:@"null" input:@"null" pageNum:pageNum];
+        LogData* log= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"scroll page" selection:@"null" input:@"null" pageNum:pageNum];
         [bookLogData addLogs:log];
         [LogDataParser saveLogData:bookLogData];
     }

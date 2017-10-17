@@ -11,7 +11,7 @@
 #import "UIMenuItem+CXAImageSupport.h"
 #import "NodeCell.h"
 #import "QuartzCore/QuartzCore.h"
-
+#import "ConditionSetup.h"
 @interface WebBrowserViewController ()
 @end
 @implementation WebBrowserViewController
@@ -146,7 +146,7 @@
         }
         else {
             //save info in logs
-            LogData* log= [[LogData alloc]initWithName:parent_View_Controller.userName SessionID:@"session_id" action:@"Update URL/search web " selection:@"web browser" input:webBrowserView.request.URL.absoluteString pageNum:0];
+            LogData* log= [[LogData alloc]initWithName:parent_View_Controller.userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Update URL/search web " selection:@"web browser" input:webBrowserView.request.URL.absoluteString pageNum:0];
             [_parentBookPageViewCtr.cmapView.bookLogDataWrapper addLogs:log];
             [LogDataParser saveLogData:_parentBookPageViewCtr.cmapView.bookLogDataWrapper];
             
@@ -237,7 +237,7 @@
             //go to url
             [webBrowserView loadRequest : [NSURLRequest requestWithURL:potentialUrl]];
             //save info in logs
-            LogData* log= [[LogData alloc]initWithName:parent_View_Controller.userName SessionID:@"session_id" action:@"searching key word on web browser " selection:@"web browser" input:potentialUrl.absoluteString pageNum:0];
+            LogData* log= [[LogData alloc]initWithName:parent_View_Controller.userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"searching key word on web browser " selection:@"web browser" input:potentialUrl.absoluteString pageNum:0];
             [_parentBookPageViewCtr.cmapView.bookLogDataWrapper addLogs:log];
             [LogDataParser saveLogData:_parentBookPageViewCtr.cmapView.bookLogDataWrapper];
             return;
@@ -257,7 +257,7 @@
    // NSString *encodedUrlStr = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     [webBrowserView  loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlStr]]];
     //save info in logs
-    LogData* log= [[LogData alloc]initWithName:parent_View_Controller.userName SessionID:@"session_id" action:@"searching key word on web browser " selection:@"web browser" input:searchTerm pageNum:0];
+    LogData* log= [[LogData alloc]initWithName:parent_View_Controller.userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"searching key word on web browser " selection:@"web browser" input:searchTerm pageNum:0];
     [_parentBookPageViewCtr.cmapView.bookLogDataWrapper addLogs:log];
     [LogDataParser saveLogData:_parentBookPageViewCtr.cmapView.bookLogDataWrapper];
     

@@ -14,7 +14,7 @@
 #import "PreViewNode.h"
 #import "VideoViewController.h"
 #import "UIMenuItem+CXAImageSupport.h"
-
+#import "ConditionSetup.h"
 
 @interface BookPageViewController ()
 
@@ -115,7 +115,7 @@
     NSArray *array = [self.navigationController viewControllers];
     [self.navigationController popToViewController:[array objectAtIndex:1] animated:YES];
     
-    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Finish Tutorial View" selection:@"Tutorial View" input:@"null" pageNum:bookView.currentContentView.pageNum];
+    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Finish Tutorial View" selection:@"Tutorial View" input:@"null" pageNum:bookView.currentContentView.pageNum];
     [logWrapper addLogs:newlog];
     [LogDataParser saveLogData:logWrapper];
 }
@@ -210,7 +210,7 @@
         self.navigationItem.title=@"Training";
     }
     
-    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Application Loaded Succesfully" selection:@"Book Page View" input:@"null" pageNum:1];
+    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Application Loaded Succesfully" selection:@"Book Page View" input:@"null" pageNum:1];
     [logWrapper addLogs:newlog];
     [LogDataParser saveLogData:logWrapper];
     
@@ -225,7 +225,7 @@
     //when retating the device, clear the thumbnail icons and reload
     if(orientation==UIInterfaceOrientationPortrait||orientation==UIInterfaceOrientationPortraitUpsideDown){
         //Vertical
-        LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Changed to Vertical Orientation" selection:@"Book Page View" input:@"null" pageNum:bookView.currentContentView.pageNum];
+        LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Changed to Vertical Orientation" selection:@"Book Page View" input:@"null" pageNum:bookView.currentContentView.pageNum];
         [logWrapper addLogs:newlog];
         [LogDataParser saveLogData:logWrapper];
         [self resumeNormalScreen ];
@@ -233,7 +233,7 @@
     //otherwise, hide the concept map view.
     if(orientation==UIInterfaceOrientationLandscapeLeft||orientation==UIInterfaceOrientationLandscapeRight){
         //Horizontal
-        LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Changed to Horizontal Orientation" selection:@"Book Page View" input:@"null" pageNum:bookView.currentContentView.pageNum];
+        LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Changed to Horizontal Orientation" selection:@"Book Page View" input:@"null" pageNum:bookView.currentContentView.pageNum];
         [logWrapper addLogs:newlog];
         [LogDataParser saveLogData:logWrapper];
         [self splitScreen];
@@ -314,7 +314,7 @@
     ///[tutorial.teachImg removeFromSuperview];
     
     
-    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Go to tutorial view" selection:@"Tutorial View" input:@"null" pageNum:bookView.currentContentView.pageNum];
+    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Go to tutorial view" selection:@"Tutorial View" input:@"null" pageNum:bookView.currentContentView.pageNum];
     [logWrapper addLogs:newlog];
     [LogDataParser saveLogData:logWrapper];
     
@@ -326,13 +326,13 @@
 
 
 -(void)showEndAlert{
-    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"attenping to finish concept mapping session" selection:@"concept map view" input:@"" pageNum:@"0"];
+    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"attenping to finish concept mapping session" selection:@"concept map view" input:@"" pageNum:@"0"];
     [logWrapper addLogs:newlog];
     [LogDataParser saveLogData:logWrapper];
     
     NSTimeInterval elapsedTime = [[NSDate date] timeIntervalSinceDate:startDate];
     if( (int)elapsedTime<600   ){
-        LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Deny finish concept map session due to insufficient time spent" selection:@"concept map view" input:@"" pageNum:@"0"];
+        LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Deny finish concept map session due to insufficient time spent" selection:@"concept map view" input:@"" pageNum:@"0"];
         [logWrapper addLogs:newlog];
         [LogDataParser saveLogData:logWrapper];
         
@@ -363,7 +363,7 @@
         // do something here...
     }
     if (buttonIndex == 1) {
-        LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Student finish concept mapping view" selection:@"concept map view" input:@"" pageNum:@"0"];
+        LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Student finish concept mapping view" selection:@"concept map view" input:@"" pageNum:@"0"];
         [logWrapper addLogs:newlog];
         [LogDataParser saveLogData:logWrapper];
         
@@ -826,7 +826,7 @@
         NSLog(@"%@",self.navigationController.viewControllers);
         [self.navigationController popToViewController:self animated:false];
         
-        LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Student start concept mapping" selection:@"concept map view" input:@"" pageNum:@"0"];
+        LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Student start concept mapping" selection:@"concept map view" input:@"" pageNum:@"0"];
         [logWrapper addLogs:newlog];
         [LogDataParser saveLogData:logWrapper];
         [self splitScreen];

@@ -19,7 +19,7 @@
 #import "UIView+i7Rotate360.h"
 #import "LSHorizontalScrollTabViewDemoViewController.h"
 #import "BookViewController.h"
-
+#import "ConditionSetup.h"
 #import "BookPageViewController.h"
 #import "LogData.h"
 #import "BookPageViewController.h"
@@ -250,8 +250,6 @@
 
 
 
-
-
 -(void)uploadCmapXML{
 [self uploadMapLinkXML];
    [self uploadMapNodeXML];
@@ -448,7 +446,7 @@
     
     NSString* isExpertMapChanged=[[NSUserDefaults standardUserDefaults] stringForKey:@"ExpertMapChanged"];
     
-    NSString* shouldLoadExpertMap=[[NSUserDefaults standardUserDefaults] stringForKey:@"loadExpertMap"];
+    NSString* shouldLoadExpertMap=[[NSUserDefaults standardUserDefaults] stringForKey:@"isLoadExpertMap"];
     
     
     
@@ -645,7 +643,7 @@
         LogFileController* log=[[LogFileController alloc]init];
         NSString *logStr=[[NSString alloc] initWithFormat:@"Add new concept.\n"];
         
-        LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"creating new concept node" selection:@"Concept Map View" input:@"null" pageNum:pageNum];
+        LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"creating new concept node" selection:@"concept map view" input:@"null" pageNum:pageNum];
         [bookLogDataWrapper addLogs:newlog];
         [LogDataParser saveLogData:bookLogDataWrapper];
         [log writeToTextFile:logStr logTimeStampOrNot:YES];
@@ -656,7 +654,7 @@
 -(void)logLinkingConceptNodes: (NSString*)Concept1 ConnectedConcept: (NSString*)Concept2 {
     NSString* LogString=[[NSString alloc] initWithFormat:@"Linking concept: %@ with: %@.", Concept1, Concept2];
     NSString* selectionString=[[NSString alloc] initWithFormat:@" %@ and %@. ", Concept1, Concept2];
-    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:LogString selection:selectionString input:@"null" pageNum:pageNum];
+    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:LogString selection:selectionString input:@"null" pageNum:pageNum];
     [bookLogDataWrapper addLogs:newlog];
     [LogDataParser saveLogData:bookLogDataWrapper];
 }
@@ -664,7 +662,7 @@
 /*
 -(void)logHyperNavigation:(NSString*)ConceptName{
     NSString* LogString=[[NSString alloc] initWithFormat:@"Using hyperlink from concept: %@", ConceptName];
-    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:LogString selection:@"concept map view" input:@"null" pageNum:pageNum];
+    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:LogString selection:@"concept map view" input:@"null" pageNum:pageNum];
     [bookLogDataWrapper addLogs:newlog];
     [LogDataParser saveLogData:bookLogDataWrapper];
     
@@ -739,7 +737,7 @@
     [self addChildViewController:node];
     [conceptMapView addSubview: node.view ];
     node.text.text=name;
-    node.text.tag=nodeCount;//use nodeCount to identify the node.
+    node.text.tag=1;//use nodeCount to identify the node.
     nodeCount++;
     node.linkingUrl = m_linkingUrl;
     node.linkingUrlTitle = m_linkingUrlTitle;
@@ -786,7 +784,7 @@
     }
     parentBookPageViewController.navigationController.navigationBar.topItem.title=titleString;
     if(!hasLogedModifyMap){
-        LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Finish modifying expert concept map" selection:@"expert concept map" input:@"null" pageNum:pageNum];
+        LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Finish modifying expert concept map" selection:@"expert concept map" input:@"null" pageNum:pageNum];
         [bookLogDataWrapper addLogs:newlog];
         [LogDataParser saveLogData:bookLogDataWrapper];
         
@@ -794,7 +792,7 @@
         //save the number of concepts in the expert map to log file
         int conceptNum=(int)conceptNodeArray.count;
         NSString* conceptNumString= [[NSString alloc]initWithFormat:@"%d",conceptNum];
-        LogData* countLog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Number of Concepts in Expert Map" selection:@"expert concept map" input:conceptNumString pageNum:pageNum];
+        LogData* countLog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Number of Concepts in Expert Map" selection:@"expert concept map" input:conceptNumString pageNum:pageNum];
         [bookLogDataWrapper addLogs:countLog];
         [LogDataParser saveLogData:bookLogDataWrapper];
         hasLogedModifyMap=YES;
@@ -864,7 +862,7 @@
     //save the number of concepts in the expert map to log file
     int conceptNum=(int)conceptNodeArray.count;
     NSString* conceptNumString= [[NSString alloc]initWithFormat:@"%d",conceptNum];
-    LogData* countLog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Number of Concepts in Expert Map" selection:@"expert concept map" input:conceptNumString pageNum:pageNum];
+    LogData* countLog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Number of Concepts in Expert Map" selection:@"expert concept map" input:conceptNumString pageNum:pageNum];
     [bookLogDataWrapper addLogs:countLog];
     [LogDataParser saveLogData:bookLogDataWrapper];
     hasLogedModifyMap=YES;
@@ -1035,7 +1033,7 @@
     
     
     
-    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"creating new concept node" selection:@"new concept map node" input:@"null" pageNum:pageNum];
+    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"creating new concept node" selection:@"new concept map node" input:@"null" pageNum:pageNum];
     [bookLogDataWrapper addLogs:newlog];
     [LogDataParser saveLogData:bookLogDataWrapper];
     
@@ -1082,12 +1080,12 @@
     pointInView.y+=conceptMapView.contentOffset.y;
     //Saves info into log file
     if (m_pageNum == 0){ //Made from Web Browser
-        LogData* log= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"creating concept node from web browser " selection:@"web browser" input:name pageNum:0];
+        LogData* log= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"creating concept node from web browser " selection:@"web browser" input:name pageNum:0];
         [bookLogDataWrapper addLogs:log];
         [LogDataParser saveLogData:bookLogDataWrapper];
     }
     else{//from book
-        LogData* log= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"creating concept node from book " selection:@"textbook" input:name pageNum:m_pageNum];
+        LogData* log= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"creating concept node from book " selection:@"textbook" input:name pageNum:m_pageNum];
         [bookLogDataWrapper addLogs:log];
         [LogDataParser saveLogData:bookLogDataWrapper];
     }
@@ -1106,6 +1104,7 @@
     node.showType=showType;
     node.enableHyperLink=YES;
     node.pageNum=m_pageNum-1;
+    node.text.tag=1;
     if (m_pageNum == 0){ //Made from Web Browser
         [node setLinkingUrl];
         node.hasWeblink = YES;
@@ -1150,7 +1149,7 @@
     pointInView.x+=conceptMapView.contentOffset.x;
     pointInView.y+=conceptMapView.contentOffset.y;
     
-    LogData* log= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"creating concept node from book " selection:@"textbook" input:name pageNum:pageNum];
+    LogData* log= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"creating concept node from book " selection:@"textbook" input:name pageNum:pageNum];
     [bookLogDataWrapper addLogs:log];
     [LogDataParser saveLogData:bookLogDataWrapper];
     
@@ -1171,7 +1170,7 @@
     [conceptNodeArray addObject:node];
     [self addChildViewController:node];
     [conceptMapView addSubview: node.view ];
-    node.text.tag=nodeCount;//use nodeCount to identify the node.
+    node.text.tag=1;//use nodeCount to identify the node.
     node.text.text=name;
     [node updateViewSize];
     nodeCount++;
@@ -1249,12 +1248,14 @@
     node.bookHighLight=bookHighlight;
     node.pageNum=pageNum;
     node.bookTitle=bookTitle;
+    nodeCount++;
     node.bookthumbNailIcon=bookThumbNial;
     [self addChildViewController:node];
     [conceptNodeArray addObject:node];
     [conceptMapView addSubview: node.view ];
     addedNode=node;
-    node.updateViewSize;
+    node.text.tag=1;
+    [node updateViewSize];
 }
 
 -(void)scrollCmapView :(CGFloat)length
@@ -1296,7 +1297,7 @@
 
 -(void)textFieldDidEndEditing:(UITextField *)textField{
     
-    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Finish editting concept node name" selection:nodeTextBeforeEditing input:textField.text pageNum:pageNum];
+    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Finish editting concept node name" selection:nodeTextBeforeEditing input:textField.text pageNum:pageNum];
     [bookLogDataWrapper addLogs:newlog];
     [LogDataParser saveLogData:bookLogDataWrapper];
 }
@@ -1311,7 +1312,7 @@
     }
     if (buttonIndex == 1&&alertView.tag==2)//delete map was selected
     {
-        LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"deleting whole concept view" selection:@"Concept Map View" input:@"null" pageNum:pageNum];
+        LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"deleting whole concept view" selection:@"Concept Map View" input:@"null" pageNum:pageNum];
         [bookLogDataWrapper addLogs:newlog];
         [LogDataParser saveLogData:bookLogDataWrapper];
         
@@ -1521,7 +1522,7 @@
 
 //- (void)textViewDidEndEditing:(UITextView *)textView{
 - (void)textViewDidEndEditing:(UITextView *)textView{
-    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Taking notes" selection:linkTextBeforeEditing input:textView.text pageNum:pageNum];
+    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Taking notes" selection:linkTextBeforeEditing input:textView.text pageNum:pageNum];
     [bookLogDataWrapper addLogs:newlog];
     [LogDataParser saveLogData:bookLogDataWrapper];
     if (showingPV != nil){ // popoverview for taking notes exists
@@ -1869,7 +1870,7 @@
         }
     }
     
-    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Deleting Link" selection:@"concept map view" input:linkBk.relation.text pageNum:pageNum];
+    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Deleting Link" selection:@"concept map view" input:linkBk.relation.text pageNum:pageNum];
     [bookLogDataWrapper addLogs:newlog];
     [LogDataParser saveLogData:bookLogDataWrapper];
     //removes link that matches description
@@ -1920,7 +1921,7 @@
     }
     
     NSString* LogString=@"concepts added by student";
-    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:LogString selection:@"concept map view" input:input pageNum:pageNum];
+    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:LogString selection:@"concept map view" input:input pageNum:pageNum];
     [bookLogDataWrapper addLogs:newlog];
     [LogDataParser saveLogData:bookLogDataWrapper];
 }
@@ -2189,7 +2190,7 @@
     //save the number of concepts in the expert map to log file
     int conceptNum=(int)conceptNodeArray.count;
     NSString* conceptNumString= [[NSString alloc]initWithFormat:@"%d",conceptNum];
-    LogData* countLog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Number of Concepts in Student Map" selection:@"student concept map" input:conceptNumString pageNum:pageNum];
+    LogData* countLog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Number of Concepts in Student Map" selection:@"student concept map" input:conceptNumString pageNum:pageNum];
     [bookLogDataWrapper addLogs:countLog];
     [LogDataParser saveLogData:bookLogDataWrapper];
 }
@@ -2520,6 +2521,14 @@
     
    // [pv becomeFirstResponder];
 
+}
+
+
+
+-(void)saveLog: (NSString*)m_sessionID Action: (NSString*)m_action Selection: (NSString*)m_selection Input: (NSString*)m_input PageNumber: (int)m_pageNum {
+    LogData* countLog= [[LogData alloc]initWithName:userName SessionID:m_sessionID action:m_action selection:m_selection input:m_input pageNum:m_pageNum];
+    [bookLogDataWrapper addLogs:countLog];
+    [LogDataParser saveLogData:bookLogDataWrapper];
 }
 
 @end

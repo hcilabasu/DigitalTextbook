@@ -11,6 +11,7 @@
 #import "BookPageViewController.h"
 #import "LogData.h"
 #import "VideoViewController.h"
+#import "ConditionSetup.h"
 @interface QuizViewController ()
 
 @end
@@ -164,7 +165,7 @@
     
     NSLog(@"Test questions ID:");
     NSLog(inputString);
-    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Generating test questions" selection:@"quiz view" input:inputString pageNum:0];
+    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Generating test questions" selection:@"quiz view" input:inputString pageNum:0];
     [bookLogDataWrapper addLogs:newlog];
     [LogDataParser saveLogData:bookLogDataWrapper];
 }
@@ -223,18 +224,18 @@
             self.navigationController.navigationBar.topItem.title=speedLabel;
             
             NSString* inputString=[[NSString alloc] initWithFormat:@"Q1 Answer:%@, Q2 Answer:%@, Q3 Answer:%@, Q4 Answer:%@, Q5 Answer:%@, Q6 Answer:%@.", question1,question2,question3,question4,question5,question6];
-            LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Finish Pre Test" selection:@"quiz view" input:inputString pageNum:0];
+            LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Finish Pre Test" selection:@"quiz view" input:inputString pageNum:0];
             [bookLogDataWrapper addLogs:newlog];
             [LogDataParser saveLogData:bookLogDataWrapper];
             
             NSString* inputString2=[[NSString alloc] initWithFormat:@"Pretest Correct Answers: %@, %@, %@, %@,%@, %@", question1Answer,question2Answer,question3Answer,question4Answer,question5Answer,question6Answer];
-            LogData* newlog2= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Getting answer" selection:@"quiz view" input:inputString2 pageNum:0];
+            LogData* newlog2= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Getting answer" selection:@"quiz view" input:inputString2 pageNum:0];
             [bookLogDataWrapper addLogs:newlog2];
             [LogDataParser saveLogData:bookLogDataWrapper];
     
             int total=[self getTotalScore:question1 Q2:question2 Q3:question3 Q4:question4 Q5:question5 Q6:question6 A1:question1Answer A2:question2Answer A3:question3Answer A4:question4Answer A5:question5Answer A6:question6Answer];
             NSString* scoreSring=[[NSString alloc] initWithFormat:@"Pretest Score: %d", total];
-            LogData* scoreLog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Getting answer" selection:@"quiz view" input:scoreSring pageNum:0];
+            LogData* scoreLog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Getting answer" selection:@"quiz view" input:scoreSring pageNum:0];
             [bookLogDataWrapper addLogs:scoreLog];
             [LogDataParser saveLogData:bookLogDataWrapper];
             
@@ -244,7 +245,7 @@
                 testSmary=[testSmary stringByAppendingString:@", "];
             }
             
-            LogData* smryLog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Correct Questions in PreTest" selection:@"quiz view" input:testSmary pageNum:0];
+            LogData* smryLog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Correct Questions in PreTest" selection:@"quiz view" input:testSmary pageNum:0];
             [bookLogDataWrapper addLogs:smryLog];
             [LogDataParser saveLogData:bookLogDataWrapper];
             
@@ -259,7 +260,7 @@
             [parentBookPageViewController.cmapView loadConceptMap:nil];
             
             
-            LogData* wrongsmryLog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Wrong Questions in PreTest" selection:@"quiz view" input:wrongtestSmary pageNum:0];
+            LogData* wrongsmryLog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Wrong Questions in PreTest" selection:@"quiz view" input:wrongtestSmary pageNum:0];
             [bookLogDataWrapper addLogs:wrongsmryLog];
             [LogDataParser saveLogData:bookLogDataWrapper];
             
@@ -267,14 +268,14 @@
         }else{
             [self.navigationController popToViewController:self animated:false];
              NSString* inputString=[[NSString alloc] initWithFormat:@"Q1 Answer:%@, Q2 Answer:%@, Q3 Answer:%@, Q4 Answer:%@.", question1,question2,question3,question4];
-            LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Finish Posts Test" selection:@"quiz view" input:inputString pageNum:0];
+            LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Finish Posts Test" selection:@"quiz view" input:inputString pageNum:0];
             [bookLogDataWrapper addLogs:newlog];
             [LogDataParser saveLogData:bookLogDataWrapper];
             [parentBookPageViewController upLoadLogFile];
             
              int total=[self getTotalScore:question1 Q2:question2 Q3:question3 Q4:question4 Q5:question5 Q6:question6 A1:question1Answer A2:question2Answer A3:question3Answer A4:question4Answer A5:question5Answer A6:question6Answer];
             NSString* scoreSring=[[NSString alloc] initWithFormat:@"Posttest Score: %d", total];
-            LogData* scoreLog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Getting answer" selection:@"quiz view" input:scoreSring pageNum:0];
+            LogData* scoreLog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Getting answer" selection:@"quiz view" input:scoreSring pageNum:0];
             [bookLogDataWrapper addLogs:scoreLog];
             [LogDataParser saveLogData:bookLogDataWrapper];
             
@@ -284,7 +285,7 @@
                 testSmary=[testSmary stringByAppendingString:@", "];
             }
             
-            LogData* smryLog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Correct Questions in PostTest" selection:@"quiz view" input:testSmary pageNum:0];
+            LogData* smryLog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Correct Questions in PostTest" selection:@"quiz view" input:testSmary pageNum:0];
             [bookLogDataWrapper addLogs:smryLog];
             [LogDataParser saveLogData:bookLogDataWrapper];
             
@@ -297,7 +298,7 @@
             
             
             
-            LogData* wrongsmryLog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Wrong Questions in PostTest" selection:@"quiz view" input:wrongtestSmary pageNum:0];
+            LogData* wrongsmryLog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Wrong Questions in PostTest" selection:@"quiz view" input:wrongtestSmary pageNum:0];
             [bookLogDataWrapper addLogs:wrongsmryLog];
             [LogDataParser saveLogData:bookLogDataWrapper];
             
@@ -383,14 +384,14 @@
 {
     isQiuzStart=true;
     startDate = [NSDate date];
-    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Start Pre Test" selection:@"null" input:@"null" pageNum:0];
+    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Start Pre Test" selection:@"null" input:@"null" pageNum:0];
     [bookLogDataWrapper addLogs:newlog];
     [LogDataParser saveLogData:bookLogDataWrapper];
     
     [quizButton setTitle:@"Finished" forState:UIControlStateNormal];
     if(isFinished){//fnish quiz and go to cmap view
         NSString* inputString=[[NSString alloc] initWithFormat:@"Q1 Answer:%@, Q2 Answer:%@.", question1,question2];
-         LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Finish Pre Test" selection:@"null" input:inputString pageNum:0];
+         LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Finish Pre Test" selection:@"null" input:inputString pageNum:0];
          [bookLogDataWrapper addLogs:newlog];
          [LogDataParser saveLogData:bookLogDataWrapper];
          // [parentBookPageViewController upLoadLogFile];
@@ -417,10 +418,10 @@
     isQiuzStart=true;
     startDate = [NSDate date];
     
-    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Start Pre Test" selection:@"quiz view" input:@"null" pageNum:0];
+    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Start Pre Test" selection:@"quiz view" input:@"null" pageNum:0];
     
      if(1==testType){
-         newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Start Post Test" selection:@"quiz view" input:@"null" pageNum:0];
+         newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Start Post Test" selection:@"quiz view" input:@"null" pageNum:0];
      }
     
     [bookLogDataWrapper addLogs:newlog];
@@ -429,7 +430,7 @@
     if(isFinished){//fnish quiz and go to cmap view
         /*
         NSString* inputString=[[NSString alloc] initWithFormat:@"Q1 Answer:%@, Q2 Answer:%@.", question1,question2];
-        LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Finish Pre Test" selection:@"null" input:inputString pageNum:0];
+        LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Finish Pre Test" selection:@"null" input:inputString pageNum:0];
         [bookLogDataWrapper addLogs:newlog];
         [LogDataParser saveLogData:bookLogDataWrapper];*/
         // [parentBookPageViewController upLoadLogFile];

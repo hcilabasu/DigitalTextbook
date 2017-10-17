@@ -8,6 +8,7 @@
 
 #import "LogDataParser.h"
 #import "GDataXMLNode.h"
+#import "ConditionSetup.h"
 @implementation LogDataParser
 
 
@@ -80,7 +81,7 @@
             student_id = nameitem.stringValue;
         } else continue;
         
-        NSArray *r_name = [partyMember elementsForName:@"session_id"];
+        NSArray *r_name = [partyMember elementsForName:[[ConditionSetup sharedInstance] getSessionID]];
         if (r_name.count > 0) {
             GDataXMLElement *titleitem = (GDataXMLElement *) [r_name objectAtIndex:0];
             session_id = titleitem.stringValue;
@@ -150,7 +151,7 @@
         [GDataXMLNode elementWithName:@"user_id" stringValue:linkItem.student_id];
         
         GDataXMLElement * e_sessionId =
-        [GDataXMLNode elementWithName:@"session_id" stringValue:linkItem.session_id];
+        [GDataXMLNode elementWithName:[[ConditionSetup sharedInstance] getSessionID] stringValue:linkItem.session_id];
         
         GDataXMLElement * e_time =
         [GDataXMLNode elementWithName:@"time" stringValue:linkItem.time];

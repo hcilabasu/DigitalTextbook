@@ -42,9 +42,8 @@
     [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"isTimer"];
     [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"isPreview"];
     [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"isManu"];
-    [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"loadExpertMap"];
+    [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"isLoadExpertMap"];
     [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"isHyperLinking"];
-    [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"isTemplate"];
    // [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"ExpertMapChanged"];
 
     ///////////////////////set iPad id://///////////////////////////////
@@ -68,13 +67,10 @@
         [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"isManu"];
     }
     if(loadExpertMap){
-        [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"loadExpertMap"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"isLoadExpertMap"];
     }
     if(isHyperLink){
         [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"isHyperLinking"];
-    }
-    if(isTemplate){
-        [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"isTemplate"];
     }
     
     

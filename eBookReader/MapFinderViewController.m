@@ -10,6 +10,7 @@
 #import "CmapController.h"
 #import "TrainingViewController.h"
 #import "BookPageViewController.h"
+#import "ConditionSetup.h"
 @interface MapFinderViewController ()
 
 @end
@@ -138,7 +139,7 @@ NSArray *recipes;
    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     [parentCmapController upDateLinkText:cell.textLabel.text];
     NSString* inputString=[[NSString alloc] initWithFormat:@"%@", cell.textLabel.text];
-    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Update Link name from list" selection:@"new concept link" input:inputString pageNum:0];
+    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Update Link name from list" selection:@"new concept link" input:inputString pageNum:0];
     [bookLogData addLogs:newlog];
     [LogDataParser saveLogData:bookLogData];
     

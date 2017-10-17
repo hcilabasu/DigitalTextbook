@@ -19,6 +19,8 @@
 #import "QAFinderViewController.h"
 #import "RelationTextView.h"
 #import "TrainingViewController.h"
+#import "LogDataWrapper.h"
+#import "ConditionSetup.h"
 //#import "RelationTextView.h"
 @implementation NodeCell
 @synthesize showPoint;
@@ -619,7 +621,7 @@
            // [self.parentCmapController.parentBookPageViewController showWebView:@"" atNode:self];
             NSString* LogString=[[NSString alloc] initWithFormat:@"Using hyperlink from concept: %@", self.conceptName];
             //save info in log files
-            LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:LogString selection:@"concept map view" input:@"concept map view" pageNum:pageNum];
+            LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:LogString selection:@"concept map view" input:self.conceptName pageNum:pageNum];
             [parentCmapController.bookLogDataWrapper addLogs:newlog];
             [LogDataParser saveLogData:parentCmapController.bookLogDataWrapper];
             return;
@@ -639,7 +641,7 @@
         //save in log file
        
             NSString* LogString=[[NSString alloc] initWithFormat:@"Using hyperlink from concept: %@", self.conceptName];
-            LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:LogString selection:@"concept map view" input:@"concept map view" pageNum:pageNum];
+            LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:LogString selection:@"concept map view" input:@"concept map view" pageNum:pageNum];
             [parentCmapController.bookLogDataWrapper addLogs:newlog];
             [LogDataParser saveLogData:parentCmapController.bookLogDataWrapper];
     }
@@ -775,7 +777,7 @@
     
     for(ConceptLink *link in delAry){
         //deletes the links in delarray
-        LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Deleting Links because concept was deleted" selection:@"concept map" input:link.relation.text pageNum:pageNum];
+        LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Deleting Links because concept was deleted" selection:@"concept map view" input:link.relation.text pageNum:pageNum];
         [bookLogData addLogs:newlog];
         [LogDataParser saveLogData:bookLogData];
         [parentCmapController.conceptLinkArray removeObject:link];
@@ -993,6 +995,9 @@
                 // NSLog(@"Blocked by keyboard!!");
                 [parentCmapController scrollCmapView:(offSet)]; //scroll view so that view is not blocked
             }
+            
+            [parentCmapController saveLog:[[ConditionSetup sharedInstance] getSessionID] Action:@"Start editing node name" Selection:@"concept map view" Input:conceptName PageNumber:pageNum];
+            
             //This timer gives the view time to scroll before going to editNodename function
             [NSTimer scheduledTimerWithTimeInterval:0.3f
                                              target:self
@@ -1135,7 +1140,7 @@
     //only logs concepts delete if it's user action
     if(delByUser){
         NSString* LogString=[[NSString alloc] initWithFormat:@"%@", text.text];
-        LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Deleting Concept" selection:@"concept map" input:LogString pageNum:pageNum];
+        LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Deleting Concept" selection:@"concept map" input:LogString pageNum:pageNum];
         [bookLogData addLogs:newlog];
         [LogDataParser saveLogData:bookLogData];
     }
@@ -1227,13 +1232,13 @@
     if(textView.text.length<6){
         textView.frame=CGRectMake(textView.frame.origin.x, textView.frame.origin.y, 40, textView.frame.size.height);
     }*/
-    
+    int taggg=textView.tag;
     
     if(0<textView.tag){ // finish editting relationship text
         if ([textView respondsToSelector:@selector(isTylerTextView)]){ //is TylerTextView, so editing node text
             NSLog(@"Edit node text...\n");
             NSString* inputString=[[NSString alloc] initWithFormat:@"%@", textView.text];
-            LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Update Node Name" selection:parentCmapController.linkTextBeforeEditing input:inputString pageNum:pageNum];
+            LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Update Node Name" selection:parentCmapController.linkTextBeforeEditing input:inputString pageNum:pageNum];
             [bookLogData addLogs:newlog];
             [LogDataParser saveLogData:bookLogData];
             
@@ -1262,18 +1267,14 @@
             if(!self.conceptName){ //conceptname is nil
                 self.conceptName=self.text.text; //conceptname is current text
             }
-            
-            
-            
         }
         else{//is not TylerTextView, editinglink names
-        
             for(ConceptLink* view in parentCmapController.conceptLinkArray){
                 if(view.relation.tag== textView.tag){
                     view.relation.text=textView.text;
                     NSLog(@"update link text...\n");
                     NSString* inputString=[[NSString alloc] initWithFormat:@"%@", textView.text];
-                    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Update Link Name" selection:parentCmapController.linkTextBeforeEditing input:inputString pageNum:pageNum];
+                    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Update Link Name" selection:parentCmapController.linkTextBeforeEditing input:inputString pageNum:pageNum];
                     [bookLogData addLogs:newlog];
                     [LogDataParser saveLogData:bookLogData];
                 }//end if
@@ -1291,54 +1292,7 @@
     
 }
 
-//This function is NO LONGER CALLED!!!! Since node has been changed to TylerTextView
-//after editing the text in the name textfield(!), update the conceptNodeArray and node information
-/*- (void)textFieldDidEndEditing:(UITextField *)textField{
 
-    NSString* inputString=[[NSString alloc] initWithFormat:@"%@", textField.text];
-    NSString* parTxt=parentCmapController.nodeTextBeforeEditing;
-    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:@"session_id" action:@"Update Concept Name" selection:parentCmapController.nodeTextBeforeEditing input:inputString pageNum:pageNum];
-    [bookLogData addLogs:newlog];
-    [LogDataParser saveLogData:bookLogData];
-    [textField resignFirstResponder];
-    
-    if([inputString isEqualToString:@""]){
-        [NSTimer scheduledTimerWithTimeInterval:1.0
-                                         target:self
-                                       selector:@selector(showEMptyNodeAlert)
-                                       userInfo:nil
-                                        repeats:NO];
-    }
-    
-    int sameNodeCount=0;
-    for(NodeCell* cell in parentCmapController.conceptNodeArray){
-        if([text.text isEqualToString:cell.text.text]){
-            sameNodeCount++;
-        }
-    }//end for
-    
-    if(sameNodeCount>1){
-        [NSTimer scheduledTimerWithTimeInterval:1.0
-                                         target:self
-                                       selector:@selector(showDupliAlert)
-                                       userInfo:nil
-                                        repeats:NO];
-    }
-    if(!self.conceptName){ //conceptname is nil
-        self.conceptName=self.text.text; //conceptname is current text
-    }
-    
- 
-    if([parentCmapController isNodeExist:textField.text]){
-        [NSTimer scheduledTimerWithTimeInterval:2.0
-                                         target:self
-                                       selector:@selector(showDupliAlert)
-                                       userInfo:nil
-                                        repeats:NO];
-
-    }
-    
-}*/
 //shows alert if a duplicate node exists
 -(void)showDupliAlert{
     [text becomeFirstResponder];
@@ -1361,6 +1315,7 @@
         isAlertShowing=NO;
     }
 }
+
 
 
 -(void)deleteLinkWithNode: (NodeCell*)cellToDel{

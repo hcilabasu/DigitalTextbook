@@ -151,11 +151,6 @@ CGFloat const   GHAnimationDelay = GHAnimationDuration/5;
         NSLog(@"click location : %@", NSStringFromCGPoint(self.curretnLocation));
     
     
-    
-    
-    
-    
-    
     if(self.isShowing){
         
         for (int i = 0; i < self.menuItems.count; i++) {

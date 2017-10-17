@@ -176,6 +176,7 @@
 		56711E2B17B7759A001B4585 /* UIView+Addictions.m in Sources */ = {isa = PBXBuildFile; fileRef = 56711E1A17B770B1001B4585 /* UIView+Addictions.m */; };
 		56711E2C17B776A2001B4585 /* LSHorizontalScrollTabView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56711E0517B77057001B4585 /* LSHorizontalScrollTabView.xib */; };
 		56711E2E17B7834B001B4585 /* tab-back.png in Resources */ = {isa = PBXBuildFile; fileRef = 56711E2D17B7834B001B4585 /* tab-back.png */; };
+		5671AAD81F966A350059BD85 /* ConditionSetup.m in Sources */ = {isa = PBXBuildFile; fileRef = 5671AAD71F966A350059BD85 /* ConditionSetup.m */; };
 		56727D7A171E386800ACD92D /* WebBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56727D78171E386800ACD92D /* WebBrowserViewController.m */; };
 		56727D7B171E386800ACD92D /* WebBrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56727D79171E386800ACD92D /* WebBrowserViewController.xib */; };
 		56727D84171F290D00ACD92D /* noteTaking.png in Resources */ = {isa = PBXBuildFile; fileRef = 56727D83171F290D00ACD92D /* noteTaking.png */; };
@@ -555,6 +556,8 @@
 		56711E1917B770B1001B4585 /* UIView+Addictions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Addictions.h"; sourceTree = "<group>"; };
 		56711E1A17B770B1001B4585 /* UIView+Addictions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Addictions.m"; sourceTree = "<group>"; };
 		56711E2D17B7834B001B4585 /* tab-back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-back.png"; sourceTree = "<group>"; };
+		5671AAD61F966A350059BD85 /* ConditionSetup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConditionSetup.h; sourceTree = "<group>"; };
+		5671AAD71F966A350059BD85 /* ConditionSetup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionSetup.m; sourceTree = "<group>"; };
 		56727D77171E386800ACD92D /* WebBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebBrowserViewController.h; sourceTree = "<group>"; };
 		56727D78171E386800ACD92D /* WebBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebBrowserViewController.m; sourceTree = "<group>"; };
 		56727D79171E386800ACD92D /* WebBrowserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebBrowserViewController.xib; sourceTree = "<group>"; };
@@ -977,6 +980,8 @@
 				56727D79171E386800ACD92D /* WebBrowserViewController.xib */,
 				3166DB7416B0A5300089C0F2 /* MainStoryboard_iPhone.storyboard */,
 				3166DB7716B0A5300089C0F2 /* MainStoryboard_iPad.storyboard */,
+				5671AAD61F966A350059BD85 /* ConditionSetup.h */,
+				5671AAD71F966A350059BD85 /* ConditionSetup.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -2092,6 +2097,7 @@
 				31F0CE2616C59BEA00E5CAC5 /* ZipArchive.mm in Sources */,
 				56D76C1718BC04BB0041FA56 /* DragView.m in Sources */,
 				31F0CE3316C59DEC00E5CAC5 /* ioapi.c in Sources */,
+				5671AAD81F966A350059BD85 /* ConditionSetup.m in Sources */,
 				56BD58941C7E1FF100283AC3 /* ZCTradeView.m in Sources */,
 				31F0CE3416C59DEC00E5CAC5 /* mztools.c in Sources */,
 				56D76C2818BC05140041FA56 /* ConceptNode.m in Sources */,
