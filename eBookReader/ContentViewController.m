@@ -121,7 +121,7 @@ static NSString *cellId2 = @"cellId2";
     
     parent_BookViewController.parent_BookPageViewController.cmapView.parent_ContentViewController=self;
     parent_BookViewController.currentContentView=self;
-    
+    parent_BookViewController.cmapView.pageNum=pageNum;
     NSString* logStr=[[NSString alloc] initWithFormat:@"Turned to page: %d", pageNum];
     LogData* log= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:logStr selection:@"Textbook" input:@"null" pageNum:pageNum];
     [bookLogData addLogs:log];

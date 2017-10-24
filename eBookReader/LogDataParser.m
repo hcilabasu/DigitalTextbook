@@ -151,7 +151,7 @@
         [GDataXMLNode elementWithName:@"user_id" stringValue:linkItem.student_id];
         
         GDataXMLElement * e_sessionId =
-        [GDataXMLNode elementWithName:[[ConditionSetup sharedInstance] getSessionID] stringValue:linkItem.session_id];
+        [GDataXMLNode elementWithName:@"session_id" stringValue:[[ConditionSetup sharedInstance] getSessionID]];
         
         GDataXMLElement * e_time =
         [GDataXMLNode elementWithName:@"time" stringValue:linkItem.time];

@@ -106,6 +106,7 @@
     if (self = [super init]) {
         nodeCount=1;
         linkCount=1;
+        noteTakingNode=nil;
     }
     return self;
 }
@@ -448,15 +449,14 @@
     
     NSString* shouldLoadExpertMap=[[NSUserDefaults standardUserDefaults] stringForKey:@"isLoadExpertMap"];
     
-    
-    
     if([shouldLoadExpertMap isEqualToString:@"YES"]  && (![isExpertMapChanged isEqualToString:@"YES"])  ){
-        
         bookNodeWrapper=[CmapNodeParser loadExpertCmapNode];
         bookLinkWrapper=[CmapLinkParser loadExpertCmapLink];
+        [self saveLog:[[ConditionSetup sharedInstance] getSessionID]  Action:@"Load expert concept map" Selection:@"concept map" Input:@"expert map" PageNumber:pageNum];
     }else{
         bookNodeWrapper=[CmapNodeParser loadCmapNode];
         bookLinkWrapper=[CmapLinkParser loadCmapLink];
+        [self saveLog:[[ConditionSetup sharedInstance] getSessionID]  Action:@"Load student concept map" Selection:@"concept map" Input:@"expert map" PageNumber:pageNum];
     }
     
     
@@ -652,21 +652,12 @@
 
 
 -(void)logLinkingConceptNodes: (NSString*)Concept1 ConnectedConcept: (NSString*)Concept2 {
-    NSString* LogString=[[NSString alloc] initWithFormat:@"Linking concept: %@ with: %@.", Concept1, Concept2];
-    NSString* selectionString=[[NSString alloc] initWithFormat:@" %@ and %@. ", Concept1, Concept2];
-    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:LogString selection:selectionString input:@"null" pageNum:pageNum];
+    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Linking concepts" selection:Concept1 input:Concept2 pageNum:parent_ContentViewController.pageNum];
     [bookLogDataWrapper addLogs:newlog];
     [LogDataParser saveLogData:bookLogDataWrapper];
 }
 
-/*
--(void)logHyperNavigation:(NSString*)ConceptName{
-    NSString* LogString=[[NSString alloc] initWithFormat:@"Using hyperlink from concept: %@", ConceptName];
-    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:LogString selection:@"concept map view" input:@"null" pageNum:pageNum];
-    [bookLogDataWrapper addLogs:newlog];
-    [LogDataParser saveLogData:bookLogDataWrapper];
-    
-}*/
+
 
 -(void)disableAllNodesEditting{
     for (NodeCell *node in conceptNodeArray){
@@ -742,7 +733,6 @@
     node.linkingUrl = m_linkingUrl;
     node.linkingUrlTitle = m_linkingUrlTitle;
     node.view.backgroundColor=[UIColor colorWithRed:118.0/255.0 green:93.0/255.0 blue:135.0/255.0 alpha:1];
-    
     [node becomeFirstResponder];
 }
 
@@ -808,8 +798,6 @@
     
     UIGraphicsEndImageContext();
     
-    
-    
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *filePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"ExpertScreenShot.png"];
     
@@ -817,7 +805,6 @@
     [UIImagePNGRepresentation(img) writeToFile:filePath atomically:YES];
     
 }
-
 
 
 -(void)modifyExpertMap{
@@ -1030,9 +1017,7 @@
     
     location.x+=conceptMapView.contentOffset.x;
     location.y+=conceptMapView.contentOffset.y;
-    
-    
-    
+
     LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"creating new concept node" selection:@"new concept map node" input:@"null" pageNum:pageNum];
     [bookLogDataWrapper addLogs:newlog];
     [LogDataParser saveLogData:bookLogDataWrapper];
@@ -1046,19 +1031,8 @@
     numString=[[NSString alloc]initWithFormat:@"%d",numInt];
     [[NSUserDefaults standardUserDefaults] setObject:numString forKey:@"NumOfConcepts"];
     
-    
     [self getPreView:nil];
     [self updatePreviewLocation];
-    /*
-     NSLog( @"click focus question");
-     if(YES==isQuestionShow){
-     [focusQuestionLable setHidden:YES];
-     isQuestionShow=NO;
-     }else{
-     [focusQuestionLable setHidden:NO];
-     isQuestionShow=YES;
-     }
-     */
 }
 
 //For nodes created from book and web browser
@@ -1519,10 +1493,10 @@
 }
 
 
-
 //- (void)textViewDidEndEditing:(UITextView *)textView{
 - (void)textViewDidEndEditing:(UITextView *)textView{
-    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Taking notes" selection:linkTextBeforeEditing input:textView.text pageNum:pageNum];
+    int page=parent_ContentViewController.pageNum;
+    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Finish taking notes" selection:noteTakingNode.conceptName input:textView.text pageNum:parent_ContentViewController.pageNum];
     [bookLogDataWrapper addLogs:newlog];
     [LogDataParser saveLogData:bookLogDataWrapper];
     if (showingPV != nil){ // popoverview for taking notes exists

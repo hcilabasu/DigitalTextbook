@@ -139,7 +139,7 @@ NSArray *recipes;
    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     [parentCmapController upDateLinkText:cell.textLabel.text];
     NSString* inputString=[[NSString alloc] initWithFormat:@"%@", cell.textLabel.text];
-    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Update Link name from list" selection:@"new concept link" input:inputString pageNum:0];
+    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Update Link name from list" selection:@"new concept link" input:inputString pageNum:parentCmapController.pageNum];
     [bookLogData addLogs:newlog];
     [LogDataParser saveLogData:bookLogData];
     

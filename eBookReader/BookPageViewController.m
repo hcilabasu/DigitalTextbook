@@ -622,8 +622,20 @@
         [previewImg setHidden:YES];
         [upperBorder removeFromSuperlayer];
         isShowPreView=NO;
+        
+        LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Hide Preview" selection:@"Concept Map" input:@"null" pageNum: bookView.cmapView.pageNum];
+        [logWrapper addLogs:newlog];
+        [LogDataParser saveLogData:logWrapper];
+        
+        
     }else{
         [previewImg setHidden:NO];
+        
+        LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Show Preview" selection:@"Concept Map" input:@"null" pageNum: bookView.cmapView.pageNum];
+        [logWrapper addLogs:newlog];
+        [LogDataParser saveLogData:logWrapper];
+        
+        
         upperBorder.backgroundColor = [[UIColor colorWithRed:255/255.0f green:255/255.0f blue:255/255.0f alpha:0.7f]CGColor];
         upperBorder.frame=previewImg.frame;
         previewImg.layer.borderColor = [UIColor grayColor].CGColor;
