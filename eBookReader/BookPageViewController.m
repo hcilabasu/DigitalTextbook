@@ -492,6 +492,7 @@
     cmapView.enableHyperLink=enableHyperLink;
     cmapView.parentBookPageViewController=self;
     cmapView.neighbor_BookViewController=self.bookView;
+    cmapView.pageNum=1;
     [self addChildViewController:cmapView];
     [self.view addSubview:cmapView.view];
     [cmapView.view setUserInteractionEnabled:YES];
@@ -623,7 +624,7 @@
         [upperBorder removeFromSuperlayer];
         isShowPreView=NO;
         
-        LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Hide Preview" selection:@"Concept Map" input:@"null" pageNum: bookView.cmapView.pageNum];
+        LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Hide Preview" selection:@"Concept Map" input:@"null" pageNum: cmapView.pageNum];
         [logWrapper addLogs:newlog];
         [LogDataParser saveLogData:logWrapper];
         

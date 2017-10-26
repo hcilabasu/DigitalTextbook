@@ -126,6 +126,8 @@ static NSString *cellId2 = @"cellId2";
     LogData* log= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:logStr selection:@"Textbook" input:@"null" pageNum:pageNum];
     [bookLogData addLogs:log];
     [LogDataParser saveLogData:bookLogData];
+    
+    parent_BookViewController.parent_BookPageViewController.cmapView.pageNum=pageNum;
    // [self.parentViewController.navigationController setNavigationBarHidden: YES animated:YES];
     //[self.navigationController setNavigationBarHidden: YES animated:YES];
 }

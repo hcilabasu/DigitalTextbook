@@ -85,6 +85,7 @@
 
 -(void)highlightLink: (NSString*)relatedNodeName;
 -(void)addHighlightThumb;
+-(void)addNoteThumb;
 -(void)deleteNode: (BOOL)delByUser;
 -(void)updateViewSize;
 -(void)updateLink;

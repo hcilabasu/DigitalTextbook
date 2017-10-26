@@ -1503,6 +1503,7 @@
         noteTakingNode.appendedNoteString = showingPV.noteText.text; //saves text from popover view
         [showingPV dismiss]; //gets rid of popover view
     }
+    [noteTakingNode addNoteThumb];
     [self autoSaveMap];
     /*
      if(textView.text.length<5){
@@ -1843,8 +1844,8 @@
             linkBk=link;
         }
     }
-    
-    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Deleting Link" selection:@"concept map view" input:linkBk.relation.text pageNum:pageNum];
+    NSString* selectionString=[[NSString alloc]initWithFormat:@"%@***%@",leftName, rightName];
+    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Deleting Link" selection:selectionString input:linkBk.relation.text pageNum:parent_ContentViewController.pageNum];
     [bookLogDataWrapper addLogs:newlog];
     [LogDataParser saveLogData:bookLogDataWrapper];
     //removes link that matches description

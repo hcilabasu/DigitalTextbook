@@ -103,6 +103,7 @@
 -(void)viewDidAppear:(BOOL)animated{
     [self updateViewSize];
     [self updateThumbIcons];
+    hasNote=NO;
 
 }
 - (void)viewDidLoad
@@ -439,7 +440,7 @@
        [parentCmapController updatePreviewLocation];
         
         NSString* positionString= [[NSString alloc]initWithFormat:@"x: %f, y: %f",showPoint.x, showPoint.y];
-        [parentCmapController saveLog:[[ConditionSetup sharedInstance] getSessionID]  Action:@"End update node position" Selection:conceptName Input:positionString PageNumber:pageNum];
+        [parentCmapController saveLog:[[ConditionSetup sharedInstance] getSessionID]  Action:@"End update node position" Selection:conceptName Input:positionString PageNumber:parentCmapController.pageNum];
 
     }
     
@@ -1100,9 +1101,12 @@
 }
 //for nodes from the "+" button-------------------------------------------------------------------------
 -(void)addNoteThumb{
+    if(NO==hasNote){
     UIImageView *thumb = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"note_square.png"]];
     [thumb setFrame:CGRectMake(self.view.frame.size.width-7, self.view.frame.size.height, 14, 14)];
     [self.view addSubview:thumb];
+    hasNote=YES;
+    }
 }
 //for nodes from the web browser-------------------------------------------------------------------------
 -(void)addWebThumb{
