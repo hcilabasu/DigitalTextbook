@@ -407,6 +407,7 @@
     [neighbor_BookViewController searchAndHighlightLink];
     [super viewDidAppear:animated];
     [self updatePreviewLocation];
+    conceptMapView.pinchGestureRecognizer.enabled = NO;
 }
 
 
@@ -1002,9 +1003,10 @@
     
 }
 
-//The  "+" button on the toolbar, create a node
-- (IBAction)clickOnBulb : (id)sender
-{
+
+
+
+- (IBAction)addOwn:(id)sender {
 
     if(isReadyToLink){
         [parentBookPageViewController showAlertWithText:@"There is a concept waiting to be linked!"];
@@ -1017,7 +1019,7 @@
     
     location.x+=conceptMapView.contentOffset.x;
     location.y+=conceptMapView.contentOffset.y;
-
+    
     LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"creating new concept node" selection:@"new concept map node" input:@"null" pageNum:pageNum];
     [bookLogDataWrapper addLogs:newlog];
     [LogDataParser saveLogData:bookLogDataWrapper];
@@ -1034,6 +1036,10 @@
     [self getPreView:nil];
     [self updatePreviewLocation];
 }
+
+
+
+
 
 //For nodes created from book and web browser
 -(void)createNodeFromBook:(CGPoint)position withName:(NSString*) name BookPos: (CGPoint)bookPosition page:(int)m_pageNum{
@@ -1230,7 +1236,12 @@
     addedNode=node;
     node.text.tag=1;
     [node updateViewSize];
+    
 }
+
+
+
+
 
 -(void)scrollCmapView :(CGFloat)length
 {
@@ -1906,7 +1917,8 @@
 {
     UIImage* image = nil;
     
-    UIGraphicsBeginImageContext(conceptMapView.contentSize);
+    
+    UIGraphicsBeginImageContextWithOptions(conceptMapView.contentSize, NO, 1.0);
     {
         CGPoint savedContentOffset = conceptMapView.contentOffset;
         CGRect savedFrame = conceptMapView.frame;
@@ -2317,11 +2329,7 @@
     [alertView show];
     
     //[parentBookPageViewController showAdminPsdAlert];
-    
-    
-    
 }
-
 
 -(void)upLoadLogFiletoDropBox{
     

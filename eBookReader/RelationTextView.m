@@ -7,7 +7,9 @@
 //
 
 #import "RelationTextView.h"
+#import "LogDataWrapper.h"
 #import "CmapController.h"
+
 @implementation RelationTextView
 @synthesize enableRecognizer;
 @synthesize disableEditting;
@@ -30,6 +32,7 @@
         UILongPressGestureRecognizer* longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:overlay action:@selector(longPressDetected:)];
         [self addGestureRecognizer:longPressRecognizer];
         enableRecognizer=NO;
+        self.tag=2;
         [self setUserInteractionEnabled:YES];
     }
     return self;
@@ -122,7 +125,13 @@
         }
             break;
         case 1:
+        {
+            NSString* selectionString= [[NSString alloc]initWithFormat:@"%@***%@", leftNodeName,rightNodeName];
+           [ parentCmapCtr saveLog:[[ConditionSetup sharedInstance] getSessionID] Action:@"Start updating link text" Selection:selectionString Input:@"" PageNumber:parentCmapCtr.pageNum];
+
+            
             [self becomeFirstResponder];
+        }
                        break;
         default:
             break;

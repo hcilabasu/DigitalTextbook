@@ -72,7 +72,7 @@
     bulbImageView.userInteractionEnabled = YES;
     UITapGestureRecognizer *bulbTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickOnBulb:)];
     [self.bulbImageView addGestureRecognizer:bulbTap];
-    //[self.view addSubview:bulbImageView];
+    [self.view addSubview:bulbImageView];
     [bulbImageView setHidden:YES];
     bulbImageView.layer.shadowOpacity = 0.4;
     bulbImageView.layer.shadowRadius = 4;
@@ -87,8 +87,7 @@
 {
     if(ShowingQA){
         [self.view bringSubviewToFront:cmapView.view];
-        [cmapView loadConceptMap:nil];
-        
+       // [cmapView loadConceptMap:nil];
         ShowingQA=false;
     }else{
         [self.view bringSubviewToFront:QA.view];
@@ -273,6 +272,7 @@
         
     }
     */
+    [self.view bringSubviewToFront:bulbImageView];
 }
 
 

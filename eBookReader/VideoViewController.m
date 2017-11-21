@@ -73,11 +73,11 @@
     
     NSString* istest=[[NSUserDefaults standardUserDefaults] stringForKey:@"isHyperLinking"];
     
-    NSURL *url=[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"index" ofType:@"html" inDirectory:@"NonHyperLink"]];
-    if([istest isEqualToString:@"YES"]){
+    //NSURL *url=[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"index" ofType:@"html" inDirectory:@"NonHyperLink"]];
+   // if([istest isEqualToString:@"YES"]){
+   // }
+    NSURL* url= [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"index" ofType:@"html" inDirectory:@"Tutorial"]];
     
-   url= [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"index" ofType:@"html" inDirectory:@"Tutorial"]];
-    }
     
     
     
@@ -103,7 +103,7 @@
     // Do any additional setup after loading the view from its nib.
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"Practice"
                                                                    style:UIBarButtonItemStyleDone target:self action:@selector(showTutorial)];
-    self.navigationItem.rightBarButtonItem = leftButton;    
+  //  self.navigationItem.rightBarButtonItem = leftButton;    
 }
 
 

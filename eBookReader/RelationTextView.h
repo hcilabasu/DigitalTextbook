@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "GHContextMenuView.h"
+#import "LogDataWrapper.h"
+#import "LogDataParser.h"
+#import "ConditionSetup.h"
 @class CmapController;
 @interface RelationTextView : UITextView <UITextViewDelegate,GHContextOverlayViewDataSource, GHContextOverlayViewDelegate>
 @property (strong, nonatomic)   GHContextMenuView* overlay;

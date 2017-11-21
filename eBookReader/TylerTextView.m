@@ -26,6 +26,13 @@
 }
 
 
+-(BOOL)canPerformAction:(SEL)action withSender:(id)sender {
+    return NO;
+
+
+}
+
+
 /*
  - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
  if(disableEditting){
@@ -65,7 +72,9 @@
         gestureRecognizer.enabled = self.enableRecognizer;
     }
     
+    gestureRecognizer.enabled=NO;
     [super addGestureRecognizer:gestureRecognizer];
+
     return;
 }
 

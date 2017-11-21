@@ -81,7 +81,7 @@
             student_id = nameitem.stringValue;
         } else continue;
         
-        NSArray *r_name = [partyMember elementsForName:[[ConditionSetup sharedInstance] getSessionID]];
+        NSArray *r_name = [partyMember elementsForName:@"session_id"];
         if (r_name.count > 0) {
             GDataXMLElement *titleitem = (GDataXMLElement *) [r_name objectAtIndex:0];
             session_id = titleitem.stringValue;
@@ -190,7 +190,7 @@
     //NSLog(@"Saving xml data to %@...", filePath);
     [xmlData writeToFile:filePath atomically:YES];
  
-    
+    /*
     
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains
@@ -206,7 +206,7 @@
    // NSLog(content1);
     NSString *content = [[NSString alloc] initWithContentsOfFile:filePath
                                                     usedEncoding:nil
-                                                           error:nil];
+                                                           error:nil];*/
 }
 
 

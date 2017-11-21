@@ -20,9 +20,8 @@
     CGRect rect=CGRectMake(530, 0, 511, 768);
     [self.view setFrame:rect];
 
-    
-    
-    NSString* url =  [NSString stringWithFormat:@"http://stackoverflow.com"];
+
+    NSString* url =  [NSString stringWithFormat:@"http://192.168.0.18:8000/digitaltextbook/default/page?page_num=1"];
     webView.backgroundColor=[UIColor whiteColor];
     NSURL* nsUrl = [NSURL URLWithString:url];
     NSURLRequest* request = [NSURLRequest requestWithURL:nsUrl cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:30];

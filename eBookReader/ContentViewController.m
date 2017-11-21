@@ -130,6 +130,13 @@ static NSString *cellId2 = @"cellId2";
     parent_BookViewController.parent_BookPageViewController.cmapView.pageNum=pageNum;
    // [self.parentViewController.navigationController setNavigationBarHidden: YES animated:YES];
     //[self.navigationController setNavigationBarHidden: YES animated:YES];
+    
+    
+    // Update webview
+    NSString *urlString = [[NSString alloc]initWithFormat:@"http://192.168.0.18:8000/digitaltextbook/default/page?page_num=%d",pageNum];
+    NSURL *url = [NSURL URLWithString:urlString];
+    [parent_BookViewController.parent_BookPageViewController.QA.webView
+     loadRequest:[NSURLRequest requestWithURL:url]];
 }
 
 
@@ -724,6 +731,12 @@ static NSString *cellId2 = @"cellId2";
 
 - (void)highlightStringWithColor:(NSString*)color{
     // Invoke the javascript function
+    
+    NSString* istest=[[NSUserDefaults standardUserDefaults] stringForKey:@"isHyperLinking"];
+    if(![istest isEqualToString:@"YES"]){
+        return;
+    }
+    
     NSString *startSearch   = [NSString stringWithFormat:@"highlightStringWithColor(\""];
     startSearch=[startSearch stringByAppendingString:color];
     startSearch=[startSearch stringByAppendingString:@"\")"];

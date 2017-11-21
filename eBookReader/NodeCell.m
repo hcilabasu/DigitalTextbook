@@ -104,11 +104,21 @@
     [self updateViewSize];
     [self updateThumbIcons];
     hasNote=NO;
-
+    for (UIGestureRecognizer *recognizer in self.text.gestureRecognizers) {
+        recognizer.enabled = NO;
+    }
 }
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    for (UIGestureRecognizer *recognizer in self.view.gestureRecognizers) {
+            recognizer.enabled = NO;
+    }
+    for (UIGestureRecognizer *recognizer in self.text.gestureRecognizers) {
+        recognizer.enabled = NO;
+    }
+    
     //[parentCmapController updateNodesPosition:self.view.center Node:self];
     text.delegate = self;
     self.view.layer.zPosition=2;
@@ -153,6 +163,9 @@
     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
     panGesture.delegate=self;
     [self.view addGestureRecognizer:panGesture];
+    
+
+    
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
     tapGesture.delegate=self;
     [self.view addGestureRecognizer:tapGesture];
@@ -177,8 +190,13 @@
     overlay.dataSource = self;
     overlay.delegate = self;
     
+    
+    for (UIGestureRecognizer *recognizer in self.view.gestureRecognizers) {
+        if ([recognizer isKindOfClass:[UILongPressGestureRecognizer class]]){
+            recognizer.enabled = NO;
+        }
+    }
     longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:overlay action:@selector(longPressDetected:)];
-    //text.enableRecognizer=YES;
     [self.view addGestureRecognizer:longPressRecognizer];
     
     
@@ -194,6 +212,7 @@
      */
     
     if(NO==isInitialed){
+       parentCmapController.noteTakingNode=self;
         [text becomeFirstResponder];
     }
     
@@ -214,6 +233,7 @@
     //self.view.layer.zPosition=2;
     enableHyperLink=NO;
 
+   // text.editable = NO;
 }
 
 //enters a url string into the "savedUrls" array
@@ -605,7 +625,7 @@
 
 
 -(void)createLink: (NodeCell*)cellToLink name: (NSString*)relationName{
-    [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"ExpertMapChanged"];
+   
      [parentCmapController savePreviousStep];
     if(!cellToLink){
         return;
@@ -975,6 +995,7 @@
 //Edits name of node
 - (IBAction)editNodeName : (id)sender {
     parentCmapController.addedNode=self;
+    [self.text setUserInteractionEnabled:YES];
     [self.text becomeFirstResponder];
 }
 
@@ -1134,6 +1155,8 @@
     if(0<textView.tag){ // finish editting relationship text
         if ([textView respondsToSelector:@selector(isTylerTextView)]){ //is TylerTextView, so editing node text
             NSLog(@"Edit node text...\n");
+            
+           // NSString* selectionString=[[NSString alloc]initWithFormat:@"",];
             NSString* inputString=[[NSString alloc] initWithFormat:@"%@", textView.text];
             LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Update Node Name" selection:parentCmapController.linkTextBeforeEditing input:inputString pageNum:pageNum];
             [bookLogData addLogs:newlog];
@@ -1187,7 +1210,9 @@
         [parentCmapController.parentTrainingCtr showAlertWithString:@"Good job! Now try to delete a concept node"];
         [parentCmapController.parentTrainingCtr createDeleteTraining];
     }
-    
+    if(!2==textView.tag){
+        [textView setUserInteractionEnabled:NO];
+    }
     [textView resignFirstResponder];
     
 }
@@ -1240,6 +1265,11 @@
 
 
 -(void)highlightNode{
+    NSString* istest=[[NSUserDefaults standardUserDefaults] stringForKey:@"isHyperLinking"];
+    if(![istest isEqualToString:@"YES"]){
+        return;
+    }
+    
     text.backgroundColor=[UIColor colorWithRed:(255/255.0) green:(178/255.0) blue:(102/255.0) alpha:0.9];
 }
 

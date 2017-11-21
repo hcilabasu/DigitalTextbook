@@ -333,7 +333,7 @@
 		314B7E6216C2D9BF0061F0BF /* EBookImporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBookImporter.m; sourceTree = "<group>"; };
 		315F0AE116CC186C00300B19 /* bookshelf_vertical.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookshelf_vertical.png; sourceTree = "<group>"; };
 		315F0AE216CC186C00300B19 /* bookshelf_horizontal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookshelf_horizontal.png; sourceTree = "<group>"; };
-		3166DB4F16B0A5300089C0F2 /* Study.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Study.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3166DB4F16B0A5300089C0F2 /* Cmap H_T.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Cmap H_T.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3166DB5316B0A5300089C0F2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		3166DB5516B0A5300089C0F2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3166DB5716B0A5300089C0F2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -874,7 +874,7 @@
 		3166DB5016B0A5300089C0F2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3166DB4F16B0A5300089C0F2 /* Study.app */,
+				3166DB4F16B0A5300089C0F2 /* Cmap H_T.app */,
 				3166DB7F16B0A5300089C0F2 /* Study.xctest */,
 			);
 			name = Products;
@@ -1769,7 +1769,7 @@
 			);
 			name = Study;
 			productName = eBookReader;
-			productReference = 3166DB4F16B0A5300089C0F2 /* Study.app */;
+			productReference = 3166DB4F16B0A5300089C0F2 /* Cmap H_T.app */;
 			productType = "com.apple.product-type.application";
 		};
 		3166DB7E16B0A5300089C0F2 /* StudyTests */ = {
@@ -2359,7 +2359,8 @@
 					"$(PROJECT_DIR)/eBookReader",
 				);
 				OTHER_LDFLAGS = "-lxml2 ";
-				PRODUCT_NAME = Study;
+				PRODUCT_BUNDLE_IDENTIFIER = ASU.StudyA;
+				PRODUCT_NAME = "Cmap H_T";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 2;
 				"USER_HEADER_SEARCH_PATHS[arch=*]" = "$(SRCROOT)/Source";
@@ -2395,7 +2396,8 @@
 					"$(PROJECT_DIR)/eBookReader",
 				);
 				OTHER_LDFLAGS = "-lxml2 ";
-				PRODUCT_NAME = Study;
+				PRODUCT_BUNDLE_IDENTIFIER = ASU.StudyA;
+				PRODUCT_NAME = "Cmap H_T";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 2;
 				"USER_HEADER_SEARCH_PATHS[arch=*]" = "$(SRCROOT)/Source";
