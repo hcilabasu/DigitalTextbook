@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <LogData.h>
+#import "LogData.h"
 @interface LogDataWrapper : NSObject
 @property (nonatomic, retain) NSMutableArray *logArray;
 

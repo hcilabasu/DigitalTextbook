@@ -31,6 +31,10 @@
 #import "RelationTextView.h"
 #import "DTAlertView.h"
 #import "WebBrowserViewController.h"
+#import "PopoverView.h"
+#import "FeedbackViewController.h"
+#import "FBViewController.h"
+#import "TAViewController.h"
 #define NODE_TEMPLATE 0;
 #define NODE_STUDENT 1;
 @class NodeCell;
@@ -40,7 +44,7 @@
 @class BookPageViewController;
 @class TrainingViewController;
 @class ContentViewController;
-@interface CmapController : UIViewController <UIAlertViewDelegate,PopoverViewDelegate,UIGestureRecognizerDelegate,UIWebViewDelegate,UIScrollViewDelegate,UINavigationControllerDelegate,UITextViewDelegate, MBProgressHUDDelegate, DBRestClientDelegate,UITextFieldDelegate,ZCTradeViewDelegate,DTAlertViewDelegate>{
+@interface CmapController : UIViewController <UIAlertViewDelegate,PopoverViewDelegate,UIGestureRecognizerDelegate,UIWebViewDelegate,UIScrollViewDelegate,UINavigationControllerDelegate,UITextViewDelegate, MBProgressHUDDelegate, DBRestClientDelegate,UITextFieldDelegate,ZCTradeViewDelegate,DTAlertViewDelegate,PopoverViewDelegate>{
     long long expectedLength;
     long long currentLength;
     MBProgressHUD *HUD;
@@ -52,7 +56,7 @@
 
 @property (strong, nonatomic) PopoverView* showingPV; //pv in node cell
 @property (strong, nonatomic) NodeCell* noteTakingNode; //for taking notes
-
+@property (strong, nonatomic) PopoverView* feedbackPV; //pv in node cell
 @property (strong, nonatomic) id dataObject;// sotres the HTML data
 @property (strong, nonatomic) id url; //the URL link to display HTML content
 @property (nonatomic) BOOL isMenuShow;
@@ -80,7 +84,8 @@
 @property (nonatomic, assign) BOOL isBlockedByKeyboard;
 @property(strong,nonatomic) UIImageView *bulbImageView;
 @property(strong,nonatomic) UIImageView *previewImageView;
-
+@property BOOL isAddNodeFeedback;
+@property (strong,nonatomic) FeedbackViewController *feedbackCtr;
 
 @property (weak, nonatomic) IBOutlet UILabel *focusQuestionLable;
 @property BOOL isQuestionShow;
@@ -93,7 +98,7 @@
 @property (strong, nonatomic) NSMutableArray*  lastStepConceptNodeArray;
 //stores the links between concepts
 @property (strong, nonatomic) NSMutableArray*  lastStepConceptLinkArray;
-
+@property NSTimer* progressTimer;
 
 @property BOOL isFinishLoadMap;
 @property BOOL isInitComplete;
@@ -149,7 +154,8 @@
 @property (nonatomic, strong) NSMutableArray* conceptsShowAry;
 @property (nonatomic, strong)TrainingViewController* parentTrainingCtr;
 @property NSMutableArray* correctIndexAry;
-
+@property (weak, nonatomic) IBOutlet UIView *agent;
+@property (strong, nonatomic) IBOutlet TAViewController* TA;
 
 -(void)disableAllNodesEditting;
 -(void)enableAllNodesEditting;
@@ -203,4 +209,8 @@
 -(void)dismissLinkHint;
 -(void)showNoteTaking: (CGPoint)showpoint;
 -(void)saveLog: (NSString*)m_sessionID Action: (NSString*)m_action Selection: (NSString*)m_selection Input: (NSString*)m_input PageNumber: (int)m_pageNum;
+-(void)showFeedbackmessage;
+-(void)showDualTextbookView;
+-(void)showNavigationFeedbackmessage;
+-(void)showCompareFeedbackmessage;
 @end

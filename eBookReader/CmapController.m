@@ -27,12 +27,14 @@
 #import "MyAlertView.h"
 #import "TrainingViewController.h"
 #import "PopoverView.h"
+#import "DHSmartScreenshot.h"
 /*
  @interface CmapController ()<GHContextOverlayViewDataSource, GHContextOverlayViewDelegate>
  @property (weak, nonatomic) IBOutlet UIImageView *imageView;
  @end
  */
 @implementation CmapController
+@synthesize feedbackPV;
 @synthesize dataObject;
 @synthesize url;
 @synthesize pageNum;
@@ -102,6 +104,11 @@
 @synthesize showingPV;
 @synthesize noteTakingNode;
 @synthesize correctIndexAry;
+@synthesize agent;
+@synthesize isAddNodeFeedback;
+@synthesize TA;
+@synthesize feedbackCtr;
+@synthesize progressTimer;
 - (id) init {
     if (self = [super init]) {
         nodeCount=1;
@@ -113,6 +120,7 @@
 
 - (void)viewDidLoad
 {
+    self.automaticallyAdjustsScrollViewInsets=NO;
     nodeCount=1;
     linkCount=1;
     sacleBeforeZooming=1;
@@ -246,13 +254,65 @@
     }
     [self getPreView:nil];
     [self updatePreviewLocation];
+    
+    
+    
+    [self.agent setHidden:YES];
+    TA=[[TAViewController alloc]initWithNibName:@"TAViewController" bundle:nil];
+    TA.view.center=CGPointMake(self.view.frame.size.width-40 ,self.view.frame.size.height-78);
+    TA.parentCmapController=self;
+    [self.view addSubview:TA.view];
+    feedbackCtr=[[FeedbackViewController alloc]initWithNibName:@"FeedbackViewController" bundle:nil];
+    [feedbackCtr.view setBackgroundColor:[UIColor colorWithRed:0.98f green:0.98f blue:0.98f alpha:0.95f]];
+    feedbackCtr.parentCmapController=self;
 }//end of view did load
 
 
 
+-(void)showFeedbackmessage{
+    [parentBookPageViewController showOverlay];
+    feedbackPV= [[PopoverView alloc] initWithFrame:CGRectZero];
+    feedbackPV.delegate=self;
+    //feedbackCtr.feedbackState=2;
+    feedbackCtr.feedbackState=5;
+    [feedbackPV showAtPoint:CGPointMake(0, 0) inView:agent withContentView: feedbackCtr.view];
+    [feedbackCtr animateProgressView];
+}
+
+
+-(void)showNavigationFeedbackmessage{
+    feedbackPV= [[PopoverView alloc] initWithFrame:CGRectZero];
+    feedbackCtr.feedbackState=4;
+    feedbackPV.delegate=self;
+    [feedbackPV showAtPoint:CGPointMake(0, 0) inView:agent withContentView: feedbackCtr.view];
+    feedbackCtr.messageView.text=@"Hi, there is a concept in page 5 that you missed. Do you want to take another look at it?";
+    [feedbackCtr animateProgressView];
+}
+
+
+-(void)showCompareFeedbackmessage{
+    feedbackPV= [[PopoverView alloc] initWithFrame:CGRectZero];
+    feedbackCtr.feedbackState=5;
+    feedbackPV.delegate=self;
+    [feedbackPV showAtPoint:CGPointMake(0, 0) inView:agent withContentView: feedbackCtr.view];
+    feedbackCtr.messageView.text=@"Hi, there is a concept in page 15 that is related to what you are reading. Do you want to quickly compare them?";
+    [feedbackCtr animateProgressView];
+}
+
+
+- (void)popoverViewDidDismiss:(PopoverView *)popoverView{
+    [parentBookPageViewController hideOverlay];
+    [feedbackCtr.progressTimer invalidate];
+}
+
+-(void)showDualTextbookView{
+    [parentBookPageViewController showSecondBookView];
+}
+
+
 
 -(void)uploadCmapXML{
-[self uploadMapLinkXML];
+   [self uploadMapLinkXML];
    [self uploadMapNodeXML];
     
    // [self upLoadExpertLinktoDropbox];
@@ -450,7 +510,8 @@
     
     NSString* shouldLoadExpertMap=[[NSUserDefaults standardUserDefaults] stringForKey:@"isLoadExpertMap"];
     
-    if([shouldLoadExpertMap isEqualToString:@"YES"]  && (![isExpertMapChanged isEqualToString:@"YES"])  ){
+  //  if([shouldLoadExpertMap isEqualToString:@"YES"]  && (![isExpertMapChanged isEqualToString:@"YES"])  ){
+    if(YES){
         bookNodeWrapper=[CmapNodeParser loadExpertCmapNode];
         bookLinkWrapper=[CmapLinkParser loadExpertCmapLink];
         [self saveLog:[[ConditionSetup sharedInstance] getSessionID]  Action:@"Load expert concept map" Selection:@"concept map" Input:@"expert map" PageNumber:pageNum];
@@ -1334,7 +1395,7 @@
         //Code for OK button
     }if (buttonIndex == 1&&alertView.tag==3){
         NSString *pasd = [alertView textFieldAtIndex:0].text;
-        if([pasd isEqualToString:@"2sigma"]){
+        if([pasd isEqualToString:@""]){
             NSLog(@"Correct");
             [self upLoadLogFiletoDropBox];
             [self uploadCMapImg];
@@ -1915,9 +1976,8 @@
 
 -(void)uploadCMapImg
 {
+    /*
     UIImage* image = nil;
-    
-    
     UIGraphicsBeginImageContextWithOptions(conceptMapView.contentSize, NO, 1.0);
     {
         CGPoint savedContentOffset = conceptMapView.contentOffset;
@@ -1940,58 +2000,44 @@
     
     // Save image.
     [UIImagePNGRepresentation(image) writeToFile:filePath atomically:YES];
+*/
+    conceptMapView.autoresizesSubviews=NO;
 
-    
-    /*
-    if (image != nil) {
-        [UIImagePNGRepresentation(image) writeToFile: @"/tmp/test.png" atomically: YES];
-        system("open /tmp/test.png");
-    }*/
-    
-    
-    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    sessionConfiguration.HTTPAdditionalHeaders = @{
-                                                   @"Authorization" : [NSString stringWithFormat:@"Bearer %@", @"BFPZY5kp2NAAAAAAAAADju9SYR3plMcGcM8JNyQz5Eo2C9P8erJv4fjX43Swl3Ij"],
-                                                   @"Content-Type"  : @"application/zip"
-                                                   };
-    
-    
-    //make a file name to write the data to using the documents directory:
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    
-    NSString *content = [[NSString alloc] initWithContentsOfFile:filePath
-                                                    usedEncoding:nil
-                                                           error:nil];
-    NSString *filename = @"HighSchoolStudyMaps/";
-    NSString* usrName=[[NSUserDefaults standardUserDefaults] stringForKey:@"UserName"];
-    //filename=[filename stringByAppendingString:usrName];
-    
-    NSString* iPadId=[[NSUserDefaults standardUserDefaults] stringForKey:@"iPadId"];
-    filename=[filename stringByAppendingString:iPadId];
 
-    filename=[filename stringByAppendingString:@"_FinalMap.png"];
-    NSString *localDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-    NSString *localPath = [localDir stringByAppendingPathComponent:filename];
-    // [content writeToFile:localPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
-    
-    
-    NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration: sessionConfiguration delegate: self delegateQueue: [NSOperationQueue mainQueue]];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://api-content.dropbox.com/2/files/upload/auto/%@",filename]]];
-    [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
-    NSData *data = [[NSFileManager defaultManager] contentsAtPath:filePath];
-    [request setHTTPMethod:@"PUT"];
-    [request setHTTPBody:data];
-    [request setTimeoutInterval:1000];
+    UIGraphicsBeginImageContextWithOptions(conceptMapView.contentSize, NO, 1);
 
-    NSURLSessionDataTask *doDataTask = [defaultSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (!error){
-            NSLog(@"WORKED!!!!");
-        } else {
-            NSLog(@"ERROR: %@", error);
-        }
-    }];
+    CGPoint savedContentOffset = conceptMapView.contentOffset;
+    CGRect savedFrame = conceptMapView.frame;
+    conceptMapView.contentOffset = CGPointZero;
+    conceptMapView.frame = CGRectMake(0, 0, conceptMapView.contentSize.width, conceptMapView.contentSize.height);
     
-    [doDataTask resume];
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextTranslateCTM(context, -conceptMapView.frame.origin.x, -conceptMapView.frame.origin.y);
+    
+    [conceptMapView layoutIfNeeded];
+    [conceptMapView.layer renderInContext:context];
+    
+    UIImage *screenshotImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    conceptMapView.contentOffset = savedContentOffset;
+    conceptMapView.frame = savedFrame;
+    
+    UIGraphicsEndImageContext();
+    
+    
+    
+    
+
+     
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *filePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"Shot.png"];
+    
+    // Save image.
+    [UIImagePNGRepresentation(screenshotImage) writeToFile:filePath atomically:YES];
+    
+
     
 }
 

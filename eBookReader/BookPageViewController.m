@@ -48,7 +48,10 @@
 @synthesize hintImg;
 @synthesize myWebView;
 @synthesize subViewType;
-
+@synthesize secondBookView;
+@synthesize compareViewReturnButton;
+@synthesize overlayView;
+@synthesize compareTitleButton;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -72,7 +75,7 @@
     bulbImageView.userInteractionEnabled = YES;
     UITapGestureRecognizer *bulbTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickOnBulb:)];
     [self.bulbImageView addGestureRecognizer:bulbTap];
-    [self.view addSubview:bulbImageView];
+   // [self.view addSubview:bulbImageView];
     [bulbImageView setHidden:YES];
     bulbImageView.layer.shadowOpacity = 0.4;
     bulbImageView.layer.shadowRadius = 4;
@@ -80,7 +83,6 @@
     bulbImageView.layer.shadowOffset = CGSizeMake(2, 2);
     [self.view bringSubviewToFront:cmapView.view];
     [cmapView loadConceptMap:nil];
-
 }
 
 - (IBAction)clickOnBulb : (id)sender
@@ -158,6 +160,7 @@
     [self createMenuItems];
     [self createCmapView];
     [self createWebView];
+    [self createSecondBookView];
     
     [self createQA];
     [self addSwitchView];
@@ -214,9 +217,21 @@
     [LogDataParser saveLogData:logWrapper];
     
     
+    overlayView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 3000, 3000)];
+    overlayView.backgroundColor= [UIColor blackColor];
+    overlayView.alpha=0.3;
+    [self.view addSubview:overlayView];
+    [overlayView setHidden:YES];
     
-}
+}//end of view did load
 
+-(void)showOverlay{
+    [overlayView setHidden:NO];
+    [self.view bringSubviewToFront:overlayView];
+}
+-(void)hideOverlay{
+    [overlayView setHidden:YES];
+}
 
 - (void)orientationChanged:(NSNotification *)notification{
     UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
@@ -479,6 +494,68 @@
     
 }
 
+
+-(void)createSecondBookView{
+    
+    compareViewReturnButton= [UIButton buttonWithType:UIButtonTypeCustom];
+    [compareViewReturnButton dangerStyle];
+    [compareViewReturnButton addTarget:self
+               action:@selector(returnToCmapView)
+     forControlEvents:UIControlEventTouchUpInside];
+    [compareViewReturnButton setTitle:@"Back to map view" forState:UIControlStateNormal];
+    compareViewReturnButton.frame = CGRectMake(700,700, 180, 50);
+    compareViewReturnButton.alpha=0.85;
+    [self.view addSubview:compareViewReturnButton];
+    
+    
+    compareTitleButton= [UIButton buttonWithType:UIButtonTypeCustom];
+    [compareTitleButton primaryStyle];
+    compareTitleButton.userInteractionEnabled=NO;
+    [compareTitleButton setTitle:@"Please compare the highlighted concepts in both pages" forState:UIControlStateNormal];
+    compareTitleButton.frame = CGRectMake(   [[UIScreen mainScreen] bounds].size.width/2-225 ,30, 450, 50);
+    
+
+    compareTitleButton.alpha=0.85;
+    [self.view addSubview:compareTitleButton];
+    
+    
+    secondBookView = [[BookViewController alloc]init];
+    secondBookView.userName=userName;
+    secondBookView.parent_BookPageViewController=self;
+    secondBookView.bookImporter = bookView.bookImporter;
+    secondBookView.bookTitle = bookView.bookTitle;
+    [ secondBookView createContentPages]; //create page content
+    [ secondBookView initialPageView];    //initial page view
+    //CGRect rect=CGRectMake(0, 0, bookPage.view.frame.size.height, bookPage.view.frame.size.width);
+    //[destination.view setFrame:rect];
+    CGRect rect=CGRectMake(530, 0, 511, 768);
+    [secondBookView.view setFrame:rect];
+    secondBookView.view.center=CGPointMake(768, 384);
+    secondBookView.view.layer.borderColor = [UIColor grayColor].CGColor;
+    secondBookView.view.layer.borderWidth = 3.0f;
+    [self.view addSubview: secondBookView.view];
+    [self addChildViewController: secondBookView];
+    [secondBookView.view setHidden:YES];
+    [compareViewReturnButton setHidden:YES];
+    [compareTitleButton setHidden:YES];
+}
+
+
+-(void)showSecondBookView{
+    [secondBookView.view setHidden:NO];
+    [compareViewReturnButton setHidden:NO];
+    [compareTitleButton setHidden:NO];
+    [self.view bringSubviewToFront:secondBookView .view];
+    [self.view bringSubviewToFront:bookView.view];
+    [self.view bringSubviewToFront:compareViewReturnButton];
+    [self.view bringSubviewToFront:compareTitleButton];
+}
+
+-(void)returnToCmapView{
+    [secondBookView.view setHidden:YES];
+    [compareViewReturnButton setHidden:YES];
+    [compareTitleButton setHidden:YES];
+}
 
 -(void)createCmapView{
     cmapView=[[CmapController alloc] initWithNibName:@"CmapView" bundle:nil];

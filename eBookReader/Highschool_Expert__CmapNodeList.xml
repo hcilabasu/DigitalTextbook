@@ -1,115 +1,115 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CmapNodeList>
     <CmapNode>
         <ConceptName>extinction</ConceptName>
         <CreateType>0</CreateType>
-        <BookTitle></BookTitle>
-        <PointX>409</PointX>
-        <PointY>675</PointY>
+        <BookTitle />
+        <PointX>498</PointX>
+        <PointY>610</PointY>
         <PageNum>0</PageNum>
-        <LinkingUrl></LinkingUrl>
-        <UrlTitle></UrlTitle>
+        <LinkingUrl />
+        <UrlTitle />
         <nodeHasNote>NO</nodeHasNote>
         <nodeHasWebLink>NO</nodeHasWebLink>
         <nodeHasHighlight>YES</nodeHasHighlight>
-        <NoteString></NoteString>
+        <NoteString />
     </CmapNode>
     <CmapNode>
         <ConceptName>biological extinction</ConceptName>
         <CreateType>0</CreateType>
-        <BookTitle></BookTitle>
-        <PointX>404</PointX>
-        <PointY>772</PointY>
+        <BookTitle />
+        <PointX>561</PointX>
+        <PointY>704</PointY>
         <PageNum>3</PageNum>
-        <LinkingUrl></LinkingUrl>
-        <UrlTitle></UrlTitle>
+        <LinkingUrl />
+        <UrlTitle />
         <nodeHasNote>NO</nodeHasNote>
         <nodeHasWebLink>NO</nodeHasWebLink>
         <nodeHasHighlight>YES</nodeHasHighlight>
-        <NoteString></NoteString>
+        <NoteString />
     </CmapNode>
     <CmapNode>
         <ConceptName>species</ConceptName>
         <CreateType>0</CreateType>
-        <BookTitle></BookTitle>
-        <PointX>415</PointX>
-        <PointY>568</PointY>
+        <BookTitle />
+        <PointX>403</PointX>
+        <PointY>532</PointY>
         <PageNum>4</PageNum>
-        <LinkingUrl></LinkingUrl>
-        <UrlTitle></UrlTitle>
+        <LinkingUrl />
+        <UrlTitle />
         <nodeHasNote>NO</nodeHasNote>
         <nodeHasWebLink>NO</nodeHasWebLink>
         <nodeHasHighlight>YES</nodeHasHighlight>
-        <NoteString></NoteString>
+        <NoteString />
     </CmapNode>
     <CmapNode>
         <ConceptName>endangered species</ConceptName>
         <CreateType>0</CreateType>
-        <BookTitle></BookTitle>
-        <PointX>515</PointX>
-        <PointY>438</PointY>
+        <BookTitle />
+        <PointX>259</PointX>
+        <PointY>437</PointY>
         <PageNum>4</PageNum>
-        <LinkingUrl></LinkingUrl>
-        <UrlTitle></UrlTitle>
+        <LinkingUrl />
+        <UrlTitle />
         <nodeHasNote>NO</nodeHasNote>
         <nodeHasWebLink>NO</nodeHasWebLink>
         <nodeHasHighlight>YES</nodeHasHighlight>
-        <NoteString></NoteString>
-    </CmapNode>
-    <CmapNode>
-        <ConceptName>threatened species</ConceptName>
-        <CreateType>0</CreateType>
-        <BookTitle></BookTitle>
-        <PointX>261</PointX>
-        <PointY>435</PointY>
-        <PageNum>4</PageNum>
-        <LinkingUrl></LinkingUrl>
-        <UrlTitle></UrlTitle>
-        <nodeHasNote>NO</nodeHasNote>
-        <nodeHasWebLink>NO</nodeHasWebLink>
-        <nodeHasHighlight>YES</nodeHasHighlight>
-        <NoteString></NoteString>
+        <NoteString />
     </CmapNode>
     <CmapNode>
         <ConceptName>ecological services</ConceptName>
         <CreateType>0</CreateType>
-        <BookTitle></BookTitle>
-        <PointX>604</PointX>
-        <PointY>562</PointY>
+        <BookTitle />
+        <PointX>499</PointX>
+        <PointY>432</PointY>
         <PageNum>10</PageNum>
-        <LinkingUrl></LinkingUrl>
-        <UrlTitle></UrlTitle>
+        <LinkingUrl />
+        <UrlTitle />
         <nodeHasNote>NO</nodeHasNote>
         <nodeHasWebLink>NO</nodeHasWebLink>
         <nodeHasHighlight>YES</nodeHasHighlight>
-        <NoteString></NoteString>
+        <NoteString />
     </CmapNode>
     <CmapNode>
         <ConceptName>HIPPO</ConceptName>
         <CreateType>0</CreateType>
-        <BookTitle></BookTitle>
-        <PointX>603</PointX>
-        <PointY>691</PointY>
+        <BookTitle />
+        <PointX>393</PointX>
+        <PointY>688</PointY>
         <PageNum>15</PageNum>
-        <LinkingUrl></LinkingUrl>
-        <UrlTitle></UrlTitle>
+        <LinkingUrl />
+        <UrlTitle />
         <nodeHasNote>NO</nodeHasNote>
         <nodeHasWebLink>NO</nodeHasWebLink>
         <nodeHasHighlight>YES</nodeHasHighlight>
-        <NoteString></NoteString>
+        <NoteString />
     </CmapNode>
     <CmapNode>
         <ConceptName>instrumental value</ConceptName>
         <CreateType>0</CreateType>
-        <BookTitle></BookTitle>
-        <PointX>218</PointX>
-        <PointY>563</PointY>
+        <BookTitle />
+        <PointX>256</PointX>
+        <PointY>605</PointY>
         <PageNum>11</PageNum>
-        <LinkingUrl></LinkingUrl>
-        <UrlTitle></UrlTitle>
+        <LinkingUrl />
+        <UrlTitle />
         <nodeHasNote>NO</nodeHasNote>
         <nodeHasWebLink>NO</nodeHasWebLink>
         <nodeHasHighlight>YES</nodeHasHighlight>
-        <NoteString></NoteString>
+        <NoteString />
+    </CmapNode>
+    <CmapNode>
+        <ConceptName>Habitat fragmentation</ConceptName>
+        <CreateType>1</CreateType>
+        <BookTitle />
+        <PointX>379</PointX>
+        <PointY>788</PointY>
+        <PageNum>18</PageNum>
+        <LinkingUrl />
+        <UrlTitle />
+        <nodeHasNote>NO</nodeHasNote>
+        <nodeHasWebLink>NO</nodeHasWebLink>
+        <nodeHasHighlight>YES</nodeHasHighlight>
+        <NoteString />
     </CmapNode>
 </CmapNodeList>

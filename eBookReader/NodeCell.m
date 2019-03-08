@@ -597,7 +597,12 @@
         //save in log file
        
             NSString* LogString=[[NSString alloc] initWithFormat:@"Using hyperlink from concept: %@", self.conceptName];
-            LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Hyperlink Navigation" selection:@"concept map view" input:conceptName pageNum:pageNum];
+        NSString *actionString=@"Hyperlink Navigation";
+        if(0==createType){
+            actionString=@"Hyperlink Navigation on Template";
+        }
+        
+        LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:actionString selection:@"concept map view" input:conceptName pageNum:pageNum];
             [parentCmapController.bookLogDataWrapper addLogs:newlog];
             [LogDataParser saveLogData:parentCmapController.bookLogDataWrapper];
     }
@@ -637,6 +642,7 @@
     
     CAShapeLayer* layer = [CAShapeLayer layer];
     RelationTextView* relation= [[RelationTextView alloc]initWithFrame:CGRectMake(40, 40, 80, 22)];
+    relation.tag=2;
     relation.delegate=self;
     //relation.keyboardType=UIKeyboardTypeASCIICapable;
    // [linkTextview setReturnKeyType:UIReturnKeyDone];
@@ -1210,7 +1216,7 @@
         [parentCmapController.parentTrainingCtr showAlertWithString:@"Good job! Now try to delete a concept node"];
         [parentCmapController.parentTrainingCtr createDeleteTraining];
     }
-    if(!2==textView.tag){
+    if(2!=textView.tag){
         [textView setUserInteractionEnabled:NO];
     }
     [textView resignFirstResponder];

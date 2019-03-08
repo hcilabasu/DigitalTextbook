@@ -62,7 +62,9 @@
 // BACKGROUND GRADIENT
 
 //bottom color white in gradient bg
-#define kGradientBottomColor [UIColor colorWithRed:0.98f green:0.98f blue:0.98f alpha:kBoxAlpha]
+//#define kGradientBottomColor [UIColor colorWithRed:0.98f green:0.98f blue:0.98f alpha:kBoxAlpha]
+
+#define kGradientBottomColor [UIColor colorWithRed:1.f green:1.f blue:1.f alpha:kBoxAlpha]
 
 //top color white value in gradient bg
 #define kGradientTopColor [UIColor colorWithRed:1.f green:1.f blue:1.f alpha:kBoxAlpha]

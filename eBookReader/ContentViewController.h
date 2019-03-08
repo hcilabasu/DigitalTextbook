@@ -19,7 +19,7 @@
 #import "ConceptViewController.h"
 #import "CmapController.h"
 #import "NodeCell.h"
-#import <NodeViewController.h>
+#import "NodeViewController.h"
 #import "LogData.h"
 #import "LogDataParser.h"
 #import "LogDataWrapper.h"

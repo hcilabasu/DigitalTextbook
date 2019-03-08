@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <StudentData.h>
+#import "StudentData.h"
 @interface StudentDataWrapper : NSObject
 @property (nonatomic, retain) NSMutableArray *studentDataArray;
 

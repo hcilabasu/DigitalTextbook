@@ -15,13 +15,16 @@
 #import "DTAlertView.h"
 #import "UIMenuItem+CXAImageSupport.h"
 #import "WebBrowserViewController.h"
-
+#import "UIButton+Bootstrap.h"
 @class LogDataWrapper;
 @interface BookPageViewController : UIViewController <DBRestClientDelegate,UIGestureRecognizerDelegate,UIAlertViewDelegate,UINavigationControllerDelegate,UIWebViewDelegate>
 @property (strong, nonatomic) CmapController *cmapView;
 @property (strong, nonatomic) VideoViewController *videoView;
 @property (strong, nonatomic) BookViewController *bookView;
 @property (strong, nonatomic)  QAViewController *QA;
+
+@property (strong, nonatomic) BookViewController *secondBookView;
+@property (strong, nonatomic) UIView* overlayView;
 
 @property (strong, nonatomic)  WebBrowserViewController *myWebView;
 @property (nonatomic, strong) DBRestClient *restClient;
@@ -47,6 +50,9 @@
 @property (strong, nonatomic)  UILabel *webFocusQuestionLable;
 @property (strong, nonatomic)  UILabel *cmapFocusQuestionLable;
 @property (strong, nonatomic)  UIImageView *hintImg;
+@property (strong, nonatomic) UIButton *compareTitleButton;
+
+@property (strong, nonatomic) UIButton *compareViewReturnButton;
 -(void)showAlertWithString: (NSString*) str : (UIView*)imgView;
 -(void)createDeleteTraining;
 -(void)test;
@@ -68,6 +74,11 @@
 -(void)hideLinkingWarning;
 -(void)showWebView: (NSString*)conceptName atNode: (NodeCell*) relatedNode;
 -(void)hideWebView;
+-(void)createSecondBookView;
+-(void)showSecondBookView;
+-(void)showOverlay;
+-(void)hideOverlay;
+
 
 @end
 
