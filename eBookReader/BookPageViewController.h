@@ -16,6 +16,8 @@
 #import "UIMenuItem+CXAImageSupport.h"
 #import "WebBrowserViewController.h"
 #import "UIButton+Bootstrap.h"
+#import "ExpertModel.h"
+#import "QuartzCore/QuartzCore.h"
 @class LogDataWrapper;
 @interface BookPageViewController : UIViewController <DBRestClientDelegate,UIGestureRecognizerDelegate,UIAlertViewDelegate,UINavigationControllerDelegate,UIWebViewDelegate>
 @property (strong, nonatomic) CmapController *cmapView;
@@ -51,8 +53,12 @@
 @property (strong, nonatomic)  UILabel *cmapFocusQuestionLable;
 @property (strong, nonatomic)  UIImageView *hintImg;
 @property (strong, nonatomic) UIButton *compareTitleButton;
-
+@property ExpertModel* expertModel;
 @property (strong, nonatomic) UIButton *compareViewReturnButton;
+
+@property (strong, nonatomic) UIView *HLrectLeft;
+@property (strong, nonatomic) UIView *HLrectRight;
+
 -(void)showAlertWithString: (NSString*) str : (UIView*)imgView;
 -(void)createDeleteTraining;
 -(void)test;
@@ -78,7 +84,7 @@
 -(void)showSecondBookView;
 -(void)showOverlay;
 -(void)hideOverlay;
-
+-(void)showLeftHLRect;
 
 @end
 

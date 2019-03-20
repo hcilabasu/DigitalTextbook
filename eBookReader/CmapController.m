@@ -28,6 +28,7 @@
 #import "TrainingViewController.h"
 #import "PopoverView.h"
 #import "DHSmartScreenshot.h"
+#import "MapFinderViewController.h"
 /*
  @interface CmapController ()<GHContextOverlayViewDataSource, GHContextOverlayViewDelegate>
  @property (weak, nonatomic) IBOutlet UIImageView *imageView;
@@ -109,6 +110,7 @@
 @synthesize TA;
 @synthesize feedbackCtr;
 @synthesize progressTimer;
+@synthesize linkNameFinder;
 - (id) init {
     if (self = [super init]) {
         nodeCount=1;
@@ -269,14 +271,15 @@
 
 
 
--(void)showFeedbackmessage{
+-(void)showReadFeedbackmessage{
     [parentBookPageViewController showOverlay];
     feedbackPV= [[PopoverView alloc] initWithFrame:CGRectZero];
     feedbackPV.delegate=self;
-    //feedbackCtr.feedbackState=2;
-    feedbackCtr.feedbackState=5;
+    feedbackCtr.feedbackState=1;
+    [feedbackCtr upDateContent];
     [feedbackPV showAtPoint:CGPointMake(0, 0) inView:agent withContentView: feedbackCtr.view];
     [feedbackCtr animateProgressView];
+    [parentBookPageViewController showLeftHLRect];
 }
 
 
@@ -2559,6 +2562,19 @@
     [bookLogDataWrapper addLogs:countLog];
     [LogDataParser saveLogData:bookLogDataWrapper];
 }
+
+
+-(void)showLinkNameFinder{
+    /*
+    linkNameFinder=[[MapFinderViewController alloc]initWithNibName:@"MapFinderViewController" bundle:nil];
+    linkNameFinder.parentCmapController=self;
+    [linkNameFinder.tableView setUserInteractionEnabled:YES];
+    [self.view addSubview:linkNameFinder.view];
+    [linkNameFinder.tableView becomeFirstResponder];
+*/
+}
+
+
 
 @end
 

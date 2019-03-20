@@ -111,7 +111,7 @@
             action = titleitem.stringValue;
         } else continue;
         
-        NSArray *s_input = [partyMember elementsForName:@"action"];
+        NSArray *s_input = [partyMember elementsForName:@"input"];
         if (s_input.count > 0) {
             GDataXMLElement *titleitem = (GDataXMLElement *) [s_input objectAtIndex:0];
             input = titleitem.stringValue;

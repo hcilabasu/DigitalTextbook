@@ -286,7 +286,7 @@
 #pragma mark – UICollectionViewDelegateFlowLayout
 - (UIEdgeInsets)collectionView:
 (UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    return UIEdgeInsetsMake(-6, 16, 15, 16);
+    return UIEdgeInsetsMake(-30, 16, 15, 16);
 }
 
 

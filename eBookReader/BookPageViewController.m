@@ -39,6 +39,7 @@
 @synthesize conceptNodeArray;
 @synthesize PreviewRect;
 @synthesize  originalFrame;
+@synthesize expertModel;
 @synthesize isSecondShow;
 @synthesize CmapTimer;
 @synthesize isTraining;
@@ -52,6 +53,8 @@
 @synthesize compareViewReturnButton;
 @synthesize overlayView;
 @synthesize compareTitleButton;
+@synthesize HLrectLeft;
+@synthesize HLrectRight;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -222,8 +225,28 @@
     overlayView.alpha=0.3;
     [self.view addSubview:overlayView];
     [overlayView setHidden:YES];
+    expertModel= [[ExpertModel alloc]init];
     
+    HLrectLeft=[[UIView alloc]initWithFrame:CGRectMake(100, 100, 80, 20)];
+    HLrectLeft.layer.borderColor = [UIColor colorWithRed:255/255 green:90/255.0 blue:90/255.0 alpha:1].CGColor;
+    HLrectLeft.layer.borderWidth = 4.0f;
+    
+    HLrectRight=[[UIView alloc]initWithFrame:CGRectMake(100, 100, 80, 20)];
+    HLrectRight.layer.borderColor = [UIColor colorWithRed:255/255 green:90/255.0 blue:90/255.0 alpha:1].CGColor;
+    HLrectRight.layer.borderWidth = 4.0f;
+    [self.view addSubview:HLrectLeft];
+    [self.view addSubview:HLrectRight];
+   
 }//end of view did load
+
+-(void)showLeftHLRect: (CGPoint*) showPoint{
+    [self.view bringSubviewToFront:HLrectLeft];
+}
+
+-(void)showRightHLRect: (CGPoint*) showPoint{
+    [self.view bringSubviewToFront:HLrectRight];
+}
+
 
 -(void)showOverlay{
     [overlayView setHidden:NO];
@@ -565,6 +588,8 @@
     }
     cmapView.userName=userName;
     cmapView.bookLogDataWrapper=logWrapper;
+    cmapView.bookLogDataWrapper.parentCmapController=cmapView;
+    logWrapper.parentCmapController=cmapView;
     cmapView.showType=1;
     cmapView.enableHyperLink=enableHyperLink;
     cmapView.parentBookPageViewController=self;
@@ -575,6 +600,7 @@
     [cmapView.view setUserInteractionEnabled:YES];
     cmapView.view.center=CGPointMake(768, 384);
     [cmapView.view setHidden:YES];
+    //cmapView.bookNodeWrapper 
 }
 
 -(void)createQA{

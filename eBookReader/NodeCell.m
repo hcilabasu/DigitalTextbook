@@ -550,6 +550,9 @@
         //[parentCmapController endWait];
         [parentCmapController enableAllNodesEditting];
         [parentCmapController logLinkingConceptNodes:text.text ConnectedConcept:parentCmapController.nodesToLink.text.text];
+        
+        [parentCmapController showLinkNameFinder];
+      
         //check if it's in training mode
         if(parentCmapController.parentBookPageViewController.isTraining){
             UIImage *image = [UIImage imageNamed:@"Train_selectRelation"];

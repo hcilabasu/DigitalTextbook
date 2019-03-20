@@ -30,6 +30,7 @@
 -(void)showAddNodePanel;
 -(void)showAnimation;
 -(void)animateProgressView;
+-(void)upDateContent;
 @end
 
 

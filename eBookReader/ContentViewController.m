@@ -145,7 +145,7 @@ static NSString *cellId2 = @"cellId2";
 {
     [super viewDidLoad];
     [webView setFrame:self.view.frame];
-    
+    bookLogData.parentCmapController=parent_BookViewController.parent_BookPageViewController.cmapView;
     [ThumbScrollViewRight setHidden:YES];
      startDate = [NSDate date];
     //[webView setDelegate:self];

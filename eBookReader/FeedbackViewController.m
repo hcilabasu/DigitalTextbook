@@ -45,7 +45,7 @@
 
 -(void)updateProgressBar
 {
-    NSLog(@"Time is %f",_time);
+    //NSLog(@"Time is %f",_time);
     if(_time <= 0.0f)
     {
         [progressTimer invalidate];
@@ -112,11 +112,22 @@
         feedbackState=1;
         return;
     }
+     [parentCmapController.feedbackPV dismiss];
     return;
 }
 
 - (IBAction)clickOnRight:(id)sender {
     [parentCmapController.feedbackPV dismiss];
+}
+
+
+-(void)upDateContent{
+  if(1==feedbackState){
+      messageView.text=@"I notied that you've been reading for a while, would you like to consider adding some nodes to your map?";
+      [leftButton setTitle:@"OK" forState:UIControlStateNormal];
+  }
+    
+    
 }
 
 @end

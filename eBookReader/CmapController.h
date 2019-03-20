@@ -35,6 +35,7 @@
 #import "FeedbackViewController.h"
 #import "FBViewController.h"
 #import "TAViewController.h"
+#import "MapFinderViewController.h"
 #define NODE_TEMPLATE 0;
 #define NODE_STUDENT 1;
 @class NodeCell;
@@ -44,7 +45,7 @@
 @class BookPageViewController;
 @class TrainingViewController;
 @class ContentViewController;
-@interface CmapController : UIViewController <UIAlertViewDelegate,PopoverViewDelegate,UIGestureRecognizerDelegate,UIWebViewDelegate,UIScrollViewDelegate,UINavigationControllerDelegate,UITextViewDelegate, MBProgressHUDDelegate, DBRestClientDelegate,UITextFieldDelegate,ZCTradeViewDelegate,DTAlertViewDelegate,PopoverViewDelegate>{
+@interface CmapController : UIViewController <UIAlertViewDelegate,PopoverViewDelegate,UIGestureRecognizerDelegate,UIWebViewDelegate,UIScrollViewDelegate,UINavigationControllerDelegate,UITextViewDelegate, MBProgressHUDDelegate, DBRestClientDelegate,UITextFieldDelegate,ZCTradeViewDelegate,DTAlertViewDelegate,PopoverViewDelegate,UITableViewDelegate>{
     long long expectedLength;
     long long currentLength;
     MBProgressHUD *HUD;
@@ -156,6 +157,7 @@
 @property NSMutableArray* correctIndexAry;
 @property (weak, nonatomic) IBOutlet UIView *agent;
 @property (strong, nonatomic) IBOutlet TAViewController* TA;
+@property (strong, nonatomic) MapFinderViewController* linkNameFinder;
 
 -(void)disableAllNodesEditting;
 -(void)enableAllNodesEditting;
@@ -213,4 +215,6 @@
 -(void)showDualTextbookView;
 -(void)showNavigationFeedbackmessage;
 -(void)showCompareFeedbackmessage;
+-(void)showLinkNameFinder;
+-(void)showReadFeedbackmessage;
 @end

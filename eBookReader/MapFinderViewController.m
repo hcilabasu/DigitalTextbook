@@ -45,8 +45,8 @@ NSArray *recipes;
     self.view.layer.shadowColor = [UIColor blackColor].CGColor;
     self.view.layer.shadowOffset = CGSizeMake(2, 2);
     [self becomeFirstResponder];
-    //tableView.dataSource=self;
-    //tableView.delegate=self;
+    tableView.dataSource=self;
+    tableView.delegate=self;
     // Do any additional setup after loading the view from its nib.
     
     recipes = [NSArray arrayWithObjects:@"Include", @"Have", @"Involve", @"Increase", @"Reduce", @"Facilitate", @"Grow", @"Control", nil];
@@ -145,19 +145,10 @@ NSArray *recipes;
     
     //[parentTrainingCtr showAlertWithString:@"Good job! Now try to delete a concept node"];
     //[parentTrainingCtr createDeleteTraining];
-    
-    if(parentCmapController.parentBookPageViewController.isTraining){
-        UIImage *image = [UIImage imageNamed:@"Train_delete"];
-        image=[self imageWithImage:image scaledToSize:CGSizeMake(300, 200)];
-        UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-        
-    [parentBookPageView showAlertWithString:@"Good job! Now try to delete a concept node":imageView];
-    [parentBookPageView createDeleteTraining];
-    }
+
     [parentCmapController dismissLinkHint];
     [self.view removeFromSuperview];
     [self removeFromParentViewController];
-    
 }
 
 - (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
