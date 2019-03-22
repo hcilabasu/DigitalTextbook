@@ -279,7 +279,7 @@
     [feedbackCtr upDateContent];
     [feedbackPV showAtPoint:CGPointMake(0, 0) inView:agent withContentView: feedbackCtr.view];
     [feedbackCtr animateProgressView];
-    [parentBookPageViewController showLeftHLRect];
+    //[parentBookPageViewController showLeftHLRect];
 }
 
 

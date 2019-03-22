@@ -84,7 +84,7 @@
 -(void)showSecondBookView;
 -(void)showOverlay;
 -(void)hideOverlay;
--(void)showLeftHLRect;
+-(void)showLeftHLRect: (CGPoint*) showPoint;
 
 @end
 

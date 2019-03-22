@@ -128,6 +128,7 @@
 		565DA3F417B32F9C000DB171 /* ThumbNailIconWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 565DA3F317B32F9C000DB171 /* ThumbNailIconWrapper.m */; };
 		565DA3F717B33705000DB171 /* ThumbNailIconParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 565DA3F617B33705000DB171 /* ThumbNailIconParser.m */; };
 		566208541E848F0D00A94AB8 /* HLText.xml in Resources */ = {isa = PBXBuildFile; fileRef = 566208531E848F0D00A94AB8 /* HLText.xml */; };
+		56628EEB22436B2300457A19 /* KnowledgeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 56628EEA22436B2300457A19 /* KnowledgeModel.m */; };
 		566D5FFF1AC5D1FE00492921 /* ISMultipleChoiceQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = 566D5FF11AC5D1FE00492921 /* ISMultipleChoiceQuestion.m */; };
 		566D60001AC5D1FE00492921 /* ISOpenQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = 566D5FF31AC5D1FE00492921 /* ISOpenQuestion.m */; };
 		566D60011AC5D1FE00492921 /* ISQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = 566D5FF51AC5D1FE00492921 /* ISQuestion.m */; };
@@ -241,6 +242,7 @@
 		56ACC30219E3A804008D4304 /* LogData.m in Sources */ = {isa = PBXBuildFile; fileRef = 56ACC30119E3A804008D4304 /* LogData.m */; };
 		56ACC30519E3AAB5008D4304 /* LogDataWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 56ACC30419E3AAB5008D4304 /* LogDataWrapper.m */; };
 		56ACC30819E3AE23008D4304 /* LogDataParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 56ACC30719E3AE23008D4304 /* LogDataParser.m */; };
+		56AEB84522422D33002A10E0 /* KeyConcept.m in Sources */ = {isa = PBXBuildFile; fileRef = 56AEB84422422D33002A10E0 /* KeyConcept.m */; };
 		56AFB3891B0ACF240048E036 /* switch.png in Resources */ = {isa = PBXBuildFile; fileRef = 56AFB3881B0ACF240048E036 /* switch.png */; };
 		56AFB38B1B0B04190048E036 /* QAIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 56AFB38A1B0B04190048E036 /* QAIcon.png */; };
 		56B0B98018C50B9F0016783E /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56B0B97F18C50B9F0016783E /* MainWindowController.m */; };
@@ -511,6 +513,8 @@
 		565DA3F517B33705000DB171 /* ThumbNailIconParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThumbNailIconParser.h; sourceTree = "<group>"; };
 		565DA3F617B33705000DB171 /* ThumbNailIconParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThumbNailIconParser.m; sourceTree = "<group>"; };
 		566208531E848F0D00A94AB8 /* HLText.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = HLText.xml; sourceTree = "<group>"; };
+		56628EE922436B2300457A19 /* KnowledgeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KnowledgeModel.h; sourceTree = "<group>"; };
+		56628EEA22436B2300457A19 /* KnowledgeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KnowledgeModel.m; sourceTree = "<group>"; };
 		566D5FF01AC5D1FE00492921 /* ISMultipleChoiceQuestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISMultipleChoiceQuestion.h; sourceTree = "<group>"; };
 		566D5FF11AC5D1FE00492921 /* ISMultipleChoiceQuestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISMultipleChoiceQuestion.m; sourceTree = "<group>"; };
 		566D5FF21AC5D1FE00492921 /* ISOpenQuestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISOpenQuestion.h; sourceTree = "<group>"; };
@@ -674,6 +678,8 @@
 		56ACC30419E3AAB5008D4304 /* LogDataWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogDataWrapper.m; sourceTree = "<group>"; };
 		56ACC30619E3AE23008D4304 /* LogDataParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogDataParser.h; sourceTree = "<group>"; };
 		56ACC30719E3AE23008D4304 /* LogDataParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogDataParser.m; sourceTree = "<group>"; };
+		56AEB84322422D33002A10E0 /* KeyConcept.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyConcept.h; sourceTree = "<group>"; };
+		56AEB84422422D33002A10E0 /* KeyConcept.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyConcept.m; sourceTree = "<group>"; };
 		56AFB3881B0ACF240048E036 /* switch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = switch.png; sourceTree = "<group>"; };
 		56AFB38A1B0B04190048E036 /* QAIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QAIcon.png; sourceTree = "<group>"; };
 		56B0B97E18C50B9F0016783E /* MainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainWindowController.h; sourceTree = "<group>"; };
@@ -1452,6 +1458,10 @@
 		567911B7220ACAD6009A6F09 /* TA */ = {
 			isa = PBXGroup;
 			children = (
+				56628EE922436B2300457A19 /* KnowledgeModel.h */,
+				56628EEA22436B2300457A19 /* KnowledgeModel.m */,
+				56AEB84322422D33002A10E0 /* KeyConcept.h */,
+				56AEB84422422D33002A10E0 /* KeyConcept.m */,
 				5635969D221D2A650064F3AF /* ExpertModel.h */,
 				5635969E221D2A660064F3AF /* ExpertModel.m */,
 				5694B68B220BD9D90036C667 /* Other */,
@@ -2201,6 +2211,7 @@
 				5607AD4A20A2693E0001BB05 /* UIScrollView+DHSmartScreenshot.m in Sources */,
 				56711E2B17B7759A001B4585 /* UIView+Addictions.m in Sources */,
 				56746BFF194CFD8F00805820 /* CmapLink.m in Sources */,
+				56AEB84522422D33002A10E0 /* KeyConcept.m in Sources */,
 				566E7C6A1C7EB44C00D0ACFE /* MyAlertView.m in Sources */,
 				566D60031AC5D1FE00492921 /* ISQuizParser.m in Sources */,
 				56D76C3618BC065B0041FA56 /* NSString+XMLEntities.m in Sources */,
@@ -2216,6 +2227,7 @@
 				31F0CE3416C59DEC00E5CAC5 /* mztools.c in Sources */,
 				56D76C2818BC05140041FA56 /* ConceptNode.m in Sources */,
 				56A869CD1C63F65B00CD6CC9 /* StudentDataWrapper.m in Sources */,
+				56628EEB22436B2300457A19 /* KnowledgeModel.m in Sources */,
 				31F0CE3516C59DEC00E5CAC5 /* unzip.c in Sources */,
 				56711DEF17B77005001B4585 /* LSTintedButton.m in Sources */,
 				56711E2317B7758F001B4585 /* LSTabControl.m in Sources */,

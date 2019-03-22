@@ -1,11 +1,9 @@
-//
 //  ExpertModel.m
 //  Study
 //
 //  Created by Shang Wang on 2/19/19.
 //  Copyright © 2019 Shang Wang. All rights reserved.
 //
-
 #import "ExpertModel.h"
 #import "LogDataWrapper.h"
 #import "LogDataParser.h"
@@ -27,15 +25,25 @@
 @synthesize readActionCount;
 @synthesize readFeedbackCount;
 @synthesize startPosition;
+@synthesize keyConceptsAry;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     readActionCount=0;
     readFeedbackCount=0;
     startPosition=0;
+    KnowledgeModel* KM=[[KnowledgeModel alloc]init];
+    keyConceptsAry=[KM getKeyConceptLists];
 }
 
-
+-(void)setupKM{
+    readActionCount=0;
+    readFeedbackCount=0;
+    startPosition=0;
+    KnowledgeModel* KM=[[KnowledgeModel alloc]init];
+    keyConceptsAry=[KM getKeyConceptLists];
+}
 
 -(void)evaluate{
     
@@ -147,6 +155,8 @@
     
     if([currentState isEqualToString:@"R"]){
         readActionCount++;
+    }else{
+        readActionCount=0;
     }
     
     
@@ -156,7 +166,10 @@
         readActionCount=0;
     }
     
-}
+}//end of evaluate
+
+
+
 
 
 

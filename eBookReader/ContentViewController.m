@@ -518,8 +518,6 @@ static NSString *cellId2 = @"cellId2";
    // UIMenuController *menuController = [UIMenuController sharedMenuController];
    // [menuController setMenuVisible:YES animated:YES];
    
-  
-    
 }
 
 // invoke when user tap with one finger once

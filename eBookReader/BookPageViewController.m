@@ -226,6 +226,7 @@
     [self.view addSubview:overlayView];
     [overlayView setHidden:YES];
     expertModel= [[ExpertModel alloc]init];
+    [expertModel setupKM];
     
     HLrectLeft=[[UIView alloc]initWithFrame:CGRectMake(100, 100, 80, 20)];
     HLrectLeft.layer.borderColor = [UIColor colorWithRed:255/255 green:90/255.0 blue:90/255.0 alpha:1].CGColor;
@@ -240,11 +241,15 @@
 }//end of view did load
 
 -(void)showLeftHLRect: (CGPoint*) showPoint{
+    if(HLrectLeft){
     [self.view bringSubviewToFront:HLrectLeft];
+    }
 }
 
 -(void)showRightHLRect: (CGPoint*) showPoint{
+    if(HLrectRight){
     [self.view bringSubviewToFront:HLrectRight];
+    }
 }
 
 
