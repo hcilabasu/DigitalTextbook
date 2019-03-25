@@ -23,7 +23,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *rightButton;
 @property (weak, nonatomic) CmapController* parentCmapController;
 
-
+@property NSMutableArray* missingConceptAry;
 @property (weak, nonatomic) IBOutlet MBCircularProgressBarView *progressBar;
 @property (weak, nonatomic) IBOutlet UISwitch *animatedSwitch;
 @property NSTimer* progressTimer;

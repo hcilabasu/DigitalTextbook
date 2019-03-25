@@ -25,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property int readFeedbackCount;
 @property int startPosition;
 @property (nonatomic, retain) NSMutableArray *keyConceptsAry;
+@property (nonatomic, retain) NSMutableArray *missingConceptsAry;
 -(void)evaluate;
 -(void)setupKM;
 @end

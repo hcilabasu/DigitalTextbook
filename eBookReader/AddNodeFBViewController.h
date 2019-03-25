@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "KeyConcept.h"
 NS_ASSUME_NONNULL_BEGIN
 @class FeedbackViewController;
 @interface AddNodeFBViewController : UIViewController <UIGestureRecognizerDelegate>
@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *label4;
 @property NSString* conceptName;
 @property (strong, nonatomic) FeedbackViewController *parentFeedbackViewCtr;
+-(void)upDateCandidateNodes: (NSMutableArray*) missingAry;
 @end
 
 NS_ASSUME_NONNULL_END

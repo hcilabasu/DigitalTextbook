@@ -26,6 +26,7 @@
 @synthesize readFeedbackCount;
 @synthesize startPosition;
 @synthesize keyConceptsAry;
+@synthesize missingConceptsAry;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -43,6 +44,8 @@
     startPosition=0;
     KnowledgeModel* KM=[[KnowledgeModel alloc]init];
     keyConceptsAry=[KM getKeyConceptLists];
+    
+    missingConceptsAry= [[NSMutableArray alloc]init];
 }
 
 -(void)evaluate{
@@ -155,9 +158,15 @@
     
     if([currentState isEqualToString:@"R"]){
         readActionCount++;
+        missingConceptsAry= [self getMissingConcepts:bookNodeWrapper.cmapNodes Page:lastdata.page KeyConceptList:keyConceptsAry];
+        
+        
+        
     }else{
         readActionCount=0;
     }
+    
+    
     
     
     if(readActionCount>2){
@@ -165,6 +174,8 @@
         [parentCmapController showReadFeedbackmessage];
         readActionCount=0;
     }
+    
+    
     
 }//end of evaluate
 
@@ -194,6 +205,27 @@
 }
 
 
+-(NSMutableArray*)getMissingConcepts:  (NSMutableArray*)nodeAry Page: (int)page  KeyConceptList: (NSMutableArray*) keylist{
+    NSMutableArray* missingConcepts=[[NSMutableArray alloc]init];
+    for( KeyConcept* kc in keylist){
+        NSString* name=kc.name;
+        NSString* subName=kc.subName;
+        int currentPage=page;
+        BOOL isMIssing=YES;
+        for (CmapNode* node in nodeAry){
+            NSString* lowString=node.text.lowercaseString;
+            if (   ([lowString rangeOfString:name].location != NSNotFound) || ([node.text rangeOfString:subName].location != NSNotFound) ||kc.page>(page-1)  ) {
+                isMIssing=NO;
+            }
+        }
+        if(isMIssing){
+            [missingConcepts addObject:kc];
+        }
+    }
+   
+    parentCmapController.feedbackCtr.missingConceptAry=missingConcepts;
+    return missingConcepts;
+}
 
 
 

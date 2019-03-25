@@ -12,6 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface KeyConcept : UIViewController
 @property NSString* name;
+@property NSString* subName;
+@property NSString* subName2;
+@property NSString* conceptName;
+
 @property int page;
 @property int subPage;
 @property CGPoint position;

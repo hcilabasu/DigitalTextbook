@@ -24,6 +24,7 @@
 @synthesize progressBar;
 @synthesize animatedSwitch;
 @synthesize progressTimer;
+@synthesize missingConceptAry;
 - (void)viewDidLoad {
     [super viewDidLoad];
     feedbackState=1;
@@ -33,13 +34,15 @@
 }
 
 -(void)showAnimation{
+    if(addNodeViewCtr.view){
+        [addNodeViewCtr.view removeFromSuperview];
+    }
    progressTimer= [NSTimer scheduledTimerWithTimeInterval:0.1
                                      target:self
                                    selector:@selector(theAction)
                                    userInfo:nil
                                     repeats:YES];
 }
-
 
 
 
@@ -63,6 +66,7 @@
 
 -(void)animateProgressView
 {
+ 
     [progressBar setHidden:NO];
     [leftButton setHidden:YES];
     [rightButton setHidden:YES];
@@ -77,18 +81,25 @@
 
 
 
-
 -(void)showAddNodePanel{
     addNodeViewCtr=[[AddNodeFBViewController alloc]initWithNibName:@"AddNodeFBViewController" bundle:nil];
     addNodeViewCtr.parentFeedbackViewCtr=self;
     [addNodeViewCtr.view setBackgroundColor:[UIColor colorWithRed:0.98f green:0.98f blue:0.98f alpha:1]];
     [addNodeViewCtr.view setFrame:messageView.frame];
     [self.view addSubview:addNodeViewCtr.view];
-    [parentCmapController.feedbackCtr.leftButton setTitle:@"Add Node" forState:UIControlStateNormal];
-    parentCmapController.feedbackCtr.leftButton.enabled=NO;
+    [leftButton setTitle:@"Add Node" forState:UIControlStateNormal];
+    leftButton.enabled=NO;
+    [addNodeViewCtr upDateCandidateNodes:missingConceptAry];
 }
 
+
+
 - (IBAction)clickOnLeft:(id)sender {
+    if(1==feedbackState && (missingConceptAry.count>0)){
+        [self showAddNodePanel];
+        feedbackState=3;
+        return;
+    }
     if(2==feedbackState){
         [self showAddNodePanel];
         feedbackState=3;
@@ -122,9 +133,19 @@
 
 
 -(void)upDateContent{
+  leftButton.enabled=YES;
+    if(addNodeViewCtr.view){
+        [addNodeViewCtr.view removeFromSuperview];
+    }
+    
   if(1==feedbackState){
       messageView.text=@"I notied that you've been reading for a while, would you like to consider adding some nodes to your map?";
       [leftButton setTitle:@"OK" forState:UIControlStateNormal];
+      
+      if(missingConceptAry.count>0){
+          [leftButton setTitle:@"Show me some" forState:UIControlStateNormal];
+      }
+      
   }
     
     
