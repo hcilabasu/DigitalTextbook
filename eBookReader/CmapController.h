@@ -158,6 +158,7 @@
 @property (weak, nonatomic) IBOutlet UIView *agent;
 @property (strong, nonatomic) IBOutlet TAViewController* TA;
 @property (strong, nonatomic) MapFinderViewController* linkNameFinder;
+@property (strong, nonatomic) UITableView* tableView;
 
 -(void)disableAllNodesEditting;
 -(void)enableAllNodesEditting;
@@ -217,4 +218,5 @@
 -(void)showCompareFeedbackmessage;
 -(void)showLinkNameFinder;
 -(void)showReadFeedbackmessage;
+-(void)showPositiveFeedbackmessage;
 @end

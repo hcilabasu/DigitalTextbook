@@ -281,7 +281,16 @@
     [feedbackCtr animateProgressView];
     //[parentBookPageViewController showLeftHLRect];
 }
-
+-(void)showPositiveFeedbackmessage{
+    [parentBookPageViewController showOverlay];
+    feedbackPV= [[PopoverView alloc] initWithFrame:CGRectZero];
+    feedbackPV.delegate=self;
+    feedbackCtr.feedbackState=10;
+    [feedbackCtr upDateContent];
+    [feedbackPV showAtPoint:CGPointMake(0, 0) inView:agent withContentView: feedbackCtr.view];
+    [feedbackCtr animateProgressView];
+    //[parentBookPageViewController showLeftHLRect];
+}
 
 -(void)showNavigationFeedbackmessage{
     feedbackPV= [[PopoverView alloc] initWithFrame:CGRectZero];
@@ -2565,16 +2574,20 @@
 
 
 -(void)showLinkNameFinder{
-    /*
+    
     linkNameFinder=[[MapFinderViewController alloc]initWithNibName:@"MapFinderViewController" bundle:nil];
     linkNameFinder.parentCmapController=self;
     [linkNameFinder.tableView setUserInteractionEnabled:YES];
+    [linkNameFinder becomeFirstResponder];
     [self.view addSubview:linkNameFinder.view];
-    [linkNameFinder.tableView becomeFirstResponder];
-*/
+    [self addChildViewController:linkNameFinder];
+
 }
 
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+ 
+}
 
 @end
 

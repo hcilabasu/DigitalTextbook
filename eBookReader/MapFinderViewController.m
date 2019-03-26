@@ -39,12 +39,12 @@ NSArray *recipes;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.center=CGPointMake(250, 360);
+    self.view.center=CGPointMake(780, 360);
     self.view.layer.shadowOpacity = 0.4;
     self.view.layer.shadowRadius = 6;
     self.view.layer.shadowColor = [UIColor blackColor].CGColor;
     self.view.layer.shadowOffset = CGSizeMake(2, 2);
-    [self becomeFirstResponder];
+    tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     tableView.dataSource=self;
     tableView.delegate=self;
     // Do any additional setup after loading the view from its nib.
@@ -52,13 +52,18 @@ NSArray *recipes;
     recipes = [NSArray arrayWithObjects:@"Include", @"Have", @"Involve", @"Increase", @"Reduce", @"Facilitate", @"Grow", @"Control", nil];
     
     [tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
-    [parentCmapController resignFirstResponder];
+    
+    [self.tableView setUserInteractionEnabled:YES];
     
 }
 
 
+
 -(void)viewDidAppear:(BOOL)animated{
-    [self becomeFirstResponder];
+    tableView.delegate=parentCmapController;
+    //tableView.dataSource=parentCmapController;
+    
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -70,13 +75,13 @@ NSArray *recipes;
 
 
 - (IBAction)Dismiss:(id)sender {
-   // parentCmapController.isFinderWindowShow=NO;
+    // parentCmapController.isFinderWindowShow=NO;
     [parentCmapController deleteLink:parentCmapController.linkJustCreated.leftNodeName SecondNode:parentCmapController.linkJustCreated.rightNodeName];
     [parentCmapController dismissLinkHint];
     [self resignFirstResponder];
     [self.view removeFromSuperview];
     [self removeFromParentViewController];
-
+    
 }
 
 - (IBAction)EditLink:(id)sender {
@@ -100,25 +105,6 @@ NSArray *recipes;
 }
 
 
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *simpleTableIdentifier = @"SimpleTableCell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
-    
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
-    }
-    
-    cell.textLabel.text = [fileList objectAtIndex:indexPath.row];
-    cell.imageView.image = [UIImage imageNamed:@"cmapIconShadow.png"];
-    cell.imageView.frame = CGRectMake(0,0,32,32);
-    
-    return cell;
-}
-
-*/
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -130,37 +116,27 @@ NSArray *recipes;
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
     }
     cell.textLabel.text = [recipes objectAtIndex:indexPath.row];
+    [cell setSelectionStyle:UITableViewCellSelectionStyleDefault];
     return cell;
 }
 
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-   UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     [parentCmapController upDateLinkText:cell.textLabel.text];
     NSString* inputString=[[NSString alloc] initWithFormat:@"%@", cell.textLabel.text];
     LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Update Link name from list" selection:@"new concept link" input:inputString pageNum:parentCmapController.pageNum];
     [bookLogData addLogs:newlog];
     [LogDataParser saveLogData:bookLogData];
     
-    //[parentTrainingCtr showAlertWithString:@"Good job! Now try to delete a concept node"];
-    //[parentTrainingCtr createDeleteTraining];
-
     [parentCmapController dismissLinkHint];
     [self.view removeFromSuperview];
     [self removeFromParentViewController];
 }
 
-- (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
-    //UIGraphicsBeginImageContext(newSize);
-    // In next line, pass 0.0 to use the current device's pixel scaling factor (and thus account for Retina resolution).
-    // Pass 1.0 to force exact pixel size.
-    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
-    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return newImage;
-}
+
+
 
 
 @end

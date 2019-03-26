@@ -12,7 +12,7 @@
 @class TrainingViewController;
 @class BookPageViewController;
 @interface MapFinderViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray* fileList;
 @property (strong, nonatomic) CmapController* parentCmapController;
 @property (nonatomic, retain) LogDataWrapper* bookLogData;

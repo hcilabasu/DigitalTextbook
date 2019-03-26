@@ -530,7 +530,7 @@
         linkTextview.rightNodeName=parentCmapController.nodesToLink.text.text;
         parentCmapController.linkJustCreated=linkTextview;
         //edit name 
-        [linkTextview becomeFirstResponder];
+       // [linkTextview becomeFirstResponder];
         [relationTextArray addObject:linkTextview];
         ConceptLink *link = [[ConceptLink alloc] initWithName:self conceptName:parentCmapController.nodesToLink relation:linkTextview page:parentCmapController.pageNum];
         [parentCmapController addConcpetLink:link];
@@ -551,8 +551,10 @@
         [parentCmapController enableAllNodesEditting];
         [parentCmapController logLinkingConceptNodes:text.text ConnectedConcept:parentCmapController.nodesToLink.text.text];
         
-        [parentCmapController showLinkNameFinder];
+        [parentCmapController.parentBookPageViewController showLinkNameFinder];
       
+        
+        
         //check if it's in training mode
         if(parentCmapController.parentBookPageViewController.isTraining){
             UIImage *image = [UIImage imageNamed:@"Train_selectRelation"];

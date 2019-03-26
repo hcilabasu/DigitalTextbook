@@ -67,7 +67,7 @@
          NSString* selection=@"";
          NSString* action=@"";
          NSString* input=@"";
-        
+        NSString* timeSecond=@"";
         
         NSArray *savedTime = [partyMember elementsForName:@"time"];
         
@@ -123,7 +123,14 @@
             page=point_y.stringValue.floatValue;
         } else continue;
         
-        LogData *player = [[LogData alloc] initWithNameAndTime:student_id SessionID:session_id  action:action selection:selection input:input pageNum:page time:savedTimeString];
+        NSArray *i_timeSecond = [partyMember elementsForName:@"timeSecond"];
+        if (i_timeSecond.count > 0) {
+            GDataXMLElement *timeSecondElement = (GDataXMLElement *) [i_timeSecond objectAtIndex:0];
+            timeSecond = timeSecondElement.stringValue;
+        } else continue;
+        
+        
+        LogData *player = [[LogData alloc] initWithNameAndTime:student_id SessionID:session_id  action:action selection:selection input:input pageNum:page time:savedTimeString timeSecond:timeSecond];
         
         [logDatakWrapper.logArray addObject:player];
     }
@@ -168,6 +175,9 @@
         GDataXMLElement * e_input =
         [GDataXMLNode elementWithName:@"input" stringValue:linkItem.input];
         
+        GDataXMLElement * e_timeSecond =
+        [GDataXMLNode elementWithName:@"timeSecond" stringValue:linkItem.timeInSecond];
+        
         NSString* pageStr=[[NSString alloc]initWithFormat:@"%d", linkItem.page];
         GDataXMLElement * e_page =[GDataXMLNode elementWithName:@"PageNum" stringValue:pageStr];
 
@@ -180,6 +190,7 @@
         [itemElement addChild:e_action];
         [itemElement addChild:e_input];
         [itemElement addChild:e_page];
+        [itemElement addChild:e_timeSecond];
         [partyElement addChild:itemElement];
        // NSLog(@"Add element");
     }

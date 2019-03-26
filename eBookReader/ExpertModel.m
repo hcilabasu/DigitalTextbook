@@ -27,7 +27,10 @@
 @synthesize startPosition;
 @synthesize keyConceptsAry;
 @synthesize missingConceptsAry;
-
+@synthesize pageTimeMap;
+@synthesize startTimeSecond;
+@synthesize prePageNum;
+@synthesize pageStayTimeMap;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -44,13 +47,15 @@
     startPosition=0;
     KnowledgeModel* KM=[[KnowledgeModel alloc]init];
     keyConceptsAry=[KM getKeyConceptLists];
-    
     missingConceptsAry= [[NSMutableArray alloc]init];
+    pageTimeMap=[[NSMutableDictionary alloc]init];
+    pageStayTimeMap=[[NSMutableDictionary alloc]init];
+    prePageNum=0;
 }
 
 -(void)evaluate{
-    
     LogData *lastdata= [logArray lastObject];
+
     LogData *secondLastData= [logArray objectAtIndex: ([logArray count]-2)];
     NSString* lastAction=lastdata.action;
     NSString* secondLastAction=secondLastData.action;
@@ -61,6 +66,10 @@
             startPosition=0;
         }
     }
+    LogData *startPositionLog=[logArray objectAtIndex:startPosition];
+    startTimeSecond= [startPositionLog.timeInSecond floatValue];
+    
+    
     
     
     BOOL ismeaningful= [self isMeaningfulAction: lastdata];
@@ -114,6 +123,10 @@
             currentState=@"A";
             [stateArray addObject:currentState];
         }else if( [action rangeOfString:@"urned to page"].location != NSNotFound){
+            //upDatePage time
+            
+            
+            
             if(page>prePage){
                 currentState=@"R";
                 [stateArray addObject:currentState];
@@ -160,14 +173,33 @@
         readActionCount++;
         missingConceptsAry= [self getMissingConcepts:bookNodeWrapper.cmapNodes Page:lastdata.page KeyConceptList:keyConceptsAry];
         
-        
-        
     }else{
         readActionCount=0;
     }
     
+    // if user creates a cross link, check if reading or comparing has been done.
     
+
+    if([lastAction isEqualToString:@"Update Link name from list"] ){
+        if(  [stateArray count]<4){
+            return;
+        }
+        NSString*  preState=[stateArray objectAtIndex: [stateArray count]-1];
+        if([preState isEqualToString:@"C"]){
+            int stateCount=(int)[stateArray count];
+            if( stateCount<3 ){
+                return;
+            }
+            NSString* pre1= [stateArray objectAtIndex: stateCount-2];
+            NSString* pre2= [stateArray objectAtIndex: stateCount-3];
+            if( [pre1 isEqualToString:@"P"] ||[pre1 isEqualToString:@"B"] ||[pre2 isEqualToString:@"P"] ){
+                [parentCmapController showPositiveFeedbackmessage];
+            }
+        }
     
+    }
+    
+
     
     if(readActionCount>2){
         readFeedbackCount++;
@@ -187,8 +219,6 @@
 
 
 
-
-
 -(BOOL)isMeaningfulAction:(LogData*)log{
     NSString* action=log.action;
     BOOL ismeaningful=NO;
@@ -199,6 +229,9 @@
         ismeaningful=YES;
     }
     if ([action rangeOfString:@"Linking concepts"].location != NSNotFound) {
+        ismeaningful=YES;
+    }
+    if ([action rangeOfString:@"Update Link name from list"].location != NSNotFound) {
         ismeaningful=YES;
     }
     return ismeaningful;

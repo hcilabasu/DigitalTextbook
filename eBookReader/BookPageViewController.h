@@ -18,13 +18,14 @@
 #import "UIButton+Bootstrap.h"
 #import "ExpertModel.h"
 #import "QuartzCore/QuartzCore.h"
+#import "MapFinderViewController.h"
 @class LogDataWrapper;
 @interface BookPageViewController : UIViewController <DBRestClientDelegate,UIGestureRecognizerDelegate,UIAlertViewDelegate,UINavigationControllerDelegate,UIWebViewDelegate>
 @property (strong, nonatomic) CmapController *cmapView;
 @property (strong, nonatomic) VideoViewController *videoView;
 @property (strong, nonatomic) BookViewController *bookView;
 @property (strong, nonatomic)  QAViewController *QA;
-
+@property (strong, nonatomic) MapFinderViewController* linkNameFinder;
 @property (strong, nonatomic) BookViewController *secondBookView;
 @property (strong, nonatomic) UIView* overlayView;
 
@@ -85,6 +86,6 @@
 -(void)showOverlay;
 -(void)hideOverlay;
 -(void)showLeftHLRect: (CGPoint*) showPoint;
-
+-(void)showLinkNameFinder;
 @end
 

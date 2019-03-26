@@ -148,6 +148,11 @@
       
   }
     
+    if(10==feedbackState){
+        messageView.text=@"Good job! You just compared related concepts and created cross-links. Behaviors like this will help you understand the content more!";
+        [leftButton setTitle:@"OK" forState:UIControlStateNormal];
+    }
+    
     
 }
 

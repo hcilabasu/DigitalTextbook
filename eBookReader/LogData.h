@@ -16,7 +16,9 @@
 @property (strong, nonatomic) NSString* selection;
 @property (strong, nonatomic) NSString* action;
 @property (strong, nonatomic) NSString* input;
+@property (strong, nonatomic) NSString* timeInSecond;
 @property (nonatomic, assign) int page;
 - (id)initWithName:(NSString*)m_studentId SessionID: (NSString*)m_sessionId action:(NSString*)m_action selection:(NSString*)m_selection input: (NSString*)m_input pageNum: (int) m_page;
 - (id)initWithNameAndTime:(NSString*)m_studentId SessionID: (NSString*)m_sessionId action:(NSString*)m_action selection:(NSString*)m_selection input: (NSString*)m_input pageNum: (int) m_page time: (NSString*)timeString;
+- (id)initWithNameAndTime:(NSString*)m_studentId SessionID: (NSString*)m_sessionId action:(NSString*)m_action selection:(NSString*)m_selection input: (NSString*)m_input pageNum: (int) m_page time: (NSString*)m_timeString timeSecond: (NSString*)m_timeSecond;
 @end

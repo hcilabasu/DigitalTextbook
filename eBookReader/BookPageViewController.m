@@ -55,6 +55,7 @@
 @synthesize compareTitleButton;
 @synthesize HLrectLeft;
 @synthesize HLrectRight;
+@synthesize linkNameFinder;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -1227,5 +1228,15 @@
     [self.view sendSubviewToBack:myWebView.view];
 }
 
+
+-(void)showLinkNameFinder{
+    linkNameFinder=[[MapFinderViewController alloc]initWithNibName:@"MapFinderViewController" bundle:nil];
+    linkNameFinder.parentCmapController=cmapView;
+    [linkNameFinder.tableView setUserInteractionEnabled:YES];
+    [linkNameFinder becomeFirstResponder];
+    linkNameFinder.bookLogData=logWrapper;
+    [self.view addSubview:linkNameFinder.view];
+    [self addChildViewController:linkNameFinder];
+}
 
 @end
