@@ -31,6 +31,7 @@
 @synthesize startTimeSecond;
 @synthesize prePageNum;
 @synthesize pageStayTimeMap;
+@synthesize preTimeSecond;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -50,7 +51,15 @@
     missingConceptsAry= [[NSMutableArray alloc]init];
     pageTimeMap=[[NSMutableDictionary alloc]init];
     pageStayTimeMap=[[NSMutableDictionary alloc]init];
-    prePageNum=0;
+    prePageNum=1;
+    preTimeSecond=0;
+    startTimeSecond=0;
+    //initialize page stay time dictionary
+    for(int i=0; i<100;i++){
+        NSString* keyString= [NSString stringWithFormat:@"%d",i];
+        pageStayTimeMap[keyString]=@"0.0";
+    }
+    
 }
 
 -(void)evaluate{
@@ -62,16 +71,13 @@
     if (  [secondLastAction rangeOfString:@"Application Loaded"].location != NSNotFound) {
         stateArray=[[NSMutableArray alloc]init];
         startPosition= (int)[logArray count]-2;
+        startTimeSecond= [secondLastData.timeInSecond doubleValue];
+        preTimeSecond=startTimeSecond;
         if(startPosition<0){
             startPosition=0;
         }
     }
-    LogData *startPositionLog=[logArray objectAtIndex:startPosition];
-    startTimeSecond= [startPositionLog.timeInSecond floatValue];
-    
-    
-    
-    
+
     BOOL ismeaningful= [self isMeaningfulAction: lastdata];
     if (!ismeaningful){
         return;
@@ -80,6 +86,24 @@
     
     if( [lastAction rangeOfString:@"urned to page"].location == NSNotFound){
         readActionCount=0;
+    }
+    
+    if( [lastAction rangeOfString:@"urned to page"].location != NSNotFound || [lastAction rangeOfString:@"Linking concepts"].location != NSNotFound) {
+        double curentTimeSecond= [lastdata.timeInSecond doubleValue];
+        //curentTimeSecond=curentTimeSecond-preTimeSecond;
+        int page=lastdata.page;
+        if( prePageNum>0){
+            double readTime= curentTimeSecond-preTimeSecond;
+            //NSLog(@"\n\n\n\n\n\n\n\n\n\n\n Page %d  Stay Time: %f\n\n\n",prePageNum,readTime);
+            NSString* prePageString= [NSString stringWithFormat:@"%d", prePageNum];
+            NSString* preTimeStayString= pageStayTimeMap[prePageString];
+            double prePageStayTime= [preTimeStayString doubleValue];
+            double newStayTime=readTime+prePageStayTime;
+            NSString* newStayTimeString= [NSString stringWithFormat:@"%.2f", newStayTime];
+            pageStayTimeMap[prePageString]=newStayTimeString;
+        }
+        preTimeSecond=curentTimeSecond;
+        prePageNum=page;
     }
     
     stateArray=[[NSMutableArray alloc]init];
@@ -124,9 +148,7 @@
             [stateArray addObject:currentState];
         }else if( [action rangeOfString:@"urned to page"].location != NSNotFound){
             //upDatePage time
-            
-            
-            
+        
             if(page>prePage){
                 currentState=@"R";
                 [stateArray addObject:currentState];
@@ -142,6 +164,7 @@
                 }
             }
             prePage=page;
+            
         }else if([action rangeOfString:@"Linking concepts"].location != NSNotFound ){
                 currentState=@"L";
                 NSString* leftNodename=input;
@@ -158,6 +181,23 @@
                 int delta=abs(  [leftNodePageString intValue]-[rightNodePageString intValue]    );
                 if (delta>0){
                     currentState=@"C";
+                    int leftNodeInt=[leftNodePageString intValue];
+                    int rightNodeInt= [rightNodePageString intValue];
+     
+                    
+                    NSString* leftNodePageStringNew= [NSString stringWithFormat:@"%d", leftNodeInt+1];
+                    NSString* rightNodePageStringNew= [NSString stringWithFormat:@"%d", rightNodeInt+1];
+                    
+                    NSString* leftStayTimeString= pageStayTimeMap[leftNodePageStringNew];
+                    NSString* rightStayTmeString=pageStayTimeMap[rightNodePageStringNew];
+                    double leftStayTime=[leftStayTimeString doubleValue];
+                    double rightStayTime= [rightStayTmeString doubleValue];
+                    if( leftStayTime>5&& rightStayTime>5){
+                        currentState=@"G";
+                    }else{
+                        
+                    }
+                    
                 }
             [stateArray addObject:currentState];
             }
@@ -185,7 +225,8 @@
             return;
         }
         NSString*  preState=[stateArray objectAtIndex: [stateArray count]-1];
-        if([preState isEqualToString:@"C"]){
+        if([preState isEqualToString:@"G"]){
+            
             int stateCount=(int)[stateArray count];
             if( stateCount<3 ){
                 return;
@@ -195,6 +236,9 @@
             if( [pre1 isEqualToString:@"P"] ||[pre1 isEqualToString:@"B"] ||[pre2 isEqualToString:@"P"] ){
                 [parentCmapController showPositiveFeedbackmessage];
             }
+        }
+        if([preState isEqualToString:@"C"]){
+             [parentCmapController showCompareFeedbackmessage];
         }
     
     }

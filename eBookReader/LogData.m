@@ -24,7 +24,8 @@
 
         NSDate *now = [NSDate date];
         NSTimeInterval nowEpochSeconds = [now timeIntervalSince1970];
-        NSString *intervalString = [NSString stringWithFormat:@"%f", nowEpochSeconds];
+        float epochSecondInt=round(nowEpochSeconds)+0.0;
+        NSString *intervalString = [NSString stringWithFormat:@"%.2f", nowEpochSeconds];
         timeInSecond=intervalString;
         
         NSArray* nsDateArray = [[[NSDate dateWithTimeIntervalSinceNow:0] description] componentsSeparatedByString:@" "];

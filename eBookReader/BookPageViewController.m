@@ -67,6 +67,8 @@
         // ShowingQA=true;
         conceptNodeArray=[[NSMutableArray alloc] init];
         subViewType=0;
+        
+        
     }
     return self;
 }

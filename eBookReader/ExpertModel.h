@@ -24,7 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property int readActionCount;
 @property int readFeedbackCount;
 @property int startPosition;
-@property float startTimeSecond;
+@property double startTimeSecond;
+@property double preTimeSecond;
 @property (nonatomic, retain) NSMutableArray *keyConceptsAry;
 @property (nonatomic, retain) NSMutableArray *missingConceptsAry;
 @property NSMutableDictionary* pageTimeMap;
