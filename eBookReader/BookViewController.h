@@ -43,7 +43,7 @@
 @property (strong, nonatomic) NSString* userName;
 @property (strong, nonatomic) ContentViewController *currentContentView;
 @property (strong, nonatomic) ContentViewController *loadContentView;
-
+@property  BOOL isSecondView;
 - (void) loadFirstPage;
 -(void) createContentPages;
 -(void)initialPageView;
@@ -52,6 +52,7 @@
 -(void)searchAndHighlightNode;
 -(void)clearAllHighlightNode;
 - (NSInteger)pageNum;
+- (NSInteger)getCurrentPage;
 -(void)splitScreen;
 -(void)searchAndHighlightLink;
 -(void)clearALlHighlight;

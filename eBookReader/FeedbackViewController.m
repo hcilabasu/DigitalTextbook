@@ -117,6 +117,7 @@
         feedbackState=1;
         return;
     }
+    //compare feedback
     if(5==feedbackState){
         [parentCmapController.feedbackPV dismiss];
         [parentCmapController showDualTextbookView];

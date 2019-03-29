@@ -19,6 +19,7 @@
 #import "ExpertModel.h"
 #import "QuartzCore/QuartzCore.h"
 #import "MapFinderViewController.h"
+#import "KeyConcept.h"
 @class LogDataWrapper;
 @interface BookPageViewController : UIViewController <DBRestClientDelegate,UIGestureRecognizerDelegate,UIAlertViewDelegate,UINavigationControllerDelegate,UIWebViewDelegate>
 @property (strong, nonatomic) CmapController *cmapView;
@@ -85,7 +86,8 @@
 -(void)showSecondBookView;
 -(void)showOverlay;
 -(void)hideOverlay;
--(void)showLeftHLRect: (CGPoint*) showPoint;
+-(void)showLeftHLRect: (CGPoint) showPoint;
+-(void)showRightHLRect: (CGPoint) showPoint;
 -(void)showLinkNameFinder;
 @end
 

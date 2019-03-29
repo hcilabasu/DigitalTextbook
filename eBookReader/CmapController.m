@@ -311,13 +311,21 @@
     [feedbackCtr animateProgressView];
 }
 
+-(void)showCompareFeedbackmessage: (int)m_pageLeft RightPage: (int)m_rightPage leftPosition: (CGPoint)m_leftPosition rightPosition: (CGPoint)rightPosition {
+    feedbackPV= [[PopoverView alloc] initWithFrame:CGRectZero];
+    feedbackCtr.feedbackState=5;
+    feedbackPV.delegate=self;
+    [feedbackPV showAtPoint:CGPointMake(0, 0) inView:agent withContentView: feedbackCtr.view];
+    feedbackCtr.messageView.text=@"Hi, there is a concept in page 15 that is related to what you are reading. Do you want to quickly compare them?";
+    [feedbackCtr animateProgressView];
+}
 
 - (void)popoverViewDidDismiss:(PopoverView *)popoverView{
     [parentBookPageViewController hideOverlay];
     [feedbackCtr.progressTimer invalidate];
 }
 
--(void)showDualTextbookView{
+-(void)showDualTextbookView {
     [parentBookPageViewController showSecondBookView];
 }
 

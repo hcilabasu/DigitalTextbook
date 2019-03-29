@@ -21,9 +21,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, retain) CmapLinkWrapper* bookLinkWrapper;
 @property (nonatomic, retain) CmapNodeWrapper* bookNodeWrapper;
 @property (nonatomic, retain) NSMutableArray *unUsedStateArray;
+@property (nonatomic, retain) NSMutableDictionary *NodenamePage;
 @property int readActionCount;
 @property int readFeedbackCount;
 @property int startPosition;
+@property int sequentialAddCount;
 @property double startTimeSecond;
 @property double preTimeSecond;
 @property (nonatomic, retain) NSMutableArray *keyConceptsAry;
@@ -31,6 +33,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSMutableDictionary* pageTimeMap;
 @property NSMutableDictionary* pageStayTimeMap;
 @property int prePageNum;
+@property KeyConcept* kc1;
+@property KeyConcept* kc2;
+@property int comparePageLeft;
+@property int comparePageRight;
+@property NSString* nodeName1;
+@property NSString* nodeName2;
 -(void)evaluate;
 -(void)setupKM;
 @end

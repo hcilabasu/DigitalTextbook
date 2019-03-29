@@ -235,7 +235,7 @@
     HLrectLeft.layer.borderColor = [UIColor colorWithRed:255/255 green:90/255.0 blue:90/255.0 alpha:1].CGColor;
     HLrectLeft.layer.borderWidth = 4.0f;
     
-    HLrectRight=[[UIView alloc]initWithFrame:CGRectMake(100, 100, 80, 20)];
+    HLrectRight=[[UIView alloc]initWithFrame:CGRectMake(100, 100, 160, 20)];
     HLrectRight.layer.borderColor = [UIColor colorWithRed:255/255 green:90/255.0 blue:90/255.0 alpha:1].CGColor;
     HLrectRight.layer.borderWidth = 4.0f;
     [self.view addSubview:HLrectLeft];
@@ -243,14 +243,17 @@
    
 }//end of view did load
 
--(void)showLeftHLRect: (CGPoint*) showPoint{
+-(void)showLeftHLRect: (CGPoint) showPoint{
     if(HLrectLeft){
+    [HLrectLeft setHidden:NO];
     [self.view bringSubviewToFront:HLrectLeft];
     }
 }
 
--(void)showRightHLRect: (CGPoint*) showPoint{
+-(void)showRightHLRect: (CGPoint) showPoint{
     if(HLrectRight){
+    [HLrectRight setHidden:NO];
+    HLrectRight.center=showPoint;
     [self.view bringSubviewToFront:HLrectRight];
     }
 }
@@ -551,6 +554,7 @@
     
     
     secondBookView = [[BookViewController alloc]init];
+    secondBookView.isSecondView=YES;
     secondBookView.userName=userName;
     secondBookView.parent_BookPageViewController=self;
     secondBookView.bookImporter = bookView.bookImporter;
@@ -576,16 +580,37 @@
     [secondBookView.view setHidden:NO];
     [compareViewReturnButton setHidden:NO];
     [compareTitleButton setHidden:NO];
+    [secondBookView showFirstPage:18];
     [self.view bringSubviewToFront:secondBookView .view];
     [self.view bringSubviewToFront:bookView.view];
     [self.view bringSubviewToFront:compareViewReturnButton];
     [self.view bringSubviewToFront:compareTitleButton];
+    int currentPage=(int)[bookView getCurrentPage];
+
+    
+    if(  (expertModel.comparePageLeft != currentPage) && (expertModel.comparePageRight!=currentPage)){
+        [bookView showFirstPage: expertModel.comparePageLeft];
+        [secondBookView showFirstPage: expertModel.comparePageRight];
+    }else if(expertModel.comparePageLeft == currentPage){
+         [secondBookView showFirstPage: expertModel.comparePageRight];
+    }else if(expertModel.comparePageRight == currentPage){
+        [secondBookView showFirstPage: expertModel.comparePageLeft];
+    }
+    
+    
+    //KeyConcept* habitatDestruction= [[KeyConcept alloc]initWithVariable:@"habitat" Page:19 Subpage:1 Position: CGPointMake(65+530, 270)];
+   // [self showRightHLRect:habitatDestruction.position];
 }
+
+
+
 
 -(void)returnToCmapView{
     [secondBookView.view setHidden:YES];
     [compareViewReturnButton setHidden:YES];
     [compareTitleButton setHidden:YES];
+    [HLrectLeft setHidden:YES];
+    [HLrectRight setHidden:YES];
 }
 
 -(void)createCmapView{

@@ -26,7 +26,7 @@
     KeyConcept* threatened= [[KeyConcept alloc]initWithVariable:@"threatened" Page:5 Subpage:1 Position: CGPointMake(416, 212)];
     KeyConcept* HIPPO= [[KeyConcept alloc]initWithVariable:@"hippo" Page:16 Subpage:1 Position: CGPointMake(32, 366)];
     KeyConcept* instrumentalValue= [[KeyConcept alloc]initWithVariable:@"instrumental" Page:12 Subpage:1 Position: CGPointMake(380, 290)];
-    KeyConcept* habitatDestruction= [[KeyConcept alloc]initWithVariable:@"habitat" Page:19 Subpage:1 Position: CGPointMake(306, 464)];
+    KeyConcept* habitatDestruction= [[KeyConcept alloc]initWithVariable:@"habitat" Page:19 Subpage:1 Position: CGPointMake(79, 270)];
     KeyConcept* ecologicalService= [[KeyConcept alloc]initWithVariable:@"ecological service" Page:11 Subpage:1 Position: CGPointMake(178, 702)];
     KeyConcept* economicValue= [[KeyConcept alloc]initWithVariable:@"economic value" Page:12 Subpage:1 Position: CGPointMake(305, 333)];
     KeyConcept* biopholia= [[KeyConcept alloc]initWithVariable:@"biopholia" Page:13 Subpage:1 Position: CGPointMake(130, 675)];

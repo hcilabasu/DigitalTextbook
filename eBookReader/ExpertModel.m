@@ -32,6 +32,14 @@
 @synthesize prePageNum;
 @synthesize pageStayTimeMap;
 @synthesize preTimeSecond;
+@synthesize kc1;
+@synthesize kc2;
+@synthesize comparePageLeft;
+@synthesize comparePageRight;
+@synthesize sequentialAddCount;
+@synthesize nodeName1;
+@synthesize nodeName2;
+@synthesize NodenamePage;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -44,6 +52,7 @@
 
 -(void)setupKM{
     readActionCount=0;
+    sequentialAddCount=0;
     readFeedbackCount=0;
     startPosition=0;
     KnowledgeModel* KM=[[KnowledgeModel alloc]init];
@@ -64,7 +73,6 @@
 
 -(void)evaluate{
     LogData *lastdata= [logArray lastObject];
-
     LogData *secondLastData= [logArray objectAtIndex: ([logArray count]-2)];
     NSString* lastAction=lastdata.action;
     NSString* secondLastAction=secondLastData.action;
@@ -106,6 +114,24 @@
         prePageNum=page;
     }
     
+    
+    //check if NNN feature
+    if (  [lastAction rangeOfString:@"creat"].location != NSNotFound){
+        sequentialAddCount++;
+        NSString* nodeName=lastdata.input;
+        if ([nodeName isEqualToString:@"null"]){
+            NSLog(@"");
+        }
+        if( (![nodeName isEqualToString:@"null"]) &&sequentialAddCount>2 ){
+            [parentCmapController showCompareFeedbackmessage];
+            sequentialAddCount=0;
+        }
+    }
+    
+    if (  [lastAction rangeOfString:@"Linking concepts"].location != NSNotFound){
+        sequentialAddCount=0;
+    }
+    
     stateArray=[[NSMutableArray alloc]init];
     int prePage=0;
     BOOL isPosNavi=YES;
@@ -122,7 +148,7 @@
     }
     
     
-    NSMutableDictionary *NodenamePage = [[NSMutableDictionary alloc] init];
+    NodenamePage = [[NSMutableDictionary alloc] init];
     for(CmapNode* node in bookNodeWrapper.cmapNodes){
         NSString *pageString = [NSString stringWithFormat:@"%d",node.pageNum];
         NSString* nodeName=node.text;
@@ -145,7 +171,8 @@
         
         if (  [action rangeOfString:@"creat"].location != NSNotFound) {
             currentState=@"A";
-            [stateArray addObject:currentState];
+    
+        
         }else if( [action rangeOfString:@"urned to page"].location != NSNotFound){
             //upDatePage time
         
@@ -166,6 +193,7 @@
             prePage=page;
             
         }else if([action rangeOfString:@"Linking concepts"].location != NSNotFound ){
+      
                 currentState=@"L";
                 NSString* leftNodename=input;
                 NSString* rightNodeName=selection;
@@ -181,17 +209,12 @@
                 int delta=abs(  [leftNodePageString intValue]-[rightNodePageString intValue]    );
                 if (delta>0){
                     currentState=@"C";
-                    int leftNodeInt=[leftNodePageString intValue];
-                    int rightNodeInt= [rightNodePageString intValue];
-     
-                    
-                    NSString* leftNodePageStringNew= [NSString stringWithFormat:@"%d", leftNodeInt+1];
-                    NSString* rightNodePageStringNew= [NSString stringWithFormat:@"%d", rightNodeInt+1];
-                    
-                    NSString* leftStayTimeString= pageStayTimeMap[leftNodePageStringNew];
-                    NSString* rightStayTmeString=pageStayTimeMap[rightNodePageStringNew];
-                    double leftStayTime=[leftStayTimeString doubleValue];
-                    double rightStayTime= [rightStayTmeString doubleValue];
+                    nodeName1=leftNodename;
+                    nodeName2=rightNodeName;
+                    comparePageLeft=[leftNodePageString intValue];
+                    comparePageRight=[rightNodePageString intValue];
+                    double leftStayTime = [self returnNodePageStayTime:leftNodename];
+                    double rightStayTime= [self returnNodePageStayTime:rightNodeName];
                     if( leftStayTime>5&& rightStayTime>5){
                         currentState=@"G";
                     }else{
@@ -221,9 +244,9 @@
     
 
     if([lastAction isEqualToString:@"Update Link name from list"] ){
-        if(  [stateArray count]<4){
-            return;
-        }
+        kc1=nil;
+        kc2=nil;
+
         NSString*  preState=[stateArray objectAtIndex: [stateArray count]-1];
         if([preState isEqualToString:@"G"]){
             
@@ -238,6 +261,14 @@
             }
         }
         if([preState isEqualToString:@"C"]){
+            for (KeyConcept* kc in keyConceptsAry){
+                if ([nodeName1.lowercaseString rangeOfString: kc.name].location != NSNotFound) {
+                    kc1=kc;
+                }
+                if ([nodeName2.lowercaseString rangeOfString: kc.name].location != NSNotFound) {
+                    kc2=kc;
+                }
+            }
              [parentCmapController showCompareFeedbackmessage];
         }
     
@@ -254,9 +285,6 @@
     
     
 }//end of evaluate
-
-
-
 
 
 
@@ -305,7 +333,23 @@
 }
 
 
+-(double)returnNodePageStayTime: (NSString*)nodeName{
+    NSString* leftNodePageString=@"0";
+    if(  [NodenamePage objectForKey: nodeName]){
+        leftNodePageString=NodenamePage[nodeName];
+    }
 
+    int leftNodeInt=[leftNodePageString intValue];
+
+    NSString* leftNodePageStringNew= [NSString stringWithFormat:@"%d", leftNodeInt+1];
+    NSString* leftStayTimeString= pageStayTimeMap[leftNodePageStringNew];
+
+    double leftStayTime=[leftStayTimeString doubleValue];
+
+    
+    return leftStayTime;
+    
+}
 
 
 

@@ -48,6 +48,7 @@
 @synthesize userName;
 @synthesize currentContentView;
 @synthesize loadContentView;
+@synthesize isSecondView;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -55,6 +56,7 @@
     thumbnailIcon=[ThumbNailIconParser loadThumbnailIcon];
     logWrapper= [LogDataParser loadLogData];
     [thumbnailIcon printAllThumbnails];
+ 
 
     NSArray * ary=self.view.gestureRecognizers;
     for (UIGestureRecognizer *recognizer in self.view.gestureRecognizers) {
@@ -401,4 +403,7 @@
 }
 
 
+- (NSInteger)getCurrentPage{
+    return _pageNum;
+}
 @end
