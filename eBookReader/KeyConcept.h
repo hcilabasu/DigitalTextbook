@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property CGPoint position;
 @property NSString* keywords;
 
-- (id) initWithVariable: (NSString*) m_name  Page: (int*) m_page   Subpage: (int*)m_subPage   Position: (CGPoint) m_position;
+- (id) initWithVariable: (NSString*) m_name  Page: (int*) m_page   Subpage: (int)m_subPage   Position: (CGPoint) m_position;
 @end
 
 NS_ASSUME_NONNULL_END

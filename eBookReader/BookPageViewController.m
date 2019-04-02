@@ -231,11 +231,11 @@
     expertModel= [[ExpertModel alloc]init];
     [expertModel setupKM];
     
-    HLrectLeft=[[UIView alloc]initWithFrame:CGRectMake(100, 100, 80, 20)];
+    HLrectLeft=[[UIView alloc]initWithFrame:CGRectMake(100, 100, 80, 22)];
     HLrectLeft.layer.borderColor = [UIColor colorWithRed:255/255 green:90/255.0 blue:90/255.0 alpha:1].CGColor;
     HLrectLeft.layer.borderWidth = 4.0f;
     
-    HLrectRight=[[UIView alloc]initWithFrame:CGRectMake(100, 100, 160, 20)];
+    HLrectRight=[[UIView alloc]initWithFrame:CGRectMake(100, 100, 160, 22)];
     HLrectRight.layer.borderColor = [UIColor colorWithRed:255/255 green:90/255.0 blue:90/255.0 alpha:1].CGColor;
     HLrectRight.layer.borderWidth = 4.0f;
     [self.view addSubview:HLrectLeft];
@@ -243,18 +243,25 @@
    
 }//end of view did load
 
--(void)showLeftHLRect: (CGPoint) showPoint{
+-(void)showLeftHLRect: (KeyConcept*) kc{
+    int RectWidth= (int)[kc.conceptName length]*8;
+    [HLrectLeft setFrame: CGRectMake(HLrectLeft.frame.origin.x, HLrectLeft.frame.origin.y, RectWidth, HLrectLeft.frame.size.height)];
+    
     if(HLrectLeft){
-    [HLrectLeft setHidden:NO];
-    [self.view bringSubviewToFront:HLrectLeft];
+        [HLrectLeft setHidden:NO];
+        HLrectLeft.center=kc.position;
+        [self.view bringSubviewToFront:HLrectLeft];
     }
 }
 
--(void)showRightHLRect: (CGPoint) showPoint{
+-(void)showRightHLRect:  (KeyConcept*) kc{
+    int RectWidth= (int)[kc.conceptName length]*8 ;
+    [HLrectRight setFrame: CGRectMake(HLrectRight.frame.origin.x, HLrectRight.frame.origin.y, RectWidth, HLrectRight.frame.size.height)];
+    CGPoint rightPoint= CGPointMake(kc.position.x+530, kc.position.y);
     if(HLrectRight){
-    [HLrectRight setHidden:NO];
-    HLrectRight.center=showPoint;
-    [self.view bringSubviewToFront:HLrectRight];
+        [HLrectRight setHidden:NO];
+        HLrectRight.center=rightPoint;
+        [self.view bringSubviewToFront:HLrectRight];
     }
 }
 
@@ -588,15 +595,23 @@
     int currentPage=(int)[bookView getCurrentPage];
 
     
-    if(  (expertModel.comparePageLeft != currentPage) && (expertModel.comparePageRight!=currentPage)){
+    if((expertModel.comparePageLeft != currentPage) && (expertModel.comparePageRight!=currentPage)){
         [bookView showFirstPage: expertModel.comparePageLeft];
         [secondBookView showFirstPage: expertModel.comparePageRight];
     }else if(expertModel.comparePageLeft == currentPage){
          [secondBookView showFirstPage: expertModel.comparePageRight];
     }else if(expertModel.comparePageRight == currentPage){
         [secondBookView showFirstPage: expertModel.comparePageLeft];
+        KeyConcept* kc3=expertModel.kc1;
+        expertModel.kc1=expertModel.kc2;
+        expertModel.kc2=kc3;
     }
-    
+    if(expertModel.kc1){
+        [self showLeftHLRect: expertModel.kc1];
+    }
+    if(expertModel.kc2){
+        [self showRightHLRect: expertModel.kc2];
+    }
     
     //KeyConcept* habitatDestruction= [[KeyConcept alloc]initWithVariable:@"habitat" Page:19 Subpage:1 Position: CGPointMake(65+530, 270)];
    // [self showRightHLRect:habitatDestruction.position];

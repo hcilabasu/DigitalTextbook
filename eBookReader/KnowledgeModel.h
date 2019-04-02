@@ -8,12 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "KeyConcept.h"
+#import "KeyLink.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface KnowledgeModel : UIViewController
 @property (nonatomic, retain) NSMutableArray *keyConceptsAry;
 -(NSMutableArray*) getKeyConceptLists;
-
+-(NSMutableArray*) getKeyLinkLists;
 
 @end
 

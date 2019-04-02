@@ -292,12 +292,12 @@
     //[parentBookPageViewController showLeftHLRect];
 }
 
--(void)showNavigationFeedbackmessage{
+-(void)showAddAddAddFeedbackmessage{
     feedbackPV= [[PopoverView alloc] initWithFrame:CGRectZero];
-    feedbackCtr.feedbackState=4;
+    feedbackCtr.feedbackState=FBTYPE_AAA;
+    [feedbackCtr upDateContent];
     feedbackPV.delegate=self;
     [feedbackPV showAtPoint:CGPointMake(0, 0) inView:agent withContentView: feedbackCtr.view];
-    feedbackCtr.messageView.text=@"Hi, there is a concept in page 5 that you missed. Do you want to take another look at it?";
     [feedbackCtr animateProgressView];
 }
 
@@ -319,6 +319,11 @@
     feedbackCtr.messageView.text=@"Hi, there is a concept in page 15 that is related to what you are reading. Do you want to quickly compare them?";
     [feedbackCtr animateProgressView];
 }
+
+
+
+
+
 
 - (void)popoverViewDidDismiss:(PopoverView *)popoverView{
     [parentBookPageViewController hideOverlay];

@@ -31,9 +31,9 @@
     KeyConcept* economicValue= [[KeyConcept alloc]initWithVariable:@"economic value" Page:12 Subpage:1 Position: CGPointMake(305, 333)];
     KeyConcept* biopholia= [[KeyConcept alloc]initWithVariable:@"biopholia" Page:13 Subpage:1 Position: CGPointMake(130, 675)];
     KeyConcept* intrinsicValue= [[KeyConcept alloc]initWithVariable:@"intrinsic" Page:15 Subpage:1 Position: CGPointMake(252, 412)];
-    KeyConcept* localExtinction= [[KeyConcept alloc]initWithVariable:@"local extinction" Page:4 Subpage:1 Position: CGPointMake(407, 393)];
-    KeyConcept* ecologicaExtinction= [[KeyConcept alloc]initWithVariable:@"ecological extinction" Page:4 Subpage:1 Position: CGPointMake(252, 451)];
-    KeyConcept* biologicalExtinction= [[KeyConcept alloc]initWithVariable:@"biological extinction" Page:4 Subpage:1 Position: CGPointMake(382, 494)];
+    KeyConcept* localExtinction= [[KeyConcept alloc]initWithVariable:@"local" Page:4 Subpage:1 Position: CGPointMake(407, 393)];
+    KeyConcept* ecologicaExtinction= [[KeyConcept alloc]initWithVariable:@"ecological" Page:4 Subpage:1 Position: CGPointMake(252, 451)];
+    KeyConcept* biologicalExtinction= [[KeyConcept alloc]initWithVariable:@"biological" Page:4 Subpage:1 Position: CGPointMake(382, 494)];
     KeyConcept* invasiveSpecies= [[KeyConcept alloc]initWithVariable:@"invasive" Page:16 Subpage:1 Position: CGPointMake(133, 484)];
     KeyConcept* pollution= [[KeyConcept alloc]initWithVariable:@"pollution" Page:16 Subpage:1 Position: CGPointMake(299, 503)];
     KeyConcept* overHarvesting= [[KeyConcept alloc]initWithVariable:@"harvest" Page:16 Subpage:1 Position: CGPointMake(399, 502)];
@@ -65,6 +65,41 @@
     [list addObject: overHarvesting];
     [list addObject: population];
     return list;
+}
+
+
+
+-(NSMutableArray*) getKeyLinkLists{
+    NSMutableArray* list= [[NSMutableArray alloc]init];
+    KeyLink* link1= [[KeyLink alloc] initWithNames:@"species" RightName:@"endangered"];
+    KeyLink* link2= [[KeyLink alloc] initWithNames:@"species" RightName:@"threatened"];
+    KeyLink* link3= [[KeyLink alloc] initWithNames:@"species" RightName:@"instrumental"];
+    KeyLink* link4= [[KeyLink alloc] initWithNames:@"species" RightName:@"economic"];
+    KeyLink* link5= [[KeyLink alloc] initWithNames:@"species" RightName:@"intrinsic"];
+    KeyLink* link6= [[KeyLink alloc] initWithNames:@"extinction" RightName:@"local"];
+    KeyLink* link7= [[KeyLink alloc] initWithNames:@"extinction" RightName:@"ecological"];
+    KeyLink* link8= [[KeyLink alloc] initWithNames:@"extinction" RightName:@"biological"];
+    KeyLink* link9= [[KeyLink alloc] initWithNames:@"HIPPO" RightName:@"harvest"];
+    KeyLink* link10= [[KeyLink alloc] initWithNames:@"HIPPO" RightName:@"pollution"];
+    KeyLink* link11= [[KeyLink alloc] initWithNames:@"HIPPO" RightName:@"population"];
+    KeyLink* link12= [[KeyLink alloc] initWithNames:@"HIPPO" RightName:@"invasive"];
+    KeyLink* link13= [[KeyLink alloc] initWithNames:@"HIPPO" RightName:@"habitat"];
+
+    [list addObject: link1];
+    [list addObject: link2];
+    [list addObject: link3];
+    [list addObject: link4];
+    [list addObject: link5];
+    [list addObject: link6];
+    [list addObject: link7];
+    [list addObject: link8];
+    [list addObject: link9];
+    [list addObject: link10];
+    [list addObject: link11];
+    [list addObject: link12];
+    [list addObject: link13];
+    return list;
+    
 }
 
 @end

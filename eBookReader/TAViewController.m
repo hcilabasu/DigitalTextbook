@@ -48,7 +48,7 @@
 - (void)doubleTapAgent:(UITapGestureRecognizer *)recognizer
 {
     [parentCmapController.feedbackPV dismiss];
-    [parentCmapController showNavigationFeedbackmessage];
+    //[parentCmapController showNavigationFeedbackmessage];
 }
 
 - (void)singleTapAgent:(UITapGestureRecognizer *)recognizer

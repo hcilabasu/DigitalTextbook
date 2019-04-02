@@ -40,6 +40,7 @@
 @synthesize nodeName1;
 @synthesize nodeName2;
 @synthesize NodenamePage;
+@synthesize keyLinksAry;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -57,6 +58,7 @@
     startPosition=0;
     KnowledgeModel* KM=[[KnowledgeModel alloc]init];
     keyConceptsAry=[KM getKeyConceptLists];
+    keyLinksAry= [KM getKeyLinkLists];
     missingConceptsAry= [[NSMutableArray alloc]init];
     pageTimeMap=[[NSMutableDictionary alloc]init];
     pageStayTimeMap=[[NSMutableDictionary alloc]init];
@@ -123,10 +125,12 @@
             NSLog(@"");
         }
         if( (![nodeName isEqualToString:@"null"]) &&sequentialAddCount>2 ){
-            [parentCmapController showCompareFeedbackmessage];
+            [parentCmapController showAddAddAddFeedbackmessage];
             sequentialAddCount=0;
         }
     }
+    
+    
     
     if (  [lastAction rangeOfString:@"Linking concepts"].location != NSNotFound){
         sequentialAddCount=0;

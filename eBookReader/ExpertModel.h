@@ -29,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property double startTimeSecond;
 @property double preTimeSecond;
 @property (nonatomic, retain) NSMutableArray *keyConceptsAry;
+@property (nonatomic, retain) NSMutableArray *keyLinksAry;
 @property (nonatomic, retain) NSMutableArray *missingConceptsAry;
 @property NSMutableDictionary* pageTimeMap;
 @property NSMutableDictionary* pageStayTimeMap;
@@ -39,6 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property int comparePageRight;
 @property NSString* nodeName1;
 @property NSString* nodeName2;
+
 -(void)evaluate;
 -(void)setupKM;
 @end

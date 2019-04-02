@@ -11,6 +11,13 @@
 #import "AddNodeFBViewController.h"
 #import "MBCircularProgressBarView.h"
 #import "MBCircularProgressBarLayer.h"
+#define FBTYPE_COMPARE 5
+#define FBTYPE_NAVIGATION 4
+#define FBTYPE_POSITIVE 10
+#define FBTYPE_RRR 1
+#define FBTYPE_ADD 3
+#define FBTYPE_DEFAULT 1
+#define FBTYPE_AAA 6
 @class CmapController;
 
 

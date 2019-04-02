@@ -86,8 +86,8 @@
 -(void)showSecondBookView;
 -(void)showOverlay;
 -(void)hideOverlay;
--(void)showLeftHLRect: (CGPoint) showPoint;
--(void)showRightHLRect: (CGPoint) showPoint;
+-(void)showLeftHLRect: (KeyConcept*) kc;
+-(void)showRightHLRect: (KeyConcept*) kc;
 -(void)showLinkNameFinder;
 @end
 

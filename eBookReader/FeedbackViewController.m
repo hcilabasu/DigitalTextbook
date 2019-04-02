@@ -134,27 +134,81 @@
 
 
 -(void)upDateContent{
-  leftButton.enabled=YES;
+    leftButton.enabled=YES;
     if(addNodeViewCtr.view){
         [addNodeViewCtr.view removeFromSuperview];
     }
     
-  if(1==feedbackState){
+    if(1==feedbackState){
       messageView.text=@"I notied that you've been reading for a while, would you like to consider adding some nodes to your map?";
       [leftButton setTitle:@"OK" forState:UIControlStateNormal];
-      
       if(missingConceptAry.count>0){
           [leftButton setTitle:@"Show me some" forState:UIControlStateNormal];
       }
-      
-  }
+    }
     
     if(10==feedbackState){
         messageView.text=@"Good job! You just compared related concepts and created cross-links. Behaviors like this will help you understand the content more!";
         [leftButton setTitle:@"OK" forState:UIControlStateNormal];
     }
     
+    if(FBTYPE_AAA==feedbackState){
+        messageView.text=@"I noticed that you've been adding several concept nodes. Linking the nodes you created with the exisitng map would be beneficial!";
+        [leftButton setTitle:@"OK" forState:UIControlStateNormal];
+        
+        
+    }
     
+}
+
+
+
+-(int)getRelatedNodePage{
+    int page=-1;
+    int nodeCount= (int) [parentCmapController.conceptNodeArray count];
+    if(nodeCount<3){
+        return -1;
+    }
+    NSString* relatedConceptName=@"";
+    CmapNode* node1= [parentCmapController.conceptNodeArray objectAtIndex:nodeCount-1];
+    CmapNode* node2= [parentCmapController.conceptNodeArray objectAtIndex:nodeCount-2];
+    CmapNode* node3= [parentCmapController.conceptNodeArray objectAtIndex:nodeCount-3];
+    for ( KeyLink* link in parentCmapController.parentBookPageViewController.expertModel.keyLinksAry ){
+        if ([node1.text rangeOfString: link.leftName].location != NSNotFound) {
+            relatedConceptName=link.rightname;
+        }
+        if ([node1.text rangeOfString: link.rightname].location != NSNotFound) {
+            relatedConceptName=link.leftName;
+        }
+        
+        if ([node2.text rangeOfString: link.leftName].location != NSNotFound) {
+            relatedConceptName=link.rightname;
+        }
+        if ([node2.text rangeOfString: link.rightname].location != NSNotFound) {
+            relatedConceptName=link.leftName;
+        }
+        
+        if ([node3.text rangeOfString: link.leftName].location != NSNotFound) {
+            relatedConceptName=link.rightname;
+        }
+        if ([node3.text rangeOfString: link.rightname].location != NSNotFound) {
+            relatedConceptName=link.leftName;
+        }
+    }
+    if( [relatedConceptName isEqualToString:@""]){
+        return -1;
+    }
+    
+    for (KeyConcept* kc in parentCmapController.parentBookPageViewController.expertModel.keyConceptsAry){
+        
+        
+    }
+    
+    
+    
+    
+    
+    return -1;
 }
 
 @end
