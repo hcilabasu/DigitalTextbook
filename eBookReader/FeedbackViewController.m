@@ -104,6 +104,10 @@
         return;
     }
     if(2==feedbackState){
+        LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Show node panel" selection:@"Tutor" input:@"" pageNum:parentCmapController.pageNum];
+        [bookLogDataWrapper addLogs:newlog];
+        [LogDataParser saveLogData:bookLogDataWrapper];
+        
         [self showAddNodePanel];
         feedbackState=3;
         return;
@@ -112,16 +116,25 @@
         [parentCmapController.feedbackPV dismiss];
         [parentCmapController createNodeFromBook:CGPointMake( arc4random() % 400+30, 690) withName:addNodeViewCtr.conceptName BookPos:CGPointMake(0, 0) page:1];
         feedbackState=1;
+        LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"create node from feedback hint" selection:@"Tutor" input:addNodeViewCtr.conceptName pageNum:parentCmapController.pageNum];
+        [bookLogDataWrapper addLogs:newlog];
+        [LogDataParser saveLogData:bookLogDataWrapper];
+        
         return;
     }
     if(FBTYPE_NAVIGATION==feedbackState){
+        NSString* inputString= [[NSString alloc]initWithFormat:@"%d",relatedPage-1];
+        LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Feedback Navigatioin" selection:@"Tutor" input:inputString pageNum:parentCmapController.pageNum];
+        [bookLogDataWrapper addLogs:newlog];
+        [LogDataParser saveLogData:bookLogDataWrapper];
         [parentCmapController.feedbackPV dismiss];
         [parentCmapController.parentBookPageViewController.bookView showFirstPage:relatedPage-1];
         feedbackState=1;
         return;
     }
+    
     //compare feedback
-    if(5==feedbackState){
+    if(FBTYPE_COMPARE==feedbackState){
         [parentCmapController.feedbackPV dismiss];
         [parentCmapController showDualTextbookView];
         feedbackState=1;
@@ -144,6 +157,10 @@
     }
     
     if(FBTYPE_RRR==feedbackState){
+    LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Show RRR feedback" selection:@"Tutor" input:@"" pageNum:parentCmapController.pageNum];
+    [bookLogDataWrapper addLogs:newlog];
+    [LogDataParser saveLogData:bookLogDataWrapper];
+        
       messageView.text=@"I notied that you've been reading for a while, would you like to consider adding some nodes to your map?";
       [leftButton setTitle:@"OK" forState:UIControlStateNormal];
       if(missingConceptAry.count>0){
@@ -152,29 +169,40 @@
     }
     
     if(FBTYPE_POSITIVE==feedbackState){
+        LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Show positive feedback" selection:@"Tutor" input:@"" pageNum:parentCmapController.pageNum];
+        [bookLogDataWrapper addLogs:newlog];
+        [LogDataParser saveLogData:bookLogDataWrapper];
+        
         messageView.text=@"Good job! You just compared related concepts and created cross-links. Behaviors like this will help you understand the content more!";
         [leftButton setTitle:@"OK" forState:UIControlStateNormal];
     }
     
     if(FBTYPE_COMPARE==feedbackState){
+        int leftPage=parentCmapController.parentBookPageViewController.expertModel.comparePageLeft;
+        int rightPage=parentCmapController.parentBookPageViewController.expertModel.comparePageRight;
+        NSString* inputString= [[NSString alloc]initWithFormat:@"%d_%d",leftPage,rightPage];
+        LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Show compare feedback" selection:@"Tutor" input:inputString pageNum:parentCmapController.pageNum];
+        [bookLogDataWrapper addLogs:newlog];
+        [LogDataParser saveLogData:bookLogDataWrapper];
+        
         messageView.text=@"Creating cross-links are great! But it looks like you haven't carefully read them yet. Would like to compare these two concepts?";
         [leftButton setTitle:@"OK" forState:UIControlStateNormal];
     }
     
-    
-    
     if(FBTYPE_AAA==feedbackState){
+        LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Show AAA feedback" selection:@"Tutor" input:@"" pageNum:parentCmapController.pageNum];
+        [bookLogDataWrapper addLogs:newlog];
+        [LogDataParser saveLogData:bookLogDataWrapper];
+        
         messageView.text=@"I noticed that you've been adding several concept nodes. Linking the nodes you created with the exisitng map would be beneficial!";
         [leftButton setTitle:@"OK" forState:UIControlStateNormal];
         int page=[self getRelatedNodePage];
         if( page>-1 ){
             relatedPage=page;
             feedbackState=FBTYPE_NAVIGATION;
-             [leftButton setTitle:@"See related concepts" forState:UIControlStateNormal];
+            [leftButton setTitle:@"See related concepts" forState:UIControlStateNormal];
         }
-        
     }
-    
 }
 
 
@@ -185,13 +213,11 @@
     if(nodeCount<3){
         return -1;
     }
+    
     NSString* relatedConceptName=@"";
     NodeCell* node1= [parentCmapController.conceptNodeArray objectAtIndex:nodeCount-1];
     NodeCell* node2= [parentCmapController.conceptNodeArray objectAtIndex:nodeCount-2];
     NodeCell* node3= [parentCmapController.conceptNodeArray objectAtIndex:nodeCount-3];
-    NSString* node1Name=node1.text.text;
-    NSString* node2Name=node2.text.text;
-    NSString* node3Name=node3.text.text;
     for ( KeyLink* link in parentCmapController.parentBookPageViewController.expertModel.keyLinksAry ){
         if ([node1.text.text.lowercaseString rangeOfString: link.leftName.lowercaseString].location != NSNotFound) {
             relatedConceptName=link.rightname.lowercaseString;

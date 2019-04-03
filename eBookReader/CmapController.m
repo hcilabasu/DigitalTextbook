@@ -307,16 +307,17 @@
 -(void)showCompareFeedbackmessage{
     feedbackPV= [[PopoverView alloc] initWithFrame:CGRectZero];
     feedbackCtr.feedbackState=5;
-     [feedbackCtr upDateContent];
+    [feedbackCtr upDateContent];
     feedbackPV.delegate=self;
     [feedbackPV showAtPoint:CGPointMake(0, 0) inView:agent withContentView: feedbackCtr.view];
     [feedbackCtr animateProgressView];
 }
 
+
 -(void)showCompareFeedbackmessage: (int)m_pageLeft RightPage: (int)m_rightPage leftPosition: (CGPoint)m_leftPosition rightPosition: (CGPoint)rightPosition {
     feedbackPV= [[PopoverView alloc] initWithFrame:CGRectZero];
     feedbackCtr.feedbackState=5;
-     [feedbackCtr upDateContent];
+    [feedbackCtr upDateContent];
     feedbackPV.delegate=self;
     [feedbackPV showAtPoint:CGPointMake(0, 0) inView:agent withContentView: feedbackCtr.view];
     [feedbackCtr animateProgressView];
