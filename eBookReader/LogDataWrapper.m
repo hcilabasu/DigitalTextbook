@@ -9,6 +9,7 @@
 #import "LogDataWrapper.h"
 #import "CmapController.h"
 #import "BookPageViewController.h"
+#import "ExpertModel.h"
 @implementation LogDataWrapper
 @synthesize logArray;
 @synthesize expertModel;
@@ -27,8 +28,8 @@
     parentCmapController.parentBookPageViewController.expertModel.logArray=logArray;
     parentCmapController.parentBookPageViewController.expertModel.bookNodeWrapper=parentCmapController.bookNodeWrapper;
     parentCmapController.parentBookPageViewController.expertModel.bookLinkWrapper=parentCmapController.bookLinkWrapper;
-    
     [parentCmapController.parentBookPageViewController.expertModel evaluate];
+    
 }
 
 

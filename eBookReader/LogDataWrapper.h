@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "LogData.h"
-#import "ExpertModel.h"
+@class ExpertModel;
 @class CmapController;
 @interface LogDataWrapper : NSObject
 @property (nonatomic, retain) NSMutableArray *logArray;

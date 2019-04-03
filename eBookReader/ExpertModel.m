@@ -11,6 +11,7 @@
 #import "CmapNodeWrapper.h"
 #import "NodeCell.h"
 #import "CmapController.h"
+
 @interface ExpertModel ()
 
 @end
@@ -41,6 +42,7 @@
 @synthesize nodeName2;
 @synthesize NodenamePage;
 @synthesize keyLinksAry;
+@synthesize bookLogDataWrapper;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.

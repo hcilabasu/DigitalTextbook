@@ -1926,6 +1926,7 @@
 				TargetAttributes = {
 					3166DB4E16B0A5300089C0F2 = {
 						DevelopmentTeam = APBHN348LB;
+						ProvisioningStyle = Automatic;
 					};
 					3166DB7E16B0A5300089C0F2 = {
 						DevelopmentTeam = APBHN348LB;
@@ -2472,6 +2473,8 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = APBHN348LB;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\\\\\\\"$(SRCROOT)/lib/armv6-armv7\\\\\\\"",
@@ -2502,6 +2505,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ASU.StudyA;
 				PRODUCT_NAME = "Cmap H_T";
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 2;
 				"USER_HEADER_SEARCH_PATHS[arch=*]" = "$(SRCROOT)/Source";
 				WRAPPER_EXTENSION = app;
@@ -2514,6 +2518,8 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = APBHN348LB;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\\\\\\\"$(SRCROOT)/lib/armv6-armv7\\\\\\\"",
@@ -2539,6 +2545,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ASU.StudyA;
 				PRODUCT_NAME = "Cmap H_T";
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 2;
 				"USER_HEADER_SEARCH_PATHS[arch=*]" = "$(SRCROOT)/Source";
 				WRAPPER_EXTENSION = app;

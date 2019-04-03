@@ -10,6 +10,7 @@
 #import "CmapController.h"
 #import "BookPageViewController.h"
 #import "BookViewController.h"
+
 @interface FeedbackViewController ()
 @property float time;
 @end
@@ -25,6 +26,8 @@
 @synthesize animatedSwitch;
 @synthesize progressTimer;
 @synthesize missingConceptAry;
+@synthesize relatedPage;
+@synthesize bookLogDataWrapper;
 - (void)viewDidLoad {
     [super viewDidLoad];
     feedbackState=1;
@@ -111,9 +114,9 @@
         feedbackState=1;
         return;
     }
-    if(4==feedbackState){
+    if(FBTYPE_NAVIGATION==feedbackState){
         [parentCmapController.feedbackPV dismiss];
-        [parentCmapController.parentBookPageViewController.bookView showFirstPage:4];
+        [parentCmapController.parentBookPageViewController.bookView showFirstPage:relatedPage-1];
         feedbackState=1;
         return;
     }
@@ -130,6 +133,7 @@
 
 - (IBAction)clickOnRight:(id)sender {
     [parentCmapController.feedbackPV dismiss];
+    
 }
 
 
@@ -139,7 +143,7 @@
         [addNodeViewCtr.view removeFromSuperview];
     }
     
-    if(1==feedbackState){
+    if(FBTYPE_RRR==feedbackState){
       messageView.text=@"I notied that you've been reading for a while, would you like to consider adding some nodes to your map?";
       [leftButton setTitle:@"OK" forState:UIControlStateNormal];
       if(missingConceptAry.count>0){
@@ -147,15 +151,27 @@
       }
     }
     
-    if(10==feedbackState){
+    if(FBTYPE_POSITIVE==feedbackState){
         messageView.text=@"Good job! You just compared related concepts and created cross-links. Behaviors like this will help you understand the content more!";
         [leftButton setTitle:@"OK" forState:UIControlStateNormal];
     }
     
+    if(FBTYPE_COMPARE==feedbackState){
+        messageView.text=@"Creating cross-links are great! But it looks like you haven't carefully read them yet. Would like to compare these two concepts?";
+        [leftButton setTitle:@"OK" forState:UIControlStateNormal];
+    }
+    
+    
+    
     if(FBTYPE_AAA==feedbackState){
         messageView.text=@"I noticed that you've been adding several concept nodes. Linking the nodes you created with the exisitng map would be beneficial!";
         [leftButton setTitle:@"OK" forState:UIControlStateNormal];
-        
+        int page=[self getRelatedNodePage];
+        if( page>-1 ){
+            relatedPage=page;
+            feedbackState=FBTYPE_NAVIGATION;
+             [leftButton setTitle:@"See related concepts" forState:UIControlStateNormal];
+        }
         
     }
     
@@ -170,29 +186,32 @@
         return -1;
     }
     NSString* relatedConceptName=@"";
-    CmapNode* node1= [parentCmapController.conceptNodeArray objectAtIndex:nodeCount-1];
-    CmapNode* node2= [parentCmapController.conceptNodeArray objectAtIndex:nodeCount-2];
-    CmapNode* node3= [parentCmapController.conceptNodeArray objectAtIndex:nodeCount-3];
+    NodeCell* node1= [parentCmapController.conceptNodeArray objectAtIndex:nodeCount-1];
+    NodeCell* node2= [parentCmapController.conceptNodeArray objectAtIndex:nodeCount-2];
+    NodeCell* node3= [parentCmapController.conceptNodeArray objectAtIndex:nodeCount-3];
+    NSString* node1Name=node1.text.text;
+    NSString* node2Name=node2.text.text;
+    NSString* node3Name=node3.text.text;
     for ( KeyLink* link in parentCmapController.parentBookPageViewController.expertModel.keyLinksAry ){
-        if ([node1.text rangeOfString: link.leftName].location != NSNotFound) {
-            relatedConceptName=link.rightname;
+        if ([node1.text.text.lowercaseString rangeOfString: link.leftName.lowercaseString].location != NSNotFound) {
+            relatedConceptName=link.rightname.lowercaseString;
         }
-        if ([node1.text rangeOfString: link.rightname].location != NSNotFound) {
-            relatedConceptName=link.leftName;
-        }
-        
-        if ([node2.text rangeOfString: link.leftName].location != NSNotFound) {
-            relatedConceptName=link.rightname;
-        }
-        if ([node2.text rangeOfString: link.rightname].location != NSNotFound) {
-            relatedConceptName=link.leftName;
+        if ([node1.text.text.lowercaseString rangeOfString: link.rightname.lowercaseString].location != NSNotFound) {
+            relatedConceptName=link.leftName.lowercaseString;
         }
         
-        if ([node3.text rangeOfString: link.leftName].location != NSNotFound) {
-            relatedConceptName=link.rightname;
+        if ([node2.text.text.lowercaseString rangeOfString: link.leftName.lowercaseString].location != NSNotFound) {
+            relatedConceptName=link.rightname.lowercaseString;
         }
-        if ([node3.text rangeOfString: link.rightname].location != NSNotFound) {
-            relatedConceptName=link.leftName;
+        if ([node2.text.text.lowercaseString rangeOfString: link.rightname.lowercaseString].location != NSNotFound) {
+            relatedConceptName=link.leftName.lowercaseString;
+        }
+        
+        if ([node3.text.text.lowercaseString rangeOfString: link.leftName.lowercaseString].location != NSNotFound) {
+            relatedConceptName=link.rightname.lowercaseString;
+        }
+        if ([node3.text.text.lowercaseString rangeOfString: link.rightname.lowercaseString].location != NSNotFound) {
+            relatedConceptName=link.leftName.lowercaseString;
         }
     }
     if( [relatedConceptName isEqualToString:@""]){
@@ -200,14 +219,12 @@
     }
     
     for (KeyConcept* kc in parentCmapController.parentBookPageViewController.expertModel.keyConceptsAry){
-        
-        
+        if ([kc.name.lowercaseString rangeOfString: relatedConceptName].location != NSNotFound) {
+            page=kc.page;
+            return page;
+        }
     }
-    
-    
-    
-    
-    
+
     return -1;
 }
 

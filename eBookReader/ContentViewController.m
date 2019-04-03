@@ -56,7 +56,6 @@ static NSString *cellId2 = @"cellId2";
     UISlider *xOffsetSlider;
     UISegmentedControl *exampleSwitch;
     AWCollectionViewDialLayout *dialLayout;
-    
     int type;
 }
 @synthesize webView;
@@ -130,7 +129,6 @@ static NSString *cellId2 = @"cellId2";
     parent_BookViewController.parent_BookPageViewController.cmapView.pageNum=pageNum;
    // [self.parentViewController.navigationController setNavigationBarHidden: YES animated:YES];
     //[self.navigationController setNavigationBarHidden: YES animated:YES];
-    
     
     // Update webview
     NSString *urlString = [[NSString alloc]initWithFormat:@"http://192.168.0.18:8000/digitaltextbook/default/page?page_num=%d",pageNum];
@@ -279,14 +277,12 @@ static NSString *cellId2 = @"cellId2";
     // [self.parentViewController.navigationController setNavigationBarHidden: NO animated:YES];
     // [self.navigationController setNavigationBarHidden: NO animated:YES];
     [self.webView becomeFirstResponder];
-    
-
     NSString *str=[[NSString alloc]initWithFormat:@"Page %d did load.",pageNum];
     NSLog(str);
     //[self performTouchInView:webView];
+    //parent_BookViewController.parent_BookPageViewController 
     
-
-}
+}//end of view did load
 
 
 

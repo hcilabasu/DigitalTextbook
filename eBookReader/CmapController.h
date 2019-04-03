@@ -212,7 +212,6 @@
 -(void)dismissLinkHint;
 -(void)showNoteTaking: (CGPoint)showpoint;
 -(void)saveLog: (NSString*)m_sessionID Action: (NSString*)m_action Selection: (NSString*)m_selection Input: (NSString*)m_input PageNumber: (int)m_pageNum;
--(void)showFeedbackmessage;
 -(void)showDualTextbookView;
 -(void)showAddAddAddFeedbackmessage;
 -(void)showCompareFeedbackmessage;

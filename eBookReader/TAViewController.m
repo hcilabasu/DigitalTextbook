@@ -41,20 +41,18 @@
 
 - (void)longPressAgent:(UITapGestureRecognizer *)recognizer
 {
-    [parentCmapController.feedbackPV dismiss];
-    [parentCmapController showCompareFeedbackmessage];
+    
 }
+
 
 - (void)doubleTapAgent:(UITapGestureRecognizer *)recognizer
 {
-    [parentCmapController.feedbackPV dismiss];
-    //[parentCmapController showNavigationFeedbackmessage];
+
 }
 
 - (void)singleTapAgent:(UITapGestureRecognizer *)recognizer
 {   
-    [parentCmapController showFeedbackmessage];
-    //[parentCmapController showDualTextbookView];
+
 }
 
 

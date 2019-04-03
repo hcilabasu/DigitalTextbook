@@ -10,6 +10,9 @@
 #import "CmapNodeParser.h"
 #import "CmapLinkParser.h"
 #import "KnowledgeModel.h"
+#import "LogData.h"
+#import "LogDataParser.h"
+#import "LogDataWrapper.h"
 NS_ASSUME_NONNULL_BEGIN
 @class CmapController;
 @class CmapLinkWrapper;
@@ -40,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property int comparePageRight;
 @property NSString* nodeName1;
 @property NSString* nodeName2;
-
+@property (nonatomic, strong) LogDataWrapper* bookLogDataWrapper;
 -(void)evaluate;
 -(void)setupKM;
 @end

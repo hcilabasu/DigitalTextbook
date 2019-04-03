@@ -229,8 +229,8 @@
     [self.view addSubview:overlayView];
     [overlayView setHidden:YES];
     expertModel= [[ExpertModel alloc]init];
+    expertModel.bookLogDataWrapper=logWrapper;
     [expertModel setupKM];
-    
     HLrectLeft=[[UIView alloc]initWithFrame:CGRectMake(100, 100, 80, 22)];
     HLrectLeft.layer.borderColor = [UIColor colorWithRed:255/255 green:90/255.0 blue:90/255.0 alpha:1].CGColor;
     HLrectLeft.layer.borderWidth = 4.0f;
@@ -587,7 +587,7 @@
     [secondBookView.view setHidden:NO];
     [compareViewReturnButton setHidden:NO];
     [compareTitleButton setHidden:NO];
-    [secondBookView showFirstPage:18];
+    [secondBookView showFirstPage:0];
     [self.view bringSubviewToFront:secondBookView .view];
     [self.view bringSubviewToFront:bookView.view];
     [self.view bringSubviewToFront:compareViewReturnButton];

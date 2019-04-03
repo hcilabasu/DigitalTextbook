@@ -265,6 +265,7 @@
     TA.parentCmapController=self;
     [self.view addSubview:TA.view];
     feedbackCtr=[[FeedbackViewController alloc]initWithNibName:@"FeedbackViewController" bundle:nil];
+    feedbackCtr.bookLogDataWrapper=bookLogDataWrapper;
     [feedbackCtr.view setBackgroundColor:[UIColor colorWithRed:0.98f green:0.98f blue:0.98f alpha:0.95f]];
     feedbackCtr.parentCmapController=self;
 }//end of view did load
@@ -280,6 +281,7 @@
     [feedbackPV showAtPoint:CGPointMake(0, 0) inView:agent withContentView: feedbackCtr.view];
     [feedbackCtr animateProgressView];
     //[parentBookPageViewController showLeftHLRect];
+
 }
 -(void)showPositiveFeedbackmessage{
     [parentBookPageViewController showOverlay];
@@ -305,29 +307,28 @@
 -(void)showCompareFeedbackmessage{
     feedbackPV= [[PopoverView alloc] initWithFrame:CGRectZero];
     feedbackCtr.feedbackState=5;
+     [feedbackCtr upDateContent];
     feedbackPV.delegate=self;
     [feedbackPV showAtPoint:CGPointMake(0, 0) inView:agent withContentView: feedbackCtr.view];
-    feedbackCtr.messageView.text=@"Hi, there is a concept in page 15 that is related to what you are reading. Do you want to quickly compare them?";
     [feedbackCtr animateProgressView];
 }
 
 -(void)showCompareFeedbackmessage: (int)m_pageLeft RightPage: (int)m_rightPage leftPosition: (CGPoint)m_leftPosition rightPosition: (CGPoint)rightPosition {
     feedbackPV= [[PopoverView alloc] initWithFrame:CGRectZero];
     feedbackCtr.feedbackState=5;
+     [feedbackCtr upDateContent];
     feedbackPV.delegate=self;
     [feedbackPV showAtPoint:CGPointMake(0, 0) inView:agent withContentView: feedbackCtr.view];
-    feedbackCtr.messageView.text=@"Hi, there is a concept in page 15 that is related to what you are reading. Do you want to quickly compare them?";
     [feedbackCtr animateProgressView];
 }
-
-
-
-
 
 
 - (void)popoverViewDidDismiss:(PopoverView *)popoverView{
     [parentBookPageViewController hideOverlay];
     [feedbackCtr.progressTimer invalidate];
+    LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Dismiss feedback" selection:@"Tutor" input:@"" pageNum:pageNum];
+    [bookLogDataWrapper addLogs:newlog];
+    [LogDataParser saveLogData:bookLogDataWrapper];
 }
 
 -(void)showDualTextbookView {

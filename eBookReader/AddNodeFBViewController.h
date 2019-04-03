@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "KeyConcept.h"
+#import "LogData.h"
+#import "LogDataParser.h"
+#import "LogDataWrapper.h"
 NS_ASSUME_NONNULL_BEGIN
 @class FeedbackViewController;
 @interface AddNodeFBViewController : UIViewController <UIGestureRecognizerDelegate>
@@ -21,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *label3;
 @property (weak, nonatomic) IBOutlet UILabel *label4;
 @property NSString* conceptName;
+@property (nonatomic, strong) LogDataWrapper* bookLogDataWrapper;
 @property (strong, nonatomic) FeedbackViewController *parentFeedbackViewCtr;
 -(void)upDateCandidateNodes: (NSMutableArray*) missingAry;
 @end

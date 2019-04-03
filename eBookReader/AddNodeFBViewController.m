@@ -25,6 +25,7 @@
 @synthesize label4;
 @synthesize conceptName;
 @synthesize parentFeedbackViewCtr;
+@synthesize bookLogDataWrapper;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
