@@ -1146,18 +1146,6 @@
     CGPoint pointInView=position;
     pointInView.x+=conceptMapView.contentOffset.x;
     pointInView.y+=conceptMapView.contentOffset.y;
-    //Saves info into log file
-    if (m_pageNum == 0){ //Made from Web Browser
-        LogData* log= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"creating concept node from web browser " selection:@"web browser" input:name pageNum:0];
-        [bookLogDataWrapper addLogs:log];
-        [LogDataParser saveLogData:bookLogDataWrapper];
-    }
-    else{//from book
-        LogData* log= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"creating concept node from book " selection:@"textbook" input:name pageNum:m_pageNum];
-        [bookLogDataWrapper addLogs:log];
-        [LogDataParser saveLogData:bookLogDataWrapper];
-    }
-
     //creates node
     NodeCell *node=[[NodeCell alloc]initWithNibName:@"NodeCell" bundle:nil];
     node.createType=1;
@@ -1196,6 +1184,20 @@
     [[NSUserDefaults standardUserDefaults] setObject:numString forKey:@"NumOfConcepts"];
     
     node.updateViewSize;
+    
+    //Saves info into log file
+    if (m_pageNum == 0){ //Made from Web Browser
+        LogData* log= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"creating concept node from web browser " selection:@"web browser" input:name pageNum:0];
+        [bookLogDataWrapper addLogs:log];
+        [LogDataParser saveLogData:bookLogDataWrapper];
+    }
+    else{//from book
+        LogData* log= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"creating concept node from book " selection:@"textbook" input:name pageNum:m_pageNum];
+        [bookLogDataWrapper addLogs:log];
+        [LogDataParser saveLogData:bookLogDataWrapper];
+    }
+    
+    
     [self getPreView:nil];
     [self updatePreviewLocation];
     [self autoSaveMap];

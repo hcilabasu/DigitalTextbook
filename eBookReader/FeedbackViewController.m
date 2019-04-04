@@ -218,25 +218,28 @@
     NodeCell* node1= [parentCmapController.conceptNodeArray objectAtIndex:nodeCount-1];
     NodeCell* node2= [parentCmapController.conceptNodeArray objectAtIndex:nodeCount-2];
     NodeCell* node3= [parentCmapController.conceptNodeArray objectAtIndex:nodeCount-3];
+    NSString* node1Name=node1.text.text.lowercaseString;
+    NSString* node2Name=node2.text.text.lowercaseString;
+    NSString* node3Name=node3.text.text.lowercaseString;
     for ( KeyLink* link in parentCmapController.parentBookPageViewController.expertModel.keyLinksAry ){
-        if ([node1.text.text.lowercaseString rangeOfString: link.leftName.lowercaseString].location != NSNotFound) {
+        if ([node1Name rangeOfString: link.leftName.lowercaseString].location != NSNotFound) {
             relatedConceptName=link.rightname.lowercaseString;
         }
-        if ([node1.text.text.lowercaseString rangeOfString: link.rightname.lowercaseString].location != NSNotFound) {
+        if ([node1Name rangeOfString: link.rightname.lowercaseString].location != NSNotFound) {
             relatedConceptName=link.leftName.lowercaseString;
         }
         
-        if ([node2.text.text.lowercaseString rangeOfString: link.leftName.lowercaseString].location != NSNotFound) {
+        if ([node2Name rangeOfString: link.leftName.lowercaseString].location != NSNotFound) {
             relatedConceptName=link.rightname.lowercaseString;
         }
-        if ([node2.text.text.lowercaseString rangeOfString: link.rightname.lowercaseString].location != NSNotFound) {
+        if ([node2Name rangeOfString: link.rightname.lowercaseString].location != NSNotFound) {
             relatedConceptName=link.leftName.lowercaseString;
         }
         
-        if ([node3.text.text.lowercaseString rangeOfString: link.leftName.lowercaseString].location != NSNotFound) {
+        if ([node3Name rangeOfString: link.leftName.lowercaseString].location != NSNotFound) {
             relatedConceptName=link.rightname.lowercaseString;
         }
-        if ([node3.text.text.lowercaseString rangeOfString: link.rightname.lowercaseString].location != NSNotFound) {
+        if ([node3Name rangeOfString: link.rightname.lowercaseString].location != NSNotFound) {
             relatedConceptName=link.leftName.lowercaseString;
         }
     }

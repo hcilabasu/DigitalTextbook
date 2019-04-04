@@ -576,6 +576,20 @@
     }
     //Hyperlinking
     if(enableHyperLink){
+        
+        //save in log file
+        
+        NSString* LogString=[[NSString alloc] initWithFormat:@"Using hyperlink from concept: %@", self.conceptName];
+        NSString *actionString=@"Hyperlink Navigation";
+        if(0==createType){
+            actionString=@"Hyperlink Navigation on Template";
+        }
+        
+        LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:actionString selection:@"concept map view" input:conceptName pageNum:pageNum];
+        [parentCmapController.bookLogDataWrapper addLogs:newlog];
+        [LogDataParser saveLogData:parentCmapController.bookLogDataWrapper];
+        
+        
         if (linkingUrl != nil && linkingUrl.absoluteString.length!=0 ){//created from web Browser
             [self.parentCmapController.parentBookPageViewController showWebView:linkingUrl.absoluteString atNode:self];
             
@@ -599,17 +613,7 @@
         }
         [self.parentCmapController.parentBookPageViewController hideWebView];
         
-        //save in log file
-       
-            NSString* LogString=[[NSString alloc] initWithFormat:@"Using hyperlink from concept: %@", self.conceptName];
-        NSString *actionString=@"Hyperlink Navigation";
-        if(0==createType){
-            actionString=@"Hyperlink Navigation on Template";
-        }
-        
-        LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:actionString selection:@"concept map view" input:conceptName pageNum:pageNum];
-            [parentCmapController.bookLogDataWrapper addLogs:newlog];
-            [LogDataParser saveLogData:parentCmapController.bookLogDataWrapper];
+
     }
     
 

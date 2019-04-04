@@ -184,6 +184,10 @@
         
             if(page>prePage){
                 currentState=@"R";
+                NSString* secondLastAction=secondLastData.action;
+                if(  [secondLastAction.lowercaseString rangeOfString:@"hyperlink"].location != NSNotFound  ){
+                    currentState=@"H";
+                }
                 [stateArray addObject:currentState];
                 isPosNavi=YES;
             }else if ( page<prePage){
@@ -242,7 +246,9 @@
         readActionCount++;
         missingConceptsAry= [self getMissingConcepts:bookNodeWrapper.cmapNodes Page:lastdata.page KeyConceptList:keyConceptsAry];
         
-    }else{
+    }else if([currentState isEqualToString:@"H"]){
+    }
+    else{
         readActionCount=0;
     }
     
@@ -307,6 +313,9 @@
         ismeaningful=YES;
     }
     if ([action rangeOfString:@"Linking concepts"].location != NSNotFound) {
+        ismeaningful=YES;
+    }
+    if ([action rangeOfString:@"hyperlink"].location != NSNotFound) {
         ismeaningful=YES;
     }
     if ([action rangeOfString:@"Update Link name from list"].location != NSNotFound) {
