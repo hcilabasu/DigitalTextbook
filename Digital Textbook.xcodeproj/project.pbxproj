@@ -76,6 +76,7 @@
 		5624843C1CA88A5E000C9115 /* NonHyperLink in Resources */ = {isa = PBXBuildFile; fileRef = 5624843B1CA88A5E000C9115 /* NonHyperLink */; };
 		5624843E1CA894CD000C9115 /* finishTraining.png in Resources */ = {isa = PBXBuildFile; fileRef = 5624843D1CA894CD000C9115 /* finishTraining.png */; };
 		562DD69B1C04DD0900D65FDE /* addIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 562DD69A1C04DD0900D65FDE /* addIcon.png */; };
+		56354413225D1BBA00611106 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 56354412225D1BBA00611106 /* Icon.png */; };
 		5635969F221D2A660064F3AF /* ExpertModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5635969E221D2A660064F3AF /* ExpertModel.m */; };
 		563B50FE1919F6CC00FA0F34 /* CmapNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 563B50FD1919F6CC00FA0F34 /* CmapNode.m */; };
 		563B51011919F99900FA0F34 /* CmapNodeWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 563B51001919F99900FA0F34 /* CmapNodeWrapper.m */; };
@@ -352,7 +353,7 @@
 		314B7E6216C2D9BF0061F0BF /* EBookImporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBookImporter.m; sourceTree = "<group>"; };
 		315F0AE116CC186C00300B19 /* bookshelf_vertical.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookshelf_vertical.png; sourceTree = "<group>"; };
 		315F0AE216CC186C00300B19 /* bookshelf_horizontal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookshelf_horizontal.png; sourceTree = "<group>"; };
-		3166DB4F16B0A5300089C0F2 /* Cmap H_T.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Cmap H_T.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3166DB4F16B0A5300089C0F2 /* Mind Dot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mind Dot.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3166DB5316B0A5300089C0F2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		3166DB5516B0A5300089C0F2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3166DB5716B0A5300089C0F2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -445,6 +446,7 @@
 		5624843B1CA88A5E000C9115 /* NonHyperLink */ = {isa = PBXFileReference; lastKnownFileType = folder; path = NonHyperLink; sourceTree = "<group>"; };
 		5624843D1CA894CD000C9115 /* finishTraining.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = finishTraining.png; sourceTree = "<group>"; };
 		562DD69A1C04DD0900D65FDE /* addIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addIcon.png; sourceTree = "<group>"; };
+		56354412225D1BBA00611106 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = ../../../Downloads/Icon.png; sourceTree = "<group>"; };
 		5635969D221D2A650064F3AF /* ExpertModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExpertModel.h; sourceTree = "<group>"; };
 		5635969E221D2A660064F3AF /* ExpertModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExpertModel.m; sourceTree = "<group>"; };
 		563B50FC1919F6CC00FA0F34 /* CmapNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CmapNode.h; sourceTree = "<group>"; };
@@ -927,7 +929,7 @@
 		3166DB5016B0A5300089C0F2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3166DB4F16B0A5300089C0F2 /* Cmap H_T.app */,
+				3166DB4F16B0A5300089C0F2 /* Mind Dot.app */,
 				3166DB7F16B0A5300089C0F2 /* Study.xctest */,
 			);
 			name = Products;
@@ -1240,6 +1242,7 @@
 			children = (
 				56434C851C7130A700509960 /* TouchTest.m */,
 				56434C871C7130A700509960 /* Info.plist */,
+				56354412225D1BBA00611106 /* Icon.png */,
 			);
 			path = TouchTest;
 			sourceTree = "<group>";
@@ -1889,7 +1892,7 @@
 			);
 			name = Study;
 			productName = eBookReader;
-			productReference = 3166DB4F16B0A5300089C0F2 /* Cmap H_T.app */;
+			productReference = 3166DB4F16B0A5300089C0F2 /* Mind Dot.app */;
 			productType = "com.apple.product-type.application";
 		};
 		3166DB7E16B0A5300089C0F2 /* StudyTests */ = {
@@ -1957,6 +1960,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56354413225D1BBA00611106 /* Icon.png in Resources */,
 				68D1BF0B1DBFFF3100BD09D1 /* aa.epub in Resources */,
 				567924C41B12E7BB007B5038 /* finder_finish.png in Resources */,
 				56711E2C17B776A2001B4585 /* LSHorizontalScrollTabView.xib in Resources */,
@@ -2503,7 +2507,7 @@
 				);
 				OTHER_LDFLAGS = "-lxml2 ";
 				PRODUCT_BUNDLE_IDENTIFIER = ASU.StudyA;
-				PRODUCT_NAME = "Cmap H_T";
+				PRODUCT_NAME = "Mind Dot";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 2;
@@ -2543,7 +2547,7 @@
 				);
 				OTHER_LDFLAGS = "-lxml2 ";
 				PRODUCT_BUNDLE_IDENTIFIER = ASU.StudyA;
-				PRODUCT_NAME = "Cmap H_T";
+				PRODUCT_NAME = "Mind Dot";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 2;

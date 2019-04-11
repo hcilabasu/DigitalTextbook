@@ -143,6 +143,8 @@ static NSString *cellId2 = @"cellId2";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [parent_BookViewController.parent_BookPageViewController HideHighlightRects];
+    
     [webView setFrame:self.view.frame];
     bookLogData.parentCmapController=parent_BookViewController.parent_BookPageViewController.cmapView;
     [ThumbScrollViewRight setHidden:YES];

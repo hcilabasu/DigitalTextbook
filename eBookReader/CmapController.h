@@ -159,6 +159,7 @@
 @property (strong, nonatomic) IBOutlet TAViewController* TA;
 @property (strong, nonatomic) MapFinderViewController* linkNameFinder;
 @property (strong, nonatomic) UITableView* tableView;
+@property int lastFeedbackTimeSecond;
 
 -(void)disableAllNodesEditting;
 -(void)enableAllNodesEditting;

@@ -111,6 +111,7 @@
 @synthesize feedbackCtr;
 @synthesize progressTimer;
 @synthesize linkNameFinder;
+@synthesize lastFeedbackTimeSecond;
 - (id) init {
     if (self = [super init]) {
         nodeCount=1;
@@ -1103,7 +1104,9 @@
     int r = arc4random_uniform(300)+50;
     //r = arc4random_uniform(300)+50;
     
-    CGPoint location=CGPointMake(r, 150);
+    CGPoint location=CGPointMake(r, 650);
+    
+    
     
     location.x+=conceptMapView.contentOffset.x;
     location.y+=conceptMapView.contentOffset.y;
@@ -1316,7 +1319,7 @@
     node.showPoint=clickPoint;
     node.bookLogData=bookLogDataWrapper;
     node.bookHighLight=bookHighlight;
-    node.pageNum=pageNum;
+    node.pageNum=pageNum-1;
     node.bookTitle=bookTitle;
     nodeCount++;
     node.bookthumbNailIcon=bookThumbNial;

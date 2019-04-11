@@ -187,8 +187,8 @@
     UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
     if( (orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight)&&[isPreview isEqualToString:@"YES"]) //horizontal, split screen
     {
-        [previewImg setHidden:NO];
-        [PreviewRect setHidden:NO];
+        [previewImg setHidden:YES];
+        [PreviewRect setHidden:YES];
         
     }else{
         
@@ -197,7 +197,8 @@
         
     }
     
-    if([isPreview isEqualToString:@"YES"]){
+    //shang comment
+    if([isPreview isEqualToString:@"NO"]){
         
         UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
         panGesture.delegate=self;
@@ -624,6 +625,12 @@
     [secondBookView.view setHidden:YES];
     [compareViewReturnButton setHidden:YES];
     [compareTitleButton setHidden:YES];
+    [HLrectLeft setHidden:YES];
+    [HLrectRight setHidden:YES];
+}
+
+
+-(void)HideHighlightRects{
     [HLrectLeft setHidden:YES];
     [HLrectRight setHidden:YES];
 }

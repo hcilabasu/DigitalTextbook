@@ -142,8 +142,6 @@
     int prePage=0;
     BOOL isPosNavi=YES;
     NSString* currentState=@"Load";
-    NSString* preState=@"";
-    BOOL isLinearSequence=NO;
     
     
     if(0== [bookNodeWrapper.cmapNodes count]){

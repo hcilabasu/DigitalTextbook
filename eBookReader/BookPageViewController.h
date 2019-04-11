@@ -89,5 +89,6 @@
 -(void)showLeftHLRect: (KeyConcept*) kc;
 -(void)showRightHLRect: (KeyConcept*) kc;
 -(void)showLinkNameFinder;
+-(void)HideHighlightRects;
 @end
 

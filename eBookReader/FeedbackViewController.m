@@ -114,7 +114,14 @@
     }
     if(3==feedbackState){
         [parentCmapController.feedbackPV dismiss];
-        [parentCmapController createNodeFromBook:CGPointMake( arc4random() % 400+30, 690) withName:addNodeViewCtr.conceptName BookPos:CGPointMake(0, 0) page:1];
+        int page=1;
+        for(KeyConcept * kc in  parentCmapController.parentBookPageViewController.expertModel.keyConceptsAry){
+            if ([addNodeViewCtr.conceptName rangeOfString: kc.conceptName].location != NSNotFound) {
+                page=kc.page;
+            }
+        }
+        
+        [parentCmapController createNodeFromBook:CGPointMake( arc4random() % 400+30, 690) withName:addNodeViewCtr.conceptName BookPos:CGPointMake(0, 0) page:page];
         feedbackState=1;
         LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"create node from feedback hint" selection:@"Tutor" input:addNodeViewCtr.conceptName pageNum:parentCmapController.pageNum];
         [bookLogDataWrapper addLogs:newlog];

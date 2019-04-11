@@ -40,6 +40,8 @@
     KeyConcept* population= [[KeyConcept alloc]initWithVariable:@"population" Page:16 Subpage:1 Position: CGPointMake(350, 484)];
     
     ecologicalService.subName=@"ecological value";
+    biologicalExtinction.conceptName=@"Biological Extinction";
+    localExtinction.conceptName=@"Local Extinction";
     Endangered.conceptName=@"Endangered Species";
     threatened.conceptName=@"Threatened Species";
     instrumentalValue.conceptName=@"Instrumental Value";
@@ -47,6 +49,8 @@
     intrinsicValue.conceptName=@"Intrinsic Value";
     invasiveSpecies.conceptName=@"Invasive Species";
     overHarvesting.conceptName=@"Over Harvest";
+    HIPPO.conceptName=@"HIPPO";
+    intrinsicValue.conceptName=@"Intrinsic Value";
     
     [list addObject: Endangered];
     [list addObject: threatened];
