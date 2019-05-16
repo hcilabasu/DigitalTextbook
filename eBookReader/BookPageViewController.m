@@ -487,13 +487,14 @@
 -(void)dragAndDropConcept:(id)sender{
    // NSLog(@"dadc");
     NSString *selection = @"";
+    NSString *charaterLimitString=@"These words are too long for a single node, try to summarize them!";
     BOOL isHyperLink = [[NSUserDefaults standardUserDefaults] boolForKey:@"HyperLinking"];
     if(0==subViewType){ //selection comes from content view controller
        // NSLog(@"Content View");
         selection = [self.bookView.currentContentView.webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"]; //selection is selected string in content view
         NSLog(@"Selection = %@", selection);
         if(selection.length>50){ //selection is too long
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"You can not add concepts that have more than 50 charaters!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Message" message:charaterLimitString delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
             return;
         }
@@ -517,7 +518,7 @@
         selection = [self.myWebView.webBrowserView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"]; //selection is selected string in web browser view
        // NSLog(@"Selection = %@", selection);
         if(selection.length>50){ //selection is too long
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"You can not add concepts that have more than 50 charaters!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Message" message:charaterLimitString delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
             return;
         }

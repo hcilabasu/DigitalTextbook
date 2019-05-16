@@ -160,7 +160,7 @@
 @property (strong, nonatomic) MapFinderViewController* linkNameFinder;
 @property (strong, nonatomic) UITableView* tableView;
 @property int lastFeedbackTimeSecond;
-
+@property int templateClickCount;
 -(void)disableAllNodesEditting;
 -(void)enableAllNodesEditting;
 -(void)showpageAtIntex: (int)page;
@@ -219,4 +219,5 @@
 -(void)showLinkNameFinder;
 -(void)showReadFeedbackmessage;
 -(void)showPositiveFeedbackmessage;
+-(void)showTemplateFeedbackMessage;
 @end

@@ -98,6 +98,10 @@
 
 
 - (IBAction)clickOnLeft:(id)sender {
+    if(FBTYPE_TEMPLATE==feedbackState){
+         [parentCmapController.feedbackPV dismiss];
+    }
+    
     if(1==feedbackState && (missingConceptAry.count>0)){
         [self showAddNodePanel];
         feedbackState=3;
@@ -163,12 +167,33 @@
         [addNodeViewCtr.view removeFromSuperview];
     }
     
+    
+    if(FBTYPE_TEMPLATE==feedbackState){
+        LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Show template feedback" selection:@"Tutor" input:@"" pageNum:parentCmapController.pageNum];
+        [bookLogDataWrapper addLogs:newlog];
+        [LogDataParser saveLogData:bookLogDataWrapper];
+        messageView.text=@"Reviewing the template before creating your own map would be helpful. Why don't you try tapping on a few nodes in the template?";
+        [leftButton setTitle:@"OK" forState:UIControlStateNormal];
+        
+    }
+    
+    
+    if(FBTYPE_BACK==feedbackState){
+        LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Show back navigation feedback" selection:@"Tutor" input:@"" pageNum:parentCmapController.pageNum];
+        [bookLogDataWrapper addLogs:newlog];
+        [LogDataParser saveLogData:bookLogDataWrapper];
+        messageView.text=@"Constantly reviewing previous concepts and make connections would be helpful. Try it!";
+        [leftButton setTitle:@"OK" forState:UIControlStateNormal];
+        
+    }
+    
+    
     if(FBTYPE_RRR==feedbackState){
     LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Show RRR feedback" selection:@"Tutor" input:@"" pageNum:parentCmapController.pageNum];
     [bookLogDataWrapper addLogs:newlog];
     [LogDataParser saveLogData:bookLogDataWrapper];
         
-      messageView.text=@"I notied that you've been reading for a while, would you like to consider adding some nodes to your map?";
+      messageView.text=@"I noticed that you've been reading for a while, would you like to consider adding some nodes to your map?";
       [leftButton setTitle:@"OK" forState:UIControlStateNormal];
       if(missingConceptAry.count>0){
           [leftButton setTitle:@"Show me some" forState:UIControlStateNormal];

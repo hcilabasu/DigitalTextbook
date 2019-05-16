@@ -583,6 +583,7 @@
         NSString *actionString=@"Hyperlink Navigation";
         if(0==createType){
             actionString=@"Hyperlink Navigation on Template";
+            parentCmapController.templateClickCount++;
         }
         
         LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:actionString selection:@"concept map view" input:conceptName pageNum:pageNum];

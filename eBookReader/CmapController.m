@@ -112,6 +112,7 @@
 @synthesize progressTimer;
 @synthesize linkNameFinder;
 @synthesize lastFeedbackTimeSecond;
+@synthesize templateClickCount;
 - (id) init {
     if (self = [super init]) {
         nodeCount=1;
@@ -323,6 +324,28 @@
     [feedbackPV showAtPoint:CGPointMake(0, 0) inView:agent withContentView: feedbackCtr.view];
     [feedbackCtr animateProgressView];
 }
+
+
+
+-(void)showTemplateFeedbackMessage{
+    feedbackPV= [[PopoverView alloc] initWithFrame:CGRectZero];
+    feedbackCtr.feedbackState=FBTYPE_TEMPLATE;
+    [feedbackCtr upDateContent];
+    feedbackPV.delegate=self;
+    [feedbackPV showAtPoint:CGPointMake(0, 0) inView:agent withContentView: feedbackCtr.view];
+    [feedbackCtr animateProgressView];
+}
+
+
+-(void)showBackNavigationFeedbackMessage{
+    feedbackPV= [[PopoverView alloc] initWithFrame:CGRectZero];
+    feedbackCtr.feedbackState=FBTYPE_BACK;
+    [feedbackCtr upDateContent];
+    feedbackPV.delegate=self;
+    [feedbackPV showAtPoint:CGPointMake(0, 0) inView:agent withContentView: feedbackCtr.view];
+    [feedbackCtr animateProgressView];
+}
+
 
 
 - (void)popoverViewDidDismiss:(PopoverView *)popoverView{

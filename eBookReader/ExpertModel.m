@@ -121,6 +121,12 @@
     
     //check if NNN feature
     if (  [lastAction rangeOfString:@"creat"].location != NSNotFound){
+        
+        if(parentCmapController.templateClickCount<3){
+            [parentCmapController showTemplateFeedbackMessage];
+        }
+        
+        
         sequentialAddCount++;
         NSString* nodeName=lastdata.input;
         if ([nodeName isEqualToString:@"null"]){
@@ -238,7 +244,6 @@
         NSLog(@"%@",st);
     }
     
-
     
     if([currentState isEqualToString:@"R"]){
         readActionCount++;
@@ -251,8 +256,6 @@
     }
     
     // if user creates a cross link, check if reading or comparing has been done.
-    
-
     if([lastAction isEqualToString:@"Update Link name from list"] ){
         kc1=nil;
         kc2=nil;
