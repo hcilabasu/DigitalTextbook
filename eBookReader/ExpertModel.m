@@ -43,6 +43,8 @@
 @synthesize NodenamePage;
 @synthesize keyLinksAry;
 @synthesize bookLogDataWrapper;
+@synthesize lastFeedbackSecond;
+@synthesize actionTimer;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -73,9 +75,29 @@
         pageStayTimeMap[keyString]=@"0.0";
     }
     
+     [self resetActionTimer];
+}
+
+-(void)startActionTimer{
+    actionTimer = [NSTimer scheduledTimerWithTimeInterval: 200.0
+                                                  target: self
+                                                selector:@selector(onTick:)
+                                                userInfo: nil repeats:YES];
+}
+
+-(void)resetActionTimer{
+    [actionTimer invalidate];
+    [self startActionTimer];
+}
+
+
+-(void)onTick:(NSTimer *)timer {
+    //NSLog(@"Timer Triggered!\n\n\n");
+    [parentCmapController showNoActionFeedbackmessage];
 }
 
 -(void)evaluate{
+    
     LogData *lastdata= [logArray lastObject];
     LogData *secondLastData= [logArray objectAtIndex: ([logArray count]-2)];
     NSString* lastAction=lastdata.action;
@@ -94,6 +116,12 @@
     if (!ismeaningful){
         return;
     }
+    
+    
+    if( [lastAction rangeOfString:@"creat"].location == NSNotFound  || [lastAction rangeOfString:@"Linking"].location == NSNotFound){
+        [self resetActionTimer];
+    }
+    
     
     
     if( [lastAction rangeOfString:@"urned to page"].location == NSNotFound){

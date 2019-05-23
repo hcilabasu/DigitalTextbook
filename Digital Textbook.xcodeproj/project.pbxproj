@@ -78,6 +78,8 @@
 		562DD69B1C04DD0900D65FDE /* addIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 562DD69A1C04DD0900D65FDE /* addIcon.png */; };
 		56354413225D1BBA00611106 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 56354412225D1BBA00611106 /* Icon.png */; };
 		5635969F221D2A660064F3AF /* ExpertModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5635969E221D2A660064F3AF /* ExpertModel.m */; };
+		5637A18A2296836500CC11CD /* definite.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5637A1892296836500CC11CD /* definite.mp3 */; };
+		5637A18D2296853400CC11CD /* ring.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 5637A18C229684B200CC11CD /* ring.m4a */; };
 		563B50FE1919F6CC00FA0F34 /* CmapNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 563B50FD1919F6CC00FA0F34 /* CmapNode.m */; };
 		563B51011919F99900FA0F34 /* CmapNodeWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 563B51001919F99900FA0F34 /* CmapNodeWrapper.m */; };
 		563B51041919FA7A00FA0F34 /* CmapNodeParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 563B51031919FA7A00FA0F34 /* CmapNodeParser.m */; };
@@ -449,6 +451,9 @@
 		56354412225D1BBA00611106 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = ../../../Downloads/Icon.png; sourceTree = "<group>"; };
 		5635969D221D2A650064F3AF /* ExpertModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExpertModel.h; sourceTree = "<group>"; };
 		5635969E221D2A660064F3AF /* ExpertModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExpertModel.m; sourceTree = "<group>"; };
+		5637A1892296836500CC11CD /* definite.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = definite.mp3; sourceTree = "<group>"; };
+		5637A18B2296847700CC11CD /* definite.m4r */ = {isa = PBXFileReference; lastKnownFileType = file; path = definite.m4r; sourceTree = "<group>"; };
+		5637A18C229684B200CC11CD /* ring.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = ring.m4a; sourceTree = "<group>"; };
 		563B50FC1919F6CC00FA0F34 /* CmapNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CmapNode.h; sourceTree = "<group>"; };
 		563B50FD1919F6CC00FA0F34 /* CmapNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CmapNode.m; sourceTree = "<group>"; };
 		563B50FF1919F99900FA0F34 /* CmapNodeWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CmapNodeWrapper.h; sourceTree = "<group>"; };
@@ -1705,6 +1710,9 @@
 		56D563921ADC71CD0060574D /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				5637A1892296836500CC11CD /* definite.mp3 */,
+				5637A18C229684B200CC11CD /* ring.m4a */,
+				5637A18B2296847700CC11CD /* definite.m4r */,
 				564123111E7C5E79006D0075 /* Highschool_Expert__CmapNodeList.xml */,
 				564123121E7C5E79006D0075 /* Highschool_Expert_CmapLinkList.xml */,
 				56BF7F251ADEE94900B015C6 /* ExpertCmapLinkList.xml */,
@@ -1960,6 +1968,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5637A18D2296853400CC11CD /* ring.m4a in Resources */,
 				56354413225D1BBA00611106 /* Icon.png in Resources */,
 				68D1BF0B1DBFFF3100BD09D1 /* aa.epub in Resources */,
 				567924C41B12E7BB007B5038 /* finder_finish.png in Resources */,
@@ -2030,6 +2039,7 @@
 				5645250A170A5D09005E2D17 /* cover_default.png in Resources */,
 				56AB71FB1C6EA66800FEB7BE /* preview.png in Resources */,
 				560B2F6918EBE051009B8CB7 /* james_harden.png in Resources */,
+				5637A18A2296836500CC11CD /* definite.mp3 in Resources */,
 				5643887F1B204286003330F6 /* CmapBookNoteViewController.xib in Resources */,
 				56F935E41B0DBF1D00138A1A /* QAWeb.png in Resources */,
 				56B7BB4B170CD4B100037E9E /* underline2.png in Resources */,

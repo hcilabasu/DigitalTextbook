@@ -49,7 +49,7 @@ NSArray *recipes;
     tableView.delegate=self;
     // Do any additional setup after loading the view from its nib.
     
-    recipes = [NSArray arrayWithObjects:@"Include", @"Have", @"Involve", @"Increase", @"Reduce", @"Facilitate", @"Grow", @"Control", nil];
+    recipes = [NSArray arrayWithObjects: @"Control",@"Example", @"Facilitate", @"Grow",@"Have",@"Include", @"Involve", @"Increase", @"Reduce", @"None",  nil];
     
     [tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
     
@@ -117,6 +117,11 @@ NSArray *recipes;
     }
     cell.textLabel.text = [recipes objectAtIndex:indexPath.row];
     [cell setSelectionStyle:UITableViewCellSelectionStyleDefault];
+    
+    if( [cell.textLabel.text isEqualToString:@"None"]){
+        cell.textLabel.textColor= [UIColor redColor];
+    }
+    
     return cell;
 }
 
@@ -124,7 +129,15 @@ NSArray *recipes;
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    [parentCmapController upDateLinkText:cell.textLabel.text];
+    NSString* linkName=cell.textLabel.text;
+    
+    if( [linkName isEqualToString:@"None"]){
+        linkName=@"";
+    }
+    
+    
+    
+    [parentCmapController upDateLinkText:linkName];
     NSString* inputString=[[NSString alloc] initWithFormat:@"%@", cell.textLabel.text];
     LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Update Link name from list" selection:@"new concept link" input:inputString pageNum:parentCmapController.pageNum];
     [bookLogData addLogs:newlog];

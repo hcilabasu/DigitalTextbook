@@ -44,6 +44,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString* nodeName1;
 @property NSString* nodeName2;
 @property (nonatomic, strong) LogDataWrapper* bookLogDataWrapper;
+@property int lastFeedbackSecond;
+@property NSTimer* actionTimer;
 -(void)evaluate;
 -(void)setupKM;
 @end

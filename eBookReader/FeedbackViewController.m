@@ -165,6 +165,7 @@
     leftButton.enabled=YES;
     if(addNodeViewCtr.view){
         [addNodeViewCtr.view removeFromSuperview];
+        
     }
     
     
@@ -193,7 +194,7 @@
     [bookLogDataWrapper addLogs:newlog];
     [LogDataParser saveLogData:bookLogDataWrapper];
         
-      messageView.text=@"I noticed that you've been reading for a while, would you like to consider adding some nodes to your map?";
+      messageView.text=@"Hello, I noticed you have just read 3 pages, anything interesting you would like to add to your map?";
       [leftButton setTitle:@"OK" forState:UIControlStateNormal];
       if(missingConceptAry.count>0){
           [leftButton setTitle:@"Show me some" forState:UIControlStateNormal];
@@ -235,6 +236,26 @@
             [leftButton setTitle:@"See related concepts" forState:UIControlStateNormal];
         }
     }
+    
+    if(FBTYPE_NOACTION==feedbackState){
+        LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Show back navigation feedback" selection:@"Tutor" input:@"" pageNum:parentCmapController.pageNum];
+        [bookLogDataWrapper addLogs:newlog];
+        [LogDataParser saveLogData:bookLogDataWrapper];
+        messageView.text=@"Hello, I noticed that you've been reading for a while, would you like to add some concepts and links to your map?";
+        [leftButton setTitle:@"OK" forState:UIControlStateNormal];
+        
+        if(missingConceptAry.count>0){
+            [leftButton setTitle:@"Show me some" forState:UIControlStateNormal];
+            feedbackState=FBTYPE_RRR;
+        }
+        
+        
+    }
+    
+    
+    
+    
+    
 }
 
 

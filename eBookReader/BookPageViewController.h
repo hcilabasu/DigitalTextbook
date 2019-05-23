@@ -19,6 +19,7 @@
 #import "ExpertModel.h"
 #import "QuartzCore/QuartzCore.h"
 #import "MapFinderViewController.h"
+#import <AVFoundation/AVFoundation.h>
 #import "KeyConcept.h"
 @class LogDataWrapper;
 @interface BookPageViewController : UIViewController <DBRestClientDelegate,UIGestureRecognizerDelegate,UIAlertViewDelegate,UINavigationControllerDelegate,UIWebViewDelegate>
@@ -60,7 +61,7 @@
 
 @property (strong, nonatomic) UIView *HLrectLeft;
 @property (strong, nonatomic) UIView *HLrectRight;
-
+@property (strong, nonatomic) AVAudioPlayer *audioPlayer;
 -(void)showAlertWithString: (NSString*) str : (UIView*)imgView;
 -(void)createDeleteTraining;
 -(void)test;

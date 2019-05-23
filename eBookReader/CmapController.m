@@ -275,6 +275,13 @@
 
 
 -(void)showReadFeedbackmessage{
+    int timeSecondNow=[[NSDate date] timeIntervalSince1970];
+    if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10  ){
+        return;
+    }
+    parentBookPageViewController.expertModel.lastFeedbackSecond=[[NSDate date] timeIntervalSince1970];
+    
+    
     [parentBookPageViewController showOverlay];
     feedbackPV= [[PopoverView alloc] initWithFrame:CGRectZero];
     feedbackPV.delegate=self;
@@ -285,7 +292,31 @@
     //[parentBookPageViewController showLeftHLRect];
 
 }
+
+-(void)showNoActionFeedbackmessage{
+    int timeSecondNow=[[NSDate date] timeIntervalSince1970];
+    if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10  ){
+        return;
+    }
+    parentBookPageViewController.expertModel.lastFeedbackSecond=[[NSDate date] timeIntervalSince1970];
+    
+    [parentBookPageViewController showOverlay];
+    feedbackPV= [[PopoverView alloc] initWithFrame:CGRectZero];
+    feedbackPV.delegate=self;
+    feedbackCtr.feedbackState=FBTYPE_NOACTION;
+    [feedbackCtr upDateContent];
+    [feedbackPV showAtPoint:CGPointMake(0, 0) inView:agent withContentView: feedbackCtr.view];
+    [feedbackCtr animateProgressView];
+}
+
+
 -(void)showPositiveFeedbackmessage{
+    int timeSecondNow=[[NSDate date] timeIntervalSince1970];
+    if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10  ){
+        return;
+    }
+    parentBookPageViewController.expertModel.lastFeedbackSecond=[[NSDate date] timeIntervalSince1970];
+    
     [parentBookPageViewController showOverlay];
     feedbackPV= [[PopoverView alloc] initWithFrame:CGRectZero];
     feedbackPV.delegate=self;
@@ -297,6 +328,13 @@
 }
 
 -(void)showAddAddAddFeedbackmessage{
+    int timeSecondNow=[[NSDate date] timeIntervalSince1970];
+    if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10  ){
+        return;
+    }
+    parentBookPageViewController.expertModel.lastFeedbackSecond=[[NSDate date] timeIntervalSince1970];
+    
+    [parentBookPageViewController showOverlay];
     feedbackPV= [[PopoverView alloc] initWithFrame:CGRectZero];
     feedbackCtr.feedbackState=FBTYPE_AAA;
     [feedbackCtr upDateContent];
@@ -307,6 +345,13 @@
 
 
 -(void)showCompareFeedbackmessage{
+    int timeSecondNow=[[NSDate date] timeIntervalSince1970];
+    if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10  ){
+        return;
+    }
+    parentBookPageViewController.expertModel.lastFeedbackSecond=[[NSDate date] timeIntervalSince1970];
+    
+    [parentBookPageViewController showOverlay];
     feedbackPV= [[PopoverView alloc] initWithFrame:CGRectZero];
     feedbackCtr.feedbackState=5;
     [feedbackCtr upDateContent];
@@ -317,6 +362,13 @@
 
 
 -(void)showCompareFeedbackmessage: (int)m_pageLeft RightPage: (int)m_rightPage leftPosition: (CGPoint)m_leftPosition rightPosition: (CGPoint)rightPosition {
+    int timeSecondNow=[[NSDate date] timeIntervalSince1970];
+    if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10  ){
+        return;
+    }
+    parentBookPageViewController.expertModel.lastFeedbackSecond=[[NSDate date] timeIntervalSince1970];
+    
+    [parentBookPageViewController showOverlay];
     feedbackPV= [[PopoverView alloc] initWithFrame:CGRectZero];
     feedbackCtr.feedbackState=5;
     [feedbackCtr upDateContent];
@@ -328,6 +380,12 @@
 
 
 -(void)showTemplateFeedbackMessage{
+    int timeSecondNow=[[NSDate date] timeIntervalSince1970];
+    if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10  ){
+        return;
+    }
+    parentBookPageViewController.expertModel.lastFeedbackSecond=[[NSDate date] timeIntervalSince1970];
+    [parentBookPageViewController showOverlay];
     feedbackPV= [[PopoverView alloc] initWithFrame:CGRectZero];
     feedbackCtr.feedbackState=FBTYPE_TEMPLATE;
     [feedbackCtr upDateContent];
@@ -338,6 +396,13 @@
 
 
 -(void)showBackNavigationFeedbackMessage{
+    int timeSecondNow=[[NSDate date] timeIntervalSince1970];
+    if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10  ){
+        return;
+    }
+    parentBookPageViewController.expertModel.lastFeedbackSecond=[[NSDate date] timeIntervalSince1970];
+    
+    [parentBookPageViewController showOverlay];
     feedbackPV= [[PopoverView alloc] initWithFrame:CGRectZero];
     feedbackCtr.feedbackState=FBTYPE_BACK;
     [feedbackCtr upDateContent];

@@ -506,7 +506,6 @@
 }
 
 - (void)showAtPoint:(CGPoint)point inView:(UIView *)view withContentView:(UIView *)cView {
-    
     //NSLog(@"point:%f,%f", point.x, point.y);
     
     self.contentView = cView;

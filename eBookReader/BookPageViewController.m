@@ -56,6 +56,7 @@
 @synthesize HLrectLeft;
 @synthesize HLrectRight;
 @synthesize linkNameFinder;
+@synthesize audioPlayer;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -226,7 +227,7 @@
     
     overlayView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 3000, 3000)];
     overlayView.backgroundColor= [UIColor blackColor];
-    overlayView.alpha=0.3;
+    overlayView.alpha=0.6;
     [self.view addSubview:overlayView];
     [overlayView setHidden:YES];
     expertModel= [[ExpertModel alloc]init];
@@ -270,7 +271,17 @@
 -(void)showOverlay{
     [overlayView setHidden:NO];
     [self.view bringSubviewToFront:overlayView];
+    
+    NSString *soundFilePath = [[NSBundle mainBundle] pathForResource:@"ring"  ofType:@"m4a"];
+    NSURL *soundFileURL = [NSURL fileURLWithPath:soundFilePath];
+    
+    audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:soundFileURL error:nil];
+    audioPlayer.numberOfLoops = 0; //Infinite
+    
+    [audioPlayer play];
 }
+
+
 -(void)hideOverlay{
     [overlayView setHidden:YES];
 }

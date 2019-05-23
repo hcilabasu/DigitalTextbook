@@ -24,6 +24,10 @@
 #define FBTYPE_AAA 6
 #define FBTYPE_TEMPLATE 7
 #define FBTYPE_BACK 8
+#define FBTYPE_NOACTION 9
+#define FBTYPE_NOACTION_ADD 11
+#define FBTYPE_NOACTION_LINK 12
+
 @class CmapController;
 
 @interface FeedbackViewController : UIViewController <UIGestureRecognizerDelegate>
