@@ -15,7 +15,7 @@
 #import "VideoViewController.h"
 #import "UIMenuItem+CXAImageSupport.h"
 #import "ConditionSetup.h"
-
+#import "AppDelegate.h"
 @interface BookPageViewController ()
 
 @end
@@ -225,23 +225,27 @@
     [LogDataParser saveLogData:logWrapper];
     
     
-    overlayView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 3000, 3000)];
-    overlayView.backgroundColor= [UIColor blackColor];
-    overlayView.alpha=0.6;
-    [self.view addSubview:overlayView];
-    [overlayView setHidden:YES];
-    expertModel= [[ExpertModel alloc]init];
-    expertModel.bookLogDataWrapper=logWrapper;
-    [expertModel setupKM];
-    HLrectLeft=[[UIView alloc]initWithFrame:CGRectMake(100, 100, 80, 22)];
-    HLrectLeft.layer.borderColor = [UIColor colorWithRed:255/255 green:90/255.0 blue:90/255.0 alpha:1].CGColor;
-    HLrectLeft.layer.borderWidth = 4.0f;
+    NSString* FBType=[[NSUserDefaults standardUserDefaults] stringForKey:@"FBTYPE"];
+    if( ![FBType isEqualToString: FB_NO]){
+        overlayView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 3000, 3000)];
+        overlayView.backgroundColor= [UIColor blackColor];
+        overlayView.alpha=0.6;
+        [self.view addSubview:overlayView];
+        [overlayView setHidden:YES];
+        expertModel= [[ExpertModel alloc]init];
+        expertModel.bookLogDataWrapper=logWrapper;
+        [expertModel setupKM];
+        HLrectLeft=[[UIView alloc]initWithFrame:CGRectMake(100, 100, 80, 22)];
+        HLrectLeft.layer.borderColor = [UIColor colorWithRed:255/255 green:90/255.0 blue:90/255.0 alpha:1].CGColor;
+        HLrectLeft.layer.borderWidth = 4.0f;
+        
+        HLrectRight=[[UIView alloc]initWithFrame:CGRectMake(100, 100, 160, 22)];
+        HLrectRight.layer.borderColor = [UIColor colorWithRed:255/255 green:90/255.0 blue:90/255.0 alpha:1].CGColor;
+        HLrectRight.layer.borderWidth = 4.0f;
+        [self.view addSubview:HLrectLeft];
+        [self.view addSubview:HLrectRight];
     
-    HLrectRight=[[UIView alloc]initWithFrame:CGRectMake(100, 100, 160, 22)];
-    HLrectRight.layer.borderColor = [UIColor colorWithRed:255/255 green:90/255.0 blue:90/255.0 alpha:1].CGColor;
-    HLrectRight.layer.borderWidth = 4.0f;
-    [self.view addSubview:HLrectLeft];
-    [self.view addSubview:HLrectRight];
+    }
    
 }//end of view did load
 
@@ -277,7 +281,6 @@
     
     audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:soundFileURL error:nil];
     audioPlayer.numberOfLoops = 0; //Infinite
-    
     [audioPlayer play];
 }
 

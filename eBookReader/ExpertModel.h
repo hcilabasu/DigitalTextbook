@@ -46,6 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) LogDataWrapper* bookLogDataWrapper;
 @property int lastFeedbackSecond;
 @property NSTimer* actionTimer;
+@property NSTimer* templateActionTimer;
 -(void)evaluate;
 -(void)setupKM;
 @end

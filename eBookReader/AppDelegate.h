@@ -7,6 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#define FB_NO @"FBNO"
+#define FB_PROCESS @"FB_PROCESS"
+#define FB_FULL @"FB_FULL"
+
 @class XMLTestViewController;
 @class HighLightWrapper;
 

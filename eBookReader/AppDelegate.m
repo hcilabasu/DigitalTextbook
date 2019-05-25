@@ -37,6 +37,11 @@
     BOOL loadExpertMap=YES;
     BOOL isHyperLink=YES;
     BOOL isTemplate=YES;
+    
+    ///////////////////////////////set feedback type///////////////////////////////////////
+    [[NSUserDefaults standardUserDefaults] setObject: FB_PROCESS forKey:@"FBTYPE"];
+    ///////////////////////////////set feedback type///////////////////////////////////////
+    
     [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"testMode"];
     [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"isLogin"];
     [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"isTimer"];
@@ -47,7 +52,7 @@
    // [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"ExpertMapChanged"];
 
     ///////////////////////set iPad id://///////////////////////////////
-    [[NSUserDefaults standardUserDefaults] setObject:@"8" forKey:@"iPadId"];
+    [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"iPadId"];
     /////////////////////////////////////////////////////////////////////
     
     

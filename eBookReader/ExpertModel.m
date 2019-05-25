@@ -45,6 +45,7 @@
 @synthesize bookLogDataWrapper;
 @synthesize lastFeedbackSecond;
 @synthesize actionTimer;
+@synthesize templateActionTimer;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -76,6 +77,7 @@
     }
     
      [self resetActionTimer];
+    [self startTemplateActionTimer];
 }
 
 -(void)startActionTimer{
@@ -85,16 +87,30 @@
                                                 userInfo: nil repeats:YES];
 }
 
+-(void)onTick:(NSTimer *)timer {
+    //NSLog(@"Timer Triggered!\n\n\n");
+    [parentCmapController showNoActionFeedbackmessage];
+}
 -(void)resetActionTimer{
     [actionTimer invalidate];
     [self startActionTimer];
 }
 
 
--(void)onTick:(NSTimer *)timer {
-    //NSLog(@"Timer Triggered!\n\n\n");
-    [parentCmapController showNoActionFeedbackmessage];
+-(void)startTemplateActionTimer{
+    templateActionTimer = [NSTimer scheduledTimerWithTimeInterval: 180
+                                                   target: self
+                                                 selector:@selector(onTemplateTick:)
+                                                 userInfo: nil repeats:NO];
 }
+
+-(void)onTemplateTick:(NSTimer *)timer {
+    if(parentCmapController.templateClickCount<3){
+        [parentCmapController showTemplateFeedbackMessage];
+    }
+}
+
+
 
 -(void)evaluate{
     
@@ -150,9 +166,6 @@
     //check if NNN feature
     if (  [lastAction rangeOfString:@"creat"].location != NSNotFound){
         
-        if(parentCmapController.templateClickCount<3){
-            [parentCmapController showTemplateFeedbackMessage];
-        }
         
         
         sequentialAddCount++;

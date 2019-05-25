@@ -159,8 +159,12 @@
 @property (strong, nonatomic) IBOutlet TAViewController* TA;
 @property (strong, nonatomic) MapFinderViewController* linkNameFinder;
 @property (strong, nonatomic) UITableView* tableView;
+@property BOOL isFeedbackShowing;
 @property int lastFeedbackTimeSecond;
 @property int templateClickCount;
+@property int PositiveFeedbackCount;
+
+
 -(void)disableAllNodesEditting;
 -(void)enableAllNodesEditting;
 -(void)showpageAtIntex: (int)page;

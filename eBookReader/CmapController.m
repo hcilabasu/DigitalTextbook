@@ -29,6 +29,7 @@
 #import "PopoverView.h"
 #import "DHSmartScreenshot.h"
 #import "MapFinderViewController.h"
+#import "AppDelegate.h"
 /*
  @interface CmapController ()<GHContextOverlayViewDataSource, GHContextOverlayViewDelegate>
  @property (weak, nonatomic) IBOutlet UIImageView *imageView;
@@ -113,11 +114,14 @@
 @synthesize linkNameFinder;
 @synthesize lastFeedbackTimeSecond;
 @synthesize templateClickCount;
+@synthesize isFeedbackShowing;
+@synthesize PositiveFeedbackCount;
 - (id) init {
     if (self = [super init]) {
         nodeCount=1;
         linkCount=1;
         noteTakingNode=nil;
+        isFeedbackShowing=NO;
     }
     return self;
 }
@@ -127,6 +131,7 @@
     self.automaticallyAdjustsScrollViewInsets=NO;
     nodeCount=1;
     linkCount=1;
+    PositiveFeedbackCount=0;
     sacleBeforeZooming=1;
     [super viewDidLoad];
     addedNode=nil;
@@ -260,23 +265,28 @@
     [self updatePreviewLocation];
     
     
-    
     [self.agent setHidden:YES];
-    TA=[[TAViewController alloc]initWithNibName:@"TAViewController" bundle:nil];
-    TA.view.center=CGPointMake(self.view.frame.size.width-40 ,self.view.frame.size.height-78);
-    TA.parentCmapController=self;
-    [self.view addSubview:TA.view];
-    feedbackCtr=[[FeedbackViewController alloc]initWithNibName:@"FeedbackViewController" bundle:nil];
-    feedbackCtr.bookLogDataWrapper=bookLogDataWrapper;
-    [feedbackCtr.view setBackgroundColor:[UIColor colorWithRed:0.98f green:0.98f blue:0.98f alpha:0.95f]];
-    feedbackCtr.parentCmapController=self;
+    NSString* FBType=[[NSUserDefaults standardUserDefaults] stringForKey:@"FBTYPE"];
+    if( ![FBType isEqualToString: FB_NO]){
+        [self.agent setHidden:YES];
+        TA=[[TAViewController alloc]initWithNibName:@"TAViewController" bundle:nil];
+        TA.view.center=CGPointMake(self.view.frame.size.width-40 ,self.view.frame.size.height-78);
+        TA.parentCmapController=self;
+        [self.view addSubview:TA.view];
+        feedbackCtr=[[FeedbackViewController alloc]initWithNibName:@"FeedbackViewController" bundle:nil];
+        feedbackCtr.bookLogDataWrapper=bookLogDataWrapper;
+        [feedbackCtr.view setBackgroundColor:[UIColor colorWithRed:0.98f green:0.98f blue:0.98f alpha:0.95f]];
+        feedbackCtr.parentCmapController=self;
+    }
+    
+    [conceptMapView setContentOffset:CGPointMake(200, 300)];
 }//end of view did load
 
 
 
 -(void)showReadFeedbackmessage{
     int timeSecondNow=[[NSDate date] timeIntervalSince1970];
-    if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10  ){
+    if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10 ||isFeedbackShowing){
         return;
     }
     parentBookPageViewController.expertModel.lastFeedbackSecond=[[NSDate date] timeIntervalSince1970];
@@ -289,13 +299,14 @@
     [feedbackCtr upDateContent];
     [feedbackPV showAtPoint:CGPointMake(0, 0) inView:agent withContentView: feedbackCtr.view];
     [feedbackCtr animateProgressView];
+    isFeedbackShowing=YES;
     //[parentBookPageViewController showLeftHLRect];
 
 }
 
 -(void)showNoActionFeedbackmessage{
     int timeSecondNow=[[NSDate date] timeIntervalSince1970];
-    if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10  ){
+    if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10 ||isFeedbackShowing ){
         return;
     }
     parentBookPageViewController.expertModel.lastFeedbackSecond=[[NSDate date] timeIntervalSince1970];
@@ -307,12 +318,13 @@
     [feedbackCtr upDateContent];
     [feedbackPV showAtPoint:CGPointMake(0, 0) inView:agent withContentView: feedbackCtr.view];
     [feedbackCtr animateProgressView];
+    isFeedbackShowing=YES;
 }
 
 
 -(void)showPositiveFeedbackmessage{
     int timeSecondNow=[[NSDate date] timeIntervalSince1970];
-    if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10  ){
+    if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10 ||isFeedbackShowing ){
         return;
     }
     parentBookPageViewController.expertModel.lastFeedbackSecond=[[NSDate date] timeIntervalSince1970];
@@ -324,12 +336,14 @@
     [feedbackCtr upDateContent];
     [feedbackPV showAtPoint:CGPointMake(0, 0) inView:agent withContentView: feedbackCtr.view];
     [feedbackCtr animateProgressView];
+    isFeedbackShowing=YES;
+    parentBookPageViewController.cmapView.PositiveFeedbackCount++;
     //[parentBookPageViewController showLeftHLRect];
 }
 
 -(void)showAddAddAddFeedbackmessage{
     int timeSecondNow=[[NSDate date] timeIntervalSince1970];
-    if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10  ){
+    if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10 ||isFeedbackShowing ){
         return;
     }
     parentBookPageViewController.expertModel.lastFeedbackSecond=[[NSDate date] timeIntervalSince1970];
@@ -341,12 +355,18 @@
     feedbackPV.delegate=self;
     [feedbackPV showAtPoint:CGPointMake(0, 0) inView:agent withContentView: feedbackCtr.view];
     [feedbackCtr animateProgressView];
+    isFeedbackShowing=YES;
 }
 
 
 -(void)showCompareFeedbackmessage{
+    
+    NSString* FBType=[[NSUserDefaults standardUserDefaults] stringForKey:@"FBTYPE"];
+    if( [FBType isEqualToString: FB_PROCESS]){
+        return;
+    }
     int timeSecondNow=[[NSDate date] timeIntervalSince1970];
-    if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10  ){
+    if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10 ||isFeedbackShowing ){
         return;
     }
     parentBookPageViewController.expertModel.lastFeedbackSecond=[[NSDate date] timeIntervalSince1970];
@@ -358,12 +378,18 @@
     feedbackPV.delegate=self;
     [feedbackPV showAtPoint:CGPointMake(0, 0) inView:agent withContentView: feedbackCtr.view];
     [feedbackCtr animateProgressView];
+    isFeedbackShowing=YES;
 }
 
 
 -(void)showCompareFeedbackmessage: (int)m_pageLeft RightPage: (int)m_rightPage leftPosition: (CGPoint)m_leftPosition rightPosition: (CGPoint)rightPosition {
+    NSString* FBType=[[NSUserDefaults standardUserDefaults] stringForKey:@"FBTYPE"];
+    if( [FBType isEqualToString: FB_PROCESS]){
+        return;
+    }
+    
     int timeSecondNow=[[NSDate date] timeIntervalSince1970];
-    if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10  ){
+    if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10 ||isFeedbackShowing ){
         return;
     }
     parentBookPageViewController.expertModel.lastFeedbackSecond=[[NSDate date] timeIntervalSince1970];
@@ -375,13 +401,14 @@
     feedbackPV.delegate=self;
     [feedbackPV showAtPoint:CGPointMake(0, 0) inView:agent withContentView: feedbackCtr.view];
     [feedbackCtr animateProgressView];
+    isFeedbackShowing=YES;
 }
 
 
 
 -(void)showTemplateFeedbackMessage{
     int timeSecondNow=[[NSDate date] timeIntervalSince1970];
-    if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10  ){
+    if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10 ||isFeedbackShowing ){
         return;
     }
     parentBookPageViewController.expertModel.lastFeedbackSecond=[[NSDate date] timeIntervalSince1970];
@@ -392,12 +419,13 @@
     feedbackPV.delegate=self;
     [feedbackPV showAtPoint:CGPointMake(0, 0) inView:agent withContentView: feedbackCtr.view];
     [feedbackCtr animateProgressView];
+    isFeedbackShowing=YES;
 }
 
 
 -(void)showBackNavigationFeedbackMessage{
     int timeSecondNow=[[NSDate date] timeIntervalSince1970];
-    if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10  ){
+    if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10  ||isFeedbackShowing){
         return;
     }
     parentBookPageViewController.expertModel.lastFeedbackSecond=[[NSDate date] timeIntervalSince1970];
@@ -409,11 +437,13 @@
     feedbackPV.delegate=self;
     [feedbackPV showAtPoint:CGPointMake(0, 0) inView:agent withContentView: feedbackCtr.view];
     [feedbackCtr animateProgressView];
+    isFeedbackShowing=YES;
 }
 
 
 
 - (void)popoverViewDidDismiss:(PopoverView *)popoverView{
+    isFeedbackShowing=NO;
     [parentBookPageViewController hideOverlay];
     [feedbackCtr.progressTimer invalidate];
     LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Dismiss feedback" selection:@"Tutor" input:@"" pageNum:pageNum];

@@ -10,7 +10,7 @@
 #import "CmapController.h"
 #import "BookPageViewController.h"
 #import "BookViewController.h"
-
+#import "AppDelegate.h"
 @interface FeedbackViewController ()
 @property float time;
 @end
@@ -98,6 +98,13 @@
 
 
 - (IBAction)clickOnLeft:(id)sender {
+    
+    NSString* FBType=[[NSUserDefaults standardUserDefaults] stringForKey:@"FBTYPE"];
+    if( [FBType isEqualToString: FB_PROCESS]){
+        return;
+    }
+    
+    
     if(FBTYPE_TEMPLATE==feedbackState){
          [parentCmapController.feedbackPV dismiss];
     }
@@ -173,7 +180,7 @@
         LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Show template feedback" selection:@"Tutor" input:@"" pageNum:parentCmapController.pageNum];
         [bookLogDataWrapper addLogs:newlog];
         [LogDataParser saveLogData:bookLogDataWrapper];
-        messageView.text=@"Reviewing the template before creating your own map would be helpful. Why don't you try tapping on a few nodes in the template?";
+        messageView.text=@"Our template covers some of the most important concepts in the content. Try tapping on a few nodes in the template to preview you are about to learn!";
         [leftButton setTitle:@"OK" forState:UIControlStateNormal];
         
     }
@@ -183,7 +190,7 @@
         LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Show back navigation feedback" selection:@"Tutor" input:@"" pageNum:parentCmapController.pageNum];
         [bookLogDataWrapper addLogs:newlog];
         [LogDataParser saveLogData:bookLogDataWrapper];
-        messageView.text=@"Constantly reviewing previous concepts and make connections would be helpful. Try it!";
+        messageView.text=@"You've been doing great, just wanted to remind you that constantly reviewing previous concepts and make connections would be helpful!";
         [leftButton setTitle:@"OK" forState:UIControlStateNormal];
         
     }
@@ -196,6 +203,12 @@
         
       messageView.text=@"Hello, I noticed you have just read 3 pages, anything interesting you would like to add to your map?";
       [leftButton setTitle:@"OK" forState:UIControlStateNormal];
+        
+        NSString* FBType=[[NSUserDefaults standardUserDefaults] stringForKey:@"FBTYPE"];
+        if( [FBType isEqualToString: FB_PROCESS]){
+            return;
+        }
+        
       if(missingConceptAry.count>0){
           [leftButton setTitle:@"Show me some" forState:UIControlStateNormal];
       }
@@ -205,8 +218,15 @@
         LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Show positive feedback" selection:@"Tutor" input:@"" pageNum:parentCmapController.pageNum];
         [bookLogDataWrapper addLogs:newlog];
         [LogDataParser saveLogData:bookLogDataWrapper];
+        messageView.text=@"Good job! You just compared related concepts and created cross-links. This can be very beneficial. Keep doing this!";
+        if(1== parentCmapController.PositiveFeedbackCount){
+             messageView.text=@"Awesome job spoting this relationship! Keep going!";
+        }
+        if(2== parentCmapController.PositiveFeedbackCount){
+            messageView.text=@"Great! You are doing better and better!";
+        }
         
-        messageView.text=@"Good job! You just compared related concepts and created cross-links. Behaviors like this will help you understand the content more!";
+        
         [leftButton setTitle:@"OK" forState:UIControlStateNormal];
     }
     
@@ -218,7 +238,7 @@
         [bookLogDataWrapper addLogs:newlog];
         [LogDataParser saveLogData:bookLogDataWrapper];
         
-        messageView.text=@"Creating cross-links are great! But it looks like you haven't carefully read them yet. Would like to compare these two concepts?";
+        messageView.text=@"Creating cross-links are great! But it looks like you haven't carefully read them yet. Would you like to compare these two concepts?";
         [leftButton setTitle:@"OK" forState:UIControlStateNormal];
     }
     
@@ -229,6 +249,14 @@
         
         messageView.text=@"I noticed that you've been adding several concept nodes. Linking the nodes you created with the exisitng map would be beneficial!";
         [leftButton setTitle:@"OK" forState:UIControlStateNormal];
+        
+        
+        NSString* FBType=[[NSUserDefaults standardUserDefaults] stringForKey:@"FBTYPE"];
+        if( [FBType isEqualToString: FB_PROCESS]){
+            return;
+        }
+        
+        
         int page=[self getRelatedNodePage];
         if( page>-1 ){
             relatedPage=page;
@@ -241,8 +269,15 @@
         LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Show back navigation feedback" selection:@"Tutor" input:@"" pageNum:parentCmapController.pageNum];
         [bookLogDataWrapper addLogs:newlog];
         [LogDataParser saveLogData:bookLogDataWrapper];
-        messageView.text=@"Hello, I noticed that you've been reading for a while, would you like to add some concepts and links to your map?";
+        messageView.text=@"Hi, I noticed that you've been reading for a while, would you like to add some concepts and links to your map?";
         [leftButton setTitle:@"OK" forState:UIControlStateNormal];
+        
+        
+        NSString* FBType=[[NSUserDefaults standardUserDefaults] stringForKey:@"FBTYPE"];
+        if( [FBType isEqualToString: FB_PROCESS]){
+            return;
+        }
+        
         
         if(missingConceptAry.count>0){
             [leftButton setTitle:@"Show me some" forState:UIControlStateNormal];
