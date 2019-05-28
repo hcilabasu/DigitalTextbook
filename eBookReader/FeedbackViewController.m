@@ -101,7 +101,9 @@
     
     NSString* FBType=[[NSUserDefaults standardUserDefaults] stringForKey:@"FBTYPE"];
     if( [FBType isEqualToString: FB_PROCESS]){
+         [parentCmapController.feedbackPV dismiss];
         return;
+        
     }
     
     
@@ -180,9 +182,8 @@
         LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Show template feedback" selection:@"Tutor" input:@"" pageNum:parentCmapController.pageNum];
         [bookLogDataWrapper addLogs:newlog];
         [LogDataParser saveLogData:bookLogDataWrapper];
-        messageView.text=@"Our template covers some of the most important concepts in the content. Try tapping on a few nodes in the template to preview you are about to learn!";
+        messageView.text=@"Our template covers some of the most important concepts in the content. Try tapping on a few nodes in the template to preview what you are about to learn!";
         [leftButton setTitle:@"OK" forState:UIControlStateNormal];
-        
     }
     
     
@@ -220,7 +221,7 @@
         [LogDataParser saveLogData:bookLogDataWrapper];
         messageView.text=@"Good job! You just compared related concepts and created cross-links. This can be very beneficial. Keep doing this!";
         if(1== parentCmapController.PositiveFeedbackCount){
-             messageView.text=@"Awesome job spoting this relationship! Keep going!";
+             messageView.text=@"Awesome job spotting this relationship! Keep going!";
         }
         if(2== parentCmapController.PositiveFeedbackCount){
             messageView.text=@"Great! You are doing better and better!";
@@ -247,7 +248,7 @@
         [bookLogDataWrapper addLogs:newlog];
         [LogDataParser saveLogData:bookLogDataWrapper];
         
-        messageView.text=@"I noticed that you've been adding several concept nodes. Linking the nodes you created with the exisitng map would be beneficial!";
+        messageView.text=@"I noticed that you've been adding several concept nodes. Linking the nodes you created with the existing map would be beneficial!";
         [leftButton setTitle:@"OK" forState:UIControlStateNormal];
         
         

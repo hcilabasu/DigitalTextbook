@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" colorMatched="YES">
     <device id="ipad9_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -14,9 +14,11 @@
                 <outlet property="agent" destination="rGf-An-Ih0" id="v6j-wQ-4dx"/>
                 <outlet property="conceptMapView" destination="wZh-Pi-Y71" id="L2k-fi-Gbt"/>
                 <outlet property="focusQuestionLable" destination="UGg-jx-3ZR" id="dpO-CF-IFz"/>
+                <outlet property="searchIcon" destination="wjb-dh-I1l" id="OK7-RB-DCf"/>
                 <outlet property="toolBar" destination="Ph4-gn-I2L" id="4EQ-i7-6kF"/>
                 <outlet property="upLoadIcon" destination="jxL-YS-jKr" id="eX9-Fw-hs1"/>
                 <outlet property="view" destination="v3U-L7-ECy" id="Sab-Vr-MfL"/>
+                <outlet property="webviewIcon" destination="dnM-kP-yao" id="7C8-ZG-RPw"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -110,7 +112,7 @@
         <tapGestureRecognizer id="fPk-RR-qnQ"/>
     </objects>
     <resources>
-        <image name="TA.png" width="706" height="731"/>
-        <image name="webbrowser.png" width="256" height="256"/>
+        <image name="TA.png" width="338.8800048828125" height="350.8800048828125"/>
+        <image name="webbrowser.png" width="38.400001525878906" height="38.400001525878906"/>
     </resources>
 </document>

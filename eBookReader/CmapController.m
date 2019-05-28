@@ -116,6 +116,8 @@
 @synthesize templateClickCount;
 @synthesize isFeedbackShowing;
 @synthesize PositiveFeedbackCount;
+@synthesize webviewIcon;
+@synthesize searchIcon;
 - (id) init {
     if (self = [super init]) {
         nodeCount=1;
@@ -138,6 +140,13 @@
     
     [upLoadIcon  setEnabled:NO];
     [upLoadIcon setTintColor: [UIColor clearColor]];
+    [searchIcon  setEnabled:NO];
+    [searchIcon setTintColor: [UIColor clearColor]];
+    [webviewIcon setHidden:YES];
+    
+    
+    
+    
     
     CGRect rect=CGRectMake(530, 0, 511, 768);
     [self.view setFrame:rect];

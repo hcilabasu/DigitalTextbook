@@ -139,6 +139,11 @@
 
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *upLoadIcon;
 
+@property (weak, nonatomic) IBOutlet UIButton *webviewIcon;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *searchIcon;
+
+
+
 
 @property (strong, nonatomic) NSString* userName;
 @property BOOL enableHyperLink;

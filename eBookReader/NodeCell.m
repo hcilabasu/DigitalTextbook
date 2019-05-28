@@ -292,14 +292,14 @@
     CGFloat height = [text.text sizeWithAttributes:@{NSFontAttributeName:text.font}].height;
     //Increase length
     length+=25;
-    if(length>80){
-        length=80;
+    if(length>85){
+        length=85;
         height+=25;
         textFrame.size.height=height;
         self.text.frame=textFrame;
     }
     //Increase height
-    height+=12;
+    height+=9;
     /*  if(height>180){
      height=180;
      }*/
@@ -461,7 +461,6 @@
         
         NSString* positionString= [[NSString alloc]initWithFormat:@"x: %f, y: %f",showPoint.x, showPoint.y];
         [parentCmapController saveLog:[[ConditionSetup sharedInstance] getSessionID]  Action:@"End update node position" Selection:conceptName Input:positionString PageNumber:parentCmapController.pageNum];
-
     }
     
     if (gesture.state == UIGestureRecognizerStateChanged)
@@ -492,7 +491,6 @@
 
 - (IBAction)tap:(UIPanGestureRecognizer *)gesture
 {
-    
     NSString* Hyperlink=[[NSUserDefaults standardUserDefaults] stringForKey:@"isHyperLinking"];
     
     if(YES==parentCmapController.isReadyToLink){
@@ -896,7 +894,7 @@
 
 - (NSInteger) numberOfMenuItems
 {
-    return 4;
+    return 3;
 }
 
 //specify image names

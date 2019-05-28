@@ -81,7 +81,7 @@
 }
 
 -(void)startActionTimer{
-    actionTimer = [NSTimer scheduledTimerWithTimeInterval: 200.0
+    actionTimer = [NSTimer scheduledTimerWithTimeInterval: 150
                                                   target: self
                                                 selector:@selector(onTick:)
                                                 userInfo: nil repeats:YES];
