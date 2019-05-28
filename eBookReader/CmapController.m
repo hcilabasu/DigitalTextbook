@@ -665,8 +665,8 @@
     
     NSString* shouldLoadExpertMap=[[NSUserDefaults standardUserDefaults] stringForKey:@"isLoadExpertMap"];
     
-  //  if([shouldLoadExpertMap isEqualToString:@"YES"]  && (![isExpertMapChanged isEqualToString:@"YES"])  ){
-    if(YES){
+   if([shouldLoadExpertMap isEqualToString:@"YES"]  && (![isExpertMapChanged isEqualToString:@"YES"])  ){
+   // if(YES){
         bookNodeWrapper=[CmapNodeParser loadExpertCmapNode];
         bookLinkWrapper=[CmapLinkParser loadExpertCmapLink];
         [self saveLog:[[ConditionSetup sharedInstance] getSessionID]  Action:@"Load expert concept map" Selection:@"concept map" Input:@"expert map" PageNumber:pageNum];
