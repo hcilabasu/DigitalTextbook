@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CmapLinkList>
     <CmapLink>
-        <leftConceptName>extinction</leftConceptName>
-        <rightConceptName>species</rightConceptName>
-        <relationName>May</relationName>
-        <PageNum>19</PageNum>
-    </CmapLink>
-    <CmapLink>
         <leftConceptName>endangered species</leftConceptName>
         <rightConceptName>species</rightConceptName>
         <relationName>Include</relationName>
@@ -16,18 +10,6 @@
         <leftConceptName>biological extinction</leftConceptName>
         <rightConceptName>extinction</rightConceptName>
         <relationName>Include</relationName>
-        <PageNum>19</PageNum>
-    </CmapLink>
-    <CmapLink>
-        <leftConceptName>ecological services</leftConceptName>
-        <rightConceptName>species</rightConceptName>
-        <relationName>Provide</relationName>
-        <PageNum>19</PageNum>
-    </CmapLink>
-    <CmapLink>
-        <leftConceptName>HIPPO</leftConceptName>
-        <rightConceptName>extinction</rightConceptName>
-        <relationName>Major causes</relationName>
         <PageNum>19</PageNum>
     </CmapLink>
     <CmapLink>

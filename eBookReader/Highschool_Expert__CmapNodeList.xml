@@ -4,8 +4,8 @@
         <ConceptName>extinction</ConceptName>
         <CreateType>0</CreateType>
         <BookTitle />
-        <PointX>498</PointX>
-        <PointY>610</PointY>
+        <PointX>483</PointX>
+        <PointY>632</PointY>
         <PageNum>0</PageNum>
         <LinkingUrl />
         <UrlTitle />
@@ -18,8 +18,8 @@
         <ConceptName>biological extinction</ConceptName>
         <CreateType>0</CreateType>
         <BookTitle />
-        <PointX>561</PointX>
-        <PointY>704</PointY>
+        <PointX>479</PointX>
+        <PointY>734</PointY>
         <PageNum>3</PageNum>
         <LinkingUrl />
         <UrlTitle />
@@ -32,8 +32,8 @@
         <ConceptName>species</ConceptName>
         <CreateType>0</CreateType>
         <BookTitle />
-        <PointX>403</PointX>
-        <PointY>532</PointY>
+        <PointX>380</PointX>
+        <PointY>527</PointY>
         <PageNum>4</PageNum>
         <LinkingUrl />
         <UrlTitle />
@@ -46,23 +46,9 @@
         <ConceptName>endangered species</ConceptName>
         <CreateType>0</CreateType>
         <BookTitle />
-        <PointX>259</PointX>
-        <PointY>437</PointY>
+        <PointX>253</PointX>
+        <PointY>423</PointY>
         <PageNum>4</PageNum>
-        <LinkingUrl />
-        <UrlTitle />
-        <nodeHasNote>NO</nodeHasNote>
-        <nodeHasWebLink>NO</nodeHasWebLink>
-        <nodeHasHighlight>YES</nodeHasHighlight>
-        <NoteString />
-    </CmapNode>
-    <CmapNode>
-        <ConceptName>ecological services</ConceptName>
-        <CreateType>0</CreateType>
-        <BookTitle />
-        <PointX>499</PointX>
-        <PointY>432</PointY>
-        <PageNum>10</PageNum>
         <LinkingUrl />
         <UrlTitle />
         <nodeHasNote>NO</nodeHasNote>
@@ -74,8 +60,8 @@
         <ConceptName>HIPPO</ConceptName>
         <CreateType>0</CreateType>
         <BookTitle />
-        <PointX>393</PointX>
-        <PointY>688</PointY>
+        <PointX>314</PointX>
+        <PointY>640</PointY>
         <PageNum>15</PageNum>
         <LinkingUrl />
         <UrlTitle />
@@ -88,8 +74,8 @@
         <ConceptName>instrumental value</ConceptName>
         <CreateType>0</CreateType>
         <BookTitle />
-        <PointX>256</PointX>
-        <PointY>605</PointY>
+        <PointX>464</PointX>
+        <PointY>397</PointY>
         <PageNum>11</PageNum>
         <LinkingUrl />
         <UrlTitle />
@@ -100,10 +86,10 @@
     </CmapNode>
     <CmapNode>
         <ConceptName>Habitat fragmentation</ConceptName>
-        <CreateType>1</CreateType>
+        <CreateType>0</CreateType>
         <BookTitle />
-        <PointX>379</PointX>
-        <PointY>788</PointY>
+        <PointX>290</PointX>
+        <PointY>729</PointY>
         <PageNum>18</PageNum>
         <LinkingUrl />
         <UrlTitle />
