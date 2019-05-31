@@ -47,6 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property int lastFeedbackSecond;
 @property NSTimer* actionTimer;
 @property NSTimer* templateActionTimer;
+@property NSTimer* backNaviTimber;
 -(void)evaluate;
 -(void)setupKM;
 @end

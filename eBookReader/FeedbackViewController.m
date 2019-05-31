@@ -155,6 +155,13 @@
     
     //compare feedback
     if(FBTYPE_COMPARE==feedbackState){
+        
+        NSString* FBType=[[NSUserDefaults standardUserDefaults] stringForKey:@"FBTYPE"];
+        if( [FBType isEqualToString: FB_PROCESS]){
+            [parentCmapController.feedbackPV dismiss];
+        }
+        
+        
         [parentCmapController.feedbackPV dismiss];
         [parentCmapController showDualTextbookView];
         feedbackState=1;
@@ -239,8 +246,19 @@
         [bookLogDataWrapper addLogs:newlog];
         [LogDataParser saveLogData:bookLogDataWrapper];
         
-        messageView.text=@"Creating cross-links are great! But it looks like you haven't carefully read them yet. Would you like to compare these two concepts?";
-        [leftButton setTitle:@"OK" forState:UIControlStateNormal];
+        messageView.text=@"Good job creating the cross-link! But it looks like you haven't carefully read them yet. Would you like to compare these two concepts?";
+        [leftButton setTitle:@"Compare them" forState:UIControlStateNormal];
+        
+        
+        
+        NSString* FBType=[[NSUserDefaults standardUserDefaults] stringForKey:@"FBTYPE"];
+        if( [FBType isEqualToString: FB_PROCESS]){
+            messageView.text=@"Good job creating the cross-link! But it looks like you haven't carefully read them yet. Reading and comparing concepts are important before linking them.";
+            [leftButton setTitle:@"OK" forState:UIControlStateNormal];
+            return;
+        }
+        
+        
     }
     
     if(FBTYPE_AAA==feedbackState){

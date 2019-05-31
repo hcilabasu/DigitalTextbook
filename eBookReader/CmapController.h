@@ -168,7 +168,7 @@
 @property int lastFeedbackTimeSecond;
 @property int templateClickCount;
 @property int PositiveFeedbackCount;
-
+@property int backNaviCount;
 
 -(void)disableAllNodesEditting;
 -(void)enableAllNodesEditting;
@@ -230,4 +230,5 @@
 -(void)showPositiveFeedbackmessage;
 -(void)showTemplateFeedbackMessage;
 -(void)showNoActionFeedbackmessage;
+-(void)showBackNavigationFeedbackMessage;
 @end

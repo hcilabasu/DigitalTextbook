@@ -118,6 +118,7 @@
 @synthesize PositiveFeedbackCount;
 @synthesize webviewIcon;
 @synthesize searchIcon;
+@synthesize backNaviCount;
 - (id) init {
     if (self = [super init]) {
         nodeCount=1;
@@ -370,10 +371,7 @@
 
 -(void)showCompareFeedbackmessage{
     
-    NSString* FBType=[[NSUserDefaults standardUserDefaults] stringForKey:@"FBTYPE"];
-    if( [FBType isEqualToString: FB_PROCESS]){
-        return;
-    }
+
     int timeSecondNow=[[NSDate date] timeIntervalSince1970];
     if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10 ||isFeedbackShowing ){
         return;
@@ -392,11 +390,6 @@
 
 
 -(void)showCompareFeedbackmessage: (int)m_pageLeft RightPage: (int)m_rightPage leftPosition: (CGPoint)m_leftPosition rightPosition: (CGPoint)rightPosition {
-    NSString* FBType=[[NSUserDefaults standardUserDefaults] stringForKey:@"FBTYPE"];
-    if( [FBType isEqualToString: FB_PROCESS]){
-        return;
-    }
-    
     int timeSecondNow=[[NSDate date] timeIntervalSince1970];
     if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10 ||isFeedbackShowing ){
         return;

@@ -46,6 +46,7 @@
 @synthesize lastFeedbackSecond;
 @synthesize actionTimer;
 @synthesize templateActionTimer;
+@synthesize backNaviTimber;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -76,12 +77,32 @@
         pageStayTimeMap[keyString]=@"0.0";
     }
     
-     [self resetActionTimer];
+    [self resetActionTimer];
     [self startTemplateActionTimer];
+    [self startBackNaviTimer];
 }
 
+-(void)resetBackNaviTimer{
+    [backNaviTimber invalidate];
+    [self startBackNaviTimer];
+}
+
+
+-(void)startBackNaviTimer{
+    backNaviTimber = [NSTimer scheduledTimerWithTimeInterval: 140
+                                                   target: self
+                                                 selector:@selector(noBackNavi:)
+                                                 userInfo: nil repeats:YES];
+}
+
+-(void)noBackNavi:(NSTimer *)timer {
+    [parentCmapController showBackNavigationFeedbackMessage];
+}
+
+
+
 -(void)startActionTimer{
-    actionTimer = [NSTimer scheduledTimerWithTimeInterval: 150
+    actionTimer = [NSTimer scheduledTimerWithTimeInterval: 120
                                                   target: self
                                                 selector:@selector(onTick:)
                                                 userInfo: nil repeats:YES];
@@ -236,6 +257,7 @@
                 [stateArray addObject:currentState];
                 isPosNavi=YES;
             }else if ( page<prePage){
+                [self resetBackNaviTimer];
                 if(isPosNavi){
                     currentState=@"P";
                     [stateArray addObject:currentState];
