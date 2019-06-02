@@ -59,6 +59,8 @@
 		560B2F7718EDFE4D009B8CB7 /* ShangTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 560B2F7618EDFE4D009B8CB7 /* ShangTextField.m */; };
 		560D0BD319C9021F006B11E4 /* MapFinderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 560D0BD119C9021F006B11E4 /* MapFinderViewController.m */; };
 		560D0BD419C9021F006B11E4 /* MapFinderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 560D0BD219C9021F006B11E4 /* MapFinderViewController.xib */; };
+		560ECDED22A1F7C4005D795F /* TA2.png in Resources */ = {isa = PBXBuildFile; fileRef = 560ECDEC22A1F7C4005D795F /* TA2.png */; };
+		560ECDF122A1F943005D795F /* TA.png in Resources */ = {isa = PBXBuildFile; fileRef = 560ECDF022A1F943005D795F /* TA.png */; };
 		5615BAEA171A02F30002B275 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5615BAE9171A02F30002B275 /* AudioToolbox.framework */; };
 		5615BAEC171A031C0002B275 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5615BAEB171A031C0002B275 /* CFNetwork.framework */; };
 		5615BAEE171A032B0002B275 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5615BAED171A032B0002B275 /* SystemConfiguration.framework */; };
@@ -203,7 +205,7 @@
 		56784B791C97C39800FBBC6B /* TrainingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56784B771C97C39800FBBC6B /* TrainingViewController.xib */; };
 		567911BB220AD0FE009A6F09 /* TAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 567911B9220AD0FE009A6F09 /* TAViewController.m */; };
 		567911BC220AD0FE009A6F09 /* TAViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 567911BA220AD0FE009A6F09 /* TAViewController.xib */; };
-		567911BE220AD2F4009A6F09 /* TA.png in Resources */ = {isa = PBXBuildFile; fileRef = 567911BD220AD2F4009A6F09 /* TA.png */; };
+		567911BE220AD2F4009A6F09 /* TA3.png in Resources */ = {isa = PBXBuildFile; fileRef = 567911BD220AD2F4009A6F09 /* TA3.png */; };
 		567924BD1B12E673007B5038 /* error2.png in Resources */ = {isa = PBXBuildFile; fileRef = 567924BC1B12E673007B5038 /* error2.png */; };
 		567924C21B12E7BB007B5038 /* finder_alert.png in Resources */ = {isa = PBXBuildFile; fileRef = 567924BE1B12E7BB007B5038 /* finder_alert.png */; };
 		567924C31B12E7BB007B5038 /* finder_error.png in Resources */ = {isa = PBXBuildFile; fileRef = 567924BF1B12E7BB007B5038 /* finder_error.png */; };
@@ -427,6 +429,8 @@
 		560D0BD019C9021F006B11E4 /* MapFinderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapFinderViewController.h; sourceTree = "<group>"; };
 		560D0BD119C9021F006B11E4 /* MapFinderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapFinderViewController.m; sourceTree = "<group>"; };
 		560D0BD219C9021F006B11E4 /* MapFinderViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapFinderViewController.xib; sourceTree = "<group>"; };
+		560ECDEC22A1F7C4005D795F /* TA2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TA2.png; sourceTree = "<group>"; };
+		560ECDF022A1F943005D795F /* TA.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TA.png; sourceTree = "<group>"; };
 		5615BAE9171A02F30002B275 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		5615BAEB171A031C0002B275 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		5615BAED171A032B0002B275 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -624,7 +628,7 @@
 		567911B8220AD0FE009A6F09 /* TAViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TAViewController.h; sourceTree = "<group>"; };
 		567911B9220AD0FE009A6F09 /* TAViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TAViewController.m; sourceTree = "<group>"; };
 		567911BA220AD0FE009A6F09 /* TAViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TAViewController.xib; sourceTree = "<group>"; };
-		567911BD220AD2F4009A6F09 /* TA.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TA.png; sourceTree = "<group>"; };
+		567911BD220AD2F4009A6F09 /* TA3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TA3.png; sourceTree = "<group>"; };
 		567924BC1B12E673007B5038 /* error2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = error2.png; sourceTree = "<group>"; };
 		567924BE1B12E7BB007B5038 /* finder_alert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = finder_alert.png; sourceTree = "<group>"; };
 		567924BF1B12E7BB007B5038 /* finder_error.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = finder_error.png; sourceTree = "<group>"; };
@@ -1478,7 +1482,8 @@
 				5635969D221D2A650064F3AF /* ExpertModel.h */,
 				5635969E221D2A660064F3AF /* ExpertModel.m */,
 				5694B68B220BD9D90036C667 /* Other */,
-				567911BD220AD2F4009A6F09 /* TA.png */,
+				567911BD220AD2F4009A6F09 /* TA3.png */,
+				560ECDF022A1F943005D795F /* TA.png */,
 				567911B8220AD0FE009A6F09 /* TAViewController.h */,
 				567911B9220AD0FE009A6F09 /* TAViewController.m */,
 				567911BA220AD0FE009A6F09 /* TAViewController.xib */,
@@ -1578,6 +1583,7 @@
 		5694B68B220BD9D90036C667 /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				560ECDEC22A1F7C4005D795F /* TA2.png */,
 				5694B686220BD7630036C667 /* FBViewController.h */,
 				5694B687220BD7630036C667 /* FBViewController.m */,
 				5694B688220BD7630036C667 /* FBViewController.xib */,
@@ -2041,6 +2047,7 @@
 				560B2F6918EBE051009B8CB7 /* james_harden.png in Resources */,
 				5637A18A2296836500CC11CD /* definite.mp3 in Resources */,
 				5643887F1B204286003330F6 /* CmapBookNoteViewController.xib in Resources */,
+				560ECDF122A1F943005D795F /* TA.png in Resources */,
 				56F935E41B0DBF1D00138A1A /* QAWeb.png in Resources */,
 				56B7BB4B170CD4B100037E9E /* underline2.png in Resources */,
 				567924C21B12E7BB007B5038 /* finder_alert.png in Resources */,
@@ -2049,6 +2056,7 @@
 				56B7BB4D170CD73E00037E9E /* undo.png in Resources */,
 				56B7BB59170CECEB00037E9E /* error.png in Resources */,
 				56B7BB5B170CECF000037E9E /* success.png in Resources */,
+				560ECDED22A1F7C4005D795F /* TA2.png in Resources */,
 				56434C681C70691700509960 /* magnify_2.png in Resources */,
 				5694B68A220BD7630036C667 /* FBViewController.xib in Resources */,
 				563B63AC1C237E0E00D09D3F /* TeachRotate.png in Resources */,
@@ -2080,7 +2088,7 @@
 				56F935E91B0DC3A500138A1A /* QAFinderViewController.xib in Resources */,
 				566F09BF1721C15800412952 /* speak.png in Resources */,
 				56B0B9A018C529110016783E /* addConcpetNode.png in Resources */,
-				567911BE220AD2F4009A6F09 /* TA.png in Resources */,
+				567911BE220AD2F4009A6F09 /* TA3.png in Resources */,
 				68D1BF061D9AF9C600BD09D1 /* Node_Small.png in Resources */,
 				566F09C11721C17400412952 /* question.png in Resources */,
 				566F09CE17220A2700412952 /* NoteView.xib in Resources */,

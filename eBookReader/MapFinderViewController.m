@@ -49,7 +49,7 @@ NSArray *recipes;
     tableView.delegate=self;
     // Do any additional setup after loading the view from its nib.
     
-    recipes = [NSArray arrayWithObjects: @"Control",@"Cause",@"Example",@"Have",@"Major",@"Include", @"Involve", @"Increase", @"Reduce", @"None",  nil];
+    recipes = [NSArray arrayWithObjects:@"Cause",@"Example",@"Have",@"Major",@"Include", @"Increase", @"Reduce", @"None",  nil];
     
     [tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
     
