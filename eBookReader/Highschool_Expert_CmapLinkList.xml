@@ -1,27 +1,2 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<CmapLinkList>
-    <CmapLink>
-        <leftConceptName>endangered species</leftConceptName>
-        <rightConceptName>species</rightConceptName>
-        <relationName>Include</relationName>
-        <PageNum>19</PageNum>
-    </CmapLink>
-    <CmapLink>
-        <leftConceptName>biological extinction</leftConceptName>
-        <rightConceptName>extinction</rightConceptName>
-        <relationName>Include</relationName>
-        <PageNum>19</PageNum>
-    </CmapLink>
-    <CmapLink>
-        <leftConceptName>instrumental value</leftConceptName>
-        <rightConceptName>species</rightConceptName>
-        <relationName>Have</relationName>
-        <PageNum>19</PageNum>
-    </CmapLink>
-    <CmapLink>
-        <leftConceptName>Habitat fragmentation</leftConceptName>
-        <rightConceptName>HIPPO</rightConceptName>
-        <relationName>Include</relationName>
-        <PageNum>19</PageNum>
-    </CmapLink>
-</CmapLinkList>
+<?xml version="1.0"?>
+<CmapLinkList><CmapLink><leftConceptName>endangered species</leftConceptName><rightConceptName>species</rightConceptName><relationName>Include</relationName><PageNum>5</PageNum></CmapLink><CmapLink><leftConceptName>instrumental value</leftConceptName><rightConceptName>species</rightConceptName><relationName>Have</relationName><PageNum>5</PageNum></CmapLink><CmapLink><leftConceptName>Habitat fragmentation</leftConceptName><rightConceptName>HIPPO</rightConceptName><relationName>Include</relationName><PageNum>5</PageNum></CmapLink><CmapLink><leftConceptName>human activities</leftConceptName><rightConceptName>extinction</rightConceptName><relationName>Cause</relationName><PageNum>5</PageNum></CmapLink></CmapLinkList>
