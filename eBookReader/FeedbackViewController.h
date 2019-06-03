@@ -15,6 +15,7 @@
 #import "LogDataParser.h"
 #import "LogDataWrapper.h"
 
+#define FBTYPE_DISMISS -1
 #define FBTYPE_COMPARE 5
 #define FBTYPE_NAVIGATION 4
 #define FBTYPE_POSITIVE 10
@@ -27,6 +28,9 @@
 #define FBTYPE_NOACTION 9
 #define FBTYPE_NOACTION_ADD 11
 #define FBTYPE_NOACTION_LINK 12
+#define FBTYPE_POS_CROSSLINK 13
+#define FBTYPE_POS_BACKNAVI 14
+#define FBTYPE_NO_CROSSLINK 15
 
 @class CmapController;
 

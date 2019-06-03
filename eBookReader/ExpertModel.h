@@ -48,6 +48,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSTimer* actionTimer;
 @property NSTimer* templateActionTimer;
 @property NSTimer* backNaviTimber;
+@property int backNavicount;
+@property int crossLinkCount;
+
 -(void)evaluate;
 -(void)setupKM;
 @end

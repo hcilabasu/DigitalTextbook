@@ -256,7 +256,7 @@
     // [toolBar setHidden:YES];
     [self resignFirstResponder];
     
-    conceptMapView.maximumZoomScale=5.0;
+    conceptMapView.maximumZoomScale=6.0;
     conceptMapView.zoomScale=2.5;
     //[self readSavedCmapSize];
     if(!parentBookPageViewController.isTraining){
@@ -443,6 +443,42 @@
 }
 
 
+-(void)showPositiveCrossLinkFeedbackMessage{
+    int timeSecondNow=[[NSDate date] timeIntervalSince1970];
+    if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10  ||isFeedbackShowing){
+        return;
+    }
+    parentBookPageViewController.expertModel.lastFeedbackSecond=[[NSDate date] timeIntervalSince1970];
+    [parentBookPageViewController showOverlay];
+    feedbackPV= [[PopoverView alloc] initWithFrame:CGRectZero];
+    feedbackCtr.feedbackState=FBTYPE_POS_CROSSLINK;
+    [feedbackCtr upDateContent];
+    feedbackPV.delegate=self;
+    [feedbackPV showAtPoint:CGPointMake(0, 0) inView:agent withContentView: feedbackCtr.view];
+    [feedbackCtr animateProgressView];
+    isFeedbackShowing=YES;
+}
+
+-(void)showFirstBackNavigationMessage{
+    int timeSecondNow=[[NSDate date] timeIntervalSince1970];
+    if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10  ||isFeedbackShowing){
+        return;
+    }
+    parentBookPageViewController.expertModel.lastFeedbackSecond=[[NSDate date] timeIntervalSince1970];
+    [parentBookPageViewController showOverlay];
+    feedbackPV= [[PopoverView alloc] initWithFrame:CGRectZero];
+    feedbackCtr.feedbackState=FBTYPE_POS_BACKNAVI;
+    [feedbackCtr upDateContent];
+    feedbackPV.delegate=self;
+    [feedbackPV showAtPoint:CGPointMake(0, 0) inView:agent withContentView: feedbackCtr.view];
+    [feedbackCtr animateProgressView];
+    isFeedbackShowing=YES;
+}
+
+
+
+
+
 
 - (void)popoverViewDidDismiss:(PopoverView *)popoverView{
     isFeedbackShowing=NO;
@@ -452,6 +488,9 @@
     [bookLogDataWrapper addLogs:newlog];
     [LogDataParser saveLogData:bookLogDataWrapper];
 }
+
+
+
 
 -(void)showDualTextbookView {
     [parentBookPageViewController showSecondBookView];
@@ -683,7 +722,7 @@
     //////start creating map//////
     for(CmapNode* cell in bookNodeWrapper.cmapNodes){
         //check if this node should be created////
-        [self createNode:CGPointMake(cell.point_x, cell.point_y) withName:cell.text page:cell.pageNum url:cell.linkingUrl urlTitle: cell.linkingUrlTitle hasNote: cell.hasNote hasHighlight: cell.hasHighlight hasWebLink: cell.hasWebLink savedNotesString: cell.savedNotesString];
+        [self createNode:CGPointMake(cell.point_x, cell.point_y) withName:cell.text page:cell.pageNum url:cell.linkingUrl urlTitle: cell.linkingUrlTitle hasNote: cell.hasNote hasHighlight: cell.hasHighlight hasWebLink: cell.hasWebLink savedNotesString: cell.savedNotesString nodeType:cell.nodeType];
     }
     for(CmapLink* link in bookLinkWrapper.cmapLinks){
         //check if the link should exist///
@@ -907,11 +946,12 @@
 -(BOOL)prefersStatusBarHidden{
     return YES;
 }
+
 //Used to create nodes when map is loading
--(void)createNode:(CGPoint)position withName:(NSString*) name page: (int)m_pageNum  url:(NSURL*)m_linkingUrl urlTitle: (NSString *) m_linkingUrlTitle hasNote: (BOOL) m_hasNote hasHighlight: (BOOL) m_hasHighlight hasWebLink: (BOOL) m_hasWebLink savedNotesString: (NSString *) m_noteString{
+-(void)createNode:(CGPoint)position withName:(NSString*) name page: (int)m_pageNum  url:(NSURL*)m_linkingUrl urlTitle: (NSString *) m_linkingUrlTitle hasNote: (BOOL) m_hasNote hasHighlight: (BOOL) m_hasHighlight hasWebLink: (BOOL) m_hasWebLink savedNotesString: (NSString *) m_noteString nodeType: (int)nodeType{
     [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"ExpertMapChanged"];
     NodeCell *node=[[NodeCell alloc]initWithNibName:@"NodeCell" bundle:nil];
-    node.createType=0;
+    node.createType=nodeType;
     node.bookPagePosition=CGPointMake(0, 0);
     node.parentCmapController=self;
     node.showPoint=CGPointMake(position.x+39, position.y+15);

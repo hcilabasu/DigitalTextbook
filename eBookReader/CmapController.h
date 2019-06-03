@@ -223,12 +223,16 @@
 -(void)showNoteTaking: (CGPoint)showpoint;
 -(void)saveLog: (NSString*)m_sessionID Action: (NSString*)m_action Selection: (NSString*)m_selection Input: (NSString*)m_input PageNumber: (int)m_pageNum;
 -(void)showDualTextbookView;
+-(void)showLinkNameFinder;
+
+
 -(void)showAddAddAddFeedbackmessage;
 -(void)showCompareFeedbackmessage;
--(void)showLinkNameFinder;
 -(void)showReadFeedbackmessage;
 -(void)showPositiveFeedbackmessage;
 -(void)showTemplateFeedbackMessage;
 -(void)showNoActionFeedbackmessage;
 -(void)showBackNavigationFeedbackMessage;
+-(void)showPositiveCrossLinkFeedbackMessage;
+-(void)showFirstBackNavigationMessage;
 @end

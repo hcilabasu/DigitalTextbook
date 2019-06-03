@@ -47,6 +47,9 @@
 @synthesize actionTimer;
 @synthesize templateActionTimer;
 @synthesize backNaviTimber;
+@synthesize backNavicount;
+@synthesize crossLinkCount;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -62,6 +65,8 @@
     sequentialAddCount=0;
     readFeedbackCount=0;
     startPosition=0;
+    backNavicount=0;
+    crossLinkCount=0;
     KnowledgeModel* KM=[[KnowledgeModel alloc]init];
     keyConceptsAry=[KM getKeyConceptLists];
     keyLinksAry= [KM getKeyLinkLists];
@@ -257,7 +262,6 @@
                 [stateArray addObject:currentState];
                 isPosNavi=YES;
             }else if ( page<prePage){
-                [self resetBackNaviTimer];
                 if(isPosNavi){
                     currentState=@"P";
                     [stateArray addObject:currentState];
@@ -317,6 +321,14 @@
     else{
         readActionCount=0;
     }
+     if([currentState isEqualToString:@"P"]||[currentState isEqualToString:@"B"]){
+         [self resetBackNaviTimer];
+         backNavicount++;
+     }
+    
+    if(1==backNavicount){
+        [parentCmapController showFirstBackNavigationMessage];
+    }
     
     // if user creates a cross link, check if reading or comparing has been done.
     if([lastAction isEqualToString:@"Update Link name from list"] ){
@@ -336,7 +348,13 @@
                 [parentCmapController showPositiveFeedbackmessage];
             }
         }
+        if([preState isEqualToString:@"C"]||[preState isEqualToString:@"G"]){
+            crossLinkCount++;
+            [self checkCrossLinkFeedback];
+        }
+        
         if([preState isEqualToString:@"C"]){
+            
             for (KeyConcept* kc in keyConceptsAry){
                 if ([nodeName1.lowercaseString rangeOfString: kc.name].location != NSNotFound) {
                     kc1=kc;
@@ -431,5 +449,11 @@
 }
 
 
+-(void)checkCrossLinkFeedback{
+    if(0==crossLinkCount){
+        [parentCmapController showPositiveCrossLinkFeedbackMessage];
+    }
+    return;
+}
 
 @end

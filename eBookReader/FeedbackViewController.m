@@ -111,7 +111,7 @@
          [parentCmapController.feedbackPV dismiss];
     }
     
-    if(1==feedbackState && (missingConceptAry.count>0)){
+    if(FBTYPE_RRR==feedbackState && (missingConceptAry.count>0)){
         [self showAddNodePanel];
         feedbackState=3;
         return;
@@ -258,7 +258,6 @@
             return;
         }
         
-        
     }
     
     if(FBTYPE_AAA==feedbackState){
@@ -275,7 +274,6 @@
             return;
         }
         
-        
         int page=[self getRelatedNodePage];
         if( page>-1 ){
             relatedPage=page;
@@ -291,23 +289,32 @@
         messageView.text=@"Hi, I noticed that you've been reading for a while, would you like to add some concepts and links to your map?";
         [leftButton setTitle:@"OK" forState:UIControlStateNormal];
         
-        
         NSString* FBType=[[NSUserDefaults standardUserDefaults] stringForKey:@"FBTYPE"];
         if( [FBType isEqualToString: FB_PROCESS]){
             return;
         }
-        
-        
         if(missingConceptAry.count>0){
             [leftButton setTitle:@"Show me some" forState:UIControlStateNormal];
             feedbackState=FBTYPE_RRR;
         }
-        
-        
+    }//end of no action
+    
+    
+    if(FBTYPE_POS_CROSSLINK==feedbackState){
+        LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Show first cross link feedback" selection:@"Tutor" input:@"" pageNum:parentCmapController.pageNum];
+        [bookLogDataWrapper addLogs:newlog];
+        [LogDataParser saveLogData:bookLogDataWrapper];
+        messageView.text=@"Good job! You just created your first cross-link. This can be very beneficial. Keep doing this!";
+        [leftButton setTitle:@"OK" forState:UIControlStateNormal];
     }
     
-    
-    
+    if(FBTYPE_POS_BACKNAVI==feedbackState){
+        LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Show first back navigation feedback" selection:@"Tutor" input:@"" pageNum:parentCmapController.pageNum];
+        [bookLogDataWrapper addLogs:newlog];
+        [LogDataParser saveLogData:bookLogDataWrapper];
+        messageView.text=@"Good job! You just went back and compared concepts. This can be very beneficial. Keep doing this!";
+        [leftButton setTitle:@"OK" forState:UIControlStateNormal];
+    }
     
     
 }
