@@ -28,6 +28,7 @@
 @synthesize missingConceptAry;
 @synthesize relatedPage;
 @synthesize bookLogDataWrapper;
+@synthesize relatedKC;
 - (void)viewDidLoad {
     [super viewDidLoad];
     feedbackState=1;
@@ -142,6 +143,7 @@
         
         return;
     }
+    
     if(FBTYPE_NAVIGATION==feedbackState){
         NSString* inputString= [[NSString alloc]initWithFormat:@"%d",relatedPage-1];
         LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Feedback Navigatioin" selection:@"Tutor" input:inputString pageNum:parentCmapController.pageNum];
@@ -149,6 +151,7 @@
         [LogDataParser saveLogData:bookLogDataWrapper];
         [parentCmapController.feedbackPV dismiss];
         [parentCmapController.parentBookPageViewController.bookView showFirstPage:relatedPage-1];
+        [parentCmapController.parentBookPageViewController showLeftHLRect:relatedKC];
         feedbackState=1;
         return;
     }
@@ -176,8 +179,6 @@
         [parentCmapController highlightUnLinkedTemplateNoeds:NO];
         
     }
-    
-    
      [parentCmapController.feedbackPV dismiss];
     return;
 }
@@ -237,7 +238,17 @@
         LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Show positive feedback" selection:@"Tutor" input:@"" pageNum:parentCmapController.pageNum];
         [bookLogDataWrapper addLogs:newlog];
         [LogDataParser saveLogData:bookLogDataWrapper];
-        messageView.text=@"Good job! You just compared related concepts and created cross-links. This can be very beneficial. Keep doing this!";
+
+        NSString* leftNodeName= parentCmapController.linkJustAdded.leftNode.text.text;
+        NSString* rightNodename= parentCmapController.linkJustAdded.righttNode.text.text;
+        NSString* feedbackTxt= [[NSString alloc]initWithFormat:@"Good job! You just compared and created a  cross-link between \"%@\" and \"%@\". This can be very beneficial. Keep doing this!",leftNodeName,rightNodename];
+        messageView.text=feedbackTxt;
+        [leftButton setTitle:@"OK" forState:UIControlStateNormal];
+        NSString* FBType=[[NSUserDefaults standardUserDefaults] stringForKey:@"FBTYPE"];
+        if( [FBType isEqualToString: FB_PROCESS]){
+            messageView.text=@"Good job! You just compared and linked two concepts. This can be beneficial. Keep doing this!";
+        }
+        
         if(1== parentCmapController.PositiveFeedbackCount){
              messageView.text=@"Awesome job spotting this relationship! Keep going!";
         }
@@ -315,15 +326,24 @@
         LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Show first cross link feedback" selection:@"Tutor" input:@"" pageNum:parentCmapController.pageNum];
         [bookLogDataWrapper addLogs:newlog];
         [LogDataParser saveLogData:bookLogDataWrapper];
-        messageView.text=@"Good job! You just created your first cross-link. This can be very beneficial. Keep doing this!";
+        NSString* leftNodeName= parentCmapController.linkJustAdded.leftNode.text.text;
+        NSString* rightNodename= parentCmapController.linkJustAdded.righttNode.text.text;
+        NSString* feedbackTxt= [[NSString alloc]initWithFormat:@"Good job creating a cross-link between \"%@\" and \"%@\". This can be very beneficial. Keep doing this!",leftNodeName,rightNodename];
+        messageView.text=feedbackTxt;
         [leftButton setTitle:@"OK" forState:UIControlStateNormal];
+        NSString* FBType=[[NSUserDefaults standardUserDefaults] stringForKey:@"FBTYPE"];
+        if( [FBType isEqualToString: FB_PROCESS]){
+           messageView.text=@"Good job creating a cross-link. This can be very beneficial. Keep doing this!";
+        }
+        
     }
     
     if(FBTYPE_POS_BACKNAVI==feedbackState){
         LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Show first back navigation feedback" selection:@"Tutor" input:@"" pageNum:parentCmapController.pageNum];
         [bookLogDataWrapper addLogs:newlog];
         [LogDataParser saveLogData:bookLogDataWrapper];
-        messageView.text=@"Good job! You just went back and compared concepts. This can be very beneficial. Keep doing this!";
+        
+        messageView.text=@"Good job! You just went back to compared concepts. This can be very beneficial. Keep doing this!";
         [leftButton setTitle:@"OK" forState:UIControlStateNormal];
     }
     
@@ -343,9 +363,14 @@
     NodeCell* node1= [parentCmapController.conceptNodeArray objectAtIndex:nodeCount-1];
     NodeCell* node2= [parentCmapController.conceptNodeArray objectAtIndex:nodeCount-2];
     NodeCell* node3= [parentCmapController.conceptNodeArray objectAtIndex:nodeCount-3];
+    NodeCell* node4=node3;
+    if(parentCmapController.conceptNodeArray.count>3){
+        NodeCell* node4= [parentCmapController.conceptNodeArray objectAtIndex:nodeCount-4];
+    }
     NSString* node1Name=node1.text.text.lowercaseString;
     NSString* node2Name=node2.text.text.lowercaseString;
     NSString* node3Name=node3.text.text.lowercaseString;
+    NSString* node4Name=node4.text.text.lowercaseString;
     for ( KeyLink* link in parentCmapController.parentBookPageViewController.expertModel.keyLinksAry ){
         if ([node1Name rangeOfString: link.leftName.lowercaseString].location != NSNotFound) {
             relatedConceptName=link.rightname.lowercaseString;
@@ -367,14 +392,22 @@
         if ([node3Name rangeOfString: link.rightname.lowercaseString].location != NSNotFound) {
             relatedConceptName=link.leftName.lowercaseString;
         }
+        
+        if ([node4Name rangeOfString: link.leftName.lowercaseString].location != NSNotFound) {
+            relatedConceptName=link.rightname.lowercaseString;
+        }
+        if ([node4Name rangeOfString: link.rightname.lowercaseString].location != NSNotFound) {
+            relatedConceptName=link.leftName.lowercaseString;
+        }
     }
     if( [relatedConceptName isEqualToString:@""]){
         return -1;
     }
     
     for (KeyConcept* kc in parentCmapController.parentBookPageViewController.expertModel.keyConceptsAry){
-        if ([kc.name.lowercaseString rangeOfString: relatedConceptName].location != NSNotFound) {
+        if ([kc.conceptName.lowercaseString rangeOfString: relatedConceptName].location != NSNotFound) {
             page=kc.page;
+            relatedKC=kc;
             return page;
         }
     }

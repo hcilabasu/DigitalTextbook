@@ -22,30 +22,33 @@
 
 -(NSMutableArray*) getKeyConceptLists{
     NSMutableArray* list= [[NSMutableArray alloc]init];
-    KeyConcept* Endangered= [[KeyConcept alloc]initWithVariable:@"endanger" Page:4 Subpage:1 Position: CGPointMake(415, 153)];
-    KeyConcept* threatened= [[KeyConcept alloc]initWithVariable:@"threaten" Page:4 Subpage:1 Position: CGPointMake(416, 212)];
-    KeyConcept* HIPPO= [[KeyConcept alloc]initWithVariable:@"hippo" Page:15 Subpage:1 Position: CGPointMake(32, 366)];
-    KeyConcept* instrumentalValue= [[KeyConcept alloc]initWithVariable:@"instrumental" Page:11 Subpage:1 Position: CGPointMake(380, 290)];
-    KeyConcept* habitatDestruction= [[KeyConcept alloc]initWithVariable:@"habitat" Page:18 Subpage:1 Position: CGPointMake(79, 270)];
-    KeyConcept* ecologicalService= [[KeyConcept alloc]initWithVariable:@"ecological service" Page:11 Subpage:1 Position: CGPointMake(178, 702)];
-    KeyConcept* economicValue= [[KeyConcept alloc]initWithVariable:@"economic" Page:11 Subpage:1 Position: CGPointMake(305, 333)];
-    KeyConcept* biopholia= [[KeyConcept alloc]initWithVariable:@"biopholia" Page:12 Subpage:1 Position: CGPointMake(130, 675)];
-    KeyConcept* intrinsicValue= [[KeyConcept alloc]initWithVariable:@"intrinsic" Page:14 Subpage:1 Position: CGPointMake(252, 412)];
-    KeyConcept* localExtinction= [[KeyConcept alloc]initWithVariable:@"local" Page:4 Subpage:1 Position: CGPointMake(407, 393)];
-    KeyConcept* ecologicaExtinction= [[KeyConcept alloc]initWithVariable:@"ecological" Page:4 Subpage:1 Position: CGPointMake(252, 451)];
-    KeyConcept* biologicalExtinction= [[KeyConcept alloc]initWithVariable:@"biological" Page:4 Subpage:1 Position: CGPointMake(382, 494)];
-    KeyConcept* invasiveSpecies= [[KeyConcept alloc]initWithVariable:@"invasive" Page:15 Subpage:1 Position: CGPointMake(133, 484)];
-    KeyConcept* pollution= [[KeyConcept alloc]initWithVariable:@"pollution" Page:15 Subpage:1 Position: CGPointMake(299, 503)];
-    KeyConcept* overHarvesting= [[KeyConcept alloc]initWithVariable:@"harvest" Page:15 Subpage:1 Position: CGPointMake(399, 502)];
-    KeyConcept* population= [[KeyConcept alloc]initWithVariable:@"population" Page:15 Subpage:1 Position: CGPointMake(350, 484)];
-    KeyConcept* humanActivities= [[KeyConcept alloc]initWithVariable:@"human" Page:5 Subpage:1 Position: CGPointMake(350, 484)];
-    KeyConcept* geneticInfo= [[KeyConcept alloc]initWithVariable:@"genetic" Page:11 Subpage:1 Position: CGPointMake(350, 484)];
-    KeyConcept* extinctionRate= [[KeyConcept alloc]initWithVariable:@"0.01" Page:9 Subpage:1 Position: CGPointMake(350, 484)];
-    KeyConcept* diversity= [[KeyConcept alloc]initWithVariable:@"diversity" Page:11 Subpage:1 Position: CGPointMake(350, 484)];
-    KeyConcept* medicine= [[KeyConcept alloc]initWithVariable:@"medicine" Page:11 Subpage:1 Position: CGPointMake(350, 484)];
-    KeyConcept* fivemass= [[KeyConcept alloc]initWithVariable:@"mass" Page:2 Subpage:1 Position: CGPointMake(350, 484)];
-    KeyConcept* greatest= [[KeyConcept alloc]initWithVariable:@"greatest" Page:15 Subpage:1 Position: CGPointMake(350, 484)];
+    KeyConcept* species= [[KeyConcept alloc]initWithVariable:@"species" Page:4 Subpage:1 Position: CGPointMake(38.5, 86)];
+    KeyConcept* extinction= [[KeyConcept alloc]initWithVariable:@"extinction" Page:4 Subpage:1 Position: CGPointMake(229, 48.5)];
+    KeyConcept* Endangered= [[KeyConcept alloc]initWithVariable:@"endanger" Page:4 Subpage:1 Position: CGPointMake(180, 422)];
+    KeyConcept* threatened= [[KeyConcept alloc]initWithVariable:@"threaten" Page:4 Subpage:1 Position: CGPointMake(280.5, 505.5)];
+    KeyConcept* HIPPO= [[KeyConcept alloc]initWithVariable:@"hippo" Page:15 Subpage:1 Position: CGPointMake(319.5, 453)];
+    KeyConcept* instrumentalValue= [[KeyConcept alloc]initWithVariable:@"instrumental" Page:11 Subpage:1 Position: CGPointMake(112.5, 303.5)];
+    KeyConcept* habitatDestruction= [[KeyConcept alloc]initWithVariable:@"habitat" Page:18 Subpage:1 Position: CGPointMake(367, 21)];
+    KeyConcept* ecologicalService= [[KeyConcept alloc]initWithVariable:@"ecological service" Page:11 Subpage:1 Position: CGPointMake(185.5, 326.5)];
+    KeyConcept* economicValue= [[KeyConcept alloc]initWithVariable:@"economic" Page:11 Subpage:1 Position: CGPointMake(189.5, 346.5)];
+    KeyConcept* biopholia= [[KeyConcept alloc]initWithVariable:@"biopholia" Page:12 Subpage:1 Position: CGPointMake(44, 589.5)];
+    KeyConcept* intrinsicValue= [[KeyConcept alloc]initWithVariable:@"intrinsic" Page:14 Subpage:1 Position: CGPointMake(363, 431.5)];
+    KeyConcept* localExtinction= [[KeyConcept alloc]initWithVariable:@"local" Page:4 Subpage:1 Position: CGPointMake(497.5, 107)];
+    KeyConcept* ecologicaExtinction= [[KeyConcept alloc]initWithVariable:@"ecological" Page:4 Subpage:1 Position: CGPointMake(138, 190)];
+    KeyConcept* biologicalExtinction= [[KeyConcept alloc]initWithVariable:@"biological" Page:4 Subpage:1 Position: CGPointMake(381.5, 231)];
+    KeyConcept* invasiveSpecies= [[KeyConcept alloc]initWithVariable:@"invasive" Page:15 Subpage:1 Position: CGPointMake(304, 476.5)];
+    KeyConcept* pollution= [[KeyConcept alloc]initWithVariable:@"pollution" Page:15 Subpage:1 Position: CGPointMake(121, 518.5)];
+    KeyConcept* overHarvesting= [[KeyConcept alloc]initWithVariable:@"harvest" Page:15 Subpage:1 Position: CGPointMake(247.5, 515.5)];
+    KeyConcept* population= [[KeyConcept alloc]initWithVariable:@"population" Page:15 Subpage:1 Position: CGPointMake(132, 496.5)];
+    KeyConcept* humanActivities= [[KeyConcept alloc]initWithVariable:@"human" Page:5 Subpage:1 Position: CGPointMake(199.5, 506)];
+    KeyConcept* geneticInfo= [[KeyConcept alloc]initWithVariable:@"genetic" Page:11 Subpage:1 Position: CGPointMake(303.5, 531.5)];
+    KeyConcept* extinctionRate= [[KeyConcept alloc]initWithVariable:@"0.01" Page:9 Subpage:1 Position: CGPointMake(228.5, 249)];
+    KeyConcept* diversity= [[KeyConcept alloc]initWithVariable:@"diversity" Page:11 Subpage:1 Position: CGPointMake(301.5, 211.5)];
+    KeyConcept* medicine= [[KeyConcept alloc]initWithVariable:@"medicine" Page:11 Subpage:1 Position: CGPointMake(210.5, 369)];
+    KeyConcept* fivemass= [[KeyConcept alloc]initWithVariable:@"mass" Page:2 Subpage:1 Position: CGPointMake(317, 258)];
+    KeyConcept* greatest= [[KeyConcept alloc]initWithVariable:@"greatest" Page:15 Subpage:1 Position: CGPointMake(89, 382)];
     
+    species.conceptName=@"Species";
     Endangered.conceptName=@"Endangered Species";
     threatened.conceptName=@"Threatened Species";
     ecologicalService.subName=@"ecological Value";
@@ -70,6 +73,7 @@
     fivemass.conceptName=@"Five Massive Extinctions";
     greatest.conceptName=@"Greatest Threat";
     
+    [list addObject: species];
     [list addObject: Endangered];
     [list addObject: threatened];
     [list addObject: HIPPO];

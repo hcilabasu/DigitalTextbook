@@ -51,6 +51,9 @@
 @property (nonatomic, strong) LogDataWrapper* bookLogDataWrapper;
 @property NSTimer* progressTimer;
 @property int relatedPage;
+@property KeyConcept* relatedKC;
+
+
 -(void)showAddNodePanel;
 -(void)showAnimation;
 -(void)animateProgressView;

@@ -340,11 +340,13 @@
      if([currentState isEqualToString:@"P"]||[currentState isEqualToString:@"B"]){
          [self resetBackNaviTimer];
          backNavicount++;
+         
+         if(1==backNavicount){
+             [parentCmapController showFirstBackNavigationMessage];
+         }
+         
      }
-    
-    if(1==backNavicount){
-        [parentCmapController showFirstBackNavigationMessage];
-    }
+
     
     // if user creates a cross link, check if reading or comparing has been done.
     if([lastAction isEqualToString:@"Update Link name from list"] ){
@@ -364,12 +366,10 @@
                 [parentCmapController showPositiveFeedbackmessage];
             }
         }
-        if([preState isEqualToString:@"C"]||[preState isEqualToString:@"G"]){
+        if( ([preState isEqualToString:@"C"]||[preState isEqualToString:@"G"])&&0==crossLinkCount    ){
             crossLinkCount++;
             [self checkCrossLinkFeedback];
-        }
-        
-        if([preState isEqualToString:@"C"]){
+        }else if([preState isEqualToString:@"C"]){
             
             for (KeyConcept* kc in keyConceptsAry){
                 if ([nodeName1.lowercaseString rangeOfString: kc.name].location != NSNotFound) {
@@ -466,9 +466,7 @@
 
 
 -(void)checkCrossLinkFeedback{
-    if(0==crossLinkCount){
         [parentCmapController showPositiveCrossLinkFeedbackMessage];
-    }
     return;
 }
 

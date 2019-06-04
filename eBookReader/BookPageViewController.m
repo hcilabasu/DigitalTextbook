@@ -235,13 +235,13 @@
         expertModel= [[ExpertModel alloc]init];
         expertModel.bookLogDataWrapper=logWrapper;
         [expertModel setupKM];
-        HLrectLeft=[[UIView alloc]initWithFrame:CGRectMake(100, 100, 80, 22)];
+        HLrectLeft=[[UIView alloc]initWithFrame:CGRectMake(100, 100, 80, 28)];
         HLrectLeft.layer.borderColor = [UIColor colorWithRed:255/255 green:90/255.0 blue:90/255.0 alpha:1].CGColor;
-        HLrectLeft.layer.borderWidth = 4.0f;
+        HLrectLeft.layer.borderWidth = 3.0f;
         
-        HLrectRight=[[UIView alloc]initWithFrame:CGRectMake(100, 100, 160, 22)];
+        HLrectRight=[[UIView alloc]initWithFrame:CGRectMake(100, 100, 160, 28)];
         HLrectRight.layer.borderColor = [UIColor colorWithRed:255/255 green:90/255.0 blue:90/255.0 alpha:1].CGColor;
-        HLrectRight.layer.borderWidth = 4.0f;
+        HLrectRight.layer.borderWidth = 3.0f;
         [self.view addSubview:HLrectLeft];
         [self.view addSubview:HLrectRight];
     
@@ -250,7 +250,7 @@
 }//end of view did load
 
 -(void)showLeftHLRect: (KeyConcept*) kc{
-    int RectWidth= (int)[kc.conceptName length]*8;
+    int RectWidth= (int)[kc.conceptName length]*8+8;
     [HLrectLeft setFrame: CGRectMake(HLrectLeft.frame.origin.x, HLrectLeft.frame.origin.y, RectWidth, HLrectLeft.frame.size.height)];
     
     if(HLrectLeft){
@@ -261,9 +261,9 @@
 }
 
 -(void)showRightHLRect:  (KeyConcept*) kc{
-    int RectWidth= (int)[kc.conceptName length]*8 ;
+    int RectWidth= (int)[kc.conceptName length]*8+8 ;
     [HLrectRight setFrame: CGRectMake(HLrectRight.frame.origin.x, HLrectRight.frame.origin.y, RectWidth, HLrectRight.frame.size.height)];
-    CGPoint rightPoint= CGPointMake(kc.position.x+530, kc.position.y);
+    CGPoint rightPoint= CGPointMake(kc.position.x+515, kc.position.y);
     if(HLrectRight){
         [HLrectRight setHidden:NO];
         HLrectRight.center=rightPoint;
@@ -559,8 +559,8 @@
     [compareViewReturnButton addTarget:self
                action:@selector(returnToCmapView)
      forControlEvents:UIControlEventTouchUpInside];
-    [compareViewReturnButton setTitle:@"Back to map view" forState:UIControlStateNormal];
-    compareViewReturnButton.frame = CGRectMake(700,700, 180, 50);
+    [compareViewReturnButton setTitle:@"Back to concept map view" forState:UIControlStateNormal];
+    compareViewReturnButton.frame = CGRectMake(380,700, 250, 50);
     compareViewReturnButton.alpha=0.85;
     [self.view addSubview:compareViewReturnButton];
     
