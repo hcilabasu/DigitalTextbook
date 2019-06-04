@@ -168,7 +168,12 @@
     }
     
     if(FBTYPE_TEMPLATE==feedbackState){
-        [parentCmapController highlightUnLinkedTemplateNoeds];
+        [parentCmapController highlightUnLinkedTemplateNoeds:YES];
+        
+    }
+    
+    if(FBTYPE_TEMPLATE_NOTAP==feedbackState){
+        [parentCmapController highlightUnLinkedTemplateNoeds:NO];
         
     }
     

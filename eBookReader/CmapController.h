@@ -235,7 +235,8 @@
 -(void)showBackNavigationFeedbackMessage;
 -(void)showPositiveCrossLinkFeedbackMessage;
 -(void)showFirstBackNavigationMessage;
+-(void)showTemplateNoTapFeedbackMessage;
 
-
--(void)highlightUnLinkedTemplateNoeds;
+-(void)highlightUnLinkedTemplateNoeds: (BOOL)highlightAll;
+-(BOOL)isTemplateAllConnect;
 @end

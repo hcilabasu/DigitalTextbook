@@ -425,6 +425,24 @@
 }
 
 
+
+-(void)showTemplateNoTapFeedbackMessage{
+    int timeSecondNow=[[NSDate date] timeIntervalSince1970];
+    if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10 ||isFeedbackShowing ){
+        return;
+    }
+    parentBookPageViewController.expertModel.lastFeedbackSecond=[[NSDate date] timeIntervalSince1970];
+    [parentBookPageViewController showOverlay];
+    feedbackPV= [[PopoverView alloc] initWithFrame:CGRectZero];
+    feedbackCtr.feedbackState=FBTYPE_TEMPLATE_NOTAP;
+    [feedbackCtr upDateContent];
+    feedbackPV.delegate=self;
+    [feedbackPV showAtPoint:CGPointMake(0, 0) inView:agent withContentView: feedbackCtr.view];
+    [feedbackCtr animateProgressView];
+    isFeedbackShowing=YES;
+}
+
+
 -(void)showBackNavigationFeedbackMessage{
     int timeSecondNow=[[NSDate date] timeIntervalSince1970];
     if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10  ||isFeedbackShowing){
@@ -2781,7 +2799,7 @@
     return linkedNodes;
 }
 
--(void)highlightUnLinkedTemplateNoeds{
+-(void)highlightUnLinkedTemplateNoeds: (BOOL)highlightAll{
     int highlightCount=0;
     for(NodeCell* m_node in conceptNodeArray){
         if(0==m_node.createType){//template nodes
@@ -2790,18 +2808,51 @@
             if(lnkedNodeCount<2){
                 m_node.text.backgroundColor=[UIColor colorWithRed:240.0/255.0 green:133.0/255.0 blue:133.0/255.0 alpha:1];
                 highlightCount++;
+                if(!highlightAll){
+                     [parentBookPageViewController showExpertHighlightWarning];
+                    return;
+                }
             }
             if( [conceptName isEqualToString:@"species"]&&lnkedNodeCount<3){
                 m_node.text.backgroundColor=[UIColor colorWithRed:240.0/255.0 green:133.0/255.0 blue:133.0/255.0 alpha:1];
+                highlightCount++;
+                if(!highlightAll){
+                     [parentBookPageViewController showExpertHighlightWarning];
+                    return;
+                }
             }
-            highlightCount++;
         }
     }
 
     if(highlightCount>0){
         [parentBookPageViewController showExpertHighlightWarning];
     }
-    
+}
+
+
+
+
+-(BOOL)isTemplateAllConnect{
+    int unConectCount=0;
+    for(NodeCell* m_node in conceptNodeArray){
+        if(0==m_node.createType){//template nodes
+            NSString* conceptName=m_node.text.text;
+            int lnkedNodeCount= [self getNumberOfLinkedNodes:conceptName];
+            if(lnkedNodeCount<2){
+                unConectCount++;
+            }
+            if( [conceptName isEqualToString:@"species"]&&lnkedNodeCount<3){
+                unConectCount++;
+            }
+            
+        }
+    }
+
+    if(unConectCount>0){
+        return NO;
+    }else{
+        return YES;
+    }
 }
 
 @end

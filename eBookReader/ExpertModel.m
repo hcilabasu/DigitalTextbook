@@ -83,8 +83,9 @@
     }
     
     [self resetActionTimer];
-    [self startTemplateActionTimer];
+    [self startTemplateConectTimer];
     [self startBackNaviTimer];
+    [self startNoNaviTemplateCheckTimer];
 }
 
 -(void)resetBackNaviTimer{
@@ -123,20 +124,35 @@
 }
 
 
--(void)startTemplateActionTimer{
-    templateActionTimer = [NSTimer scheduledTimerWithTimeInterval: 5
+-(void)startTemplateConectTimer{
+    templateActionTimer = [NSTimer scheduledTimerWithTimeInterval: 130
                                                    target: self
-                                                 selector:@selector(onTemplateTick:)
+                                                 selector:@selector(checkTemplateConnect:)
                                                  userInfo: nil repeats:NO];
 }
 
--(void)onTemplateTick:(NSTimer *)timer {
+
+-(void)checkTemplateConnect:(NSTimer *)timer {
     if(parentCmapController.templateClickCount<3){
         [parentCmapController showTemplateFeedbackMessage];
     }
 }
 
 
+
+
+-(void)startNoNaviTemplateCheckTimer{
+    templateActionTimer = [NSTimer scheduledTimerWithTimeInterval: 90
+                                                           target: self
+                                                         selector:@selector(onTemplateTick:)
+                                                         userInfo: nil repeats:NO];
+}
+
+-(void)onTemplateTick:(NSTimer *)timer {
+    if(parentCmapController.templateClickCount<3){
+        [parentCmapController showTemplateNoTapFeedbackMessage];
+    }
+}
 
 -(void)evaluate{
     
