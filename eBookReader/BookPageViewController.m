@@ -1188,12 +1188,51 @@
 }
 
 
+
 -(void)hideLinkingWarning{
     [webFocusQuestionLable removeFromSuperview];
     [hintImg removeFromSuperview];
     //[webFocusQuestionLable setHidden:YES];
     //[hintImg setHidden:YES];
 }
+
+
+-(void)showExpertHighlightWarning{
+    webFocusQuestionLable = [[UILabel alloc] initWithFrame:CGRectMake(350, 55, 350, 50)];
+    webFocusQuestionLable.backgroundColor=[UIColor colorWithRed:247.0/255.0 green:176.0/255.0 blue:143.0/255.0 alpha:1];
+    webFocusQuestionLable.textAlignment = NSTextAlignmentCenter;
+    webFocusQuestionLable.layer.shadowOpacity = 0.4;
+    webFocusQuestionLable.layer.shadowRadius = 3;
+    webFocusQuestionLable.layer.shadowColor = [UIColor blackColor].CGColor;
+    webFocusQuestionLable.layer.shadowOffset = CGSizeMake(2, 2);
+    UIImage *image = [UIImage imageNamed:@"Train_link"];
+    image=[self imageWithImage:image scaledToSize:CGSizeMake(400, 200)];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+    [ webFocusQuestionLable setFrame: CGRectMake(90, 35, 430, 75)];
+    webFocusQuestionLable.text=@"I highlighted the template nodes that needs to be expanded. Try to see if you can connect or expanded these nodes!";
+    webFocusQuestionLable.font=[webFocusQuestionLable.font fontWithSize:14];
+    webFocusQuestionLable.lineBreakMode = NSLineBreakByWordWrapping;
+    webFocusQuestionLable.numberOfLines = 0;
+    webFocusQuestionLable.center=CGPointMake(500, 50);
+    hintImg.center=CGPointMake(530, 75);
+    [self.view addSubview:webFocusQuestionLable];
+    //[self.view addSubview: hintImg];
+    [self startTHintTimer];
+}
+
+
+-(void)startTHintTimer{
+  NSTimer*  hintTimer = [NSTimer scheduledTimerWithTimeInterval: 6
+                                                           target: self
+                                                         selector:@selector(disMissHint:)
+                                                         userInfo: nil repeats:NO];
+}
+-(void)disMissHint:(NSTimer *)timer {
+    [webFocusQuestionLable removeFromSuperview];
+    [hintImg removeFromSuperview];
+}
+
+
 
 
 

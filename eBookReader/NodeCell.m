@@ -508,6 +508,10 @@
             return;
         }
         
+        if(0==createType){
+            text.backgroundColor=[UIColor colorWithRed:160.0/255.0 green:211.0/255.0 blue:172.0/255.0 alpha:1];
+        }
+        
         NSLog(@"Linking concepts!");
         [parentCmapController savePreviousStep];
         [relatedNodesArray addObject:parentCmapController.nodesToLink];
@@ -701,6 +705,9 @@
 
 
 -(void)waitForLink{
+    if(0==createType){
+        text.backgroundColor=[UIColor colorWithRed:160.0/255.0 green:211.0/255.0 blue:172.0/255.0 alpha:1];
+    }
     self.view.layer.shadowColor=[UIColor redColor].CGColor;
     waitAnim = [CABasicAnimation animationWithKeyPath:@"shadowOpacity"];
     waitAnim.fromValue = [NSNumber numberWithFloat:1.0];

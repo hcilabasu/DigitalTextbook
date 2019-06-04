@@ -949,7 +949,7 @@
 
 //Used to create nodes when map is loading
 -(void)createNode:(CGPoint)position withName:(NSString*) name page: (int)m_pageNum  url:(NSURL*)m_linkingUrl urlTitle: (NSString *) m_linkingUrlTitle hasNote: (BOOL) m_hasNote hasHighlight: (BOOL) m_hasHighlight hasWebLink: (BOOL) m_hasWebLink savedNotesString: (NSString *) m_noteString nodeType: (int)nodeType{
-    [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"ExpertMapChanged"];
+    //[[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"ExpertMapChanged"];
     NodeCell *node=[[NodeCell alloc]initWithNibName:@"NodeCell" bundle:nil];
     node.createType=nodeType;
     node.bookPagePosition=CGPointMake(0, 0);
@@ -2767,6 +2767,41 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
  
+}
+
+-(int)getNumberOfLinkedNodes: (NSString*) m_nodename{
+    int linkedNodes=0;
+    
+    for(CmapLink* link in bookLinkWrapper.cmapLinks){
+        if(   [m_nodename isEqualToString:link.leftConceptName]|| [m_nodename isEqualToString:link.rightConceptName] ){
+            linkedNodes++;
+        }
+    }
+    NSString* conceptName=m_nodename;
+    return linkedNodes;
+}
+
+-(void)highlightUnLinkedTemplateNoeds{
+    int highlightCount=0;
+    for(NodeCell* m_node in conceptNodeArray){
+        if(0==m_node.createType){//template nodes
+            NSString* conceptName=m_node.text.text;
+            int lnkedNodeCount= [self getNumberOfLinkedNodes:conceptName];
+            if(lnkedNodeCount<2){
+                m_node.text.backgroundColor=[UIColor colorWithRed:240.0/255.0 green:133.0/255.0 blue:133.0/255.0 alpha:1];
+                highlightCount++;
+            }
+            if( [conceptName isEqualToString:@"species"]&&lnkedNodeCount<3){
+                m_node.text.backgroundColor=[UIColor colorWithRed:240.0/255.0 green:133.0/255.0 blue:133.0/255.0 alpha:1];
+            }
+            highlightCount++;
+        }
+    }
+
+    if(highlightCount>0){
+        [parentBookPageViewController showExpertHighlightWarning];
+    }
+    
 }
 
 @end

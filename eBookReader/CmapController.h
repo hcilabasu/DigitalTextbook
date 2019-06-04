@@ -235,4 +235,7 @@
 -(void)showBackNavigationFeedbackMessage;
 -(void)showPositiveCrossLinkFeedbackMessage;
 -(void)showFirstBackNavigationMessage;
+
+
+-(void)highlightUnLinkedTemplateNoeds;
 @end

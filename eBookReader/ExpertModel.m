@@ -124,7 +124,7 @@
 
 
 -(void)startTemplateActionTimer{
-    templateActionTimer = [NSTimer scheduledTimerWithTimeInterval: 180
+    templateActionTimer = [NSTimer scheduledTimerWithTimeInterval: 5
                                                    target: self
                                                  selector:@selector(onTemplateTick:)
                                                  userInfo: nil repeats:NO];

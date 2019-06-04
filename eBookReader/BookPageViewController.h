@@ -91,5 +91,6 @@
 -(void)showRightHLRect: (KeyConcept*) kc;
 -(void)showLinkNameFinder;
 -(void)HideHighlightRects;
+-(void)showExpertHighlightWarning;
 @end
 

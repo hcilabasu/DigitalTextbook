@@ -161,12 +161,18 @@
             [parentCmapController.feedbackPV dismiss];
         }
         
-        
         [parentCmapController.feedbackPV dismiss];
         [parentCmapController showDualTextbookView];
         feedbackState=1;
         return;
     }
+    
+    if(FBTYPE_TEMPLATE==feedbackState){
+        [parentCmapController highlightUnLinkedTemplateNoeds];
+        
+    }
+    
+    
      [parentCmapController.feedbackPV dismiss];
     return;
 }
