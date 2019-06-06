@@ -1257,7 +1257,7 @@
 }
 
 
--(IBAction)mapViewTap:(id)sender{
+-(void)mapViewTap:(id)sender{
     if(isReadyToLink){
         [nodesToLink removeShadowAnim];
         [nodesToLink becomeFirstResponder];
@@ -1266,6 +1266,9 @@
     }else{
         [self.view endEditing:YES];
     }
+    
+    
+    
     
     
 }

@@ -1232,7 +1232,7 @@
         [parentCmapController.parentTrainingCtr createDeleteTraining];
     }
     if(2!=textView.tag){
-        [textView setUserInteractionEnabled:NO];
+       // [textView setUserInteractionEnabled:NO];
     }
     [textView resignFirstResponder];
     

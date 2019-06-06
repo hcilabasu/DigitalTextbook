@@ -250,7 +250,7 @@
 }//end of view did load
 
 -(void)showLeftHLRect: (KeyConcept*) kc{
-    int RectWidth= (int)[kc.conceptName length]*8+8;
+    int RectWidth= (int)[kc.conceptName length]*8+10;
     [HLrectLeft setFrame: CGRectMake(HLrectLeft.frame.origin.x, HLrectLeft.frame.origin.y, RectWidth, HLrectLeft.frame.size.height)];
     
     if(HLrectLeft){
@@ -261,7 +261,7 @@
 }
 
 -(void)showRightHLRect:  (KeyConcept*) kc{
-    int RectWidth= (int)[kc.conceptName length]*8+8 ;
+    int RectWidth= (int)[kc.conceptName length]*8+10 ;
     [HLrectRight setFrame: CGRectMake(HLrectRight.frame.origin.x, HLrectRight.frame.origin.y, RectWidth, HLrectRight.frame.size.height)];
     CGPoint rightPoint= CGPointMake(kc.position.x+515, kc.position.y);
     if(HLrectRight){

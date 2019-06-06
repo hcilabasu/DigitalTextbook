@@ -74,6 +74,7 @@
     greatest.conceptName=@"Greatest Threat";
     
     [list addObject: species];
+    [list addObject:extinction];
     [list addObject: Endangered];
     [list addObject: threatened];
     [list addObject: HIPPO];
