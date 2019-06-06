@@ -295,6 +295,9 @@
 
 
 -(void)showReadFeedbackmessage{
+    if(parentBookPageViewController.isInCompareView){
+        return;
+    }
     int timeSecondNow=[[NSDate date] timeIntervalSince1970];
     if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10 ||isFeedbackShowing){
         return;
@@ -315,6 +318,9 @@
 }
 
 -(void)showNoActionFeedbackmessage{
+    if(parentBookPageViewController.isInCompareView){
+        return;
+    }
     int timeSecondNow=[[NSDate date] timeIntervalSince1970];
     if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10 ||isFeedbackShowing ){
         return;
@@ -333,6 +339,9 @@
 
 
 -(void)showPositiveFeedbackmessage{
+    if(parentBookPageViewController.isInCompareView){
+        return;
+    }
     int timeSecondNow=[[NSDate date] timeIntervalSince1970];
     if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10 ||isFeedbackShowing ){
         return;
@@ -352,6 +361,9 @@
 }
 
 -(void)showAddAddAddFeedbackmessage{
+    if(parentBookPageViewController.isInCompareView){
+        return;
+    }
     int timeSecondNow=[[NSDate date] timeIntervalSince1970];
     if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10 ||isFeedbackShowing ){
         return;
@@ -370,8 +382,9 @@
 
 
 -(void)showCompareFeedbackmessage{
-    
-
+    if(parentBookPageViewController.isInCompareView){
+        return;
+    }
     int timeSecondNow=[[NSDate date] timeIntervalSince1970];
     if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10 ||isFeedbackShowing ){
         return;
@@ -390,6 +403,9 @@
 
 
 -(void)showCompareFeedbackmessage: (int)m_pageLeft RightPage: (int)m_rightPage leftPosition: (CGPoint)m_leftPosition rightPosition: (CGPoint)rightPosition {
+    if(parentBookPageViewController.isInCompareView){
+        return;
+    }
     int timeSecondNow=[[NSDate date] timeIntervalSince1970];
     if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10 ||isFeedbackShowing ){
         return;
@@ -409,6 +425,9 @@
 
 
 -(void)showTemplateFeedbackMessage{
+    if(parentBookPageViewController.isInCompareView){
+        return;
+    }
     int timeSecondNow=[[NSDate date] timeIntervalSince1970];
     if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10 ||isFeedbackShowing ){
         return;
@@ -427,6 +446,9 @@
 
 
 -(void)showTemplateNoTapFeedbackMessage{
+    if(parentBookPageViewController.isInCompareView){
+        return;
+    }
     int timeSecondNow=[[NSDate date] timeIntervalSince1970];
     if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10 ||isFeedbackShowing ){
         return;
@@ -444,6 +466,9 @@
 
 
 -(void)showBackNavigationFeedbackMessage{
+    if(parentBookPageViewController.isInCompareView){
+        return;
+    }
     int timeSecondNow=[[NSDate date] timeIntervalSince1970];
     if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10  ||isFeedbackShowing){
         return;
@@ -462,6 +487,9 @@
 
 
 -(void)showPositiveCrossLinkFeedbackMessage{
+    if(parentBookPageViewController.isInCompareView){
+        return;
+    }
     int timeSecondNow=[[NSDate date] timeIntervalSince1970];
     if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10  ||isFeedbackShowing){
         return;
@@ -478,6 +506,9 @@
 }
 
 -(void)showFirstBackNavigationMessage{
+    if(parentBookPageViewController.isInCompareView){
+        return;
+    }
     int timeSecondNow=[[NSDate date] timeIntervalSince1970];
     if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10  ||isFeedbackShowing){
         return;

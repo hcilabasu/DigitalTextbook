@@ -57,6 +57,7 @@
 @synthesize HLrectRight;
 @synthesize linkNameFinder;
 @synthesize audioPlayer;
+@synthesize isInCompareView;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -68,7 +69,7 @@
         // ShowingQA=true;
         conceptNodeArray=[[NSMutableArray alloc] init];
         subViewType=0;
-        
+        isInCompareView=NO;
         
     }
     return self;
@@ -631,6 +632,8 @@
     
     //KeyConcept* habitatDestruction= [[KeyConcept alloc]initWithVariable:@"habitat" Page:19 Subpage:1 Position: CGPointMake(65+530, 270)];
    // [self showRightHLRect:habitatDestruction.position];
+    
+    isInCompareView=YES;
 }
 
 
@@ -642,6 +645,7 @@
     [compareTitleButton setHidden:YES];
     [HLrectLeft setHidden:YES];
     [HLrectRight setHidden:YES];
+    isInCompareView=NO;
 }
 
 

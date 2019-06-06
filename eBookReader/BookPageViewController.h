@@ -58,7 +58,7 @@
 @property (strong, nonatomic) UIButton *compareTitleButton;
 @property ExpertModel* expertModel;
 @property (strong, nonatomic) UIButton *compareViewReturnButton;
-
+@property BOOL isInCompareView;
 @property (strong, nonatomic) UIView *HLrectLeft;
 @property (strong, nonatomic) UIView *HLrectRight;
 @property (strong, nonatomic) AVAudioPlayer *audioPlayer;
