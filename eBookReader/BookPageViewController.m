@@ -250,6 +250,18 @@
    
 }//end of view did load
 
+
+-(void)highlightKC: (NSString*)kcName{
+    
+    for(KeyConcept* kc in expertModel.keyConceptsAry){
+        if ([kc.conceptName isEqualToString:kcName]){
+            [self showLeftHLRect:kc];
+            return;
+        }
+    }
+    
+}
+
 -(void)showLeftHLRect: (KeyConcept*) kc{
     int RectWidth= (int)[kc.conceptName length]*8+10;
     [HLrectLeft setFrame: CGRectMake(HLrectLeft.frame.origin.x, HLrectLeft.frame.origin.y, RectWidth, HLrectLeft.frame.size.height)];

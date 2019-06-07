@@ -21,6 +21,7 @@
 #import "TrainingViewController.h"
 #import "LogDataWrapper.h"
 #import "ConditionSetup.h"
+#import "BookPageViewController.h"
 //#import "RelationTextView.h"
 @implementation NodeCell
 @synthesize showPoint;
@@ -567,6 +568,7 @@
         }
         return;
     }
+    
     if(-1==pageNum && (linkingUrl == nil || [linkingUrl.absoluteString isEqualToString:@""])){ // Node created manually, no linking url
         return;
     }
@@ -606,6 +608,12 @@
         }
         [parentCmapController.neighbor_BookViewController showFirstPage:pageNum];
         parentContentViewController.pageNum=pageNum+1;
+        if(TYPE_FEEDBACK==createType){
+            [parentCmapController.parentBookPageViewController highlightKC:text.text];
+        }
+        
+        
+        
      //   [parentCmapController logHyperNavigation:text.text];
         //log the hyperlinking action
         NSString* selectionString;

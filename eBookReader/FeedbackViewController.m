@@ -102,17 +102,15 @@
     
     NSString* FBType=[[NSUserDefaults standardUserDefaults] stringForKey:@"FBTYPE"];
     if( [FBType isEqualToString: FB_PROCESS]){
+        
+        [self TLog:@"Dismiss due to process only condition setup"];
          [parentCmapController.feedbackPV dismiss];
         return;
         
     }
     
-    
-    if(FBTYPE_TEMPLATE==feedbackState){
-         [parentCmapController.feedbackPV dismiss];
-    }
-    
     if(FBTYPE_RRR==feedbackState && (missingConceptAry.count>0)){
+        [self TLog:@"Show Add Node Panel"];
         [self showAddNodePanel];
         feedbackState=3;
         return;
@@ -126,20 +124,22 @@
         feedbackState=3;
         return;
     }
-    if(3==feedbackState){
+    if(FBTYPE_ADD==feedbackState){
+        [self TLog:@"Dismiss add node panel"];
         [parentCmapController.feedbackPV dismiss];
         int page=1;
+        
         for(KeyConcept * kc in  parentCmapController.parentBookPageViewController.expertModel.keyConceptsAry){
-            if ([addNodeViewCtr.conceptName rangeOfString: kc.conceptName].location != NSNotFound) {
+            if ([addNodeViewCtr.conceptName.lowercaseString rangeOfString: kc.name.lowercaseString].location != NSNotFound) {
                 page=kc.page;
+                
             }
         }
         
-        [parentCmapController createNodeFromBook:CGPointMake( arc4random() % 400+30, 690) withName:addNodeViewCtr.conceptName BookPos:CGPointMake(0, 0) page:page];
+        [parentCmapController createNodeFromFeedback:CGPointMake( arc4random() % 400+30, 690) withName:addNodeViewCtr.conceptName BookPos:CGPointMake(0, 0) page:page];
         feedbackState=1;
-        LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"create node from feedback hint" selection:@"Tutor" input:addNodeViewCtr.conceptName pageNum:parentCmapController.pageNum];
-        [bookLogDataWrapper addLogs:newlog];
-        [LogDataParser saveLogData:bookLogDataWrapper];
+        NSString* msg= [[NSString alloc]initWithFormat:@"Created node (%@) from adding node panel",addNodeViewCtr.conceptName];
+        [self TLog:msg];
         
         return;
     }
@@ -184,7 +184,12 @@
 }
 
 - (IBAction)clickOnRight:(id)sender {
+    LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Click on cancel to dismiss feedback" selection:@"Tutor" input:addNodeViewCtr.conceptName pageNum:parentCmapController.pageNum];
+    [bookLogDataWrapper addLogs:newlog];
+    [LogDataParser saveLogData:bookLogDataWrapper];
+    
     [parentCmapController.feedbackPV dismiss];
+    
     
 }
 
@@ -198,7 +203,7 @@
     
     
     if(FBTYPE_TEMPLATE==feedbackState){
-        LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Show template feedback" selection:@"Tutor" input:@"" pageNum:parentCmapController.pageNum];
+        LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Show no template feedback" selection:@"Tutor" input:@"" pageNum:parentCmapController.pageNum];
         [bookLogDataWrapper addLogs:newlog];
         [LogDataParser saveLogData:bookLogDataWrapper];
         messageView.text=@"Our template covers some of the most important concepts in the content. Try tapping on a few nodes in the template to preview what you are about to learn!";
@@ -207,7 +212,7 @@
     
     
     if(FBTYPE_BACK==feedbackState){
-        LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Show back navigation feedback" selection:@"Tutor" input:@"" pageNum:parentCmapController.pageNum];
+        LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Show no back navigation feedback" selection:@"Tutor" input:@"" pageNum:parentCmapController.pageNum];
         [bookLogDataWrapper addLogs:newlog];
         [LogDataParser saveLogData:bookLogDataWrapper];
         messageView.text=@"You've been doing great, just wanted to remind you that constantly reviewing previous concepts and make connections would be helpful!";
@@ -235,7 +240,7 @@
     }
     
     if(FBTYPE_POSITIVE==feedbackState){
-        LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Show positive feedback" selection:@"Tutor" input:@"" pageNum:parentCmapController.pageNum];
+        LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Show positive compare and link feedback" selection:@"Tutor" input:@"" pageNum:parentCmapController.pageNum];
         [bookLogDataWrapper addLogs:newlog];
         [LogDataParser saveLogData:bookLogDataWrapper];
 
@@ -264,14 +269,12 @@
         int leftPage=parentCmapController.parentBookPageViewController.expertModel.comparePageLeft;
         int rightPage=parentCmapController.parentBookPageViewController.expertModel.comparePageRight;
         NSString* inputString= [[NSString alloc]initWithFormat:@"%d_%d",leftPage,rightPage];
-        LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Show compare feedback" selection:@"Tutor" input:inputString pageNum:parentCmapController.pageNum];
+        LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Show low quality cross-link feedback" selection:@"Tutor" input:inputString pageNum:parentCmapController.pageNum];
         [bookLogDataWrapper addLogs:newlog];
         [LogDataParser saveLogData:bookLogDataWrapper];
         
         messageView.text=@"Good job creating the cross-link! But it looks like you haven't carefully read them yet. Would you like to compare these two concepts?";
         [leftButton setTitle:@"Compare them" forState:UIControlStateNormal];
-        
-        
         
         NSString* FBType=[[NSUserDefaults standardUserDefaults] stringForKey:@"FBTYPE"];
         if( [FBType isEqualToString: FB_PROCESS]){
@@ -305,7 +308,7 @@
     }
     
     if(FBTYPE_NOACTION==feedbackState){
-        LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Show back navigation feedback" selection:@"Tutor" input:@"" pageNum:parentCmapController.pageNum];
+        LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Show no back navigation feedback" selection:@"Tutor" input:@"" pageNum:parentCmapController.pageNum];
         [bookLogDataWrapper addLogs:newlog];
         [LogDataParser saveLogData:bookLogDataWrapper];
         messageView.text=@"Hi, I noticed that you've been reading for a while, would you like to add some concepts and links to your map?";
@@ -415,4 +418,13 @@
     return -1;
 }
 
+
+
+-(void)TLog: (NSString*)msg{
+    
+    LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:msg selection:@"Tutor" input:@"" pageNum:parentCmapController.pageNum];
+    [bookLogDataWrapper addLogs:newlog];
+    [LogDataParser saveLogData:bookLogDataWrapper];
+    
+}
 @end

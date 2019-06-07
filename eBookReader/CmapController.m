@@ -146,9 +146,6 @@
     [webviewIcon setHidden:YES];
     
     
-    
-    
-    
     CGRect rect=CGRectMake(530, 0, 511, 768);
     [self.view setFrame:rect];
 
@@ -553,7 +550,6 @@
     
    // [self upLoadExpertLinktoDropbox];
   //  [self upLoadExpertNodetoDropbox];
-    
 }
 
 -(void)uploadMapNodeXML{
@@ -1417,6 +1413,85 @@
     [self updatePreviewLocation];
     [self autoSaveMap];
 }
+
+
+
+
+//For nodes created from book and web browser
+-(void)createNodeFromFeedback:(CGPoint)position withName:(NSString*) name BookPos: (CGPoint)bookPosition page:(int)m_pageNum{
+    [self savePreviousStep];
+    [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"ExpertMapChanged"];
+    for(NodeCell* cell in conceptNodeArray){
+        if([cell.text.text isEqualToString:name]){//Node already exists
+            NSString* msg=[[NSString alloc]initWithFormat:@"Concept %@ already exist.", name];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:msg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            alert.tag=1;
+            [alert show];
+            return;
+        }
+    }
+    
+    CGPoint pointInView=position;
+    pointInView.x+=conceptMapView.contentOffset.x;
+    pointInView.y+=conceptMapView.contentOffset.y;
+    //creates node
+    NodeCell *node=[[NodeCell alloc]initWithNibName:@"NodeCell" bundle:nil];
+    node.createType=TYPE_FEEDBACK;
+    node.parentCmapController=self;
+    node.bookLogData=bookLogDataWrapper;
+    node.bookPagePosition=bookPosition;
+    node.showPoint=pointInView;
+    node.isInitialed=YES;
+    node.bookthumbNailIcon=bookThumbNial;
+    node.bookHighLight=bookHighlight;
+    node.bookTitle=bookTitle;
+    node.showType=showType;
+    node.enableHyperLink=YES;
+    node.pageNum=m_pageNum-1;
+    node.text.tag=1;
+    if (m_pageNum == 0){ //Made from Web Browser
+        [node setLinkingUrl];
+        node.hasWeblink = YES;
+    }
+    else {
+        node.hasHighlight = YES; //made from book
+    }
+    [conceptNodeArray addObject:node];
+    [self addChildViewController:node];
+    [conceptMapView addSubview: node.view ];
+    node.text.tag=nodeCount;//use nodeCount to identify the node.
+    node.text.text=name;
+    
+    node.conceptName=name;
+    [node updateViewSize];
+    nodeCount++;
+    NSString* numString=[[NSUserDefaults standardUserDefaults] stringForKey:@"NumOfConcepts"];
+    int numInt=[numString intValue];
+    numInt++;
+    numString=[[NSString alloc]initWithFormat:@"%d",numInt];
+    [[NSUserDefaults standardUserDefaults] setObject:numString forKey:@"NumOfConcepts"];
+    
+    node.updateViewSize;
+    
+    //Saves info into log file
+    if (m_pageNum == 0){ //Made from Web Browser
+        LogData* log= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"creating concept node from web browser " selection:@"web browser" input:name pageNum:0];
+        [bookLogDataWrapper addLogs:log];
+        [LogDataParser saveLogData:bookLogDataWrapper];
+    }
+    else{//from book
+        LogData* log= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"creating concept node from book " selection:@"textbook" input:name pageNum:m_pageNum];
+        [bookLogDataWrapper addLogs:log];
+        [LogDataParser saveLogData:bookLogDataWrapper];
+    }
+    
+    
+    [self getPreView:nil];
+    [self updatePreviewLocation];
+    [self autoSaveMap];
+}
+
+
 
 -(NodeCell*)createNodeFromBookForLink:(CGPoint)position withName:(NSString*) name BookPos: (CGPoint)bookPosition page:(int)m_pageNum{
     [self savePreviousStep];

@@ -92,5 +92,6 @@
 -(void)showLinkNameFinder;
 -(void)HideHighlightRects;
 -(void)showExpertHighlightWarning;
+-(void)highlightKC: (NSString*)kcName;
 @end
 

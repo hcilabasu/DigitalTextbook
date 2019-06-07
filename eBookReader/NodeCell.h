@@ -22,6 +22,10 @@
 #import "PopoverView.h"
 #import "TylerTextView.h"
 #import "LogDataWrapper.h"
+
+#define TYPE_TEMPLATE 0
+#define TYPE_USER 1
+#define TYPE_FEEDBACK 2
 @class CmapController;
 @class ContentViewController;
 

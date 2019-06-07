@@ -63,7 +63,7 @@
     intrinsicValue.conceptName=@"Intrinsic Value";
     invasiveSpecies.conceptName=@"Invasive Species";
     pollution.conceptName=@"Human Population";
-    overHarvesting.conceptName=@"Over Harvest";
+    overHarvesting.conceptName=@"Overharvest";
     HIPPO.conceptName=@"HIPPO";
     humanActivities.conceptName=@"Human Activities";
     geneticInfo.conceptName=@"Genetic Information";
