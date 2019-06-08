@@ -286,7 +286,7 @@
         feedbackCtr.parentCmapController=self;
     }
     
-    [conceptMapView setContentOffset:CGPointMake(200, 300)];
+    [conceptMapView setContentOffset:CGPointMake(400, 500)];
 }//end of view did load
 
 
