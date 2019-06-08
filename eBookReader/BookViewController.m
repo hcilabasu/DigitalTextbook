@@ -390,12 +390,8 @@
     NSMutableArray* mutAry=[[NSMutableArray alloc]init];
     for(HighLight* high in highLight.highLights){
         if([high.text isEqualToString:name]){
-            [mutAry addObject:high];
+            high.color=@"#ffffff";
         }
-    }
-    
-    for(HighLight* highToDel in mutAry){
-        [highLight.highLights removeObject:highToDel];
     }
     
     //[highLight.highLights removeObject:highToDelete];

@@ -230,7 +230,7 @@
     if( ![FBType isEqualToString: FB_NO]){
         overlayView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 3000, 3000)];
         overlayView.backgroundColor= [UIColor blackColor];
-        overlayView.alpha=0.6;
+        overlayView.alpha=0.7;
         [self.view addSubview:overlayView];
         [overlayView setHidden:YES];
         expertModel= [[ExpertModel alloc]init];
@@ -652,6 +652,11 @@
 
 
 -(void)returnToCmapView{
+    
+    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Return to concept map view" selection:@"Concept Map" input:@"null" pageNum: cmapView.pageNum];
+    [logWrapper addLogs:newlog];
+    [LogDataParser saveLogData:logWrapper];
+    
     [secondBookView.view setHidden:YES];
     [compareViewReturnButton setHidden:YES];
     [compareTitleButton setHidden:YES];

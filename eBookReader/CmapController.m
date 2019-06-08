@@ -2677,7 +2677,7 @@
     [parentBookPageViewController.bookView deleteHighlightWithWord:name];
     parentBookPageViewController.bookView.currentContentView.bookHighLight=parentBookPageViewController.bookView.highLight;
     
-    [parentBookPageViewController.bookView.currentContentView refresh];
+    //[parentBookPageViewController.bookView.currentContentView refresh];
 }
 //upload button on far right of toolbar, needs three clicks to load
 - (IBAction)AdminUpload:(id)sender {
