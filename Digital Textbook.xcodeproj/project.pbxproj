@@ -304,6 +304,7 @@
 		56D76C3418BC065B0041FA56 /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 56D76C2F18BC065B0041FA56 /* Base64.m */; };
 		56D76C3518BC065B0041FA56 /* CMapImporterExporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 56D76C3118BC065B0041FA56 /* CMapImporterExporter.m */; };
 		56D76C3618BC065B0041FA56 /* NSString+XMLEntities.m in Sources */ = {isa = PBXBuildFile; fileRef = 56D76C3318BC065B0041FA56 /* NSString+XMLEntities.m */; };
+		56E21D5622AC634C0070926E /* iconColor.png in Resources */ = {isa = PBXBuildFile; fileRef = 56E21D5522AC634C0070926E /* iconColor.png */; };
 		56E31A30172D063D0066C55D /* Experiment.m in Sources */ = {isa = PBXBuildFile; fileRef = 56E31A2F172D063D0066C55D /* Experiment.m */; };
 		56E9B03318DE48AF00AADD2E /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56E9B03218DE48AF00AADD2E /* CoreImage.framework */; };
 		56E9B03918DE522E00AADD2E /* blurWallPaper.png in Resources */ = {isa = PBXBuildFile; fileRef = 56E9B03818DE522E00AADD2E /* blurWallPaper.png */; };
@@ -776,6 +777,7 @@
 		56D76C3118BC065B0041FA56 /* CMapImporterExporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMapImporterExporter.m; sourceTree = "<group>"; };
 		56D76C3218BC065B0041FA56 /* NSString+XMLEntities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+XMLEntities.h"; sourceTree = "<group>"; };
 		56D76C3318BC065B0041FA56 /* NSString+XMLEntities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+XMLEntities.m"; sourceTree = "<group>"; };
+		56E21D5522AC634C0070926E /* iconColor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iconColor.png; sourceTree = "<group>"; };
 		56E31A2E172D063D0066C55D /* Experiment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Experiment.h; sourceTree = "<group>"; };
 		56E31A2F172D063D0066C55D /* Experiment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Experiment.m; sourceTree = "<group>"; };
 		56E9B03218DE48AF00AADD2E /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
@@ -1251,6 +1253,7 @@
 			children = (
 				56434C851C7130A700509960 /* TouchTest.m */,
 				56434C871C7130A700509960 /* Info.plist */,
+				56E21D5522AC634C0070926E /* iconColor.png */,
 				56354412225D1BBA00611106 /* Icon.png */,
 			);
 			path = TouchTest;
@@ -2026,6 +2029,7 @@
 				562484381CA5E2EA000C9115 /* orangeRec.png in Resources */,
 				564C425717064D7800B320EF /* highlight_yellow.png in Resources */,
 				56FFE97419DC70D100364476 /* SubNodeViewController.xib in Resources */,
+				56E21D5622AC634C0070926E /* iconColor.png in Resources */,
 				564C425917064D7B00B320EF /* highlight_blue.png in Resources */,
 				56F04ABB1B6464A50092A523 /* LoginButton.png in Resources */,
 				56473546181AF0BD00EE1640 /* AcousticModelEnglish.bundle in Resources */,
