@@ -2946,7 +2946,23 @@
 }
 
 
-
+-(void)RedMarkNode: (NSString*)m_name {
+    
+    for(NodeCell* m_node in conceptNodeArray){
+        NSString* nodeName=m_node.text.text.lowercaseString;
+    if ([nodeName rangeOfString: m_name.lowercaseString].location != NSNotFound) {
+      
+         if ([nodeName rangeOfString: @"species"].location != NSNotFound) {
+            if(!  [nodeName isEqualToString:m_name.lowercaseString] )
+                return;
+        }
+            
+            m_node.text.backgroundColor=[UIColor colorWithRed:240.0/255.0 green:133.0/255.0 blue:133.0/255.0 alpha:1];
+        }
+    }
+    
+    
+}
 
 -(BOOL)isTemplateAllConnect{
     int unConectCount=0;

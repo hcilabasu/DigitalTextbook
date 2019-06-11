@@ -25,8 +25,10 @@
      mywebView =[[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 512, 768)];
     // webView.delegate=self;
      [self.view addSubview:mywebView];
-    NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"sample" ofType:@"html" inDirectory:@"WebTutorial"]];
+    NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"training_full" ofType:@"html" inDirectory:@"WebTutorial"]];
     [mywebView loadRequest:[NSURLRequest requestWithURL:url]];
+    mywebView.scrollView.scrollEnabled=NO;
+    mywebView.scrollView.bounces=NO;
 }
 
 

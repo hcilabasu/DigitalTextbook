@@ -24,5 +24,4 @@
 @property (weak, nonatomic) IBOutlet UILabel *timerLable;
 @property (nonatomic, retain)LogDataWrapper * logWrapper;
 
--(void)startTimer;
 @end

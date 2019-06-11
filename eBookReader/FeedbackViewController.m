@@ -29,6 +29,8 @@
 @synthesize relatedPage;
 @synthesize bookLogDataWrapper;
 @synthesize relatedKC;
+@synthesize relatedNodeName;
+@synthesize relatedNodeName2;
 - (void)viewDidLoad {
     [super viewDidLoad];
     feedbackState=1;
@@ -151,6 +153,12 @@
         [parentCmapController.feedbackPV dismiss];
         [parentCmapController.parentBookPageViewController.bookView showFirstPage:relatedPage-1];
         [parentCmapController.parentBookPageViewController showLeftHLRect:relatedKC];
+        if(![relatedNodeName isEqualToString:@""]){
+            [parentCmapController RedMarkNode:relatedNodeName];
+            [parentCmapController RedMarkNode:relatedNodeName2];
+        }
+     
+        
         feedbackState=1;
         return;
     }
@@ -217,7 +225,17 @@
         [bookLogDataWrapper addLogs:newlog];
         [LogDataParser saveLogData:bookLogDataWrapper];
         messageView.text=@"Our template covers some of the most important concepts in the content. Try tapping on a few nodes in the template to preview what you are about to learn!";
-        [leftButton setTitle:@"OK" forState:UIControlStateNormal];
+        [leftButton setTitle:@"Tell me more" forState:UIControlStateNormal];
+        
+        
+        
+        NSString* FBType=[[NSUserDefaults standardUserDefaults] stringForKey:@"FBTYPE"];
+        if( [FBType isEqualToString: FB_PROCESS]){
+             [leftButton setTitle:@"OK" forState:UIControlStateNormal];
+            return;
+        }
+        
+        
     }
     
     
@@ -357,7 +375,7 @@
         [bookLogDataWrapper addLogs:newlog];
         [LogDataParser saveLogData:bookLogDataWrapper];
         
-        messageView.text=@"Good job! You just went back to compared concepts. This can be very beneficial. Keep doing this!";
+        messageView.text=@"Good job! You just went back and compared concepts. This can be very beneficial. Keep doing this!";
         [leftButton setTitle:@"OK" forState:UIControlStateNormal];
     }
     
@@ -367,6 +385,7 @@
 
 
 -(int)getRelatedNodePage{
+    relatedNodeName=nil;
     int page=-1;
     int nodeCount= (int) [parentCmapController.conceptNodeArray count];
     if(nodeCount<3){
@@ -388,36 +407,45 @@
     for ( KeyLink* link in parentCmapController.parentBookPageViewController.expertModel.keyLinksAry ){
         if ([node1Name rangeOfString: link.leftName.lowercaseString].location != NSNotFound) {
             relatedConceptName=link.rightname.lowercaseString;
+            relatedNodeName2=link.leftName.lowercaseString;
         }
         if ([node1Name rangeOfString: link.rightname.lowercaseString].location != NSNotFound) {
             relatedConceptName=link.leftName.lowercaseString;
+            relatedNodeName2=link.rightname.lowercaseString;
         }
         
         if ([node2Name rangeOfString: link.leftName.lowercaseString].location != NSNotFound) {
             relatedConceptName=link.rightname.lowercaseString;
+            relatedNodeName2=link.leftName.lowercaseString;
         }
         if ([node2Name rangeOfString: link.rightname.lowercaseString].location != NSNotFound) {
             relatedConceptName=link.leftName.lowercaseString;
+            relatedNodeName2=link.rightname.lowercaseString;
         }
         
         if ([node3Name rangeOfString: link.leftName.lowercaseString].location != NSNotFound) {
             relatedConceptName=link.rightname.lowercaseString;
+            relatedNodeName2=link.leftName.lowercaseString;
         }
         if ([node3Name rangeOfString: link.rightname.lowercaseString].location != NSNotFound) {
             relatedConceptName=link.leftName.lowercaseString;
+            relatedNodeName2=link.rightname.lowercaseString;
         }
         
         if ([node4Name rangeOfString: link.leftName.lowercaseString].location != NSNotFound) {
             relatedConceptName=link.rightname.lowercaseString;
+            relatedNodeName2=link.leftName.lowercaseString;
         }
         if ([node4Name rangeOfString: link.rightname.lowercaseString].location != NSNotFound) {
             relatedConceptName=link.leftName.lowercaseString;
+            relatedNodeName2=link.rightname.lowercaseString;
         }
     }
     if( [relatedConceptName isEqualToString:@""]){
         return -1;
     }
     
+    relatedNodeName=relatedConceptName;
     for (KeyConcept* kc in parentCmapController.parentBookPageViewController.expertModel.keyConceptsAry){
         if ([kc.conceptName.lowercaseString rangeOfString: relatedConceptName].location != NSNotFound) {
             page=kc.page;

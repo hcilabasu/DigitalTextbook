@@ -52,8 +52,8 @@
 @property NSTimer* progressTimer;
 @property int relatedPage;
 @property KeyConcept* relatedKC;
-
-
+@property NSString* relatedNodeName;
+@property NSString* relatedNodeName2;
 -(void)showAddNodePanel;
 -(void)showAnimation;
 -(void)animateProgressView;

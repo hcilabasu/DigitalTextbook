@@ -39,7 +39,7 @@
 #define NODE_TEMPLATE 0;
 #define NODE_STUDENT 1;
 
-#define FEEDBACK_INTERVAL 30
+#define FEEDBACK_INTERVAL 5
 @class NodeCell;
 @class BookViewController;
 @class HighLightWrapper;
@@ -242,4 +242,5 @@
 
 -(void)highlightUnLinkedTemplateNoeds: (BOOL)highlightAll;
 -(BOOL)isTemplateAllConnect;
+-(void)RedMarkNode: (NSString*)m_name;
 @end

@@ -392,18 +392,10 @@
 
 -(void)showTutorial{
     VideoViewController *tutorial= [[VideoViewController alloc]initWithNibName:@"VideoViewController" bundle:nil];
-    tutorial.hideImg=YES;
-    tutorial.bookTitle=bookView.bookTitle;
-    tutorial.bookImporter=bookView.bookImporter;
-    tutorial.logWrapper=logWrapper;
-    ///[tutorial.teachImg removeFromSuperview];
-    
     
     LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Go to tutorial view" selection:@"Tutorial View" input:@"null" pageNum:bookView.currentContentView.pageNum];
     [logWrapper addLogs:newlog];
     [LogDataParser saveLogData:logWrapper];
-    
-    
     
     [self.navigationController pushViewController:tutorial animated:NO];
 }
@@ -1127,7 +1119,6 @@
     VideoViewController *tutorial= [[VideoViewController alloc]initWithNibName:@"VideoViewController" bundle:nil];
     tutorial.parentBookCtr=self;
     self.videoView=tutorial;
-    [tutorial startTimer];
     [self.navigationController pushViewController:tutorial animated:NO];
     // [self startTimer];
 }
