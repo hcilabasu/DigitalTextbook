@@ -207,9 +207,20 @@
         LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Trigger no template feedback" selection:@"Tutor" input:@"" pageNum:parentCmapController.pageNum];
         [bookLogDataWrapper addLogs:newlog];
         [LogDataParser saveLogData:bookLogDataWrapper];
+        messageView.text=@"I noticed that there are some nodes in the tempalte that haven't been expanded or linked. Try to expand them!";
+        [leftButton setTitle:@"OK" forState:UIControlStateNormal];
+    }
+    
+    
+    if(FBTYPE_TEMPLATE_NOTAP==feedbackState){
+        LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Trigger no template feedback" selection:@"Tutor" input:@"" pageNum:parentCmapController.pageNum];
+        [bookLogDataWrapper addLogs:newlog];
+        [LogDataParser saveLogData:bookLogDataWrapper];
         messageView.text=@"Our template covers some of the most important concepts in the content. Try tapping on a few nodes in the template to preview what you are about to learn!";
         [leftButton setTitle:@"OK" forState:UIControlStateNormal];
     }
+    
+    
     
     
     if(FBTYPE_BACK==feedbackState){

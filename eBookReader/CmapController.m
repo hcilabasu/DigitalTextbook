@@ -131,6 +131,7 @@
 
 - (void)viewDidLoad
 {
+    parentBookPageViewController.expertModel.parentCmapController=self;
     self.automaticallyAdjustsScrollViewInsets=NO;
     nodeCount=1;
     linkCount=1;
@@ -296,7 +297,7 @@
         return;
     }
     int timeSecondNow=[[NSDate date] timeIntervalSince1970];
-    if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10 ||isFeedbackShowing){
+    if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<FEEDBACK_INTERVAL ||isFeedbackShowing){
         return;
     }
     parentBookPageViewController.expertModel.lastFeedbackSecond=[[NSDate date] timeIntervalSince1970];
@@ -319,7 +320,7 @@
         return;
     }
     int timeSecondNow=[[NSDate date] timeIntervalSince1970];
-    if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10 ||isFeedbackShowing ){
+    if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<FEEDBACK_INTERVAL ||isFeedbackShowing ){
         return;
     }
     parentBookPageViewController.expertModel.lastFeedbackSecond=[[NSDate date] timeIntervalSince1970];
@@ -340,7 +341,7 @@
         return;
     }
     int timeSecondNow=[[NSDate date] timeIntervalSince1970];
-    if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10 ||isFeedbackShowing ){
+    if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<FEEDBACK_INTERVAL ||isFeedbackShowing ){
         return;
     }
     parentBookPageViewController.expertModel.lastFeedbackSecond=[[NSDate date] timeIntervalSince1970];
@@ -362,7 +363,7 @@
         return;
     }
     int timeSecondNow=[[NSDate date] timeIntervalSince1970];
-    if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10 ||isFeedbackShowing ){
+    if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<FEEDBACK_INTERVAL ||isFeedbackShowing ){
         return;
     }
     parentBookPageViewController.expertModel.lastFeedbackSecond=[[NSDate date] timeIntervalSince1970];
@@ -383,7 +384,7 @@
         return;
     }
     int timeSecondNow=[[NSDate date] timeIntervalSince1970];
-    if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10 ||isFeedbackShowing ){
+    if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<FEEDBACK_INTERVAL ||isFeedbackShowing ){
         return;
     }
     parentBookPageViewController.expertModel.lastFeedbackSecond=[[NSDate date] timeIntervalSince1970];
@@ -404,7 +405,7 @@
         return;
     }
     int timeSecondNow=[[NSDate date] timeIntervalSince1970];
-    if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10 ||isFeedbackShowing ){
+    if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<FEEDBACK_INTERVAL ||isFeedbackShowing ){
         return;
     }
     parentBookPageViewController.expertModel.lastFeedbackSecond=[[NSDate date] timeIntervalSince1970];
@@ -467,7 +468,7 @@
         return;
     }
     int timeSecondNow=[[NSDate date] timeIntervalSince1970];
-    if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10  ||isFeedbackShowing){
+    if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<FEEDBACK_INTERVAL  ||isFeedbackShowing){
         return;
     }
     parentBookPageViewController.expertModel.lastFeedbackSecond=[[NSDate date] timeIntervalSince1970];
@@ -488,7 +489,7 @@
         return;
     }
     int timeSecondNow=[[NSDate date] timeIntervalSince1970];
-    if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10  ||isFeedbackShowing){
+    if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<FEEDBACK_INTERVAL  ||isFeedbackShowing){
         return;
     }
     parentBookPageViewController.expertModel.lastFeedbackSecond=[[NSDate date] timeIntervalSince1970];
@@ -507,7 +508,7 @@
         return;
     }
     int timeSecondNow=[[NSDate date] timeIntervalSince1970];
-    if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<10  ||isFeedbackShowing){
+    if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<FEEDBACK_INTERVAL  ||isFeedbackShowing){
         return;
     }
     parentBookPageViewController.expertModel.lastFeedbackSecond=[[NSDate date] timeIntervalSince1970];
@@ -1292,6 +1293,8 @@
         isReadyToLink=NO;
     }else{
         [self.view endEditing:YES];
+        addedNode.text.editable=NO;
+        [addedNode.text setUserInteractionEnabled:NO];
     }
     
     
@@ -2907,6 +2910,10 @@
     NSString* conceptName=m_nodename;
     return linkedNodes;
 }
+
+
+
+
 
 -(void)highlightUnLinkedTemplateNoeds: (BOOL)highlightAll{
     int highlightCount=0;

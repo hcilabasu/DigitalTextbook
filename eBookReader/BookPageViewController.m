@@ -236,6 +236,7 @@
         expertModel= [[ExpertModel alloc]init];
         expertModel.bookLogDataWrapper=logWrapper;
         [expertModel setupKM];
+        expertModel.parentCmapController=cmapView;
         HLrectLeft=[[UIView alloc]initWithFrame:CGRectMake(100, 100, 80, 28)];
         HLrectLeft.layer.borderColor = [UIColor colorWithRed:255/255 green:90/255.0 blue:90/255.0 alpha:1].CGColor;
         HLrectLeft.layer.borderWidth = 3.0f;
@@ -691,7 +692,8 @@
     [cmapView.view setUserInteractionEnabled:YES];
     cmapView.view.center=CGPointMake(768, 384);
     [cmapView.view setHidden:YES];
-    //cmapView.bookNodeWrapper 
+    //cmapView.bookNodeWrapper
+   
 }
 
 -(void)createQA{

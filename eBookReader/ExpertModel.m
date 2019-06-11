@@ -125,7 +125,7 @@
 
 
 -(void)startTemplateConectTimer{
-    templateActionTimer = [NSTimer scheduledTimerWithTimeInterval: 130
+    templateActionTimer = [NSTimer scheduledTimerWithTimeInterval: 800
                                                    target: self
                                                  selector:@selector(checkTemplateConnect:)
                                                  userInfo: nil repeats:NO];
@@ -133,7 +133,9 @@
 
 
 -(void)checkTemplateConnect:(NSTimer *)timer {
-    if(parentCmapController.templateClickCount<3){
+    
+    BOOL isTemplateAllConnected= [parentCmapController isTemplateAllConnect];
+    if(!isTemplateAllConnected){
         [parentCmapController showTemplateFeedbackMessage];
     }
 }
@@ -142,7 +144,7 @@
 
 
 -(void)startNoNaviTemplateCheckTimer{
-    templateActionTimer = [NSTimer scheduledTimerWithTimeInterval: 90
+    templateActionTimer = [NSTimer scheduledTimerWithTimeInterval: 150
                                                            target: self
                                                          selector:@selector(onTemplateTick:)
                                                          userInfo: nil repeats:NO];
@@ -155,7 +157,6 @@
 }
 
 -(void)evaluate{
-    
     LogData *lastdata= [logArray lastObject];
     LogData *secondLastData= [logArray objectAtIndex: ([logArray count]-2)];
     NSString* lastAction=lastdata.action;
@@ -266,15 +267,18 @@
             currentState=@"A";
     
         
-        }else if( [action rangeOfString:@"urned to page"].location != NSNotFound){
+        }else if(  [action.lowercaseString rangeOfString:@"hyperlink"].location != NSNotFound  ){
+            currentState=@"H";
+             [stateArray addObject:currentState];
+            
+        }
+        
+        else if( [action rangeOfString:@"urned to page"].location != NSNotFound){
             //upDatePage time
         
             if(page>prePage){
                 currentState=@"R";
-                NSString* secondLastAction=secondLastData.action;
-                if(  [secondLastAction.lowercaseString rangeOfString:@"hyperlink"].location != NSNotFound  ){
-                    currentState=@"H";
-                }
+                //NSString* secondLastAction=secondLastData.action;
                 [stateArray addObject:currentState];
                 isPosNavi=YES;
             }else if ( page<prePage){
@@ -339,7 +343,15 @@
     }
      if([currentState isEqualToString:@"P"]||[currentState isEqualToString:@"B"]){
          [self resetBackNaviTimer];
-         backNavicount++;
+         if(stateArray.count>1){
+             NSString *lastState= [stateArray objectAtIndex:stateArray.count-2];
+             if ( ![lastState isEqualToString:@"H"] ){
+                     backNavicount++;
+             }
+             
+         }
+         
+     
          
          if(1==backNavicount){
              [parentCmapController showFirstBackNavigationMessage];
@@ -381,7 +393,6 @@
             }
              [parentCmapController showCompareFeedbackmessage];
         }
-    
     }
     
 

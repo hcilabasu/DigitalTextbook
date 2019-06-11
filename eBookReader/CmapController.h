@@ -38,6 +38,8 @@
 #import "MapFinderViewController.h"
 #define NODE_TEMPLATE 0;
 #define NODE_STUDENT 1;
+
+#define FEEDBACK_INTERVAL 30
 @class NodeCell;
 @class BookViewController;
 @class HighLightWrapper;
