@@ -36,6 +36,7 @@
 #import "FBViewController.h"
 #import "TAViewController.h"
 #import "MapFinderViewController.h"
+#import "KnowledgeModel.h"
 #define NODE_TEMPLATE 0;
 #define NODE_STUDENT 1;
 
@@ -239,8 +240,12 @@
 -(void)showPositiveCrossLinkFeedbackMessage;
 -(void)showFirstBackNavigationMessage;
 -(void)showTemplateNoTapFeedbackMessage;
+-(void)showNoCrossLinkFeedbackMessage: (BOOL)HasMissingLink;
+
 
 -(void)highlightUnLinkedTemplateNoeds: (BOOL)highlightAll;
 -(BOOL)isTemplateAllConnect;
 -(void)RedMarkNode: (NSString*)m_name;
+-(NSString*)isNodesContainKeywords: (NSString*)keyword;
+-(BOOL)isKeyLinkExist: (KeyLink*)kc;
 @end

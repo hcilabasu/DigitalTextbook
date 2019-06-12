@@ -30,6 +30,7 @@
 #import "DHSmartScreenshot.h"
 #import "MapFinderViewController.h"
 #import "AppDelegate.h"
+#import "KnowledgeModel.h"
 /*
  @interface CmapController ()<GHContextOverlayViewDataSource, GHContextOverlayViewDelegate>
  @property (weak, nonatomic) IBOutlet UIImageView *imageView;
@@ -524,6 +525,30 @@
 
 
 
+
+-(void)showNoCrossLinkFeedbackMessage: (BOOL)HasMissingLink{
+    if(parentBookPageViewController.isInCompareView){
+        return;
+    }
+    int timeSecondNow=[[NSDate date] timeIntervalSince1970];
+    if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<FEEDBACK_INTERVAL  ||isFeedbackShowing){
+        return;
+    }
+    parentBookPageViewController.expertModel.lastFeedbackSecond=[[NSDate date] timeIntervalSince1970];
+    
+    [parentBookPageViewController showOverlay];
+    feedbackPV= [[PopoverView alloc] initWithFrame:CGRectZero];
+    feedbackCtr.feedbackState=FBTYPE_NO_CROSSLINK;
+    if(HasMissingLink){
+        feedbackCtr.feedbackState=FBTYPE_NO_CROSSLINK_HASMISSING;
+    }
+    feedbackCtr.noCrossLinkMsg=parentBookPageViewController.expertModel.noCrossLinkFBMsg;
+    [feedbackCtr upDateContent];
+    feedbackPV.delegate=self;
+    [feedbackPV showAtPoint:CGPointMake(0, 0) inView:agent withContentView: feedbackCtr.view];
+    [feedbackCtr animateProgressView];
+    isFeedbackShowing=YES;
+}
 
 
 
@@ -2987,6 +3012,41 @@
     }else{
         return YES;
     }
+}
+
+
+
+-(NSString*)isNodesContainKeywords: (NSString*)keyword{
+    NSString* nodeName=@"";
+    
+    for(NodeCell* node in conceptNodeArray){
+        if([node.text.text.lowercaseString rangeOfString:keyword].location != NSNotFound){
+            nodeName=node.text.text;
+        }
+    }
+    
+    
+    return nodeName;
+}
+
+
+
+-(BOOL)isKeyLinkExist: (KeyLink*)kc{
+    BOOL exist=NO;
+    for(ConceptLink* link in conceptLinkArray){
+        NSString* leftName=link.leftNode.text.text.lowercaseString;
+        NSString* rightName=link.righttNode.text.text.lowercaseString;
+        if(   [ leftName  rangeOfString:kc.leftName].location != NSNotFound &&  [ rightName  rangeOfString:kc.rightname].location != NSNotFound ){
+            exist=YES;
+        }
+        if(   [ rightName  rangeOfString:kc.leftName].location != NSNotFound &&  [ leftName  rangeOfString:kc.rightname].location != NSNotFound ){
+            exist=YES;
+        }
+        
+        
+    }
+    
+    return exist;
 }
 
 @end

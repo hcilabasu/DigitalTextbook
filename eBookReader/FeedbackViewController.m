@@ -31,6 +31,7 @@
 @synthesize relatedKC;
 @synthesize relatedNodeName;
 @synthesize relatedNodeName2;
+@synthesize noCrossLinkMsg;
 - (void)viewDidLoad {
     [super viewDidLoad];
     feedbackState=1;
@@ -107,6 +108,20 @@
         
         [self TLog:@"Dismiss due to process only condition setup"];
          [parentCmapController.feedbackPV dismiss];
+        return;
+    }
+    
+    
+    if(FBTYPE_NO_CROSSLINK_HASMISSING==feedbackState){
+        
+        LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Show no cross-link message" selection:@"Tutor" input:@"" pageNum:parentCmapController.pageNum];
+        [bookLogDataWrapper addLogs:newlog];
+        [LogDataParser saveLogData:bookLogDataWrapper];
+        if(noCrossLinkMsg.length>0){
+            messageView.text=noCrossLinkMsg;
+            feedbackState=FBTYPE_DISMISS;
+            [leftButton setTitle:@"OK" forState:UIControlStateNormal];
+        }
         return;
     }
     
@@ -209,7 +224,6 @@
         [addNodeViewCtr.view removeFromSuperview];
         
     }
-    
     
     if(FBTYPE_TEMPLATE==feedbackState){
         LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Trigger no template feedback" selection:@"Tutor" input:@"" pageNum:parentCmapController.pageNum];
@@ -379,6 +393,23 @@
         [leftButton setTitle:@"OK" forState:UIControlStateNormal];
     }
     
+    if(FBTYPE_NO_CROSSLINK==feedbackState){
+        LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Trigger no cross link feedback" selection:@"Tutor" input:@"" pageNum:parentCmapController.pageNum];
+        [bookLogDataWrapper addLogs:newlog];
+        [LogDataParser saveLogData:bookLogDataWrapper];
+        
+        messageView.text=@"I noticed that you haven't created cross links for a while. Try creating some cross links in your map, it is highly beneficial!";
+        [leftButton setTitle:@"OK" forState:UIControlStateNormal];
+    }
+    
+    if(FBTYPE_NO_CROSSLINK_HASMISSING==feedbackState){
+        LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Trigger no cross link feedback" selection:@"Tutor" input:@"" pageNum:parentCmapController.pageNum];
+        [bookLogDataWrapper addLogs:newlog];
+        [LogDataParser saveLogData:bookLogDataWrapper];
+        
+        messageView.text=@"I noticed that you haven't created cross links for a while. Try creating some cross links in your map, it is highly beneficial!";
+        [leftButton setTitle:@"Show Hint" forState:UIControlStateNormal];
+    }
     
 }
 

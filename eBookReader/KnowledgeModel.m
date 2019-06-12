@@ -123,6 +123,7 @@
     KeyLink* link16= [[KeyLink alloc] initWithNames:@"species" RightName:@"diversity"];
     KeyLink* link17= [[KeyLink alloc] initWithNames:@"species" RightName:@"0.01"];
     KeyLink* link18= [[KeyLink alloc] initWithNames:@"human" RightName:@"greatest"];
+    KeyLink* link19= [[KeyLink alloc] initWithNames:@"species" RightName:@"extinct"];
     
 
     [list addObject: link1];
@@ -143,6 +144,7 @@
     [list addObject: link16];
     [list addObject: link17];
     [list addObject: link18];
+    [list addObject: link19];
     return list;
     
 }

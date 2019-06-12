@@ -49,7 +49,10 @@
 @synthesize backNaviTimber;
 @synthesize backNavicount;
 @synthesize crossLinkCount;
-
+@synthesize crosslinkTimer;
+@synthesize missingCrossLinkLeftNodename;
+@synthesize missingCrossLinkRightNodename;
+@synthesize noCrossLinkFBMsg;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -65,6 +68,7 @@
     [self startTemplateConectTimer];
     [self startBackNaviTimer];
     [self startNoNaviTemplateCheckTimer];
+    [self startNoCrossLinkTimer];
 }
 
 -(void)setupKM{
@@ -88,10 +92,8 @@
         NSString* keyString= [NSString stringWithFormat:@"%d",i];
         pageStayTimeMap[keyString]=@"0.0";
     }
-    
+    [self startAllTimer];
 }
-
-
 
 
 -(void)resetBackNaviTimer{
@@ -101,7 +103,7 @@
 
 
 -(void)startBackNaviTimer{
-    backNaviTimber = [NSTimer scheduledTimerWithTimeInterval: 140
+    backNaviTimber = [NSTimer scheduledTimerWithTimeInterval: 240
                                                    target: self
                                                  selector:@selector(noBackNavi:)
                                                  userInfo: nil repeats:YES];
@@ -147,8 +149,6 @@
 }
 
 
-
-
 -(void)startNoNaviTemplateCheckTimer{
     templateActionTimer = [NSTimer scheduledTimerWithTimeInterval: 150
                                                            target: self
@@ -161,6 +161,32 @@
         [parentCmapController showTemplateNoTapFeedbackMessage];
     }
 }
+
+
+
+-(void)startNoCrossLinkTimer{
+    crosslinkTimer = [NSTimer scheduledTimerWithTimeInterval: 190
+                                                           target: self
+                                                         selector:@selector(onNoCrossLink:)
+                                                         userInfo: nil repeats:YES];
+}
+
+
+-(void)onNoCrossLink:(NSTimer *)timer {
+    if(crossLinkCount<1){
+        noCrossLinkFBMsg= [self getMissingCrossLinkMsg];
+        if(noCrossLinkFBMsg.length>5){
+            [parentCmapController showNoCrossLinkFeedbackMessage: YES];
+        }else{
+            [parentCmapController showNoCrossLinkFeedbackMessage: NO];
+        }
+        
+    }
+    crossLinkCount=0;
+}
+
+
+
 
 -(void)evaluate{
     LogData *lastdata= [logArray lastObject];
@@ -384,7 +410,7 @@
                 [parentCmapController showPositiveFeedbackmessage];
             }
         }
-        if( ([preState isEqualToString:@"C"]||[preState isEqualToString:@"G"])&&0==crossLinkCount    ){
+        if( ([preState isEqualToString:@"C"]||[preState isEqualToString:@"G"])    ){
             crossLinkCount++;
             [self checkCrossLinkFeedback];
         }else if([preState isEqualToString:@"C"]){
@@ -486,5 +512,23 @@
         [parentCmapController showPositiveCrossLinkFeedbackMessage];
     return;
 }
+
+-(NSString*)getMissingCrossLinkMsg{
+    NSString* msg=@"";
+    NSMutableArray* linksAry=parentCmapController.conceptLinkArray;
+    for(KeyLink* kc in keyLinksAry){
+        NSString* leftNodeContainName= [parentCmapController isNodesContainKeywords:kc.leftName];
+        NSString* isRightNodeContainName= [parentCmapController isNodesContainKeywords:kc.rightname];
+        if(leftNodeContainName.length>0&&leftNodeContainName.length>0){
+            if(  ! [parentCmapController isKeyLinkExist:kc]){
+                msg= [[NSString alloc]initWithFormat:@"How do you describe the relationship between \"%@\" and \"%@\" ?",leftNodeContainName,isRightNodeContainName];
+            }
+            
+        }
+        
+    }
+    return msg;
+}
+
 
 @end

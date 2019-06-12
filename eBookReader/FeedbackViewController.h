@@ -33,7 +33,7 @@
 #define FBTYPE_POS_CROSSLINK 13
 #define FBTYPE_POS_BACKNAVI 14
 #define FBTYPE_NO_CROSSLINK 15
-
+#define FBTYPE_NO_CROSSLINK_HASMISSING 16
 @class CmapController;
 
 @interface FeedbackViewController : UIViewController <UIGestureRecognizerDelegate>
@@ -54,6 +54,9 @@
 @property KeyConcept* relatedKC;
 @property NSString* relatedNodeName;
 @property NSString* relatedNodeName2;
+@property NSString* noCrossLinkMsg;
+
+
 -(void)showAddNodePanel;
 -(void)showAnimation;
 -(void)animateProgressView;
