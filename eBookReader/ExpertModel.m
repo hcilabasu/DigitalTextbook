@@ -60,6 +60,13 @@
     keyConceptsAry=[KM getKeyConceptLists];
 }
 
+-(void)startAllTimer{
+    [self resetActionTimer];
+    [self startTemplateConectTimer];
+    [self startBackNaviTimer];
+    [self startNoNaviTemplateCheckTimer];
+}
+
 -(void)setupKM{
     readActionCount=0;
     sequentialAddCount=0;
@@ -82,11 +89,10 @@
         pageStayTimeMap[keyString]=@"0.0";
     }
     
-    [self resetActionTimer];
-    [self startTemplateConectTimer];
-    [self startBackNaviTimer];
-    [self startNoNaviTemplateCheckTimer];
 }
+
+
+
 
 -(void)resetBackNaviTimer{
     [backNaviTimber invalidate];

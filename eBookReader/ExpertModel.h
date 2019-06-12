@@ -50,7 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSTimer* backNaviTimber;
 @property int backNavicount;
 @property int crossLinkCount;
-
+-(void)startAllTimer;
 -(void)evaluate;
 -(void)setupKM;
 @end

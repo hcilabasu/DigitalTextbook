@@ -40,9 +40,9 @@
     
     webView.scalesPageToFit = YES;
     // Do any additional setup after loading the view from its nib.
-    [self.navigationItem setHidesBackButton:YES animated:YES];
+   // [self.navigationItem setHidesBackButton:YES animated:YES];
     UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
-     [self.navigationController setNavigationBarHidden:YES animated:YES];
+    // [self.navigationController setNavigationBarHidden:YES animated:YES];
 
     [webView setFrame:[[UIScreen mainScreen] bounds]];
 
@@ -74,14 +74,14 @@
 
 }
 
-
-
+- (void)viewWillDisappear:(BOOL)animated{
+    [parentBookCtr.expertModel startAllTimer];
+}
 
 
 -(void)showTutorial{
 
 }
-
 
 
 -(void)finishTraining{

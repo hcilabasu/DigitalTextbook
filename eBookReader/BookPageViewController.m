@@ -393,7 +393,7 @@
 
 -(void)showTutorial{
     VideoViewController *tutorial= [[VideoViewController alloc]initWithNibName:@"VideoViewController" bundle:nil];
-    
+    tutorial.parentBookCtr=self;
     LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Go to tutorial view" selection:@"Tutorial View" input:@"null" pageNum:bookView.currentContentView.pageNum];
     [logWrapper addLogs:newlog];
     [LogDataParser saveLogData:logWrapper];
