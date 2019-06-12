@@ -189,8 +189,8 @@
     UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
     if( (orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight)&&[isPreview isEqualToString:@"YES"]) //horizontal, split screen
     {
-        [previewImg setHidden:YES];
-        [PreviewRect setHidden:YES];
+        [previewImg setHidden:NO];
+        [PreviewRect setHidden:NO];
         
     }else{
         
@@ -200,7 +200,7 @@
     }
     
     //shang comment
-    if([isPreview isEqualToString:@"NO"]){
+    if([isPreview isEqualToString:@"YES"]){
         
         UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
         panGesture.delegate=self;
@@ -214,6 +214,7 @@
         PreviewRect.layer.borderWidth = 1.0f;
         originalFrame=PreviewRect.frame;
         [previewImg addSubview:PreviewRect];
+        
     }
     // [self splitScreen];
     
@@ -825,7 +826,7 @@
         [LogDataParser saveLogData:logWrapper];
         
         
-        upperBorder.backgroundColor = [[UIColor colorWithRed:255/255.0f green:255/255.0f blue:255/255.0f alpha:0.7f]CGColor];
+        upperBorder.backgroundColor = [[UIColor colorWithRed:255/255.0f green:255/255.0f blue:255/255.0f alpha:0.01f]CGColor];
         upperBorder.frame=previewImg.frame;
         previewImg.layer.borderColor = [UIColor grayColor].CGColor;
         previewImg.layer.borderWidth = 2.0f;
@@ -1356,4 +1357,8 @@
     [self addChildViewController:linkNameFinder];
 }
 
+
+-(void)rePositionPreview{
+    // previewImg.center=CGPointMake(self.view.frame.size.width- (self.view.frame.size.width-previewImg.frame.size.width)/2, self.view.frame.size.height-(self.view.frame.size.height-previewImg.frame.size.height)/2);
+}
 @end

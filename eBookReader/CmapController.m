@@ -142,8 +142,8 @@
     
     [upLoadIcon  setEnabled:NO];
     [upLoadIcon setTintColor: [UIColor clearColor]];
-    [searchIcon  setEnabled:NO];
-    [searchIcon setTintColor: [UIColor clearColor]];
+    [searchIcon  setEnabled:YES];
+   // [searchIcon setTintColor: [UIColor clearColor]];
     [webviewIcon setHidden:YES];
     
     
@@ -2134,6 +2134,7 @@
         
     }
     [self getPreView:nil];
+    [parentBookPageViewController rePositionPreview];
     [self updatePreviewLocation];
     
     
@@ -2162,6 +2163,7 @@
         // return;
     }
     CGRect fra=parentBookPageViewController.PreviewRect.frame;
+    
     [parentBookPageViewController.PreviewRect setFrame:CGRectMake(position.x+2, position.y+2, fra.size.width, fra.size.height)];
     
     // [self saveOrigin];
