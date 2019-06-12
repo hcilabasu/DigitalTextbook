@@ -380,11 +380,7 @@
              if ( ![lastState isEqualToString:@"H"] ){
                      backNavicount++;
              }
-             
          }
-         
-     
-         
          if(1==backNavicount){
              [parentCmapController showFirstBackNavigationMessage];
          }
@@ -434,14 +430,7 @@
         [parentCmapController showReadFeedbackmessage];
         readActionCount=0;
     }
-    
-    
-    
 }//end of evaluate
-
-
-
-
 
 
 -(BOOL)isMeaningfulAction:(LogData*)log{

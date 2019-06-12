@@ -279,7 +279,7 @@
         }
         
       if(missingConceptAry.count>0){
-          [leftButton setTitle:@"Show me some" forState:UIControlStateNormal];
+          [leftButton setTitle:@"Show key concepts" forState:UIControlStateNormal];
       }
     }
     
@@ -316,12 +316,12 @@
         [bookLogDataWrapper addLogs:newlog];
         [LogDataParser saveLogData:bookLogDataWrapper];
         
-        messageView.text=@"Good job creating the cross-link! But it looks like you haven't carefully read them yet. Would you like to compare these two concepts?";
+        messageView.text=@"Good job creating the cross-link! But it looks like you haven't carefully read the related pages. Would you like to read and compare these two concepts?";
         [leftButton setTitle:@"Compare them" forState:UIControlStateNormal];
         
         NSString* FBType=[[NSUserDefaults standardUserDefaults] stringForKey:@"FBTYPE"];
         if( [FBType isEqualToString: FB_PROCESS]){
-            messageView.text=@"Good job creating the cross-link! But it looks like you haven't carefully read them yet. Reading and comparing concepts are important before linking them.";
+            messageView.text=@"Good job creating the cross-link!But it looks like you haven't carefully read the related pages. Reading and comparing concepts are important before linking them.";
             [leftButton setTitle:@"OK" forState:UIControlStateNormal];
             return;
         }

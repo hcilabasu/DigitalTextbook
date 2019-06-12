@@ -1224,7 +1224,7 @@
     image=[self imageWithImage:image scaledToSize:CGSizeMake(400, 200)];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
     [ webFocusQuestionLable setFrame: CGRectMake(90, 35, 430, 75)];
-    webFocusQuestionLable.text=@"I highlighted the template nodes that needs to be expanded. Try to see if you can connect or expanded these nodes!";
+    webFocusQuestionLable.text=@"I highlighted the template nodes that need to be expanded. Try to see if you can connect or expanded these nodes!";
     webFocusQuestionLable.font=[webFocusQuestionLable.font fontWithSize:14];
     webFocusQuestionLable.lineBreakMode = NSLineBreakByWordWrapping;
     webFocusQuestionLable.numberOfLines = 0;
