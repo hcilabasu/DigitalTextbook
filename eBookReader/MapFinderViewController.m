@@ -138,8 +138,10 @@ NSArray *recipes;
     
     
     [parentCmapController upDateLinkText:linkName];
+    NSString* selectionString=[[NSString alloc] initWithFormat:@"%@ && %@",parentCmapController.linkJustAdded.leftNode.text.text, parentCmapController.linkJustAdded.righttNode.text.text];
+    
     NSString* inputString=[[NSString alloc] initWithFormat:@"%@", cell.textLabel.text];
-    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Update Link name from list" selection:@"new concept link" input:inputString pageNum:parentCmapController.pageNum];
+    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Update Link name from list" selection:selectionString input:inputString pageNum:parentCmapController.pageNum];
     [bookLogData addLogs:newlog];
     [LogDataParser saveLogData:bookLogData];
     

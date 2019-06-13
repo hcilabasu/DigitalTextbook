@@ -289,6 +289,11 @@
     }
     
     [conceptMapView setContentOffset:CGPointMake(400, 500)];
+    
+    LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:FBType action:@"Load Concept Map View" selection:@"System" input:@"" pageNum:pageNum];
+    [bookLogDataWrapper addLogs:newlog];
+    [LogDataParser saveLogData:bookLogDataWrapper];
+    
 }//end of view did load
 
 

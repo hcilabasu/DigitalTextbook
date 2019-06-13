@@ -1249,10 +1249,6 @@
 
 
 
-
-
-
-
 -(void)showFlipPageHint{
     UIImage *image = [UIImage imageNamed:@"Train_pageflip"];
     image=[self imageWithImage:image scaledToSize:CGSizeMake(250, 250)];

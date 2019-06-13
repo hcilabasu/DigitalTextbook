@@ -213,8 +213,6 @@
     [LogDataParser saveLogData:bookLogDataWrapper];
     
     [parentCmapController.feedbackPV dismiss];
-    
-    
 }
 
 
@@ -251,7 +249,6 @@
         
         
     }
-    
     
     
     
