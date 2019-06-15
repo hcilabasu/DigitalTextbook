@@ -53,7 +53,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString* missingCrossLinkLeftNodename;
 @property NSString* missingCrossLinkRightNodename;
 @property NSString* noCrossLinkFBMsg;
-
+@property BOOL hasShownFirstCrossLink;
 @property int backNavicount;
 @property int crossLinkCount;
 -(void)startAllTimer;

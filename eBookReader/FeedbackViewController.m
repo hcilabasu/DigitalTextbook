@@ -113,7 +113,6 @@
     
     
     if(FBTYPE_NO_CROSSLINK_HASMISSING==feedbackState){
-        
         LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Show no cross-link message" selection:@"Tutor" input:@"" pageNum:parentCmapController.pageNum];
         [bookLogDataWrapper addLogs:newlog];
         [LogDataParser saveLogData:bookLogDataWrapper];
@@ -121,6 +120,8 @@
             messageView.text=noCrossLinkMsg;
             feedbackState=FBTYPE_DISMISS;
             [leftButton setTitle:@"OK" forState:UIControlStateNormal];
+        }else{
+             [parentCmapController.feedbackPV dismiss];
         }
         return;
     }
@@ -366,9 +367,7 @@
     
     
     if(FBTYPE_POS_CROSSLINK==feedbackState){
-        LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Trigger first cross link feedback" selection:@"Tutor" input:@"" pageNum:parentCmapController.pageNum];
-        [bookLogDataWrapper addLogs:newlog];
-        [LogDataParser saveLogData:bookLogDataWrapper];
+
         NSString* leftNodeName= parentCmapController.linkJustAdded.leftNode.text.text;
         NSString* rightNodename= parentCmapController.linkJustAdded.righttNode.text.text;
         NSString* feedbackTxt= [[NSString alloc]initWithFormat:@"Good job creating a cross-link between \"%@\" and \"%@\". This can be very beneficial. Keep doing this!",leftNodeName,rightNodename];
@@ -378,7 +377,9 @@
         if( [FBType isEqualToString: FB_PROCESS]){
            messageView.text=@"Good job creating a cross-link. This can be very beneficial. Keep doing this!";
         }
-        
+        LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Trigger first cross link feedback" selection:@"Tutor" input:messageView.text pageNum:parentCmapController.pageNum];
+        [bookLogDataWrapper addLogs:newlog];
+        [LogDataParser saveLogData:bookLogDataWrapper];
     }
     
     if(FBTYPE_POS_BACKNAVI==feedbackState){

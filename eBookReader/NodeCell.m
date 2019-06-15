@@ -102,6 +102,7 @@
 
 }
 -(void)viewDidAppear:(BOOL)animated{
+    text.delegate=self;
     [self updateViewSize];
     [self updateThumbIcons];
     hasNote=NO;
@@ -215,6 +216,8 @@
     if(NO==isInitialed){
        parentCmapController.noteTakingNode=self;
         [text becomeFirstResponder];
+        [parentCmapController scrollCmapView:355];
+        
     }
     
     

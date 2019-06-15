@@ -1684,11 +1684,18 @@
     linkTextBeforeEditing=textView.text;
     textView.text=@"";
     CGSize screenSZ=[self screenSize];
-    CGFloat offSet=(textView.superview.frame.size.height+ textView.superview.frame.origin.y)-(768-352);
+   // CGFloat offSet=(textView.superview.frame.size.height+ textView.superview.frame.origin.y)-(768-352);
+    
+    int texthh=textView.frame.size.height+ textView.frame.origin.y;
+    int offsetContent=conceptMapView.contentOffset.y;
+    
+    CGFloat offSet=(textView.frame.size.height+ textView.frame.origin.y-conceptMapView.contentOffset.y)-(768-352)+88;
+    
+    
     // NSLog(@"Offset: %f",offSet);
     if(offSet>0){
         // NSLog(@"Blocked by keyboard!!");
-        [self scrollCmapView:(offSet+100)];
+        [self scrollCmapView:(offSet+1)];
     }
     
 }

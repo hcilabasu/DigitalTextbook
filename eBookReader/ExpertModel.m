@@ -53,6 +53,7 @@
 @synthesize missingCrossLinkLeftNodename;
 @synthesize missingCrossLinkRightNodename;
 @synthesize noCrossLinkFBMsg;
+@synthesize hasShownFirstCrossLink;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -409,7 +410,9 @@
         if( ([preState isEqualToString:@"C"]||[preState isEqualToString:@"G"])    ){
             crossLinkCount++;
             [self checkCrossLinkFeedback];
-        }else if([preState isEqualToString:@"C"]){
+        }
+        
+        if([preState isEqualToString:@"C"]){
             
             for (KeyConcept* kc in keyConceptsAry){
                 if ([nodeName1.lowercaseString rangeOfString: kc.name].location != NSNotFound) {
@@ -498,7 +501,11 @@
 
 
 -(void)checkCrossLinkFeedback{
+    if(hasShownFirstCrossLink){
+        return;
+    }
         [parentCmapController showPositiveCrossLinkFeedbackMessage];
+    hasShownFirstCrossLink=YES;
     return;
 }
 
