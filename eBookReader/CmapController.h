@@ -40,7 +40,7 @@
 #define NODE_TEMPLATE 0;
 #define NODE_STUDENT 1;
 
-#define FEEDBACK_INTERVAL 10
+#define FEEDBACK_INTERVAL 60
 @class NodeCell;
 @class BookViewController;
 @class HighLightWrapper;

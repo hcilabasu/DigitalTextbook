@@ -535,6 +535,9 @@
     if(parentBookPageViewController.isInCompareView){
         return;
     }
+    
+    NSString* FBType=[[NSUserDefaults standardUserDefaults] stringForKey:@"FBTYPE"];
+  
     int timeSecondNow=[[NSDate date] timeIntervalSince1970];
     if(  (timeSecondNow-parentBookPageViewController.expertModel.lastFeedbackSecond)<FEEDBACK_INTERVAL  ||isFeedbackShowing){
         return;
@@ -543,11 +546,15 @@
     
     [parentBookPageViewController showOverlay];
     feedbackPV= [[PopoverView alloc] initWithFrame:CGRectZero];
+     feedbackCtr.noCrossLinkMsg=parentBookPageViewController.expertModel.noCrossLinkFBMsg;
     feedbackCtr.feedbackState=FBTYPE_NO_CROSSLINK;
-    if(HasMissingLink){
+    if(HasMissingLink&&feedbackCtr.noCrossLinkMsg.length>5){
         feedbackCtr.feedbackState=FBTYPE_NO_CROSSLINK_HASMISSING;
     }
-    feedbackCtr.noCrossLinkMsg=parentBookPageViewController.expertModel.noCrossLinkFBMsg;
+    
+    if( [FBType isEqualToString: FB_PROCESS]){
+       feedbackCtr.feedbackState=FBTYPE_NO_CROSSLINK;
+    }
     [feedbackCtr upDateContent];
     feedbackPV.delegate=self;
     [feedbackPV showAtPoint:CGPointMake(0, 0) inView:agent withContentView: feedbackCtr.view];
@@ -561,9 +568,16 @@
     isFeedbackShowing=NO;
     [parentBookPageViewController hideOverlay];
     [feedbackCtr.progressTimer invalidate];
-    LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Dismiss feedback" selection:@"Tutor" input:@"" pageNum:pageNum];
-    [bookLogDataWrapper addLogs:newlog];
-    [LogDataParser saveLogData:bookLogDataWrapper];
+    
+    if(DISMISS_BY_OUTSIDE==popoverView.dismissType){
+        LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Dismiss feedback by tapping outside" selection:@"Tutor" input:@"" pageNum:pageNum];
+        [bookLogDataWrapper addLogs:newlog];
+        [LogDataParser saveLogData:bookLogDataWrapper];
+    }else{
+        LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Dismiss feedback" selection:@"Tutor" input:@"" pageNum:pageNum];
+        [bookLogDataWrapper addLogs:newlog];
+        [LogDataParser saveLogData:bookLogDataWrapper];
+    }
 }
 
 

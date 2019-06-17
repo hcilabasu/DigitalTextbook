@@ -295,6 +295,9 @@
 		56C69D4C1725D40B009419B3 /* safari.png in Resources */ = {isa = PBXBuildFile; fileRef = 56C69D4B1725D40B009419B3 /* safari.png */; };
 		56C69D531727BE5B009419B3 /* EpubSampleNick.epub in Resources */ = {isa = PBXBuildFile; fileRef = 56C69D521727BE5B009419B3 /* EpubSampleNick.epub */; };
 		56C69D561727BF74009419B3 /* Bio.epub in Resources */ = {isa = PBXBuildFile; fileRef = 56C69D551727BF74009419B3 /* Bio.epub */; };
+		56CA090E22B4DB13008EEF1C /* Training_FULL.m4v in Resources */ = {isa = PBXBuildFile; fileRef = 56CA090B22B4DB0F008EEF1C /* Training_FULL.m4v */; };
+		56CA090F22B4DB13008EEF1C /* Training_NO.m4v in Resources */ = {isa = PBXBuildFile; fileRef = 56CA090C22B4DB11008EEF1C /* Training_NO.m4v */; };
+		56CA091022B4DB13008EEF1C /* Training_PROCESS.m4v in Resources */ = {isa = PBXBuildFile; fileRef = 56CA090D22B4DB13008EEF1C /* Training_PROCESS.m4v */; };
 		56CB3D6518FD23E4003FE954 /* ConceptThubm.png in Resources */ = {isa = PBXBuildFile; fileRef = 56CB3D6418FD23E4003FE954 /* ConceptThubm.png */; };
 		56D76C1718BC04BB0041FA56 /* DragView.m in Sources */ = {isa = PBXBuildFile; fileRef = 56D76C1418BC04BB0041FA56 /* DragView.m */; };
 		56D76C2818BC05140041FA56 /* ConceptNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 56D76C1F18BC05140041FA56 /* ConceptNode.m */; };
@@ -763,6 +766,9 @@
 		56C69D4B1725D40B009419B3 /* safari.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = safari.png; sourceTree = "<group>"; };
 		56C69D521727BE5B009419B3 /* EpubSampleNick.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = EpubSampleNick.epub; sourceTree = "<group>"; };
 		56C69D551727BF74009419B3 /* Bio.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = Bio.epub; sourceTree = "<group>"; };
+		56CA090B22B4DB0F008EEF1C /* Training_FULL.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = Training_FULL.m4v; sourceTree = "<group>"; };
+		56CA090C22B4DB11008EEF1C /* Training_NO.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = Training_NO.m4v; sourceTree = "<group>"; };
+		56CA090D22B4DB13008EEF1C /* Training_PROCESS.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = Training_PROCESS.m4v; sourceTree = "<group>"; };
 		56CB3D6418FD23E4003FE954 /* ConceptThubm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ConceptThubm.png; sourceTree = "<group>"; };
 		56D76C1318BC04BB0041FA56 /* DragView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DragView.h; sourceTree = "<group>"; };
 		56D76C1418BC04BB0041FA56 /* DragView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DragView.m; sourceTree = "<group>"; };
@@ -1817,6 +1823,9 @@
 		56E4378722B062E400D597BC /* Videos */ = {
 			isa = PBXGroup;
 			children = (
+				56CA090B22B4DB0F008EEF1C /* Training_FULL.m4v */,
+				56CA090C22B4DB11008EEF1C /* Training_NO.m4v */,
+				56CA090D22B4DB13008EEF1C /* Training_PROCESS.m4v */,
 				56E4378822B0630300D597BC /* pre.m4v */,
 			);
 			name = Videos;
@@ -2077,6 +2086,7 @@
 				56F30E4418F5130A00E8ECEF /* wait.png in Resources */,
 				564C425D17064D8300B320EF /* highlight_purple.png in Resources */,
 				569407F81939B40B00D5294F /* colorPlate.png in Resources */,
+				56CA091022B4DB13008EEF1C /* Training_PROCESS.m4v in Resources */,
 				56B0B99A18C526740016783E /* link.png in Resources */,
 				566EB44E18DADC0700BBC067 /* idea.png in Resources */,
 				56B8C1381C55A4D1002187A9 /* iconLeft.png in Resources */,
@@ -2100,6 +2110,7 @@
 				56B7BB59170CECEB00037E9E /* error.png in Resources */,
 				56B7BB5B170CECF000037E9E /* success.png in Resources */,
 				560ECDED22A1F7C4005D795F /* TA2.png in Resources */,
+				56CA090E22B4DB13008EEF1C /* Training_FULL.m4v in Resources */,
 				56434C681C70691700509960 /* magnify_2.png in Resources */,
 				5694B68A220BD7630036C667 /* FBViewController.xib in Resources */,
 				563B63AC1C237E0E00D09D3F /* TeachRotate.png in Resources */,
@@ -2153,6 +2164,7 @@
 				56711E0D17B77075001B4585 /* scrolltabs_horizontal_border.png in Resources */,
 				56711E0E17B77075001B4585 /* TabNormal.png in Resources */,
 				56711E0F17B77075001B4585 /* TabSelected.png in Resources */,
+				56CA090F22B4DB13008EEF1C /* Training_NO.m4v in Resources */,
 				56711E2E17B7834B001B4585 /* tab-back.png in Resources */,
 				560B2F6A18EBE051009B8CB7 /* kevin_durant.png in Resources */,
 				564061511CA37E2200C87504 /* Train_selectRelation.png in Resources */,

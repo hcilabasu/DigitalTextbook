@@ -94,5 +94,6 @@
 -(void)showExpertHighlightWarning;
 -(void)highlightKC: (NSString*)kcName;
 -(void)rePositionPreview;
+-(void)LogQuitTutorial;
 @end
 

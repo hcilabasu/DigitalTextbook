@@ -27,7 +27,7 @@
 @synthesize parent_View_Controller;
 @synthesize isNew;
 @synthesize noteIcon;
-
+@synthesize dismissType;
 #pragma mark - Static Methods
 
 //show the popup view at a certain point of the screen
@@ -819,6 +819,7 @@
     }
     
     if (!found) {
+        dismissType= DISMISS_BY_OUTSIDE;
         [self dismiss:YES];
     }
     

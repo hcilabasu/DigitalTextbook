@@ -49,6 +49,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSTimer* templateActionTimer;
 @property NSTimer* backNaviTimber;
 @property NSTimer* crosslinkTimer;
+@property NSTimer* templateConnectTimer;
+
 
 @property NSString* missingCrossLinkLeftNodename;
 @property NSString* missingCrossLinkRightNodename;
@@ -56,10 +58,20 @@ NS_ASSUME_NONNULL_BEGIN
 @property BOOL hasShownFirstCrossLink;
 @property int backNavicount;
 @property int crossLinkCount;
+
+
+@property int FB_BackNaviCount;
+@property int FB_NoActionCount;
+@property int FB_PositiveCount;
+@property int FB_NoBackCount;
+@property int FB_NoCrossLink;
+@property int RB_RRRCount;
+
 -(void)startAllTimer;
 -(void)evaluate;
 -(void)setupKM;
 -(void)seachMissingCrossLink;
+-(void)disableAllTimer;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -53,10 +53,13 @@
 #define CFRELEASE(exp) CFRelease(exp)
 #define DEALLOC dealloc
 
+
 #endif
 #endif
 
 /******************************************************************/
+#define DISMISS_BY_OUTSIDE 1
+#define DISMISS_BY_CLICKBUTTON 2
 
 @class ContentViewController;
 @class PopoverView;
@@ -125,6 +128,8 @@
 @property (nonatomic, WEAK) id<PopoverViewDelegate> delegate;
 
 @property (nonatomic, STRONG) NoteViewController *noteIcon;//the thumbnail icon of the popup view in the content view controller
+
+@property int dismissType;
 
 #pragma mark - Class Static Showing Methods
 

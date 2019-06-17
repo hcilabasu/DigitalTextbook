@@ -13,6 +13,7 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import "BookPageViewController.h"
 #import "TrainingViewController.h"
+#import "AppDelegate.h"
 @interface VideoViewController ()
 
 @end
@@ -52,7 +53,17 @@
     
 
     
-    NSString *filepath   =   [[NSBundle mainBundle] pathForResource:@"pre" ofType:@"m4v"];
+    NSString *filepath   =   [[NSBundle mainBundle] pathForResource:@"Training_FULL" ofType:@"m4v"];
+    
+    
+    NSString* FBType=[[NSUserDefaults standardUserDefaults] stringForKey:@"FBTYPE"];
+    if( [FBType isEqualToString: FB_PROCESS]){
+          filepath   =   [[NSBundle mainBundle] pathForResource:@"Training_PROCESS" ofType:@"m4v"];
+    }
+    if( [FBType isEqualToString: FB_NO]){
+         filepath   =   [[NSBundle mainBundle] pathForResource:@"Training_NO" ofType:@"m4v"];
+    }
+    
     
     NSURL *fileURL    =   [NSURL fileURLWithPath:filepath];
     AVPlayer *player = [AVPlayer playerWithURL:fileURL];
@@ -76,6 +87,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated{
     [parentBookCtr.expertModel startAllTimer];
+    [parentBookCtr LogQuitTutorial];
 }
 
 

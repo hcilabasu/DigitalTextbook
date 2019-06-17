@@ -387,11 +387,13 @@
     self.navigationItem.leftBarButtonItem = leftButton;
     CmapTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(checkCmapCountdown:) userInfo:nil repeats:YES];
     
-    
 }
 
 
 -(void)showTutorial{
+    isTraining=YES;
+    [expertModel disableAllTimer];
+    
     VideoViewController *tutorial= [[VideoViewController alloc]initWithNibName:@"VideoViewController" bundle:nil];
     tutorial.parentBookCtr=self;
     LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Go to tutorial view" selection:@"Tutorial View" input:@"null" pageNum:bookView.currentContentView.pageNum];
@@ -401,6 +403,11 @@
     [self.navigationController pushViewController:tutorial animated:NO];
 }
 
+-(void)LogQuitTutorial{
+    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"End tutorial view" selection:@"Tutorial View" input:@"null" pageNum:bookView.currentContentView.pageNum];
+    [logWrapper addLogs:newlog];
+    [LogDataParser saveLogData:logWrapper];
+}
 
 
 -(void)showEndAlert{
@@ -638,6 +645,11 @@
     
     //KeyConcept* habitatDestruction= [[KeyConcept alloc]initWithVariable:@"habitat" Page:19 Subpage:1 Position: CGPointMake(65+530, 270)];
    // [self showRightHLRect:habitatDestruction.position];
+    
+    LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"Show Compare View" selection:expertModel.kc1.conceptName input:expertModel.kc2.conceptName pageNum: cmapView.pageNum];
+    [logWrapper addLogs:newlog];
+    [LogDataParser saveLogData:logWrapper];
+    
     
     isInCompareView=YES;
 }

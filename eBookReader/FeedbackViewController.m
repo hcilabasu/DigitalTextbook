@@ -128,6 +128,9 @@
     
     if(FBTYPE_RRR==feedbackState && (missingConceptAry.count>0)){
         [self TLog:@"Show Add Node Panel"];
+        LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Show node panel" selection:@"Tutor" input:@"" pageNum:parentCmapController.pageNum];
+        [bookLogDataWrapper addLogs:newlog];
+        [LogDataParser saveLogData:bookLogDataWrapper];
         [self showAddNodePanel];
         feedbackState=3;
         return;
@@ -163,7 +166,7 @@
     
     if(FBTYPE_NAVIGATION==feedbackState){
         NSString* inputString= [[NSString alloc]initWithFormat:@"%d",relatedPage-1];
-        LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Navigating to related page using from feedback view" selection:@"Tutor" input:inputString pageNum:parentCmapController.pageNum];
+        LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Navigating to related page from feedback view" selection:@"Tutor" input:inputString pageNum:parentCmapController.pageNum];
         [bookLogDataWrapper addLogs:newlog];
         [LogDataParser saveLogData:bookLogDataWrapper];
         [parentCmapController.feedbackPV dismiss];
@@ -405,7 +408,7 @@
         [bookLogDataWrapper addLogs:newlog];
         [LogDataParser saveLogData:bookLogDataWrapper];
         
-        messageView.text=@"I noticed that you haven't created cross links for a while. Try creating some cross links in your map, it is highly beneficial!";
+        messageView.text=@"I noticed that you haven't created cross-links for a while. Try creating some cross-links in your map, it is highly beneficial!";
         [leftButton setTitle:@"Show Hint" forState:UIControlStateNormal];
     }
     

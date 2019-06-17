@@ -54,6 +54,14 @@
 @synthesize missingCrossLinkRightNodename;
 @synthesize noCrossLinkFBMsg;
 @synthesize hasShownFirstCrossLink;
+@synthesize templateConnectTimer;
+@synthesize FB_BackNaviCount;
+@synthesize FB_NoActionCount;
+@synthesize FB_PositiveCount;
+@synthesize FB_NoBackCount;
+@synthesize FB_NoCrossLink;
+@synthesize RB_RRRCount;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -62,6 +70,13 @@
     startPosition=0;
     KnowledgeModel* KM=[[KnowledgeModel alloc]init];
     keyConceptsAry=[KM getKeyConceptLists];
+    
+    FB_BackNaviCount=0;
+    FB_NoActionCount=0;
+    FB_PositiveCount=0;
+    FB_NoBackCount=0;
+    FB_NoCrossLink=0;
+    RB_RRRCount=0;
 }
 
 -(void)startAllTimer{
@@ -70,6 +85,14 @@
     [self startBackNaviTimer];
     [self startNoNaviTemplateCheckTimer];
     [self startNoCrossLinkTimer];
+}
+
+-(void)disableAllTimer{
+    [backNaviTimber invalidate];
+    [actionTimer invalidate];
+    [crosslinkTimer invalidate];
+    [templateActionTimer invalidate];
+    [templateConnectTimer invalidate];
 }
 
 -(void)setupKM{
@@ -97,6 +120,7 @@
 }
 
 
+
 -(void)resetBackNaviTimer{
     [backNaviTimber invalidate];
     [self startBackNaviTimer];
@@ -111,13 +135,17 @@
 }
 
 -(void)noBackNavi:(NSTimer *)timer {
+    if(FB_BackNaviCount>2){
+        return;
+    }
     [parentCmapController showBackNavigationFeedbackMessage];
+    FB_BackNaviCount++;
 }
 
 
 
 -(void)startActionTimer{
-    actionTimer = [NSTimer scheduledTimerWithTimeInterval: 120
+    actionTimer = [NSTimer scheduledTimerWithTimeInterval: 180
                                                   target: self
                                                 selector:@selector(onTick:)
                                                 userInfo: nil repeats:YES];
@@ -125,8 +153,13 @@
 
 -(void)onTick:(NSTimer *)timer {
     //NSLog(@"Timer Triggered!\n\n\n");
+    if(FB_NoActionCount>2){
+        return;
+    }
     [parentCmapController showNoActionFeedbackmessage];
+    FB_NoActionCount++;
 }
+
 -(void)resetActionTimer{
     [actionTimer invalidate];
     [self startActionTimer];
@@ -134,7 +167,7 @@
 
 
 -(void)startTemplateConectTimer{
-    templateActionTimer = [NSTimer scheduledTimerWithTimeInterval: 800
+    templateConnectTimer = [NSTimer scheduledTimerWithTimeInterval: 800
                                                    target: self
                                                  selector:@selector(checkTemplateConnect:)
                                                  userInfo: nil repeats:NO];
@@ -166,10 +199,14 @@
 
 
 -(void)startNoCrossLinkTimer{
-    crosslinkTimer = [NSTimer scheduledTimerWithTimeInterval: 190
+    if(FB_NoCrossLink>2){
+        return;
+    }
+    crosslinkTimer = [NSTimer scheduledTimerWithTimeInterval: 240
                                                            target: self
                                                          selector:@selector(onNoCrossLink:)
                                                          userInfo: nil repeats:YES];
+    FB_NoCrossLink++;
 }
 
 
@@ -430,7 +467,11 @@
     
     if(readActionCount>2){
         readFeedbackCount++;
+        if(RB_RRRCount>2){
+            return;
+        }
         [parentCmapController showReadFeedbackmessage];
+        RB_RRRCount++;
         readActionCount=0;
     }
 }//end of evaluate
