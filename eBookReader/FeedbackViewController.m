@@ -103,6 +103,9 @@
 
 - (IBAction)clickOnLeft:(id)sender {
     
+    
+    [self TLog:@"Click on feedback left button"];
+    
     NSString* FBType=[[NSUserDefaults standardUserDefaults] stringForKey:@"FBTYPE"];
     if( [FBType isEqualToString: FB_PROCESS]){
         

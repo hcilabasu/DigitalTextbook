@@ -819,8 +819,8 @@
     }
     
     if (!found) {
-        dismissType= DISMISS_BY_OUTSIDE;
-        [self dismiss:YES];
+       // dismissType= DISMISS_BY_OUTSIDE;
+        //[self dismiss:YES];
     }
     
 }

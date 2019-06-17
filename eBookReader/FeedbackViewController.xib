@@ -27,7 +27,7 @@
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q1J-ca-x2V">
                     <rect key="frame" x="0.0" y="134" width="174" height="46"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                    <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
                     <state key="normal" title="Let's go look"/>
                     <connections>
                         <action selector="clickOnLeft:" destination="-1" eventType="touchUpInside" id="Ss9-s3-5Fx"/>
@@ -36,7 +36,7 @@
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eTV-Oi-iVo">
                     <rect key="frame" x="177" y="134" width="163" height="47"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                     <state key="normal" title="Cancel">
                         <color key="titleColor" red="0.87379045050000004" green="0.27214617079999998" blue="0.2397603354" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
@@ -44,7 +44,7 @@
                         <action selector="clickOnRight:" destination="-1" eventType="touchUpInside" id="m8s-cZ-cYM"/>
                     </connections>
                 </button>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="There are some concepts from page 5 that are relevant to what you just added. Would you like to take a look at them?" translatesAutoresizingMaskIntoConstraints="NO" id="31j-2L-ee9">
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" text="There are some concepts from page 5 that are relevant to what you just added. Would you like to take a look at them?" translatesAutoresizingMaskIntoConstraints="NO" id="31j-2L-ee9">
                     <rect key="frame" x="0.0" y="0.0" width="340" height="126"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
