@@ -1731,6 +1731,7 @@
     }
     if (buttonIndex == 1&&alertView.tag==2)//delete map was selected
     {
+        
         LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"deleting whole concept view" selection:@"Concept Map View" input:@"null" pageNum:pageNum];
         [bookLogDataWrapper addLogs:newlog];
         [LogDataParser saveLogData:bookLogDataWrapper];
@@ -1751,45 +1752,24 @@
         self.conceptMapView.zoomScale=1.0;
         [self SaveCmapScale:1.0];
         
-        //  [contentView setFrame:CGRectMake(0, 0, conceptMapView.frame.size.width, conceptMapView.frame.size.height)];
-        
-        
-        // [contentView setFrame:conceptMapView.frame];
-        // [conceptMapView setContentSize:contentView.frame.size];
-        //[conceptMapView setFrame:self.view.frame];
-        //[self SaveCmapSize:contentView.frame.size.width Height:contentView.frame.size.height];
-        //[self getPreView:nil];
-        //[self updatePreviewLocation];
         
         [parentBookPageViewController.bookView clearALlHighlight];
         parentBookPageViewController.bookView.currentContentView.bookHighLight=parentBookPageViewController.bookView.highLight;
         [parentBookPageViewController.bookView.currentContentView refresh];
         
         //Code for OK button
-    }if (buttonIndex == 1&&alertView.tag==3){
-        NSString *pasd = [alertView textFieldAtIndex:0].text;
-        if([pasd isEqualToString:@""]){
-            NSLog(@"Correct");
+    }
+    if (buttonIndex == 1&&alertView.tag==3){
+        
+        
             [self upLoadLogFiletoDropBox];
             [self uploadCMapImg];
-            [self uploadCmapXML];
-            [self upLoadHighlighttoDropBox];
-            
-        }else{
-            [NSTimer scheduledTimerWithTimeInterval:2.0
-                                             target:self
-                                           selector:@selector(targetMethod:)
-                                           userInfo:nil
-                                            repeats:NO];
-        }
+            //[self uploadCmapXML];
+            //[self upLoadHighlighttoDropBox];
+    
     }
     
-    
-    
-    if (buttonIndex == 1)
-    {
-        //Code for download button
-    }
+
 }
 
 
