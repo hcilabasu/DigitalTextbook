@@ -128,7 +128,7 @@
 
 
 -(void)startBackNaviTimer{
-    backNaviTimber = [NSTimer scheduledTimerWithTimeInterval: 240
+    backNaviTimber = [NSTimer scheduledTimerWithTimeInterval: 420
                                                    target: self
                                                  selector:@selector(noBackNavi:)
                                                  userInfo: nil repeats:YES];
@@ -145,7 +145,7 @@
 
 
 -(void)startActionTimer{
-    actionTimer = [NSTimer scheduledTimerWithTimeInterval: 180
+    actionTimer = [NSTimer scheduledTimerWithTimeInterval: 240
                                                   target: self
                                                 selector:@selector(onTick:)
                                                 userInfo: nil repeats:YES];
@@ -153,7 +153,7 @@
 
 -(void)onTick:(NSTimer *)timer {
     //NSLog(@"Timer Triggered!\n\n\n");
-    if(FB_NoActionCount>2){
+    if(FB_NoActionCount>1){
         return;
     }
     [parentCmapController showNoActionFeedbackmessage];
@@ -184,7 +184,7 @@
 
 
 -(void)startNoNaviTemplateCheckTimer{
-    templateActionTimer = [NSTimer scheduledTimerWithTimeInterval: 150
+    templateActionTimer = [NSTimer scheduledTimerWithTimeInterval: 200
                                                            target: self
                                                          selector:@selector(onTemplateTick:)
                                                          userInfo: nil repeats:NO];
@@ -199,10 +199,10 @@
 
 
 -(void)startNoCrossLinkTimer{
-    if(FB_NoCrossLink>2){
+    if(FB_NoCrossLink>1){
         return;
     }
-    crosslinkTimer = [NSTimer scheduledTimerWithTimeInterval: 240
+    crosslinkTimer = [NSTimer scheduledTimerWithTimeInterval: 360
                                                            target: self
                                                          selector:@selector(onNoCrossLink:)
                                                          userInfo: nil repeats:YES];

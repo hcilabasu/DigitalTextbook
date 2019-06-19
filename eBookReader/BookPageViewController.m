@@ -404,6 +404,7 @@
 }
 
 -(void)LogQuitTutorial{
+    isTraining=NO;
     LogData* newlog= [[LogData alloc]initWithName:userName SessionID:[[ConditionSetup sharedInstance] getSessionID] action:@"End tutorial view" selection:@"Tutorial View" input:@"null" pageNum:bookView.currentContentView.pageNum];
     [logWrapper addLogs:newlog];
     [LogDataParser saveLogData:logWrapper];
