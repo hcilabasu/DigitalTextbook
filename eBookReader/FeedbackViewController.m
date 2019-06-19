@@ -116,7 +116,7 @@
     
     
     if(FBTYPE_NO_CROSSLINK_HASMISSING==feedbackState){
-        LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Show no cross-link message" selection:@"Tutor" input:@"" pageNum:parentCmapController.pageNum];
+        LogData* newlog= [[LogData alloc]initWithName:@"" SessionID:@"" action:@"Show no cross-link message" selection:@"Tutor" input:noCrossLinkMsg pageNum:parentCmapController.pageNum];
         [bookLogDataWrapper addLogs:newlog];
         [LogDataParser saveLogData:bookLogDataWrapper];
         if(noCrossLinkMsg.length>0){
