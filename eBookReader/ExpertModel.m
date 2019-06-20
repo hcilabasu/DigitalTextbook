@@ -61,6 +61,8 @@
 @synthesize FB_NoBackCount;
 @synthesize FB_NoCrossLink;
 @synthesize RB_RRRCount;
+@synthesize FB_NoTemplate;
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -77,6 +79,7 @@
     FB_NoBackCount=0;
     FB_NoCrossLink=0;
     RB_RRRCount=0;
+    FB_NoTemplate=0;
 }
 
 -(void)startAllTimer{
@@ -135,7 +138,7 @@
 }
 
 -(void)noBackNavi:(NSTimer *)timer {
-    if(FB_BackNaviCount>2){
+    if(FB_BackNaviCount>1){
         return;
     }
     [parentCmapController showBackNavigationFeedbackMessage];
@@ -175,16 +178,19 @@
 
 
 -(void)checkTemplateConnect:(NSTimer *)timer {
-    
+    if(FB_NoTemplate>1){
+        return;
+    }
     BOOL isTemplateAllConnected= [parentCmapController isTemplateAllConnect];
     if(!isTemplateAllConnected){
         [parentCmapController showTemplateFeedbackMessage];
+        FB_NoTemplate++;
     }
 }
 
 
 -(void)startNoNaviTemplateCheckTimer{
-    templateActionTimer = [NSTimer scheduledTimerWithTimeInterval: 200
+    templateActionTimer = [NSTimer scheduledTimerWithTimeInterval: 240
                                                            target: self
                                                          selector:@selector(onTemplateTick:)
                                                          userInfo: nil repeats:NO];
@@ -199,18 +205,20 @@
 
 
 -(void)startNoCrossLinkTimer{
-    if(FB_NoCrossLink>1){
-        return;
-    }
+
     crosslinkTimer = [NSTimer scheduledTimerWithTimeInterval: 360
                                                            target: self
                                                          selector:@selector(onNoCrossLink:)
                                                          userInfo: nil repeats:YES];
-    FB_NoCrossLink++;
+    
 }
 
 
 -(void)onNoCrossLink:(NSTimer *)timer {
+    if(FB_NoCrossLink>1){
+        return;
+    }
+    
     if(crossLinkCount<1){
         noCrossLinkFBMsg= [self getMissingCrossLinkMsg];
         if(noCrossLinkFBMsg.length>5){
@@ -218,7 +226,8 @@
         }else{
             [parentCmapController showNoCrossLinkFeedbackMessage: NO];
         }
-        
+     
+        FB_NoCrossLink++;
     }
     crossLinkCount=0;
 }
@@ -401,8 +410,9 @@
         NSLog(@"%@",st);
     }
     
-    
-    if([currentState isEqualToString:@"R"]){
+     if([currentState isEqualToString:@"R"] && [secondLastData.action containsString:@"End tutorial"]  ){
+         
+     }else if([currentState isEqualToString:@"R"] ){
         readActionCount++;
         missingConceptsAry= [self getMissingConcepts:bookNodeWrapper.cmapNodes Page:lastdata.page KeyConceptList:keyConceptsAry];
         
@@ -467,7 +477,7 @@
     
     if(readActionCount>2){
         readFeedbackCount++;
-        if(RB_RRRCount>2){
+        if(RB_RRRCount>1){
             return;
         }
         [parentCmapController showReadFeedbackmessage];
@@ -493,6 +503,10 @@
         ismeaningful=YES;
     }
     if ([action rangeOfString:@"Update Link name from list"].location != NSNotFound) {
+        ismeaningful=YES;
+    }
+    
+    if ([action rangeOfString:@"End tutorial view"].location != NSNotFound) {
         ismeaningful=YES;
     }
     return ismeaningful;

@@ -66,6 +66,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property int FB_NoBackCount;
 @property int FB_NoCrossLink;
 @property int RB_RRRCount;
+@property int FB_NoTemplate;
+
 
 -(void)startAllTimer;
 -(void)evaluate;

@@ -1330,6 +1330,7 @@
 
 
 -(void)mapViewTap:(id)sender{
+    
     if(isReadyToLink){
         [nodesToLink removeShadowAnim];
         [nodesToLink becomeFirstResponder];
@@ -1811,6 +1812,11 @@
 
 
 - (void)keyboardDidHide:(NSNotification*)notification {
+    
+    addedNode.text.editable=NO;
+    [addedNode.text setUserInteractionEnabled:NO];
+    
+    
     int sameNodeCount=0;
     if ([addedNode.text.text isEqualToString:@""] ){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"Node is empty!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
