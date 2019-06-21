@@ -39,7 +39,7 @@
     BOOL isTemplate=YES;
     
     ///////////////////////////////set feedback type///////////////////////////////////////
-    [[NSUserDefaults standardUserDefaults] setObject: FB_NO forKey:@"FBTYPE"];
+    [[NSUserDefaults standardUserDefaults] setObject: FB_FULL forKey:@"FBTYPE"];
     ///////////////////////////////set feedback type///////////////////////////////////////
     
     [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"testMode"];

@@ -1028,6 +1028,7 @@
 - (IBAction)editNodeName : (id)sender {
     parentCmapController.addedNode=self;
     [self.text setUserInteractionEnabled:YES];
+    self.text.editable=YES;
     [self.text becomeFirstResponder];
 }
 
